@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Installation :: Agentic Layer Documentation</title>
+    <meta name="generator" content="Antora 3.1.12">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../..">Agentic Layer Documentation</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="agent-runtime-operator" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Agent Runtime Operator</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="getting-started.html">Getting Started</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="installation.html">Installation</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="configuration.html">Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="environment-variables.html">Environment Variables</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="custom-resources.html">Custom Resources</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="testing.html">Testing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="e2e-testing.html">E2E Testing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="sample-data.html">Sample Data</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributing.html">Contributing</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Agent Runtime Operator</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="index.html">Agent Runtime Operator</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Agent Runtime Operator</a></li>
+    <li><a href="getting-started.html">Getting Started</a></li>
+    <li><a href="installation.html">Installation</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/agent-runtime-operator/edit/feature/PAAL-53-Documentation-Setup-Antora/docs/modules/ROOT/pages/installation.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Installation</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page covers the detailed installation process for the Agent Runtime Operator.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installation_methods"><a class="anchor" href="#_installation_methods"></a>Installation Methods</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_local_development_with_kind"><a class="anchor" href="#_local_development_with_kind"></a>Local Development with kind</h3>
+<div class="paragraph">
+<p>For local development and testing, we recommend using kind (Kubernetes in Docker):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Create cluster
+kind create cluster
+
+# Install cert-manager
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.18.2/cert-manager.yaml
+
+# Wait for cert-manager
+kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=cert-manager -n cert-manager --timeout=60s
+
+# Install and deploy operator
+make install
+make docker-build
+make kind-load
+make deploy</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_production_installation"><a class="anchor" href="#_production_installation"></a>Production Installation</h3>
+<div class="paragraph">
+<p>For production deployments, you can use the provided Kubernetes manifests:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Install CRDs
+make install
+
+# Deploy operator
+kubectl apply -k config/default</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_verification"><a class="anchor" href="#_verification"></a>Verification</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Verify the installation by checking the operator pods:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get pods -n agent-runtime-operator-system
+kubectl get crds | grep runtime.agentic-layer.ai</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting"><a class="anchor" href="#_troubleshooting"></a>Troubleshooting</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_common_issues"><a class="anchor" href="#_common_issues"></a>Common Issues</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>cert-manager not ready</strong>: Ensure cert-manager pods are running before deploying the operator</p>
+</li>
+<li>
+<p><strong>Image pull errors</strong>: For local development, ensure you&#8217;ve run <code>make kind-load</code> to load the image into kind</p>
+</li>
+<li>
+<p><strong>Webhook failures</strong>: Check that cert-manager is properly installed and running</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_logs"><a class="anchor" href="#_logs"></a>Logs</h3>
+<div class="paragraph">
+<p>Check operator logs for troubleshooting:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n agent-runtime-operator-system deployment/agent-runtime-operator-controller-manager</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
