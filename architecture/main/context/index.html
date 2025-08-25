@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>System Scope and Context :: Agentic Layer Documentation</title>
+    <meta name="generator" content="Antora 3.1.12">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">Agentic Layer Documentation</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="architecture" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Agentic Layer Architecture</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Architecture Documentation</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Agentic Layer Architecture</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <div class="title"><a href="../../../agent-runtime-operator/main/index.html">Agent Runtime Operator</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../agent-runtime-operator/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">Agentic Layer Architecture</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Agentic Layer Architecture</a></li>
+    <li><a href="index.html">System Scope and Context</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/documentation/edit/main/docs/modules/context/pages/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">System Scope and Context</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes the environment and context of the Agentic Layer system.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_business_context"><a class="anchor" href="#_business_context"></a>Business Context</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">┌─────────────────┐    ┌─────────────────────────┐    ┌──────────────────┐
+│   Developers    │    │    Agentic Layer        │    │ Kubernetes       │
+│                 │───▶│    Platform             │───▶│ Cluster          │
+│ Agent Builders  │    │                         │    │                  │
+└─────────────────┘    └─────────────────────────┘    └──────────────────┘
+                                    │
+                                    ▼
+                       ┌─────────────────────────┐
+                       │   Agent Frameworks      │
+                       │ (ADK, Flokk, Autogen)  │
+                       └─────────────────────────┘</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_external_interfaces"><a class="anchor" href="#_external_interfaces"></a>External Interfaces</h3>
+<div class="sect3">
+<h4 id="_developers"><a class="anchor" href="#_developers"></a>Developers</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Input</strong>: Agent definitions, configurations, deployment requests</p>
+</li>
+<li>
+<p><strong>Output</strong>: Deployment status, monitoring data, logs</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_kubernetes_cluster"><a class="anchor" href="#_kubernetes_cluster"></a>Kubernetes Cluster</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Input</strong>: Resource requests, custom resources</p>
+</li>
+<li>
+<p><strong>Output</strong>: Workload status, resource availability</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_agent_frameworks"><a class="anchor" href="#_agent_frameworks"></a>Agent Frameworks</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Input</strong>: Runtime configuration, observability hooks</p>
+</li>
+<li>
+<p><strong>Output</strong>: Telemetry data, agent lifecycle events</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_technical_context"><a class="anchor" href="#_technical_context"></a>Technical Context</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_integration_points"><a class="anchor" href="#_integration_points"></a>Integration Points</h3>
+<div class="sect3">
+<h4 id="_agent_runtime_operator"><a class="anchor" href="#_agent_runtime_operator"></a>Agent Runtime Operator</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Kubernetes API</strong>: Creates and manages agent workloads</p>
+</li>
+<li>
+<p><strong>Custom Resource Definitions</strong>: Defines agent specifications</p>
+</li>
+<li>
+<p><strong>Container Registry</strong>: Pulls agent container images</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_observability_dashboard"><a class="anchor" href="#_observability_dashboard"></a>Observability Dashboard</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpenTelemetry</strong>: Ingests traces and metrics</p>
+</li>
+<li>
+<p><strong>WebSocket</strong>: Streams real-time events</p>
+</li>
+<li>
+<p><strong>HTTP API</strong>: Configuration and status endpoints</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_data_flow"><a class="anchor" href="#_data_flow"></a>Data Flow</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Developers define agents using custom resources</p>
+</li>
+<li>
+<p>Operator deploys agents to Kubernetes</p>
+</li>
+<li>
+<p>Agents emit telemetry data</p>
+</li>
+<li>
+<p>Dashboard processes and streams events</p>
+</li>
+<li>
+<p>Operators monitor via WebSocket connections</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Building Block View :: Agentic Layer Documentation</title>
+    <meta name="generator" content="Antora 3.1.12">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">Agentic Layer Documentation</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="architecture" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Agentic Layer Architecture</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Architecture Documentation</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Agentic Layer Architecture</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <div class="title"><a href="../../../agent-runtime-operator/main/index.html">Agent Runtime Operator</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../agent-runtime-operator/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">Agentic Layer Architecture</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Agentic Layer Architecture</a></li>
+    <li><a href="index.html">Building Block View</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/documentation/edit/main/docs/modules/building-blocks/pages/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Building Block View</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section shows the static decomposition of the system into building blocks and their relationships.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_level_1_system_overview"><a class="anchor" href="#_level_1_system_overview"></a>Level 1: System Overview</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">┌─────────────────────────────────────────────────────────────┐
+│                    Agentic Layer Platform                  │
+├─────────────────────────┬───────────────────────────────────┤
+│  Agent Runtime Operator │    Observability Dashboard       │
+│                         │                                   │
+│ ┌─────────────────────┐ │ ┌─────────────────────────────────┐ │
+│ │   Controller        │ │ │      Trace Processor           │ │
+│ │   Manager           │ │ │                                 │ │
+│ └─────────────────────┘ │ └─────────────────────────────────┘ │
+│                         │                                   │
+│ ┌─────────────────────┐ │ ┌─────────────────────────────────┐ │
+│ │   Custom Resource   │ │ │     WebSocket Server            │ │
+│ │   Definitions       │ │ │                                 │ │
+│ └─────────────────────┘ │ └─────────────────────────────────┘ │
+└─────────────────────────┴───────────────────────────────────┘</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_level_2_agent_runtime_operator"><a class="anchor" href="#_level_2_agent_runtime_operator"></a>Level 2: Agent Runtime Operator</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_controller_manager"><a class="anchor" href="#_controller_manager"></a>Controller Manager</h3>
+<div class="paragraph">
+<p><strong>Responsibility</strong>: Manages the lifecycle of agent workloads in Kubernetes</p>
+</div>
+<div class="paragraph">
+<p><strong>Interfaces</strong>:
+* Kubernetes API for resource management
+* Container registry for image pulls
+* Agent workloads for lifecycle management</p>
+</div>
+<div class="paragraph">
+<p><strong>Components</strong>:
+* Agent Controller
+* Reconciliation Engine
+* Status Manager</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_custom_resource_definitions"><a class="anchor" href="#_custom_resource_definitions"></a>Custom Resource Definitions</h3>
+<div class="paragraph">
+<p><strong>Responsibility</strong>: Defines the schema and validation for agent specifications</p>
+</div>
+<div class="paragraph">
+<p><strong>Interfaces</strong>:
+* Kubernetes API server
+* kubectl and other Kubernetes tooling
+* Controller Manager</p>
+</div>
+<div class="paragraph">
+<p><strong>Components</strong>:
+* Agent CRD
+* Configuration Schema
+* Validation Webhooks</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_level_3_observability_dashboard"><a class="anchor" href="#_level_3_observability_dashboard"></a>Level 3: Observability Dashboard</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_trace_processor"><a class="anchor" href="#_trace_processor"></a>Trace Processor</h3>
+<div class="paragraph">
+<p><strong>Responsibility</strong>: Ingests and transforms OpenTelemetry traces into structured events</p>
+</div>
+<div class="paragraph">
+<p><strong>Interfaces</strong>:
+* OTLP/HTTP endpoint for trace ingestion
+* Internal event bus
+* WebSocket server for event distribution</p>
+</div>
+<div class="paragraph">
+<p><strong>Components</strong>:
+* OTLP Receiver
+* Event Transformer
+* Event Router</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_websocket_server"><a class="anchor" href="#_websocket_server"></a>WebSocket Server</h3>
+<div class="paragraph">
+<p><strong>Responsibility</strong>: Provides real-time streaming of agent events</p>
+</div>
+<div class="paragraph">
+<p><strong>Interfaces</strong>:
+* WebSocket connections to clients
+* Internal event bus
+* HTTP API for connection management</p>
+</div>
+<div class="paragraph">
+<p><strong>Components</strong>:
+* Connection Manager
+* Event Broadcaster
+* Message Serializer</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_component_interactions"><a class="anchor" href="#_component_interactions"></a>Component Interactions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_deployment_flow"><a class="anchor" href="#_deployment_flow"></a>Deployment Flow</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User creates Agent custom resource</p>
+</li>
+<li>
+<p>Controller Manager detects resource</p>
+</li>
+<li>
+<p>Controller creates Kubernetes workloads</p>
+</li>
+<li>
+<p>Agent workloads emit telemetry</p>
+</li>
+<li>
+<p>Dashboard processes traces</p>
+</li>
+<li>
+<p>Events streamed via WebSocket</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_monitoring_flow"><a class="anchor" href="#_monitoring_flow"></a>Monitoring Flow</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Agents emit OpenTelemetry traces</p>
+</li>
+<li>
+<p>Trace Processor ingests and transforms</p>
+</li>
+<li>
+<p>Events published to internal bus</p>
+</li>
+<li>
+<p>WebSocket Server broadcasts to clients</p>
+</li>
+<li>
+<p>Clients receive real-time updates</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
