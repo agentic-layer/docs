@@ -1,0 +1,41 @@
+# Antora Playbook Configuration
+# Generates documentation site from multiple Git repositories containing AsciiDoc content.
+# Combines home docs, architecture docs, and agent runtime operator docs into a unified site.
+
+site:
+  title: Agentic Layer Documentation
+  url: https://agentic-layer.github.io/antora-playbook/  # Site URL for production deployment
+  start_page: home::index.adoc  # Landing page when visiting the site
+
+content:
+  edit_url: false # Disable "Edit this page" links
+  sources:
+    # Home documentation component
+    - url: https://github.com/agentic-layer/documentation.git
+      branches: [main]
+      start_path: home/docs
+    # Architecture documentation component  
+    - url: https://github.com/agentic-layer/documentation.git
+      branches: [main]
+      start_path: architecture/docs
+    # Agent runtime operator documentation
+    - url: https://github.com/agentic-layer/agent-runtime-operator.git
+      branches: ['feature/*'] #ToDo change to main
+      start_path: docs
+    # Observability dashboard documentation
+    - url: https://github.com/agentic-layer/observability-dashboard.git
+      branches: [ 'feature/*' ] #ToDo change to main
+      start_path: docs
+
+ui:
+  bundle:
+    # Default Antora UI theme
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true  # Use latest snapshot build
+  supplemental_files: ./supplemental-ui # Custom UI overrides and additions
+
+output:
+  dir: build/site  # Generated site output directory
+
+runtime:
+  cache_dir: ./.cache/antora  # Cache directory for performance optimization
