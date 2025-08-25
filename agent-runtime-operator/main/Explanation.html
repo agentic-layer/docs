@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Explanation :: Agentic Layer Documentation</title>
+    <meta name="generator" content="Antora 3.1.12">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../..">Agentic Layer Documentation</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="agent-runtime-operator" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Agent Runtime Operator</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Agent Runtime Operator</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="index.html">Agent Runtime Operator</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../architecture/main/index.html">Agentic Layer Architecture</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../architecture/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../architecture/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Agent Runtime Operator</a></li>
+    <li><a href="Explanation.html">Explanation</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/agent-runtime-operator/edit/feature/PAAL-53-Documentation-Setup-Antora/docs/modules/ROOT/pages/Explanation.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Explanation</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Understanding-oriented documentation that explains the concepts, design decisions, and architecture behind the Agent Runtime Operator.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_the_agent_runtime_operator"><a class="anchor" href="#_what_is_the_agent_runtime_operator"></a>What is the Agent Runtime Operator?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Agent Runtime Operator is a Kubernetes operator that provides a unified, framework-agnostic way to deploy and manage agentic workloads. It abstracts away framework-specific configurations and simplifies the deployment of agents across different frameworks.</p>
+</div>
+<div class="paragraph">
+<p>Think of it as a translation layer between your intent ("I want to deploy an agent") and the complex Kubernetes resources needed to make that happen reliably and efficiently.</p>
+</div>
+<div class="sect2">
+<h3 id="_the_problem_it_solves"><a class="anchor" href="#_the_problem_it_solves"></a>The Problem It Solves</h3>
+<div class="paragraph">
+<p>Without the operator, deploying agents on Kubernetes would require:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Deep knowledge of each agent framework&#8217;s specific requirements</p>
+</li>
+<li>
+<p>Manual creation of Deployments, Services, ConfigMaps, and other Kubernetes resources</p>
+</li>
+<li>
+<p>Framework-specific configuration and environment setup</p>
+</li>
+<li>
+<p>Manual scaling and lifecycle management</p>
+</li>
+<li>
+<p>Complex observability integration</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Agent Runtime Operator eliminates this complexity by providing a single, unified interface for all supported agent frameworks.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_design_philosophy"><a class="anchor" href="#_design_philosophy"></a>Design Philosophy</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_framework_agnostic"><a class="anchor" href="#_framework_agnostic"></a>Framework Agnostic</h3>
+<div class="paragraph">
+<p>The operator&#8217;s core philosophy is framework agnosticism. Whether you&#8217;re using Google ADK, Flokk, or Autogen, you interact with the same <code>Agent</code> custom resource. The operator handles the framework-specific details internally.</p>
+</div>
+<div class="paragraph">
+<p>This design provides:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Consistency</strong>: Same deployment experience across frameworks</p>
+</li>
+<li>
+<p><strong>Flexibility</strong>: Easy to switch between frameworks</p>
+</li>
+<li>
+<p><strong>Simplicity</strong>: One interface to learn, not multiple framework-specific approaches</p>
+</li>
+<li>
+<p><strong>Future-proofing</strong>: New frameworks can be added without changing the user experience</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_kubernetes_native"><a class="anchor" href="#_kubernetes_native"></a>Kubernetes Native</h3>
+<div class="paragraph">
+<p>The operator follows Kubernetes patterns and best practices:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Declarative Configuration</strong>: You declare what you want (desired state), the operator makes it happen</p>
+</li>
+<li>
+<p><strong>Custom Resource Definitions</strong>: Extends Kubernetes API with domain-specific resources</p>
+</li>
+<li>
+<p><strong>Controller Pattern</strong>: Continuously reconciles desired state with actual state</p>
+</li>
+<li>
+<p><strong>Event-driven</strong>: Reacts to changes in resources and cluster state</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_observability_first"><a class="anchor" href="#_observability_first"></a>Observability First</h3>
+<div class="paragraph">
+<p>Observability is built into the operator&#8217;s design from the ground up:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Structured Events</strong>: All important actions generate Kubernetes events</p>
+</li>
+<li>
+<p><strong>Metrics</strong>: Comprehensive metrics about operator and agent performance</p>
+</li>
+<li>
+<p><strong>Tracing</strong>: Integration points for distributed tracing systems</p>
+</li>
+<li>
+<p><strong>Status Reporting</strong>: Rich status information on all resources</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architecture_overview"><a class="anchor" href="#_architecture_overview"></a>Architecture Overview</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_core_components"><a class="anchor" href="#_core_components"></a>Core Components</h3>
+<div class="paragraph">
+<p>The operator consists of several key components working together:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">┌─────────────────────┐
+│   Custom Resource   │
+│   Definition (CRD)  │  ← Defines the Agent resource schema
+└─────────┬───────────┘
+          │
+          ▼
+┌─────────────────────┐
+│   Controller        │  ← Watches Agent resources and reconciles state
+│   Manager           │
+└─────────┬───────────┘
+          │
+          ▼
+┌─────────────────────┐
+│   Admission         │  ← Validates and mutates Agent resources
+│   Webhooks          │
+└─────────────────────┘</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_custom_resource_definition_crd"><a class="anchor" href="#_custom_resource_definition_crd"></a>Custom Resource Definition (CRD)</h4>
+<div class="paragraph">
+<p>The <code>Agent</code> CRD defines the schema for agent deployments. It includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Validation Rules</strong>: Ensures only valid configurations are accepted</p>
+</li>
+<li>
+<p><strong>Framework Enumeration</strong>: Lists supported frameworks</p>
+</li>
+<li>
+<p><strong>Protocol Definitions</strong>: Defines available communication protocols</p>
+</li>
+<li>
+<p><strong>Status Schema</strong>: Defines how the operator reports status</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_controller_manager"><a class="anchor" href="#_controller_manager"></a>Controller Manager</h4>
+<div class="paragraph">
+<p>The heart of the operator, the controller manager:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Watches</strong> for changes to Agent resources</p>
+</li>
+<li>
+<p><strong>Reconciles</strong> desired state with actual cluster state</p>
+</li>
+<li>
+<p><strong>Creates</strong> Kubernetes Deployments, Services, and other resources</p>
+</li>
+<li>
+<p><strong>Updates</strong> Agent status based on workload health</p>
+</li>
+<li>
+<p><strong>Handles</strong> scaling, updates, and deletions</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_admission_webhooks"><a class="anchor" href="#_admission_webhooks"></a>Admission Webhooks</h4>
+<div class="paragraph">
+<p>Webhooks provide validation and mutation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Validation</strong>: Rejects invalid Agent configurations</p>
+</li>
+<li>
+<p><strong>Mutation</strong>: Applies framework-specific defaults</p>
+</li>
+<li>
+<p><strong>Security</strong>: Enforces organizational policies</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_pattern"><a class="anchor" href="#_operator_pattern"></a>Operator Pattern</h3>
+<div class="paragraph">
+<p>The operator follows the standard Kubernetes operator pattern:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">┌─────────────────┐    ┌─────────────────────┐    ┌──────────────────┐
+│  User creates   │    │    Controller       │    │   Kubernetes     │
+│  Agent resource │───▶│    watches and      │───▶│   creates        │
+│                 │    │    reconciles       │    │   workloads      │
+└─────────────────┘    └─────────────────────┘    └──────────────────┘
+                                │                          │
+                                │                          │
+                                ▼                          ▼
+                       ┌─────────────────────┐    ┌──────────────────┐
+                       │   Updates Agent     │    │   Workload       │
+                       │   status            │◀───│   reports status │
+                       └─────────────────────┘    └──────────────────┘</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This pattern ensures:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Eventual Consistency</strong>: The system eventually reaches the desired state</p>
+</li>
+<li>
+<p><strong>Self-Healing</strong>: Automatically recovers from failures</p>
+</li>
+<li>
+<p><strong>Declarative Management</strong>: Users declare intent, operator handles implementation</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_framework_abstraction"><a class="anchor" href="#_framework_abstraction"></a>Framework Abstraction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>One of the operator&#8217;s key innovations is how it abstracts different agent frameworks behind a common interface.</p>
+</div>
+<div class="sect2">
+<h3 id="_common_interface"><a class="anchor" href="#_common_interface"></a>Common Interface</h3>
+<div class="paragraph">
+<p>All frameworks are accessed through the same <code>Agent</code> resource specification:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  framework: google-adk  # or flokk, autogen
+  image: my-registry/my-agent:v1.0.0
+  protocols:
+    - type: A2A
+  replicas: 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Despite this common interface, each framework has different:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Container startup commands</strong></p>
+</li>
+<li>
+<p><strong>Environment variable requirements</strong></p>
+</li>
+<li>
+<p><strong>Port configurations</strong></p>
+</li>
+<li>
+<p><strong>Health check endpoints</strong></p>
+</li>
+<li>
+<p><strong>Logging formats</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_framework_specific_handling"><a class="anchor" href="#_framework_specific_handling"></a>Framework-Specific Handling</h3>
+<div class="paragraph">
+<p>The controller contains framework-specific logic to handle these differences:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-go hljs" data-lang="go">switch agent.Spec.Framework {
+case "google-adk":
+    // Set ADK-specific environment variables
+    // Configure ADK health checks
+    // Set ADK startup parameters
+case "flokk":
+    // Set Flokk-specific configuration
+    // Configure Flokk networking
+    // Set Flokk logging
+case "autogen":
+    // Configure Autogen runtime
+    // Set Autogen dependencies
+    // Configure Autogen scaling
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This abstraction means:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Users</strong> see a consistent interface</p>
+</li>
+<li>
+<p><strong>Framework developers</strong> can focus on their core functionality</p>
+</li>
+<li>
+<p><strong>Platform operators</strong> manage one system instead of multiple framework-specific solutions</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_extensibility"><a class="anchor" href="#_extensibility"></a>Extensibility</h3>
+<div class="paragraph">
+<p>Adding new framework support requires:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Extending the CRD</strong> to include the new framework in validation</p>
+</li>
+<li>
+<p><strong>Adding controller logic</strong> to handle framework-specific deployment</p>
+</li>
+<li>
+<p><strong>Implementing validation rules</strong> for framework-specific configurations</p>
+</li>
+<li>
+<p><strong>Adding tests</strong> to ensure reliability</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The modular design makes this straightforward without affecting existing functionality.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resource_management_strategy"><a class="anchor" href="#_resource_management_strategy"></a>Resource Management Strategy</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_deployment_strategy"><a class="anchor" href="#_deployment_strategy"></a>Deployment Strategy</h3>
+<div class="paragraph">
+<p>Each <code>Agent</code> resource creates a Kubernetes <code>Deployment</code> because:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Replica Management</strong>: Deployments handle scaling and replica management</p>
+</li>
+<li>
+<p><strong>Rolling Updates</strong>: Built-in support for zero-downtime updates</p>
+</li>
+<li>
+<p><strong>Self-Healing</strong>: Automatic pod replacement on failures</p>
+</li>
+<li>
+<p><strong>Resource Management</strong>: Integration with resource quotas and limits</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_service_creation"><a class="anchor" href="#_service_creation"></a>Service Creation</h3>
+<div class="paragraph">
+<p>When agents need network access, the operator creates <code>Service</code> resources:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Load Balancing</strong>: Distribute traffic across agent replicas</p>
+</li>
+<li>
+<p><strong>Service Discovery</strong>: Enable other components to find agents</p>
+</li>
+<li>
+<p><strong>Protocol Support</strong>: Handle different communication protocols</p>
+</li>
+<li>
+<p><strong>Health Checks</strong>: Only route traffic to healthy agents</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_status_tracking"><a class="anchor" href="#_status_tracking"></a>Status Tracking</h3>
+<div class="paragraph">
+<p>The operator provides comprehensive status tracking:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Condition-based Status</strong>: Uses Kubernetes condition patterns</p>
+</li>
+<li>
+<p><strong>Progress Reporting</strong>: Shows deployment progress and issues</p>
+</li>
+<li>
+<p><strong>Resource Correlation</strong>: Links agent status to underlying resources</p>
+</li>
+<li>
+<p><strong>Event Generation</strong>: Creates events for important state changes</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_protocol_handling_philosophy"><a class="anchor" href="#_protocol_handling_philosophy"></a>Protocol Handling Philosophy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The operator abstracts communication protocols to support different agent interaction patterns.</p>
+</div>
+<div class="sect2">
+<h3 id="_protocol_abstraction"><a class="anchor" href="#_protocol_abstraction"></a>Protocol Abstraction</h3>
+<div class="paragraph">
+<p>Currently supporting:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>A2A (Agent-to-Agent)</strong>: Direct agent-to-agent communication</p>
+</li>
+<li>
+<p><strong>Future Protocols</strong>: OpenAI API, gRPC, HTTP REST, GraphQL</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The abstraction allows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Protocol Evolution</strong>: New protocols can be added without changing the core operator</p>
+</li>
+<li>
+<p><strong>Framework Independence</strong>: Different frameworks can use different protocols</p>
+</li>
+<li>
+<p><strong>Configuration Flexibility</strong>: Protocol-specific parameters can be configured</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_service_generation_logic"><a class="anchor" href="#_service_generation_logic"></a>Service Generation Logic</h3>
+<div class="paragraph">
+<p>For each protocol, the operator determines:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Whether a Service is needed</strong>: Some protocols require network exposure</p>
+</li>
+<li>
+<p><strong>Service type</strong>: ClusterIP, NodePort, LoadBalancer based on protocol needs</p>
+</li>
+<li>
+<p><strong>Port configuration</strong>: Protocol-specific port mappings</p>
+</li>
+<li>
+<p><strong>Labels and selectors</strong>: Proper service discovery configuration</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_observability_architecture"><a class="anchor" href="#_observability_architecture"></a>Observability Architecture</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_metrics_philosophy"><a class="anchor" href="#_metrics_philosophy"></a>Metrics Philosophy</h3>
+<div class="paragraph">
+<p>The operator exposes metrics at multiple levels:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Operator Metrics</strong>: Controller performance, reconciliation timing, resource counts</p>
+</li>
+<li>
+<p><strong>Agent Metrics</strong>: Agent deployment status, replica health, scaling events</p>
+</li>
+<li>
+<p><strong>System Metrics</strong>: Resource utilization, error rates, webhook performance</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This multi-level approach provides:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Operational Visibility</strong>: How well is the operator performing?</p>
+</li>
+<li>
+<p><strong>Application Visibility</strong>: How are my agents doing?</p>
+</li>
+<li>
+<p><strong>System Visibility</strong>: How is the overall system behaving?</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_event_strategy"><a class="anchor" href="#_event_strategy"></a>Event Strategy</h3>
+<div class="paragraph">
+<p>Kubernetes events provide a timeline of important changes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Agent Lifecycle</strong>: Creation, updates, scaling, deletion</p>
+</li>
+<li>
+<p><strong>Deployment Progress</strong>: Rolling update progress, failure recovery</p>
+</li>
+<li>
+<p><strong>Error Conditions</strong>: Configuration issues, resource constraints</p>
+</li>
+<li>
+<p><strong>Scaling Operations</strong>: Replica changes, resource adjustments</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Events are designed to be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Human-readable</strong>: Clear descriptions of what happened</p>
+</li>
+<li>
+<p><strong>Machine-parseable</strong>: Structured for automated analysis</p>
+</li>
+<li>
+<p><strong>Actionable</strong>: Include enough context for troubleshooting</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tracing_integration"><a class="anchor" href="#_tracing_integration"></a>Tracing Integration</h3>
+<div class="paragraph">
+<p>The operator provides hooks for distributed tracing:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Controller Spans</strong>: Track reconciliation operations</p>
+</li>
+<li>
+<p><strong>Webhook Spans</strong>: Monitor admission control performance</p>
+</li>
+<li>
+<p><strong>Agent Correlation</strong>: Link operator operations to agent behavior</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This enables:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>End-to-end Tracing</strong>: From agent creation request to running workload</p>
+</li>
+<li>
+<p><strong>Performance Analysis</strong>: Identify bottlenecks in the deployment pipeline</p>
+</li>
+<li>
+<p><strong>Troubleshooting</strong>: Understand the sequence of events leading to issues</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_security_model"><a class="anchor" href="#_security_model"></a>Security Model</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_principle_of_least_privilege"><a class="anchor" href="#_principle_of_least_privilege"></a>Principle of Least Privilege</h3>
+<div class="paragraph">
+<p>The operator runs with minimal required permissions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Agent Resources</strong>: Full access to Agent custom resources</p>
+</li>
+<li>
+<p><strong>Workload Resources</strong>: Create/update/delete access to Deployments and Services</p>
+</li>
+<li>
+<p><strong>Configuration Resources</strong>: Read access to Secrets and ConfigMaps</p>
+</li>
+<li>
+<p><strong>Status Resources</strong>: Update access for status reporting</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_admission_control_security"><a class="anchor" href="#_admission_control_security"></a>Admission Control Security</h3>
+<div class="paragraph">
+<p>Webhooks provide multiple security layers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Configuration Validation</strong>: Reject unsafe or invalid configurations</p>
+</li>
+<li>
+<p><strong>Image Policy Enforcement</strong>: Ensure only approved images are used</p>
+</li>
+<li>
+<p><strong>Resource Limit Enforcement</strong>: Prevent resource exhaustion attacks</p>
+</li>
+<li>
+<p><strong>Network Policy Compliance</strong>: Enforce organizational networking rules</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_secret_management"><a class="anchor" href="#_secret_management"></a>Secret Management</h3>
+<div class="paragraph">
+<p>Agent credentials are handled securely:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Reference-only</strong>: Operator never stores or logs sensitive data</p>
+</li>
+<li>
+<p><strong>Kubernetes Secrets</strong>: Leverages Kubernetes' built-in secret management</p>
+</li>
+<li>
+<p><strong>Environment Injection</strong>: Secrets are injected as environment variables at runtime</p>
+</li>
+<li>
+<p><strong>Least Privilege</strong>: Agents only access secrets they specifically reference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scalability_design"><a class="anchor" href="#_scalability_design"></a>Scalability Design</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_operator_scalability"><a class="anchor" href="#_operator_scalability"></a>Operator Scalability</h3>
+<div class="paragraph">
+<p>The operator itself can scale:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Multiple Replicas</strong>: Run multiple controller replicas for availability</p>
+</li>
+<li>
+<p><strong>Leader Election</strong>: Ensure only one active controller at a time</p>
+</li>
+<li>
+<p><strong>Work Distribution</strong>: Distribute reconciliation load across replicas</p>
+</li>
+<li>
+<p><strong>Resource Efficiency</strong>: Minimize memory and CPU usage</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_agent_scalability"><a class="anchor" href="#_agent_scalability"></a>Agent Scalability</h3>
+<div class="paragraph">
+<p>Agent workloads scale through:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Manual Scaling</strong>: Direct replica count specification</p>
+</li>
+<li>
+<p><strong>Horizontal Pod Autoscaler</strong>: Integration with Kubernetes autoscaling</p>
+</li>
+<li>
+<p><strong>Resource-based Scaling</strong>: Scale based on CPU, memory, or custom metrics</p>
+</li>
+<li>
+<p><strong>Framework-specific Scaling</strong>: Leverage framework-specific scaling patterns</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_performance_characteristics"><a class="anchor" href="#_performance_characteristics"></a>Performance Characteristics</h3>
+<div class="paragraph">
+<p>The operator is designed for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>High Throughput</strong>: Handle hundreds of agent deployments simultaneously</p>
+</li>
+<li>
+<p><strong>Low Latency</strong>: Quick response to agent creation and updates</p>
+</li>
+<li>
+<p><strong>Efficient Reconciliation</strong>: Minimize unnecessary work during reconciliation</p>
+</li>
+<li>
+<p><strong>Resource Efficiency</strong>: Low overhead on cluster resources</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_future_architecture_considerations"><a class="anchor" href="#_future_architecture_considerations"></a>Future Architecture Considerations</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_multi_tenancy_support"><a class="anchor" href="#_multi_tenancy_support"></a>Multi-Tenancy Support</h3>
+<div class="paragraph">
+<p>Future enhancements may include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Namespace Isolation</strong>: Tenant-specific agent deployments</p>
+</li>
+<li>
+<p><strong>Resource Quotas</strong>: Per-tenant resource limitations</p>
+</li>
+<li>
+<p><strong>RBAC Integration</strong>: Fine-grained permission control</p>
+</li>
+<li>
+<p><strong>Policy Enforcement</strong>: Tenant-specific validation rules</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_advanced_scheduling"><a class="anchor" href="#_advanced_scheduling"></a>Advanced Scheduling</h3>
+<div class="paragraph">
+<p>Potential scheduling improvements:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Affinity Rules</strong>: Intelligent agent placement</p>
+</li>
+<li>
+<p><strong>Resource Optimization</strong>: Better resource utilization</p>
+</li>
+<li>
+<p><strong>Cross-Zone Distribution</strong>: High availability deployment patterns</p>
+</li>
+<li>
+<p><strong>Workload Prioritization</strong>: Critical vs. non-critical agent scheduling</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_integration_ecosystem"><a class="anchor" href="#_integration_ecosystem"></a>Integration Ecosystem</h3>
+<div class="paragraph">
+<p>The operator is designed to integrate with:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Service Meshes</strong>: Istio, Linkerd for advanced networking</p>
+</li>
+<li>
+<p><strong>Monitoring Systems</strong>: Prometheus, Grafana for observability</p>
+</li>
+<li>
+<p><strong>CI/CD Pipelines</strong>: GitOps workflows for deployment automation</p>
+</li>
+<li>
+<p><strong>Security Scanners</strong>: Image and configuration security validation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This extensible architecture ensures the operator can evolve with the ecosystem while maintaining its core simplicity and reliability.</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
