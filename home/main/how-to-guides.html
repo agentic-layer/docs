@@ -39,9 +39,6 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="index.html">Home</a>
-  </li>
-  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">User Guide</span>
 <ul class="nav-list">
@@ -88,7 +85,2136 @@
 </aside>
 <article class="doc">
 <h1 class="page">How to guides</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_installation_repo_name">Installation ({repo-name})</a>
+<ul class="sectlevel2">
+<li><a href="#_how_to_install_the_operator">How to Install the Operator</a></li>
+<li><a href="#_how_to_uninstall_the_operator">How to Uninstall the Operator</a></li>
+</ul>
+</li>
+<li><a href="#_configuration_repo_name">Configuration ({repo-name})</a>
+<ul class="sectlevel2">
+<li><a href="#_how_to_configure_different_agent_types">How to Configure Different Agent Types</a></li>
+<li><a href="#_how_to_configure_environment_variables">How to Configure Environment Variables</a></li>
+<li><a href="#_how_to_set_resource_limits">How to Set Resource Limits</a></li>
+<li><a href="#_how_to_configure_node_placement">How to Configure Node Placement</a></li>
+</ul>
+</li>
+<li><a href="#_scaling_and_management_repo_name">Scaling and Management ({repo-name})</a>
+<ul class="sectlevel2">
+<li><a href="#_how_to_scale_agents">How to Scale Agents</a></li>
+<li><a href="#_how_to_monitor_agent_health">How to Monitor Agent Health</a></li>
+<li><a href="#_how_to_view_agent_logs">How to View Agent Logs</a></li>
+</ul>
+</li>
+<li><a href="#_testing_repo_name">Testing ({repo-name})</a>
+<ul class="sectlevel2">
+<li><a href="#_how_to_run_unit_tests">How to Run Unit Tests</a></li>
+<li><a href="#_how_to_run_end_to_end_tests">How to Run End-to-End Tests</a></li>
+<li><a href="#_how_to_test_with_real_agents">How to Test with Real Agents</a></li>
+</ul>
+</li>
+<li><a href="#_troubleshooting_repo_name">Troubleshooting ({repo-name})</a>
+<ul class="sectlevel2">
+<li><a href="#_how_to_debug_operator_issues">How to Debug Operator Issues</a></li>
+<li><a href="#_how_to_debug_agent_deployment_issues">How to Debug Agent Deployment Issues</a></li>
+<li><a href="#_how_to_debug_webhook_issues">How to Debug Webhook Issues</a></li>
+<li><a href="#_how_to_fix_common_problems">How to Fix Common Problems</a></li>
+</ul>
+</li>
+<li><a href="#_development_repo_name">Development ({repo-name})</a>
+<ul class="sectlevel2">
+<li><a href="#_how_to_contribute_to_the_project">How to Contribute to the Project</a></li>
+<li><a href="#_how_to_build_custom_images">How to Build Custom Images</a></li>
+<li><a href="#_how_to_extend_framework_support">How to Extend Framework Support</a></li>
+</ul>
+</li>
+<li><a href="#_integration_patterns_repo_name">Integration Patterns ({repo-name})</a>
+<ul class="sectlevel2">
+<li><a href="#_how_to_integrate_with_google_adk">How to Integrate with Google ADK</a></li>
+<li><a href="#_how_to_integrate_with_autogen">How to Integrate with AutoGen</a></li>
+<li><a href="#_how_to_integrate_with_langchain">How to Integrate with LangChain</a></li>
+</ul>
+</li>
+<li><a href="#_deployment_patterns_repo_name">Deployment Patterns ({repo-name})</a>
+<ul class="sectlevel2">
+<li><a href="#_how_to_deploy_with_docker_compose">How to Deploy with Docker Compose</a></li>
+<li><a href="#_how_to_deploy_to_kubernetes">How to Deploy to Kubernetes</a></li>
+<li><a href="#_how_to_set_up_load_balancing">How to Set Up Load Balancing</a></li>
+</ul>
+</li>
+<li><a href="#_monitoring_and_alerting_repo_name">Monitoring and Alerting ({repo-name})</a>
+<ul class="sectlevel2">
+<li><a href="#_how_to_set_up_health_checks">How to Set Up Health Checks</a></li>
+<li><a href="#_how_to_set_up_prometheus_metrics">How to Set Up Prometheus Metrics</a></li>
+<li><a href="#_how_to_set_up_alerting_rules">How to Set Up Alerting Rules</a></li>
+</ul>
+</li>
+<li><a href="#_performance_optimization_repo_name">Performance Optimization ({repo-name})</a>
+<ul class="sectlevel2">
+<li><a href="#_how_to_optimize_for_high_throughput">How to Optimize for High Throughput</a></li>
+<li><a href="#_how_to_reduce_memory_usage">How to Reduce Memory Usage</a></li>
+</ul>
+</li>
+<li><a href="#_security_considerations_repo_name">Security Considerations ({repo-name})</a>
+<ul class="sectlevel2">
+<li><a href="#_how_to_secure_websocket_connections">How to Secure WebSocket Connections</a></li>
+<li><a href="#_how_to_implement_access_control">How to Implement Access Control</a></li>
+</ul>
+</li>
+<li><a href="#_integration_testing_repo_name">Integration Testing ({repo-name})</a>
+<ul class="sectlevel2">
+<li><a href="#_how_to_test_your_integration">How to Test Your Integration</a></li>
+<li><a href="#_how_to_set_up_continuous_integration">How to Set Up Continuous Integration</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_installation_repo_name"><a class="anchor" href="#_installation_repo_name"></a>Installation ({repo-name})</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_to_install_the_operator"><a class="anchor" href="#_how_to_install_the_operator"></a>How to Install the Operator</h3>
+<div class="sect3">
+<h4 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h4>
+<div class="paragraph">
+<p>Before installing, ensure you have:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Kubernetes cluster (v1.19+)</p>
+</li>
+<li>
+<p>kubectl configured to access your cluster</p>
+</li>
+<li>
+<p>cert-manager installed (for webhooks)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_install_cert_manager"><a class="anchor" href="#_install_cert_manager"></a>Install cert-manager</h4>
+<div class="paragraph">
+<p>If cert-manager isn&#8217;t already installed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.18.2/cert-manager.yaml
 
+# Wait for cert-manager pods to be ready
+kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=cert-manager -n cert-manager --timeout=300s</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_installation_repo_name_methods"><a class="anchor" href="#_installation_repo_name_methods"></a>Installation ({repo-name}) Methods</h4>
+<div class="sect4">
+<h5 id="_method_1_from_release_manifests"><a class="anchor" href="#_method_1_from_release_manifests"></a>Method 1: From Release Manifests</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Install CRDs and operator from latest release
+kubectl apply -f https://github.com/agentic-layer/agent-runtime-operator/releases/latest/download/install.yaml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_method_2_using_kustomize"><a class="anchor" href="#_method_2_using_kustomize"></a>Method 2: Using Kustomize</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Clone the repository
+git clone https://github.com/agentic-layer/agent-runtime-operator
+cd agent-runtime-operator
+
+# Install CRDs
+make install
+
+# Deploy using kustomize
+kubectl apply -k config/default</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_method_3_development_installation"><a class="anchor" href="#_method_3_development_installation"></a>Method 3: Development Installation</h5>
+<div class="paragraph">
+<p>For development or customization:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Clone and build locally
+git clone https://github.com/agentic-layer/agent-runtime-operator
+cd agent-runtime-operator
+
+# Install CRDs
+make install
+
+# Build and deploy
+make docker-build docker-push IMG=&lt;your-registry&gt;/agent-runtime-operator:tag
+make deploy IMG=&lt;your-registry&gt;/agent-runtime-operator:tag</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_verify_installation"><a class="anchor" href="#_verify_installation"></a>Verify Installation</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check operator pods
+kubectl get pods -n agent-runtime-operator-system
+
+# Verify CRDs are installed
+kubectl get crds | grep runtime.agentic-layer.ai
+
+# Check webhook configuration
+kubectl get validatingwebhookconfiguration | grep agent-runtime-operator</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_uninstall_the_operator"><a class="anchor" href="#_how_to_uninstall_the_operator"></a>How to Uninstall the Operator</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Delete all agent resources first
+kubectl delete agents --all
+
+# Remove the operator
+make undeploy
+
+# Remove CRDs (this will delete all agent resources)
+make uninstall</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration_repo_name"><a class="anchor" href="#_configuration_repo_name"></a>Configuration ({repo-name})</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_to_configure_different_agent_types"><a class="anchor" href="#_how_to_configure_different_agent_types"></a>How to Configure Different Agent Types</h3>
+<div class="sect3">
+<h4 id="_google_adk_agents"><a class="anchor" href="#_google_adk_agents"></a>Google ADK Agents</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: Agent
+metadata:
+  name: adk-agent
+spec:
+  framework: google-adk
+  image: my-registry/adk-agent:v1.0.0
+  protocols:
+    - type: A2A
+  replicas: 2</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_flokk_agents"><a class="anchor" href="#_flokk_agents"></a>Flokk Agents</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: Agent
+metadata:
+  name: flokk-agent
+spec:
+  framework: flokk
+  image: my-registry/flokk-agent:latest
+  protocols:
+    - type: A2A</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_autogen_agents"><a class="anchor" href="#_autogen_agents"></a>Autogen Agents</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: Agent
+metadata:
+  name: autogen-agent
+spec:
+  framework: autogen
+  image: my-registry/autogen-agent:v2.1.0
+  protocols:
+    - type: A2A
+  replicas: 1</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_configure_environment_variables"><a class="anchor" href="#_how_to_configure_environment_variables"></a>How to Configure Environment Variables</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: Agent
+metadata:
+  name: configured-agent
+spec:
+  framework: google-adk
+  image: my-registry/my-agent:latest
+  protocols:
+    - type: A2A
+  env:
+    - name: LOG_LEVEL
+      value: "debug"
+    - name: MODEL_ENDPOINT
+      value: "https://api.openai.com/v1"
+    - name: API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: agent-secrets
+          key: api-key</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_set_resource_limits"><a class="anchor" href="#_how_to_set_resource_limits"></a>How to Set Resource Limits</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_configure_node_placement"><a class="anchor" href="#_how_to_configure_node_placement"></a>How to Configure Node Placement</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  nodeSelector:
+    node-type: compute
+  tolerations:
+    - key: "agent-workload"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values: ["my-agent"]
+            topologyKey: kubernetes.io/hostname</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scaling_and_management_repo_name"><a class="anchor" href="#_scaling_and_management_repo_name"></a>Scaling and Management ({repo-name})</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_to_scale_agents"><a class="anchor" href="#_how_to_scale_agents"></a>How to Scale Agents</h3>
+<div class="sect3">
+<h4 id="_manual_scaling"><a class="anchor" href="#_manual_scaling"></a>Manual Scaling</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Scale to 5 replicas using kubectl patch
+kubectl patch agent my-agent -p '{"spec":{"replicas":5}}'
+
+# Or edit the agent resource directly
+kubectl edit agent my-agent</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_update_agent_image"><a class="anchor" href="#_update_agent_image"></a>Update Agent Image</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Update to new image version
+kubectl patch agent my-agent -p '{"spec":{"image":"my-registry/my-agent:v2.0.0"}}'</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_monitor_agent_health"><a class="anchor" href="#_how_to_monitor_agent_health"></a>How to Monitor Agent Health</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check agent status
+kubectl get agents
+
+# Get detailed agent information
+kubectl describe agent my-agent
+
+# Check created deployments
+kubectl get deployments -l app.kubernetes.io/name=my-agent
+
+# Monitor resource usage
+kubectl top pods -l app.kubernetes.io/name=my-agent</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_view_agent_logs"><a class="anchor" href="#_how_to_view_agent_logs"></a>How to View Agent Logs</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># View logs from all replicas
+kubectl logs -l app.kubernetes.io/name=my-agent
+
+# Follow logs in real-time
+kubectl logs -f deployment/my-agent
+
+# View logs from specific pod
+kubectl logs my-agent-xyz123
+
+# View previous container logs if pod restarted
+kubectl logs my-agent-xyz123 --previous</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_testing_repo_name"><a class="anchor" href="#_testing_repo_name"></a>Testing ({repo-name})</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_to_run_unit_tests"><a class="anchor" href="#_how_to_run_unit_tests"></a>How to Run Unit Tests</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Run all unit tests
+make test
+
+# Run tests with verbose output
+go test -v ./...
+
+# Run tests with coverage
+make test-coverage
+
+# View coverage report
+go tool cover -html=cover.out</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_run_end_to_end_tests"><a class="anchor" href="#_how_to_run_end_to_end_tests"></a>How to Run End-to-End Tests</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Run complete e2e test suite (creates/destroys Kind cluster)
+make test-e2e
+
+# Run e2e tests with existing cluster
+go test -v ./test/e2e/... -use-existing-cluster</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_test_with_real_agents"><a class="anchor" href="#_how_to_test_with_real_agents"></a>How to Test with Real Agents</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Test with sample agent
+kubectl apply -f config/samples/runtime_v1alpha1_agent.yaml
+
+# Verify agent deployment
+kubectl get agents
+kubectl get deployments
+kubectl get pods</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting_repo_name"><a class="anchor" href="#_troubleshooting_repo_name"></a>Troubleshooting ({repo-name})</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_to_debug_operator_issues"><a class="anchor" href="#_how_to_debug_operator_issues"></a>How to Debug Operator Issues</h3>
+<div class="sect3">
+<h4 id="_check_operator_logs"><a class="anchor" href="#_check_operator_logs"></a>Check Operator Logs</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># View operator logs
+kubectl logs -n agent-runtime-operator-system deployment/agent-runtime-operator-controller-manager
+
+# Follow logs in real-time
+kubectl logs -f -n agent-runtime-operator-system deployment/agent-runtime-operator-controller-manager
+
+# Check specific container logs
+kubectl logs -n agent-runtime-operator-system deployment/agent-runtime-operator-controller-manager -c manager</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_check_operator_status"><a class="anchor" href="#_check_operator_status"></a>Check Operator Status</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check operator pods
+kubectl get pods -n agent-runtime-operator-system
+
+# Check operator deployment
+kubectl describe deployment -n agent-runtime-operator-system agent-runtime-operator-controller-manager
+
+# Check operator service account
+kubectl get serviceaccount -n agent-runtime-operator-system</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_debug_agent_deployment_issues"><a class="anchor" href="#_how_to_debug_agent_deployment_issues"></a>How to Debug Agent Deployment Issues</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check agent resource status
+kubectl get agents
+kubectl describe agent my-agent
+
+# Check created resources
+kubectl get deployments -l app.kubernetes.io/name=my-agent
+kubectl get services -l app.kubernetes.io/name=my-agent
+kubectl get pods -l app.kubernetes.io/name=my-agent
+
+# Check pod events
+kubectl describe pod &lt;pod-name&gt;
+
+# Check deployment events
+kubectl describe deployment my-agent</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_debug_webhook_issues"><a class="anchor" href="#_how_to_debug_webhook_issues"></a>How to Debug Webhook Issues</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check webhook configuration
+kubectl get validatingwebhookconfigurations
+kubectl get mutatingwebhookconfigurations
+
+# Verify webhook certificates
+kubectl get certificates -n agent-runtime-operator-system
+kubectl describe certificate agent-runtime-operator-serving-cert -n agent-runtime-operator-system
+
+# Test webhook validation
+kubectl apply -f - &lt;&lt;EOF
+apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: Agent
+metadata:
+  name: invalid-agent
+spec:
+  framework: invalid-framework  # Should be rejected
+  image: test:latest
+  protocols: []  # Should be rejected (empty)
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_fix_common_problems"><a class="anchor" href="#_how_to_fix_common_problems"></a>How to Fix Common Problems</h3>
+<div class="sect3">
+<h4 id="_image_pull_errors"><a class="anchor" href="#_image_pull_errors"></a>Image Pull Errors</h4>
+<div class="paragraph">
+<p>Problem: <code>ErrImagePull</code> or <code>ImagePullBackOff</code></p>
+</div>
+<div class="paragraph">
+<p>Solutions:
+1. Verify image exists and tag is correct
+2. Check registry credentials
+3. Ensure image registry is accessible from cluster</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check image pull secrets
+kubectl get secrets
+kubectl describe secret &lt;image-pull-secret&gt;
+
+# Test image pull manually
+docker pull &lt;image-name&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_resource_constraints"><a class="anchor" href="#_resource_constraints"></a>Resource Constraints</h4>
+<div class="paragraph">
+<p>Problem: Pod stuck in <code>Pending</code> state</p>
+</div>
+<div class="paragraph">
+<p>Solutions:
+1. Check node resources: <code>kubectl describe nodes</code>
+2. Reduce resource requests in agent spec
+3. Add more nodes or use smaller resource limits</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check node capacity
+kubectl describe nodes | grep -A 5 "Allocated resources"
+
+# Check resource quotas
+kubectl describe quota</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_webhook_certificate_issues"><a class="anchor" href="#_webhook_certificate_issues"></a>Webhook Certificate Issues</h4>
+<div class="paragraph">
+<p>Problem: Webhook admission failures</p>
+</div>
+<div class="paragraph">
+<p>Solutions:
+1. Verify cert-manager is running
+2. Check certificate status
+3. Restart operator pods</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check cert-manager
+kubectl get pods -n cert-manager
+
+# Check certificates
+kubectl get certificates -A
+
+# Restart operator
+kubectl rollout restart deployment -n agent-runtime-operator-system agent-runtime-operator-controller-manager</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_development_repo_name"><a class="anchor" href="#_development_repo_name"></a>Development ({repo-name})</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_to_contribute_to_the_project"><a class="anchor" href="#_how_to_contribute_to_the_project"></a>How to Contribute to the Project</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Fork and clone the repository
+git clone https://github.com/&lt;your-username&gt;/agent-runtime-operator
+cd agent-runtime-operator
+
+# Create feature branch
+git checkout -b feature/my-new-feature
+
+# Make changes and test
+make test
+make test-e2e
+
+# Commit and push
+git add .
+git commit -m "Add new feature"
+git push origin feature/my-new-feature</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_build_custom_images"><a class="anchor" href="#_how_to_build_custom_images"></a>How to Build Custom Images</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Build custom operator image
+make docker-build IMG=my-registry/agent-runtime-operator:custom
+
+# Push to registry
+make docker-push IMG=my-registry/agent-runtime-operator:custom
+
+# Deploy custom image
+make deploy IMG=my-registry/agent-runtime-operator:custom</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_extend_framework_support"><a class="anchor" href="#_how_to_extend_framework_support"></a>How to Extend Framework Support</h3>
+<div class="paragraph">
+<p>To add support for a new agent framework:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Update the CRD</strong> to include the new framework in validation</p>
+</li>
+<li>
+<p><strong>Extend the controller</strong> to handle framework-specific logic</p>
+</li>
+<li>
+<p><strong>Add tests</strong> for the new framework</p>
+</li>
+<li>
+<p><strong>Update documentation</strong> with examples</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-go hljs" data-lang="go">// In agent_types.go, add to framework validation
+// +kubebuilder:validation:Enum=google-adk;flokk;autogen;my-new-framework
+
+// In agent_controller.go, add framework handling
+switch agent.Spec.Framework {
+case "my-new-framework":
+    // Add framework-specific deployment logic
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_integration_patterns_repo_name"><a class="anchor" href="#_integration_patterns_repo_name"></a>Integration Patterns ({repo-name})</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_to_integrate_with_google_adk"><a class="anchor" href="#_how_to_integrate_with_google_adk"></a>How to Integrate with Google ADK</h3>
+<div class="paragraph">
+<p>Integrate Google Agent Development Kit with observability monitoring.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from adk import Agent
+from opentelemetry import trace
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
+
+# Set up OpenTelemetry
+trace.set_tracer_provider(TracerProvider())
+tracer = trace.get_tracer(__name__)
+
+otlp_exporter = OTLPSpanExporter(
+    endpoint="http://observability-dashboard:8000/v1/traces"
+)
+span_processor = BatchSpanProcessor(otlp_exporter)
+trace.get_tracer_provider().add_span_processor(span_processor)
+
+# Auto-instrument HTTP requests
+RequestsInstrumentor().instrument()
+
+class ObservableAgent(Agent):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.conversation_id = str(uuid.uuid4())
+        self.tracer = trace.get_tracer(self.__class__.__name__)
+
+    async def process(self, request):
+        with self.tracer.start_as_current_span("adk.agent.process") as span:
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("agent.framework", "google-adk")
+            span.set_attribute("agent.name", self.name)
+            span.set_attribute("agent.version", "1.0.0")
+
+            return await super().process(request)
+
+    async def call_llm(self, prompt: str, **kwargs):
+        with self.tracer.start_as_current_span("llm.call") as span:
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("llm.prompt", prompt)
+            span.set_attribute("agent.name", self.name)
+
+            result = await super().call_llm(prompt, **kwargs)
+
+            span.set_attribute("llm.response", result.get("text", ""))
+            span.set_attribute("llm.model", kwargs.get("model", "unknown"))
+
+            return result</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_integrate_with_autogen"><a class="anchor" href="#_how_to_integrate_with_autogen"></a>How to Integrate with AutoGen</h3>
+<div class="paragraph">
+<p>Set up monitoring for Microsoft AutoGen multi-agent conversations.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from autogen import AssistantAgent, UserProxyAgent, GroupChat, GroupChatManager
+from opentelemetry import trace
+import uuid
+
+tracer = trace.get_tracer(__name__)
+
+class ObservableAssistantAgent(AssistantAgent):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.conversation_id = str(uuid.uuid4())
+
+    def generate_reply(self, messages, sender, **kwargs):
+        with tracer.start_as_current_span("autogen.generate_reply") as span:
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("agent.framework", "autogen")
+            span.set_attribute("agent.name", self.name)
+            span.set_attribute("sender", sender.name if sender else "unknown")
+            span.set_attribute("message_count", len(messages))
+
+            # Extract last message for prompt tracking
+            if messages:
+                last_message = messages[-1].get("content", "")
+                span.set_attribute("llm.prompt", last_message)
+
+            reply = super().generate_reply(messages, sender, **kwargs)
+
+            if isinstance(reply, str):
+                span.set_attribute("llm.response", reply)
+
+            return reply
+
+class ObservableGroupChatManager(GroupChatManager):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.conversation_id = str(uuid.uuid4())
+
+    def select_speaker(self, last_speaker, selector):
+        with tracer.start_as_current_span("autogen.select_speaker") as span:
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("agent.name", "group_chat_manager")
+            span.set_attribute("last_speaker", last_speaker.name)
+
+            selected = super().select_speaker(last_speaker, selector)
+
+            span.set_attribute("selected_speaker", selected.name if selected else "none")
+            return selected
+
+# Usage example
+weather_agent = ObservableAssistantAgent(
+    name="weather_expert",
+    system_message="You are a weather expert. Provide weather information.",
+    llm_config={"model": "gpt-4"}
+)
+
+travel_agent = ObservableAssistantAgent(
+    name="travel_expert",
+    system_message="You are a travel expert. Provide travel advice.",
+    llm_config={"model": "gpt-4"}
+)
+
+groupchat = GroupChat(
+    agents=[weather_agent, travel_agent],
+    messages=[],
+    max_round=10
+)
+
+manager = ObservableGroupChatManager(groupchat=groupchat)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_integrate_with_langchain"><a class="anchor" href="#_how_to_integrate_with_langchain"></a>How to Integrate with LangChain</h3>
+<div class="paragraph">
+<p>Monitor LangChain agents and chains.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from langchain.agents import AgentExecutor, create_openai_functions_agent
+from langchain.tools import BaseTool
+from langchain_core.callbacks import BaseCallbackHandler
+from opentelemetry import trace
+import uuid
+
+tracer = trace.get_tracer(__name__)
+
+class ObservabilityCallback(BaseCallbackHandler):
+    def __init__(self, conversation_id: str):
+        self.conversation_id = conversation_id
+
+    def on_llm_start(self, serialized, prompts, **kwargs):
+        self.current_span = tracer.start_span("llm.call")
+        self.current_span.set_attribute("conversation.id", self.conversation_id)
+        self.current_span.set_attribute("agent.framework", "langchain")
+
+        if prompts:
+            self.current_span.set_attribute("llm.prompt", prompts[0])
+
+    def on_llm_end(self, response, **kwargs):
+        if hasattr(self, 'current_span'):
+            generations = response.generations[0] if response.generations else []
+            if generations:
+                text = generations[0].text
+                self.current_span.set_attribute("llm.response", text)
+
+            self.current_span.end()
+
+    def on_tool_start(self, serialized, input_str, **kwargs):
+        self.tool_span = tracer.start_span("tool.call")
+        self.tool_span.set_attribute("conversation.id", self.conversation_id)
+        self.tool_span.set_attribute("tool.name", serialized.get("name", "unknown"))
+        self.tool_span.set_attribute("tool.params", str(input_str))
+
+    def on_tool_end(self, output, **kwargs):
+        if hasattr(self, 'tool_span'):
+            self.tool_span.set_attribute("tool.result", str(output))
+            self.tool_span.set_attribute("tool.status", "success")
+            self.tool_span.end()
+
+# Usage
+conversation_id = str(uuid.uuid4())
+callback = ObservabilityCallback(conversation_id)
+
+agent_executor = AgentExecutor(
+    agent=agent,
+    tools=tools,
+    callbacks=[callback],
+    verbose=True
+)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deployment_patterns_repo_name"><a class="anchor" href="#_deployment_patterns_repo_name"></a>Deployment Patterns ({repo-name})</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_to_deploy_with_docker_compose"><a class="anchor" href="#_how_to_deploy_with_docker_compose"></a>How to Deploy with Docker Compose</h3>
+<div class="paragraph">
+<p>Set up the observability dashboard with Docker Compose for local development.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># docker-compose.yml
+version: '3.8'
+
+services:
+  observability-dashboard:
+    build: ../pages
+    ports:
+      - "8000:8000"
+    environment:
+      - LOG_LEVEL=INFO
+      - OTLP_ENDPOINT=http://localhost:8000/v1/traces
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+  # Example agent that sends traces
+  sample-agent:
+    build: ./agents/sample-agent
+    depends_on:
+      - observability-dashboard
+    environment:
+      - OTLP_ENDPOINT=http://observability-dashboard:8000/v1/traces
+      - CONVERSATION_ID=${CONVERSATION_ID:-auto}
+    restart: unless-stopped
+
+  # Web dashboard for visualization
+  web-dashboard:
+    build: ./dashboard
+    ports:
+      - "3000:3000"
+    depends_on:
+      - observability-dashboard
+    environment:
+      - WEBSOCKET_URL=ws://localhost:8000/ws
+    restart: unless-stopped
+
+networks:
+  default:
+    name: agent-observability</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Start the stack:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker-compose up -d
+docker-compose logs -f observability-dashboard</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_deploy_to_kubernetes"><a class="anchor" href="#_how_to_deploy_to_kubernetes"></a>How to Deploy to Kubernetes</h3>
+<div class="paragraph">
+<p>Deploy the observability dashboard to Kubernetes with proper scaling and monitoring.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># k8s-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: observability-dashboard
+  labels:
+    app: observability-dashboard
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: observability-dashboard
+  template:
+    metadata:
+      labels:
+        app: observability-dashboard
+    spec:
+      containers:
+      - name: dashboard
+        image: observability-dashboard:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: LOG_LEVEL
+          value: "INFO"
+        - name: WORKERS
+          value: "4"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: observability-dashboard-service
+spec:
+  selector:
+    app: observability-dashboard
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: observability-dashboard-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+  - hosts:
+    - observability.yourdomain.com
+    secretName: observability-tls
+  rules:
+  - host: observability.yourdomain.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: observability-dashboard-service
+            port:
+              number: 8000</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Deploy to Kubernetes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f k8s-deployment.yaml
+kubectl get pods -l app=observability-dashboard
+kubectl logs -l app=observability-dashboard</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_set_up_load_balancing"><a class="anchor" href="#_how_to_set_up_load_balancing"></a>How to Set Up Load Balancing</h3>
+<div class="paragraph">
+<p>Configure load balancing for high-throughput scenarios.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># nginx.conf
+upstream observability_backend {
+    least_conn;
+    server observability-1:8000 max_fails=3 fail_timeout=30s;
+    server observability-2:8000 max_fails=3 fail_timeout=30s;
+    server observability-3:8000 max_fails=3 fail_timeout=30s;
+}
+
+server {
+    listen 80;
+    server_name observability.yourdomain.com;
+
+    location /v1/traces {
+        proxy_pass http://observability_backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_connect_timeout 5s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+
+    location /ws {
+        proxy_pass http://observability_backend;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_read_timeout 86400;
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_monitoring_and_alerting_repo_name"><a class="anchor" href="#_monitoring_and_alerting_repo_name"></a>Monitoring and Alerting ({repo-name})</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_to_set_up_health_checks"><a class="anchor" href="#_how_to_set_up_health_checks"></a>How to Set Up Health Checks</h3>
+<div class="paragraph">
+<p>Implement comprehensive health monitoring.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># custom_health.py
+from fastapi import APIRouter, HTTPException
+from typing import Dict, Any
+import asyncio
+import time
+from datetime import datetime, timedelta
+
+router = APIRouter()
+
+class HealthChecker:
+    def __init__(self):
+        self.last_trace_received = None
+        self.websocket_connections = 0
+        self.error_count = 0
+        self.start_time = datetime.utcnow()
+
+    async def check_system_health(self) -&gt; Dict[str, Any]:
+        """Comprehensive health check"""
+        health_status = {
+            "status": "healthy",
+            "timestamp": datetime.utcnow().isoformat(),
+            "uptime_seconds": (datetime.utcnow() - self.start_time).total_seconds(),
+            "checks": {}
+        }
+
+        # Check trace ingestion
+        if self.last_trace_received:
+            time_since_last_trace = (datetime.utcnow() - self.last_trace_received).total_seconds()
+            health_status["checks"]["trace_ingestion"] = {
+                "status": "healthy" if time_since_last_trace &lt; 300 else "warning",
+                "last_received_seconds_ago": time_since_last_trace
+            }
+        else:
+            health_status["checks"]["trace_ingestion"] = {
+                "status": "unknown",
+                "message": "No traces received yet"
+            }
+
+        # Check WebSocket connections
+        health_status["checks"]["websocket"] = {
+            "status": "healthy",
+            "active_connections": self.websocket_connections
+        }
+
+        # Check error rate
+        error_rate = self.error_count / max(1, (datetime.utcnow() - self.start_time).total_seconds())
+        health_status["checks"]["error_rate"] = {
+            "status": "healthy" if error_rate &lt; 0.1 else "unhealthy",
+            "errors_per_second": round(error_rate, 4)
+        }
+
+        # Overall status
+        check_statuses = [check["status"] for check in health_status["checks"].values()]
+        if "unhealthy" in check_statuses:
+            health_status["status"] = "unhealthy"
+        elif "warning" in check_statuses:
+            health_status["status"] = "warning"
+
+        return health_status
+
+health_checker = HealthChecker()
+
+@router.get("/health/detailed")
+async def detailed_health():
+    return await health_checker.check_system_health()
+
+@router.get("/health/liveness")
+async def liveness():
+    """Simple liveness probe for Kubernetes"""
+    return {"status": "alive"}
+
+@router.get("/health/readiness")
+async def readiness():
+    """Readiness probe - checks if service can handle requests"""
+    health = await health_checker.check_system_health()
+    if health["status"] == "unhealthy":
+        raise HTTPException(status_code=503, detail=health)
+    return health</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_set_up_prometheus_metrics"><a class="anchor" href="#_how_to_set_up_prometheus_metrics"></a>How to Set Up Prometheus Metrics</h3>
+<div class="paragraph">
+<p>Export metrics for Prometheus monitoring.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># metrics.py
+from prometheus_client import Counter, Histogram, Gauge, generate_latest
+from fastapi import Response
+import time
+
+# Define metrics
+traces_received_total = Counter(
+    'traces_received_total',
+    'Total number of traces received',
+    ['status']
+)
+
+trace_processing_duration = Histogram(
+    'trace_processing_duration_seconds',
+    'Time spent processing traces'
+)
+
+websocket_connections_active = Gauge(
+    'websocket_connections_active',
+    'Number of active WebSocket connections'
+)
+
+events_broadcasted_total = Counter(
+    'events_broadcasted_total',
+    'Total number of events broadcast',
+    ['event_type']
+)
+
+class MetricsCollector:
+    def __init__(self):
+        self.start_time = time.time()
+
+    def record_trace_received(self, status: str = "success"):
+        traces_received_total.labels(status=status).inc()
+
+    def record_trace_processing_time(self, duration: float):
+        trace_processing_duration.observe(duration)
+
+    def set_websocket_connections(self, count: int):
+        websocket_connections_active.set(count)
+
+    def record_event_broadcast(self, event_type: str):
+        events_broadcasted_total.labels(event_type=event_type).inc()
+
+metrics_collector = MetricsCollector()
+
+async def metrics_handler():
+    """Prometheus metrics endpoint"""
+    return Response(
+        generate_latest(),
+        media_type="text/plain"
+    )
+
+# Integration example
+async def process_traces_with_metrics(traces):
+    start_time = time.time()
+    try:
+        # Process traces
+        result = await process_traces(traces)
+        metrics_collector.record_trace_received("success")
+        return result
+    except Exception as e:
+        metrics_collector.record_trace_received("error")
+        raise
+    finally:
+        duration = time.time() - start_time
+        metrics_collector.record_trace_processing_time(duration)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_set_up_alerting_rules"><a class="anchor" href="#_how_to_set_up_alerting_rules"></a>How to Set Up Alerting Rules</h3>
+<div class="paragraph">
+<p>Configure alerts for critical issues.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># alerting-rules.yml
+groups:
+- name: observability-dashboard
+  rules:
+  - alert: HighErrorRate
+    expr: rate(traces_received_total{status="error"}[5m]) &gt; 0.1
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "High error rate in trace processing"
+      description: "Error rate is {{ $value }} errors per second"
+
+  - alert: NoTracesReceived
+    expr: increase(traces_received_total[10m]) == 0
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "No traces received"
+      description: "No traces have been received in the last 10 minutes"
+
+  - alert: HighWebSocketConnections
+    expr: websocket_connections_active &gt; 1000
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High number of WebSocket connections"
+      description: "{{ $value }} active WebSocket connections"
+
+  - alert: SlowTraceProcessing
+    expr: histogram_quantile(0.95, trace_processing_duration_seconds) &gt; 5
+    for: 3m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Slow trace processing"
+      description: "95th percentile processing time is {{ $value }}s"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_performance_optimization_repo_name"><a class="anchor" href="#_performance_optimization_repo_name"></a>Performance Optimization ({repo-name})</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_to_optimize_for_high_throughput"><a class="anchor" href="#_how_to_optimize_for_high_throughput"></a>How to Optimize for High Throughput</h3>
+<div class="paragraph">
+<p>Handle high-volume trace ingestion efficiently.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># high_throughput_config.py
+import asyncio
+from typing import List
+from opentelemetry.proto.trace.v1 import trace_pb2
+
+class HighThroughputProcessor:
+    def __init__(self, batch_size: int = 100, flush_interval: float = 1.0):
+        self.batch_size = batch_size
+        self.flush_interval = flush_interval
+        self.pending_spans: List[trace_pb2.Span] = []
+        self.last_flush = asyncio.get_event_loop().time()
+
+    async def add_span(self, span: trace_pb2.Span):
+        """Add span to processing batch"""
+        self.pending_spans.append(span)
+
+        # Flush if batch is full or time threshold reached
+        current_time = asyncio.get_event_loop().time()
+        if (len(self.pending_spans) &gt;= self.batch_size or
+            current_time - self.last_flush &gt;= self.flush_interval):
+            await self.flush_batch()
+
+    async def flush_batch(self):
+        """Process accumulated spans in batch"""
+        if not self.pending_spans:
+            return
+
+        batch = self.pending_spans.copy()
+        self.pending_spans.clear()
+        self.last_flush = asyncio.get_event_loop().time()
+
+        # Process batch concurrently
+        tasks = [self.process_span(span) for span in batch]
+        await asyncio.gather(*tasks, return_exceptions=True)
+
+# Connection pooling for WebSocket broadcasts
+class ConnectionPool:
+    def __init__(self, max_connections: int = 1000):
+        self.max_connections = max_connections
+        self.connections = {}
+        self.connection_count = 0
+
+    async def add_connection(self, connection_id: str, websocket):
+        if self.connection_count &gt;= self.max_connections:
+            await websocket.close(code=1013, reason="Server overloaded")
+            return False
+
+        self.connections[connection_id] = websocket
+        self.connection_count += 1
+        return True
+
+    async def broadcast_event(self, event: dict, conversation_id: str = None):
+        """Efficiently broadcast to relevant connections"""
+        tasks = []
+
+        for conn_id, websocket in self.connections.items():
+            # Filter by conversation if specified
+            if conversation_id and not conn_id.endswith(f":{conversation_id}"):
+                continue
+
+            tasks.append(self.send_to_connection(websocket, event))
+
+        # Send all messages concurrently
+        if tasks:
+            await asyncio.gather(*tasks, return_exceptions=True)
+
+    async def send_to_connection(self, websocket, event):
+        try:
+            await websocket.send_json(event)
+        except Exception:
+            # Connection is dead, remove it
+            await self.remove_connection(websocket)
+
+# Memory optimization for large events
+import sys
+from dataclasses import dataclass
+from typing import Optional
+
+@dataclass
+class CompactEvent:
+    """Memory-optimized event representation"""
+    event_type: str
+    conversation_id: str
+    timestamp: str
+    agent_name: str
+    metadata: Optional[dict] = None
+
+    def __post_init__(self):
+        # Intern common strings to save memory
+        self.event_type = sys.intern(self.event_type)
+        self.agent_name = sys.intern(self.agent_name)
+
+# Usage configuration
+HIGH_THROUGHPUT_CONFIG = {
+    "batch_size": 200,
+    "flush_interval": 0.5,
+    "max_websocket_connections": 2000,
+    "worker_processes": 4,
+    "uvloop": True,  # Use uvloop for better performance
+    "websocket_compression": False,  # Disable compression for speed
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_reduce_memory_usage"><a class="anchor" href="#_how_to_reduce_memory_usage"></a>How to Reduce Memory Usage</h3>
+<div class="paragraph">
+<p>Optimize memory consumption for long-running deployments.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># memory_optimization.py
+import gc
+import weakref
+from collections import deque
+from typing import Dict, Any
+import asyncio
+
+class EventBuffer:
+    """Memory-efficient circular buffer for events"""
+
+    def __init__(self, max_size: int = 10000):
+        self.buffer = deque(maxlen=max_size)
+        self.conversation_indexes: Dict[str, list] = {}
+
+    def add_event(self, event: dict):
+        """Add event with memory management"""
+        # Add to main buffer
+        self.buffer.append(event)
+
+        # Update conversation index
+        conv_id = event.get("conversation_id")
+        if conv_id:
+            if conv_id not in self.conversation_indexes:
+                self.conversation_indexes[conv_id] = []
+
+            self.conversation_indexes[conv_id].append(len(self.buffer) - 1)
+
+            # Limit conversation history
+            if len(self.conversation_indexes[conv_id]) &gt; 1000:
+                self.conversation_indexes[conv_id] = \
+                    self.conversation_indexes[conv_id][-1000:]
+
+    def get_conversation_events(self, conversation_id: str, limit: int = 100):
+        """Get recent events for conversation"""
+        if conversation_id not in self.conversation_indexes:
+            return []
+
+        indexes = self.conversation_indexes[conversation_id][-limit:]
+        return [self.buffer[i] for i in indexes if i &lt; len(self.buffer)]
+
+    def cleanup_old_conversations(self):
+        """Remove old conversation indexes"""
+        active_conversations = set()
+
+        # Find active conversations in recent events
+        for event in list(self.buffer)[-1000:]:
+            conv_id = event.get("conversation_id")
+            if conv_id:
+                active_conversations.add(conv_id)
+
+        # Remove inactive conversation indexes
+        inactive = set(self.conversation_indexes.keys()) - active_conversations
+        for conv_id in inactive:
+            del self.conversation_indexes[conv_id]
+
+class WeakConnectionManager:
+    """Connection manager using weak references"""
+
+    def __init__(self):
+        self.global_connections = weakref.WeakSet()
+        self.conversation_connections = {}
+
+    def add_global_connection(self, websocket):
+        self.global_connections.add(websocket)
+
+    def add_conversation_connection(self, websocket, conversation_id: str):
+        if conversation_id not in self.conversation_connections:
+            self.conversation_connections[conversation_id] = weakref.WeakSet()
+        self.conversation_connections[conversation_id].add(websocket)
+
+    async def broadcast_event(self, event: dict):
+        """Broadcast with automatic cleanup of dead connections"""
+        # Global broadcast
+        dead_connections = []
+        for ws in list(self.global_connections):
+            try:
+                await ws.send_json(event)
+            except Exception:
+                dead_connections.append(ws)
+
+        # Remove dead connections (they'll be garbage collected)
+        for ws in dead_connections:
+            self.global_connections.discard(ws)
+
+        # Conversation-specific broadcast
+        conversation_id = event.get("conversation_id")
+        if conversation_id and conversation_id in self.conversation_connections:
+            connections = self.conversation_connections[conversation_id]
+            dead_connections = []
+
+            for ws in list(connections):
+                try:
+                    await ws.send_json(event)
+                except Exception:
+                    dead_connections.append(ws)
+
+            for ws in dead_connections:
+                connections.discard(ws)
+
+# Memory monitoring
+class MemoryMonitor:
+    def __init__(self):
+        self.gc_threshold = 1000  # Force GC every N events
+        self.event_count = 0
+
+    def on_event_processed(self):
+        self.event_count += 1
+        if self.event_count % self.gc_threshold == 0:
+            # Force garbage collection
+            collected = gc.collect()
+            if collected &gt; 0:
+                print(f"Garbage collected {collected} objects")
+
+    def get_memory_usage(self) -&gt; dict:
+        import psutil
+        import os
+
+        process = psutil.Process(os.getpid())
+        return {
+            "memory_mb": process.memory_info().rss / 1024 / 1024,
+            "memory_percent": process.memory_percent(),
+            "open_files": len(process.open_files()),
+            "connections": len(process.connections())
+        }
+
+# Usage example
+memory_monitor = MemoryMonitor()
+event_buffer = EventBuffer(max_size=50000)
+connection_manager = WeakConnectionManager()
+
+async def periodic_cleanup():
+    """Run periodic memory cleanup"""
+    while True:
+        await asyncio.sleep(300)  # Every 5 minutes
+        event_buffer.cleanup_old_conversations()
+        gc.collect()
+
+        # Log memory usage
+        memory_info = memory_monitor.get_memory_usage()
+        print(f"Memory usage: {memory_info}")</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_security_considerations_repo_name"><a class="anchor" href="#_security_considerations_repo_name"></a>Security Considerations ({repo-name})</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_to_secure_websocket_connections"><a class="anchor" href="#_how_to_secure_websocket_connections"></a>How to Secure WebSocket Connections</h3>
+<div class="paragraph">
+<p>Implement authentication and authorization for WebSocket connections.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># websocket_security.py
+from fastapi import WebSocket, HTTPException, Depends
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+import jwt
+import time
+from typing import Optional
+
+security = HTTPBearer()
+
+class WebSocketAuth:
+    def __init__(self, secret_key: str):
+        self.secret_key = secret_key
+
+    def create_token(self, user_id: str, conversation_ids: list = None) -&gt; str:
+        """Create JWT token for WebSocket authentication"""
+        payload = {
+            "user_id": user_id,
+            "conversation_ids": conversation_ids or [],
+            "iat": time.time(),
+            "exp": time.time() + 3600  # 1 hour expiration
+        }
+        return jwt.encode(payload, self.secret_key, algorithm="HS256")
+
+    def verify_token(self, token: str) -&gt; Optional[dict]:
+        """Verify JWT token"""
+        try:
+            payload = jwt.decode(token, self.secret_key, algorithms=["HS256"])
+            return payload
+        except jwt.InvalidTokenError:
+            return None
+
+    async def authenticate_websocket(self, websocket: WebSocket, token: str = None):
+        """Authenticate WebSocket connection"""
+        if not token:
+            await websocket.close(code=4001, reason="Authentication required")
+            return None
+
+        payload = self.verify_token(token)
+        if not payload:
+            await websocket.close(code=4001, reason="Invalid token")
+            return None
+
+        return payload
+
+# Rate limiting for WebSocket connections
+from collections import defaultdict
+import asyncio
+
+class WebSocketRateLimiter:
+    def __init__(self, max_connections_per_ip: int = 10, max_messages_per_minute: int = 100):
+        self.max_connections_per_ip = max_connections_per_ip
+        self.max_messages_per_minute = max_messages_per_minute
+        self.connection_counts = defaultdict(int)
+        self.message_counts = defaultdict(list)
+
+    async def check_connection_limit(self, client_ip: str) -&gt; bool:
+        """Check if IP has exceeded connection limit"""
+        if self.connection_counts[client_ip] &gt;= self.max_connections_per_ip:
+            return False
+
+        self.connection_counts[client_ip] += 1
+        return True
+
+    async def check_message_rate(self, client_ip: str) -&gt; bool:
+        """Check if IP has exceeded message rate limit"""
+        now = time.time()
+        minute_ago = now - 60
+
+        # Clean old messages
+        self.message_counts[client_ip] = [
+            msg_time for msg_time in self.message_counts[client_ip]
+            if msg_time &gt; minute_ago
+        ]
+
+        if len(self.message_counts[client_ip]) &gt;= self.max_messages_per_minute:
+            return False
+
+        self.message_counts[client_ip].append(now)
+        return True
+
+    async def disconnect_client(self, client_ip: str):
+        """Clean up when client disconnects"""
+        self.connection_counts[client_ip] = max(0, self.connection_counts[client_ip] - 1)
+
+# Input validation and sanitization
+import re
+from typing import Any
+
+class InputValidator:
+    UUID_PATTERN = re.compile(
+        r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+        re.IGNORECASE
+    )
+
+    @classmethod
+    def validate_conversation_id(cls, conversation_id: str) -&gt; bool:
+        """Validate conversation ID format"""
+        return bool(cls.UUID_PATTERN.match(conversation_id))
+
+    @classmethod
+    def sanitize_event_data(cls, event: dict) -&gt; dict:
+        """Sanitize event data to prevent injection attacks"""
+        sanitized = {}
+
+        for key, value in event.items():
+            # Sanitize key
+            if isinstance(key, str) and key.isalnum():
+                # Sanitize value
+                if isinstance(value, str):
+                    # Remove potential XSS/injection content
+                    sanitized_value = re.sub(r'[&lt;&gt;"\']', '', value)
+                    sanitized[key] = sanitized_value[:1000]  # Limit length
+                elif isinstance(value, (int, float, bool)):
+                    sanitized[key] = value
+                elif isinstance(value, dict):
+                    sanitized[key] = cls.sanitize_event_data(value)
+
+        return sanitized
+
+# Secure WebSocket endpoint implementation
+async def secure_websocket_endpoint(
+    websocket: WebSocket,
+    conversation_id: str = None,
+    token: str = None
+):
+    """Secure WebSocket endpoint with authentication and rate limiting"""
+
+    client_ip = websocket.client.host
+    auth = WebSocketAuth("your-secret-key")
+    rate_limiter = WebSocketRateLimiter()
+
+    # Check connection limit
+    if not await rate_limiter.check_connection_limit(client_ip):
+        await websocket.close(code=4029, reason="Too many connections")
+        return
+
+    # Authenticate
+    user_data = await auth.authenticate_websocket(websocket, token)
+    if not user_data:
+        return
+
+    # Validate conversation ID
+    if conversation_id and not InputValidator.validate_conversation_id(conversation_id):
+        await websocket.close(code=4000, reason="Invalid conversation ID")
+        return
+
+    # Check authorization for conversation
+    if conversation_id and conversation_id not in user_data.get("conversation_ids", []):
+        await websocket.close(code=4003, reason="Unauthorized for conversation")
+        return
+
+    try:
+        await websocket.accept()
+
+        while True:
+            # Rate limit messages
+            if not await rate_limiter.check_message_rate(client_ip):
+                await websocket.close(code=4029, reason="Rate limit exceeded")
+                break
+
+            # Handle connection
+            await handle_websocket_message(websocket, conversation_id)
+
+    except Exception as e:
+        print(f"WebSocket error: {e}")
+    finally:
+        await rate_limiter.disconnect_client(client_ip)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_implement_access_control"><a class="anchor" href="#_how_to_implement_access_control"></a>How to Implement Access Control</h3>
+<div class="paragraph">
+<p>Control access to specific conversations and events.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># access_control.py
+from enum import Enum
+from typing import Set, Dict, Optional
+from dataclasses import dataclass
+
+class Permission(Enum):
+    READ_GLOBAL = "read:global"
+    READ_CONVERSATION = "read:conversation"
+    WRITE_TRACES = "write:traces"
+    ADMIN = "admin"
+
+@dataclass
+class User:
+    user_id: str
+    permissions: Set[Permission]
+    conversation_access: Set[str]  # Conversation IDs user can access
+    organization_id: Optional[str] = None
+
+class AccessControlManager:
+    def __init__(self):
+        self.users: Dict[str, User] = {}
+        self.organization_conversations: Dict[str, Set[str]] = {}
+
+    def add_user(self, user: User):
+        """Register a user"""
+        self.users[user.user_id] = user
+
+    def can_access_global_stream(self, user_id: str) -&gt; bool:
+        """Check if user can access global event stream"""
+        user = self.users.get(user_id)
+        return user and Permission.READ_GLOBAL in user.permissions
+
+    def can_access_conversation(self, user_id: str, conversation_id: str) -&gt; bool:
+        """Check if user can access specific conversation"""
+        user = self.users.get(user_id)
+        if not user:
+            return False
+
+        # Admin can access everything
+        if Permission.ADMIN in user.permissions:
+            return True
+
+        # Check direct conversation access
+        if conversation_id in user.conversation_access:
+            return True
+
+        # Check organization-level access
+        if user.organization_id:
+            org_conversations = self.organization_conversations.get(user.organization_id, set())
+            return conversation_id in org_conversations
+
+        return False
+
+    def can_write_traces(self, user_id: str) -&gt; bool:
+        """Check if user can send traces"""
+        user = self.users.get(user_id)
+        return user and (
+            Permission.WRITE_TRACES in user.permissions or
+            Permission.ADMIN in user.permissions
+        )
+
+    def filter_events_for_user(self, user_id: str, events: list) -&gt; list:
+        """Filter events based on user permissions"""
+        user = self.users.get(user_id)
+        if not user:
+            return []
+
+        if Permission.ADMIN in user.permissions:
+            return events
+
+        filtered = []
+        for event in events:
+            conversation_id = event.get("conversation_id")
+            if conversation_id and self.can_access_conversation(user_id, conversation_id):
+                filtered.append(event)
+
+        return filtered
+
+# Usage example
+access_control = AccessControlManager()
+
+# Add users with different permissions
+admin_user = User(
+    user_id="admin_001",
+    permissions={Permission.ADMIN},
+    conversation_access=set()
+)
+
+agent_dev = User(
+    user_id="dev_001",
+    permissions={Permission.READ_CONVERSATION, Permission.WRITE_TRACES},
+    conversation_access={"123e4567-e89b-12d3-a456-426614174000"},
+    organization_id="org_001"
+)
+
+observer = User(
+    user_id="observer_001",
+    permissions={Permission.READ_GLOBAL},
+    conversation_access=set(),
+    organization_id="org_001"
+)
+
+access_control.add_user(admin_user)
+access_control.add_user(agent_dev)
+access_control.add_user(observer)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_integration_testing_repo_name"><a class="anchor" href="#_integration_testing_repo_name"></a>Integration Testing ({repo-name})</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_to_test_your_integration"><a class="anchor" href="#_how_to_test_your_integration"></a>How to Test Your Integration</h3>
+<div class="paragraph">
+<p>Comprehensive testing strategies for agent integrations.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># integration_test.py
+import pytest
+import asyncio
+import json
+from fastapi.testclient import TestClient
+from websockets import connect
+import uuid
+
+class IntegrationTester:
+    def __init__(self, dashboard_url: str = "http://localhost:8000"):
+        self.dashboard_url = dashboard_url
+        self.websocket_url = dashboard_url.replace("http", "ws")
+        self.conversation_id = str(uuid.uuid4())
+
+    async def test_trace_to_websocket_pipeline(self):
+        """Test complete pipeline from trace ingestion to WebSocket delivery"""
+
+        # Connect to WebSocket first
+        websocket_url = f"{self.websocket_url}/ws/{self.conversation_id}"
+
+        async with connect(websocket_url) as websocket:
+            # Send mock trace
+            mock_trace = self.create_mock_trace()
+
+            client = TestClient(app)  # Your FastAPI app
+            response = client.post("/v1/traces", json=mock_trace)
+            assert response.status_code == 200
+
+            # Wait for event on WebSocket
+            event_data = await asyncio.wait_for(websocket.recv(), timeout=5.0)
+            event = json.loads(event_data)
+
+            # Verify event structure
+            assert event["conversation_id"] == self.conversation_id
+            assert event["event_type"] == "agent.start"
+            assert "timestamp" in event
+            assert "trace_id" in event
+
+    def create_mock_trace(self) -&gt; dict:
+        """Create realistic mock trace data"""
+        return {
+            "resource_spans": [{
+                "resource": {
+                    "attributes": [{
+                        "key": "service.name",
+                        "value": {"string_value": "test-agent"}
+                    }]
+                },
+                "scope_spans": [{
+                    "spans": [{
+                        "trace_id": "1234567890abcdef1234567890abcdef",
+                        "span_id": "abcdef1234567890",
+                        "name": "agent.start",
+                        "start_time_unix_nano": 1640995200000000000,
+                        "end_time_unix_nano": 1640995201000000000,
+                        "attributes": [
+                            {
+                                "key": "conversation.id",
+                                "value": {"string_value": self.conversation_id}
+                            },
+                            {
+                                "key": "agent.name",
+                                "value": {"string_value": "test-agent"}
+                            }
+                        ]
+                    }]
+                }]
+            }]
+        }
+
+    async def test_conversation_filtering(self):
+        """Test that conversation filtering works correctly"""
+
+        # Create two different conversation IDs
+        conv_id_1 = str(uuid.uuid4())
+        conv_id_2 = str(uuid.uuid4())
+
+        # Connect to specific conversation
+        websocket_url = f"{self.websocket_url}/ws/{conv_id_1}"
+
+        async with connect(websocket_url) as websocket:
+            # Send trace for conversation 1
+            trace_1 = self.create_mock_trace_for_conversation(conv_id_1)
+            client = TestClient(app)
+            client.post("/v1/traces", json=trace_1)
+
+            # Send trace for conversation 2
+            trace_2 = self.create_mock_trace_for_conversation(conv_id_2)
+            client.post("/v1/traces", json=trace_2)
+
+            # Should only receive event for conversation 1
+            try:
+                event_data = await asyncio.wait_for(websocket.recv(), timeout=2.0)
+                event = json.loads(event_data)
+                assert event["conversation_id"] == conv_id_1
+            except asyncio.TimeoutError:
+                pytest.fail("Should have received event for conversation 1")
+
+            # Should not receive event for conversation 2
+            with pytest.raises(asyncio.TimeoutError):
+                await asyncio.wait_for(websocket.recv(), timeout=1.0)
+
+    def create_mock_trace_for_conversation(self, conversation_id: str) -&gt; dict:
+        """Create mock trace for specific conversation"""
+        trace = self.create_mock_trace()
+        # Update conversation ID
+        for attr in trace["resource_spans"][0]["scope_spans"][0]["spans"][0]["attributes"]:
+            if attr["key"] == "conversation.id":
+                attr["value"]["string_value"] = conversation_id
+        return trace
+
+# Performance testing
+import time
+import statistics
+
+class PerformanceTester:
+    def __init__(self, dashboard_url: str = "http://localhost:8000"):
+        self.dashboard_url = dashboard_url
+        self.client = TestClient(app)
+
+    async def test_throughput(self, num_traces: int = 1000):
+        """Test trace ingestion throughput"""
+
+        traces = [
+            IntegrationTester().create_mock_trace()
+            for _ in range(num_traces)
+        ]
+
+        start_time = time.time()
+        response_times = []
+
+        for trace in traces:
+            trace_start = time.time()
+            response = self.client.post("/v1/traces", json=trace)
+            trace_end = time.time()
+
+            assert response.status_code == 200
+            response_times.append((trace_end - trace_start) * 1000)  # Convert to ms
+
+        end_time = time.time()
+        total_time = end_time - start_time
+
+        # Calculate metrics
+        throughput = num_traces / total_time
+        avg_response_time = statistics.mean(response_times)
+        p95_response_time = statistics.quantiles(response_times, n=20)[18]  # 95th percentile
+
+        print(f"Throughput: {throughput:.2f} traces/second")
+        print(f"Average response time: {avg_response_time:.2f}ms")
+        print(f"95th percentile response time: {p95_response_time:.2f}ms")
+
+        # Assert performance requirements
+        assert throughput &gt; 100  # At least 100 traces/second
+        assert avg_response_time &lt; 100  # Average under 100ms
+        assert p95_response_time &lt; 500  # 95th percentile under 500ms
+
+# Run tests
+async def run_integration_tests():
+    tester = IntegrationTester()
+
+    print("Testing trace to WebSocket pipeline...")
+    await tester.test_trace_to_websocket_pipeline()
+
+    print("Testing conversation filtering...")
+    await tester.test_conversation_filtering()
+
+    print("Testing performance...")
+    perf_tester = PerformanceTester()
+    await perf_tester.test_throughput()
+
+    print("All integration tests passed!")
+
+if __name__ == "__main__":
+    asyncio.run(run_integration_tests())</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_set_up_continuous_integration"><a class="anchor" href="#_how_to_set_up_continuous_integration"></a>How to Set Up Continuous Integration</h3>
+<div class="paragraph">
+<p>Automate testing in CI/CD pipelines.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># .github/workflows/integration-test.yml
+name: Integration Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  integration-test:
+    runs-on: ubuntu-latest
+
+    services:
+      dashboard:
+        image: observability-dashboard:test
+        ports:
+          - 8000:8000
+        options: &gt;-
+          --health-cmd "curl -f http://localhost:8000/health"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-test.txt
+
+    - name: Wait for service
+      run: |
+        timeout 60s bash -c 'until curl -f http://localhost:8000/health; do sleep 2; done'
+
+    - name: Run integration tests
+      run: |
+        pytest tests/integration/ -v --tb=short
+
+    - name: Run performance tests
+      run: |
+        python tests/performance/load_test.py --duration=60
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: |
+          test-results.xml
+          coverage.xml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These guides provide practical solutions for common implementation challenges. Each guide focuses on a specific problem and provides working code examples that you can adapt to your specific needs.</p>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>

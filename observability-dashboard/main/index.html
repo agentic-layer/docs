@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Observability Dashboard for Agentic Systems :: Agentic Layer Documentation</title>
+    <link rel="canonical" href="https://agentic-layer.github.io/antora-playbook/observability-dashboard/main/index.html">
+    <meta name="generator" content="Antora 3.1.12">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://agentic-layer.github.io/antora-playbook">Agentic Layer Documentation</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">Git Repositories</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://github.com/agentic-layer/agent-runtime-operator" target="_blank">Agent Runtime Operator</a>
+            <a class="navbar-item" href="https://github.com/agentic-layer/observability-dashboard" target="_blank">Observability Dashboard</a>
+            <a class="navbar-item" href="https://github.com/agentic-layer/agent-samples" target="_blank">Agent Samples</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="observability-dashboard" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Observability Dashboard</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#tutorials.adoc">Tutorials</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#how-to-guides.adoc">How-to Guides</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#reference.adoc">Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#explanation.adoc">Explanation</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Observability Dashboard</a></li>
+    <li><a href="index.html">Observability Dashboard for Agentic Systems</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Observability Dashboard for Agentic Systems</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Observability Dashboard provides a real-time observability service designed specifically for monitoring complex, multi-agent systems. It ingests <strong>OpenTelemetry</strong> traces, transforms them into structured communication events, and broadcasts them via <strong>WebSocket</strong> for live monitoring and analysis.</p>
+</div>
+<div class="paragraph">
+<p>The primary goal is to solve the observability challenge in agentic systems by providing a centralized hub for understanding agent behavior, communication patterns, and overall system performance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_key_features"><a class="anchor" href="#_key_features"></a>Key Features</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Trace Ingestion</strong>: Receives OpenTelemetry traces from agent frameworks via OTLP/HTTP</p>
+</li>
+<li>
+<p><strong>Event Processing</strong>: Converts raw telemetry spans into structured events (agent lifecycle, LLM calls, tool invocations)</p>
+</li>
+<li>
+<p><strong>Real-time Streaming</strong>: Broadcasts processed events to WebSocket clients for live dashboard updates</p>
+</li>
+<li>
+<p><strong>Conversation Filtering</strong>: Supports both global event streams and filtering by a specific conversation ID</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_the_observability_dashboard"><a class="anchor" href="#_what_is_the_observability_dashboard"></a>What is the Observability Dashboard?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Observability Dashboard acts as a centralized monitoring hub for your agentic systems. It:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Ingests telemetry data</strong> from your instrumented agent applications</p>
+</li>
+<li>
+<p><strong>Processes traces</strong> into meaningful business events</p>
+</li>
+<li>
+<p><strong>Streams events</strong> in real-time to connected clients</p>
+</li>
+<li>
+<p><strong>Provides insights</strong> into agent behavior and system performance</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architecture_overview"><a class="anchor" href="#_architecture_overview"></a>Architecture Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The service operates as a pipeline:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Agent Instruments</strong>: Your agentic application emits OpenTelemetry traces</p>
+</li>
+<li>
+<p><strong>Ingestion</strong>: Service receives traces at OTLP/HTTP endpoint</p>
+</li>
+<li>
+<p><strong>Processing</strong>: Core preprocessor transforms spans into structured events</p>
+</li>
+<li>
+<p><strong>Broadcasting</strong>: Events are streamed to WebSocket clients in real-time</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_start"><a class="anchor" href="#_quick_start"></a>Quick Start</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To get started with the Observability Dashboard:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure you have the <a href="#prerequisites.adoc" class="xref unresolved">prerequisites</a> installed</p>
+</li>
+<li>
+<p>Follow the <a href="#getting-started.adoc" class="xref unresolved">getting started guide</a> to run the service</p>
+</li>
+<li>
+<p>Configure your agents using the <a href="#integration.adoc" class="xref unresolved">integration guide</a></p>
+</li>
+<li>
+<p>Connect to WebSocket streams for real-time monitoring</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_use_cases"><a class="anchor" href="#_use_cases"></a>Use Cases</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Real-time Monitoring</strong>: Watch agent interactions as they happen</p>
+</li>
+<li>
+<p><strong>Debugging</strong>: Trace issues through multi-agent conversations</p>
+</li>
+<li>
+<p><strong>Performance Analysis</strong>: Monitor LLM calls and tool invocations</p>
+</li>
+<li>
+<p><strong>System Health</strong>: Track agent lifecycle events and errors</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
+<script async src="../../search-index.js"></script>
+  </body>
+</html>
