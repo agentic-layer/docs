@@ -88,119 +88,29 @@
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_what_is_the_agent_runtime_operator_repo_name">What is the Agent Runtime Operator? ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_the_problem_it_solves">The Problem It Solves</a></li>
+<li><a href="#_what_is_the_agent_runtime_operator_repo_name">What is the Agent Runtime Operator? ({repo-name})</a></li>
+<li><a href="#_design_philosophy_repo_name">Design Philosophy ({repo-name})</a></li>
+<li><a href="#_architecture_overview_repo_name">Architecture Overview ({repo-name})</a></li>
+<li><a href="#_framework_abstraction_repo_name">Framework Abstraction ({repo-name})</a></li>
+<li><a href="#_resource_management_strategy_repo_name">Resource Management Strategy ({repo-name})</a></li>
+<li><a href="#_protocol_handling_philosophy_repo_name">Protocol Handling Philosophy ({repo-name})</a></li>
+<li><a href="#_observability_architecture_repo_name">Observability Architecture ({repo-name})</a></li>
+<li><a href="#_security_model_repo_name">Security Model ({repo-name})</a></li>
+<li><a href="#_scalability_design_repo_name">Scalability Design ({repo-name})</a></li>
+<li><a href="#_future_architecture_considerations_repo_name">Future Architecture Considerations ({repo-name})</a></li>
+<li><a href="#_system_architecture_repo_name">System Architecture ({repo-name})</a></li>
+<li><a href="#_event_processing_deep_dive_repo_name">Event Processing Deep Dive ({repo-name})</a></li>
+<li><a href="#_performance_architecture_repo_name">Performance Architecture ({repo-name})</a></li>
+<li><a href="#_security_architecture_repo_name">Security Architecture ({repo-name})</a></li>
+<li><a href="#_integration_patterns_repo_name">Integration Patterns ({repo-name})</a></li>
+<li><a href="#_monitoring_and_operations_repo_name">Monitoring and Operations ({repo-name})</a></li>
+<li><a href="#_future_architecture_considerations_repo_name_2">Future Architecture Considerations ({repo-name})</a></li>
 </ul>
-</li>
-<li><a href="#_design_philosophy_repo_name">Design Philosophy ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_framework_agnostic">Framework Agnostic</a></li>
-<li><a href="#_kubernetes_native">Kubernetes Native</a></li>
-<li><a href="#_observability_first">Observability First</a></li>
-</ul>
-</li>
-<li><a href="#_architecture_overview_repo_name">Architecture Overview ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_core_components">Core Components</a></li>
-<li><a href="#_operator_pattern">Operator Pattern</a></li>
-</ul>
-</li>
-<li><a href="#_framework_abstraction_repo_name">Framework Abstraction ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_common_interface">Common Interface</a></li>
-<li><a href="#_framework_specific_handling">Framework-Specific Handling</a></li>
-<li><a href="#_extensibility">Extensibility</a></li>
-</ul>
-</li>
-<li><a href="#_resource_management_strategy_repo_name">Resource Management Strategy ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_deployment_strategy">Deployment Strategy</a></li>
-<li><a href="#_service_creation">Service Creation</a></li>
-<li><a href="#_status_tracking">Status Tracking</a></li>
-</ul>
-</li>
-<li><a href="#_protocol_handling_philosophy_repo_name">Protocol Handling Philosophy ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_protocol_abstraction">Protocol Abstraction</a></li>
-<li><a href="#_service_generation_logic">Service Generation Logic</a></li>
-</ul>
-</li>
-<li><a href="#_observability_architecture_repo_name">Observability Architecture ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_metrics_philosophy">Metrics Philosophy</a></li>
-<li><a href="#_event_strategy">Event Strategy</a></li>
-<li><a href="#_tracing_integration">Tracing Integration</a></li>
-</ul>
-</li>
-<li><a href="#_security_model_repo_name">Security Model ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_principle_of_least_privilege">Principle of Least Privilege</a></li>
-<li><a href="#_admission_control_security">Admission Control Security</a></li>
-<li><a href="#_secret_management">Secret Management</a></li>
-</ul>
-</li>
-<li><a href="#_scalability_design_repo_name">Scalability Design ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_operator_scalability">Operator Scalability</a></li>
-<li><a href="#_agent_scalability">Agent Scalability</a></li>
-<li><a href="#_performance_characteristics">Performance Characteristics</a></li>
-</ul>
-</li>
-<li><a href="#_future_architecture_considerations_repo_name">Future Architecture Considerations ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_multi_tenancy_support">Multi-Tenancy Support</a></li>
-<li><a href="#_advanced_scheduling">Advanced Scheduling</a></li>
-<li><a href="#_integration_ecosystem">Integration Ecosystem</a></li>
-</ul>
-</li>
-<li><a href="#_system_architecture_repo_name">System Architecture ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_overview">Overview</a></li>
-<li><a href="#_system_components">System Components</a></li>
-<li><a href="#_data_flow_architecture">Data Flow Architecture</a></li>
-</ul>
-</li>
-<li><a href="#_event_processing_deep_dive_repo_name">Event Processing Deep Dive ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_event_type_system">Event Type System</a></li>
-<li><a href="#_event_enrichment_process">Event Enrichment Process</a></li>
-</ul>
-</li>
-<li><a href="#_performance_architecture_repo_name">Performance Architecture ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_scalability_strategies">Scalability Strategies</a></li>
-<li><a href="#_real_time_performance">Real-time Performance</a></li>
-<li><a href="#_resource_management">Resource Management</a></li>
-</ul>
-</li>
-<li><a href="#_security_architecture_repo_name">Security Architecture ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_threat_model">Threat Model</a></li>
-<li><a href="#_authentication_and_authorization">Authentication and Authorization</a></li>
-<li><a href="#_data_sanitization">Data Sanitization</a></li>
-</ul>
-</li>
-<li><a href="#_integration_patterns_repo_name">Integration Patterns ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_framework_integration_philosophy">Framework Integration Philosophy</a></li>
-<li><a href="#_multi_agent_system_support">Multi-Agent System Support</a></li>
-<li><a href="#_enterprise_integration">Enterprise Integration</a></li>
-</ul>
-</li>
-<li><a href="#_monitoring_and_operations_repo_name">Monitoring and Operations ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_system_health_monitoring">System Health Monitoring</a></li>
-<li><a href="#_operational_patterns">Operational Patterns</a></li>
-</ul>
-</li>
-<li><a href="#_future_architecture_considerations_repo_name_2">Future Architecture Considerations ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_scalability_evolution">Scalability Evolution</a></li>
-<li><a href="#_protocol_evolution">Protocol Evolution</a></li>
-</ul>
-</li>
-</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<hr>
+</div>
 </div>
 <div class="sect1">
 <h2 id="_what_is_the_agent_runtime_operator_repo_name"><a class="anchor" href="#_what_is_the_agent_runtime_operator_repo_name"></a>What is the Agent Runtime Operator? ({repo-name})</h2>

@@ -88,107 +88,25 @@
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_agent_custom_resource_definition_repo_name">Agent Custom Resource Definition ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_api_version">API Version</a></li>
-<li><a href="#_agent_specification">Agent Specification</a></li>
-<li><a href="#_protocol_configuration">Protocol Configuration</a></li>
-<li><a href="#_environment_variables">Environment Variables</a></li>
-<li><a href="#_resource_requirements">Resource Requirements</a></li>
-<li><a href="#_status_fields">Status Fields</a></li>
-<li><a href="#_complete_example">Complete Example</a></li>
-<li><a href="#_validation_rules">Validation Rules</a></li>
-<li><a href="#_generated_resources">Generated Resources</a></li>
+<li><a href="#_agent_custom_resource_definition_repo_name">Agent Custom Resource Definition ({repo-name})</a></li>
+<li><a href="#_operator_environment_variables_repo_name">Operator Environment Variables ({repo-name})</a></li>
+<li><a href="#_sample_configurations_repo_name">Sample Configurations ({repo-name})</a></li>
+<li><a href="#_cli_commands_reference_repo_name">CLI Commands Reference ({repo-name})</a></li>
+<li><a href="#_error_messages_reference_repo_name">Error Messages Reference ({repo-name})</a></li>
+<li><a href="#_api_reference_repo_name">API Reference ({repo-name})</a></li>
+<li><a href="#_event_schemas_repo_name">Event Schemas ({repo-name})</a></li>
+<li><a href="#_opentelemetry_span_attributes_repo_name">OpenTelemetry Span Attributes ({repo-name})</a></li>
+<li><a href="#_configuration_reference_repo_name">Configuration Reference ({repo-name})</a></li>
+<li><a href="#_rate_limits_repo_name">Rate Limits ({repo-name})</a></li>
+<li><a href="#_error_codes_repo_name">Error Codes ({repo-name})</a></li>
+<li><a href="#_performance_specifications_repo_name">Performance Specifications ({repo-name})</a></li>
+<li><a href="#_security_specifications_repo_name">Security Specifications ({repo-name})</a></li>
 </ul>
-</li>
-<li><a href="#_operator_environment_variables_repo_name">Operator Environment Variables ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_enable_webhooks">ENABLE_WEBHOOKS</a></li>
-<li><a href="#_metrics_bind_address">METRICS_BIND_ADDRESS</a></li>
-<li><a href="#_health_probe_bind_address">HEALTH_PROBE_BIND_ADDRESS</a></li>
-<li><a href="#_configuration_in_deployment">Configuration in Deployment</a></li>
-</ul>
-</li>
-<li><a href="#_sample_configurations_repo_name">Sample Configurations ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_weather_agent_sample">Weather Agent Sample</a></li>
-<li><a href="#_framework_examples">Framework Examples</a></li>
-<li><a href="#_production_configuration_examples">Production Configuration Examples</a></li>
-</ul>
-</li>
-<li><a href="#_cli_commands_reference_repo_name">CLI Commands Reference ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_kubectl_commands">kubectl Commands</a></li>
-<li><a href="#_make_commands">make Commands</a></li>
-</ul>
-</li>
-<li><a href="#_error_messages_reference_repo_name">Error Messages Reference ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_common_validation_errors">Common Validation Errors</a></li>
-<li><a href="#_runtime_errors">Runtime Errors</a></li>
-</ul>
-</li>
-<li><a href="#_api_reference_repo_name">API Reference ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_http_endpoints">HTTP Endpoints</a></li>
-<li><a href="#_websocket_endpoints">WebSocket Endpoints</a></li>
-<li><a href="#_websocket_status_codes">WebSocket Status Codes</a></li>
-</ul>
-</li>
-<li><a href="#_event_schemas_repo_name">Event Schemas ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_base_event_structure">Base Event Structure</a></li>
-<li><a href="#_agent_lifecycle_events">Agent Lifecycle Events</a></li>
-<li><a href="#_llm_interaction_events">LLM Interaction Events</a></li>
-<li><a href="#_tool_invocation_events">Tool Invocation Events</a></li>
-<li><a href="#_error_events">Error Events</a></li>
-</ul>
-</li>
-<li><a href="#_opentelemetry_span_attributes_repo_name">OpenTelemetry Span Attributes ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_required_attributes">Required Attributes</a></li>
-<li><a href="#_agent_lifecycle_attributes">Agent Lifecycle Attributes</a></li>
-<li><a href="#_llm_call_attributes">LLM Call Attributes</a></li>
-<li><a href="#_tool_invocation_attributes">Tool Invocation Attributes</a></li>
-<li><a href="#_error_attributes">Error Attributes</a></li>
-<li><a href="#_communication_attributes">Communication Attributes</a></li>
-</ul>
-</li>
-<li><a href="#_configuration_reference_repo_name">Configuration Reference ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_environment_variables_2">Environment Variables</a></li>
-<li><a href="#_configuration_file">Configuration File</a></li>
-</ul>
-</li>
-<li><a href="#_rate_limits_repo_name">Rate Limits ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_default_limits">Default Limits</a></li>
-<li><a href="#_rate_limit_headers">Rate Limit Headers</a></li>
-<li><a href="#_rate_limit_errors">Rate Limit Errors</a></li>
-</ul>
-</li>
-<li><a href="#_error_codes_repo_name">Error Codes ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_http_error_codes">HTTP Error Codes</a></li>
-<li><a href="#_websocket_close_codes">WebSocket Close Codes</a></li>
-<li><a href="#_application_error_codes">Application Error Codes</a></li>
-</ul>
-</li>
-<li><a href="#_performance_specifications_repo_name">Performance Specifications ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_throughput">Throughput</a></li>
-<li><a href="#_latency">Latency</a></li>
-<li><a href="#_resource_usage">Resource Usage</a></li>
-</ul>
-</li>
-<li><a href="#_security_specifications_repo_name">Security Specifications ({repo-name})</a>
-<ul class="sectlevel2">
-<li><a href="#_authentication">Authentication</a></li>
-<li><a href="#_input_validation">Input Validation</a></li>
-<li><a href="#_security_headers">Security Headers</a></li>
-</ul>
-</li>
-</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<hr>
+</div>
 </div>
 <div class="sect1">
 <h2 id="_agent_custom_resource_definition_repo_name"><a class="anchor" href="#_agent_custom_resource_definition_repo_name"></a>Agent Custom Resource Definition ({repo-name})</h2>
