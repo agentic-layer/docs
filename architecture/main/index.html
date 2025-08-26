@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Agentic Layer Architecture Documentation :: Agentic Layer Documentation</title>
+    <link rel="canonical" href="https://agentic-layer.github.io/antora-playbook/architecture/main/index.html">
+    <meta name="generator" content="Antora 3.1.12">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://agentic-layer.github.io/antora-playbook">Agentic Layer Documentation</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">Git Repositories</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://github.com/agentic-layer/agent-runtime-operator" target="_blank">Agent Runtime Operator</a>
+            <a class="navbar-item" href="https://github.com/agentic-layer/observability-dashboard" target="_blank">Observability Dashboard</a>
+            <a class="navbar-item" href="https://github.com/agentic-layer/agent-samples" target="_blank">Agent Samples</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="architecture" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Agentic Layer Architecture</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Architecture Documentation</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="introduction/index.html">1. Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="constraints/index.html">2. Architecture Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="context/index.html">3. System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="solution-strategy/index.html">4. Solution Strategy</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="building-blocks/index.html">5. Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="runtime/index.html">6. Runtime View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deployment/index.html">7. Deployment View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="crosscutting/index.html">8. Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="decisions/index.html">9. Architecture Decisions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="quality/index.html">10. Quality Requirements</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="risks/index.html">11. Risks and Technical Debts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="glossary/index.html">12. Glossary</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Agentic Layer Architecture</a></li>
+    <li><a href="index.html">Architecture Documentation</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Agentic Layer Architecture Documentation</h1>
+<div class="sect1">
+<h2 id="_about_this_documentation"><a class="anchor" href="#_about_this_documentation"></a>About This Documentation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This documentation describes the architecture of the Agentic Layer platform using the arc42 template structure. Each section addresses specific architectural concerns:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><a href="introduction/index.html" class="xref page">Introduction and Goals</a></strong> - Requirements and stakeholders</p>
+</li>
+<li>
+<p><strong><a href="constraints/index.html" class="xref page">Architecture Constraints</a></strong> - Technical and organizational constraints</p>
+</li>
+<li>
+<p><strong><a href="context/index.html" class="xref page">System Scope and Context</a></strong> - Business and technical context</p>
+</li>
+<li>
+<p><strong><a href="solution-strategy/index.html" class="xref page">Solution Strategy</a></strong> - Fundamental solution decisions</p>
+</li>
+<li>
+<p><strong><a href="building-blocks/index.html" class="xref page">Building Block View</a></strong> - Static system decomposition</p>
+</li>
+<li>
+<p><strong><a href="runtime/index.html" class="xref page">Runtime View</a></strong> - Dynamic system behavior</p>
+</li>
+<li>
+<p><strong><a href="deployment/index.html" class="xref page">Deployment View</a></strong> - Technical infrastructure</p>
+</li>
+<li>
+<p><strong><a href="crosscutting/index.html" class="xref page">Cross-cutting Concepts</a></strong> - Overall regulations and concepts</p>
+</li>
+<li>
+<p><strong><a href="decisions/index.html" class="xref page">Architecture Decisions</a></strong> - Important architectural decisions</p>
+</li>
+<li>
+<p><strong><a href="quality/index.html" class="xref page">Quality Requirements</a></strong> - Quality scenarios and requirements</p>
+</li>
+<li>
+<p><strong><a href="risks/index.html" class="xref page">Risks and Technical Debts</a></strong> - Known risks and technical debt</p>
+</li>
+<li>
+<p><strong><a href="glossary/index.html" class="xref page">Glossary</a></strong> - Important terms and definitions</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
