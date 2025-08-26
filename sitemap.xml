@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<sitemap>
+<loc>https://agentic-layer.github.io/antora-playbook/sitemap-agent-runtime-operator.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://agentic-layer.github.io/antora-playbook/sitemap-architecture.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://agentic-layer.github.io/antora-playbook/sitemap-home.xml</loc>
+</sitemap>
+</sitemapindex>
