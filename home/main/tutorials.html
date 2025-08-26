@@ -570,9 +570,1180 @@ kubectl describe pod &lt;pod-name&gt;</code></pre>
 kubectl delete agents --all</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/tutorials.adoc - include::observability-dashboard:ROOT:partial$tutorials.adoc[]</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_your_first_agent_monitoring_setup_observability_dashboard"><a class="anchor" href="#_your_first_agent_monitoring_setup_observability_dashboard"></a>Your First Agent Monitoring Setup (Observability Dashboard)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial walks you through setting up observability for your first agentic application from scratch.</p>
+</div>
+<div class="sect2">
+<h3 id="_what_youll_learn_4"><a class="anchor" href="#_what_youll_learn_4"></a>What You&#8217;ll Learn</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>How to install and run the Observability Dashboard</p>
+</li>
+<li>
+<p>How to instrument a simple agent with OpenTelemetry</p>
+</li>
+<li>
+<p>How to view real-time events through WebSocket connections</p>
+</li>
+<li>
+<p>How to filter events by conversation</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_prerequisites_2"><a class="anchor" href="#_prerequisites_2"></a>Prerequisites</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Python 3.13+ installed</p>
+</li>
+<li>
+<p>Basic understanding of agent frameworks</p>
+</li>
+<li>
+<p>30 minutes of time</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_1_set_up_the_dashboard"><a class="anchor" href="#_step_1_set_up_the_dashboard"></a>Step 1: Set Up the Dashboard</h3>
+<div class="paragraph">
+<p>First, let&#8217;s get the observability service running:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Clone and enter the project
+git clone https://github.com/agentic-layer/observability-dashboard
+cd observability-dashboard
+
+# Install system dependencies
+brew bundle
+
+# Install Python dependencies
+uv sync
+
+# Start the service
+uv run fastapi dev src/agent_monitor/main.py</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verify it&#8217;s working:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl http://localhost:8000/health
+# Should return: {"status": "healthy"}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_create_your_first_instrumented_agent"><a class="anchor" href="#_step_2_create_your_first_instrumented_agent"></a>Step 2: Create Your First Instrumented Agent</h3>
+<div class="paragraph">
+<p>Create a simple agent that you can monitor:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># tutorial_agent.py
+import uuid
+import time
+import asyncio
+from opentelemetry import trace
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
+# Set up OpenTelemetry
+trace.set_tracer_provider(TracerProvider())
+tracer = trace.get_tracer(__name__)
+
+# Configure OTLP exporter
+otlp_exporter = OTLPSpanExporter(
+    endpoint="http://localhost:8000/v1/traces",
+    headers={"Content-Type": "application/x-protobuf"}
+)
+
+span_processor = BatchSpanProcessor(otlp_exporter)
+trace.get_tracer_provider().add_span_processor(span_processor)
+
+class WeatherAgent:
+    def __init__(self, name: str):
+        self.name = name
+        self.conversation_id = str(uuid.uuid4())
+        print(f"Agent created with conversation ID: {self.conversation_id}")
+
+    def start(self):
+        """Start the agent with tracing"""
+        with tracer.start_as_current_span("agent.start") as span:
+            span.set_attribute("agent.name", self.name)
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("agent.type", "weather-assistant")
+            span.set_attribute("agent.version", "1.0.0")
+
+            print(f"Agent {self.name} started")
+            time.sleep(0.5)  # Simulate initialization
+
+    def process_query(self, user_query: str):
+        """Process a user query with LLM and tool calls"""
+        # Simulate LLM call
+        with tracer.start_as_current_span("llm.call") as span:
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("llm.model", "gpt-4")
+            span.set_attribute("llm.prompt", user_query)
+
+            # Simulate processing time
+            time.sleep(1.2)
+
+            response = f"I'll help you check the weather. Let me use the weather tool."
+            span.set_attribute("llm.response", response)
+            span.set_attribute("llm.tokens.prompt", len(user_query.split()))
+            span.set_attribute("llm.tokens.completion", len(response.split()))
+            span.set_attribute("llm.tokens.total", len(user_query.split()) + len(response.split()))
+
+        # Simulate tool call
+        with tracer.start_as_current_span("tool.call") as span:
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("tool.name", "get_weather")
+            span.set_attribute("tool.params", '{"location": "New York", "units": "celsius"}')
+
+            time.sleep(0.8)  # Simulate API call
+
+            result = '{"temperature": 22, "condition": "sunny", "humidity": 60}'
+            span.set_attribute("tool.result", result)
+            span.set_attribute("tool.status", "success")
+
+        return "The weather in New York is 22°C and sunny with 60% humidity."
+
+    def stop(self):
+        """Stop the agent"""
+        with tracer.start_as_current_span("agent.stop") as span:
+            span.set_attribute("agent.name", self.name)
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("stop_reason", "completed")
+            span.set_attribute("runtime_seconds", 30)
+
+            print(f"Agent {self.name} stopped")
+
+if __name__ == "__main__":
+    # Create and run the agent
+    agent = WeatherAgent("weather-bot")
+
+    agent.start()
+    result = agent.process_query("What's the weather like in New York?")
+    print(f"Result: {result}")
+    agent.stop()
+
+    # Give time for traces to be sent
+    time.sleep(2)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run your agent:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">python tutorial_agent.py</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_monitor_events_in_real_time"><a class="anchor" href="#_step_3_monitor_events_in_real_time"></a>Step 3: Monitor Events in Real-Time</h3>
+<div class="paragraph">
+<p>Now let&#8217;s connect to the WebSocket stream to see the events:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">// monitor.html - Create this file and open in your browser
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Agent Monitor&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .event {
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 4px solid #007acc;
+            background: #f5f5f5;
+        }
+        .agent-start { border-left-color: #28a745; }
+        .llm-call { border-left-color: #007acc; }
+        .tool-output { border-left-color: #ffc107; }
+        .agent-stop { border-left-color: #dc3545; }
+        .timestamp { color: #666; font-size: 0.9em; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Agent Activity Monitor&lt;/h1&gt;
+    &lt;div id="events"&gt;&lt;/div&gt;
+
+    &lt;script&gt;
+        const ws = new WebSocket('ws://localhost:8000/ws');
+        const eventsDiv = document.getElementById('events');
+
+        ws.onopen = () =&gt; {
+            console.log('Connected to event stream');
+            addEvent({
+                event_type: 'system.info',
+                message: 'Connected to observability dashboard',
+                timestamp: new Date().toISOString()
+            });
+        };
+
+        ws.onmessage = (event) =&gt; {
+            const data = JSON.parse(event.data);
+            addEvent(data);
+        };
+
+        function addEvent(eventData) {
+            const eventDiv = document.createElement('div');
+            eventDiv.className = `event ${eventData.event_type.replace('.', '-')}`;
+
+            let content = `&lt;strong&gt;${eventData.event_type}&lt;/strong&gt;`;
+
+            if (eventData.agent_name) {
+                content += ` - ${eventData.agent_name}`;
+            }
+
+            if (eventData.event_type === 'llm.call') {
+                content += `&lt;br&gt;&lt;em&gt;${eventData.prompt.substring(0, 100)}...&lt;/em&gt;`;
+            }
+
+            if (eventData.event_type === 'tool.output') {
+                content += `&lt;br&gt;Tool: ${eventData.tool_name}`;
+            }
+
+            content += `&lt;div class="timestamp"&gt;${new Date(eventData.timestamp).toLocaleTimeString()}&lt;/div&gt;`;
+
+            eventDiv.innerHTML = content;
+            eventsDiv.insertBefore(eventDiv, eventsDiv.firstChild);
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open <code>monitor.html</code> in your browser, then run your agent again to see the events appear in real-time!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_4_conversation_specific_monitoring"><a class="anchor" href="#_step_4_conversation_specific_monitoring"></a>Step 4: Conversation-Specific Monitoring</h3>
+<div class="paragraph">
+<p>Let&#8217;s modify our monitoring to focus on a specific conversation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">// Replace the WebSocket connection in monitor.html with:
+const conversationId = prompt('Enter conversation ID from agent output:');
+const ws = new WebSocket(`ws://localhost:8000/ws/${conversationId}`);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run your agent again, copy the conversation ID from the output, and use it in the browser prompt to see only events from that specific conversation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_you_achieved"><a class="anchor" href="#_what_you_achieved"></a>What You Achieved</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Set up and ran the Observability Dashboard</p>
+</li>
+<li>
+<p>Created an instrumented agent that emits telemetry</p>
+</li>
+<li>
+<p>Connected to real-time event streams via WebSocket</p>
+</li>
+<li>
+<p>Filtered events by conversation ID</p>
+</li>
+<li>
+<p>Saw different event types: agent lifecycle, LLM calls, and tool outputs</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_next_steps_2"><a class="anchor" href="#_next_steps_2"></a>Next Steps</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Try the <a href="#_tutorial_2_multi_agent_monitoring">Multi-Agent Monitoring tutorial</a></p>
+</li>
+<li>
+<p>Learn about <a href="how-to-guides.html" class="xref page">specific integration patterns</a></p>
+</li>
+<li>
+<p>Explore the complete <a href="reference.html" class="xref page">API reference</a></p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_multi_agent_monitoring_observability_dashboard"><a class="anchor" href="#_multi_agent_monitoring_observability_dashboard"></a>Multi-Agent Monitoring (Observability Dashboard)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Learn how to monitor complex multi-agent systems with coordinated conversations.</p>
+</div>
+<div class="sect2">
+<h3 id="_what_youll_learn_5"><a class="anchor" href="#_what_youll_learn_5"></a>What You&#8217;ll Learn</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>How to instrument multiple cooperating agents</p>
+</li>
+<li>
+<p>How to track inter-agent communication</p>
+</li>
+<li>
+<p>How to monitor agent coordination patterns</p>
+</li>
+<li>
+<p>How to debug multi-agent conversations</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_prerequisites_3"><a class="anchor" href="#_prerequisites_3"></a>Prerequisites</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Completed Tutorial 1</p>
+</li>
+<li>
+<p>Understanding of multi-agent systems</p>
+</li>
+<li>
+<p>45 minutes of time</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_1_create_a_multi_agent_system"><a class="anchor" href="#_step_1_create_a_multi_agent_system"></a>Step 1: Create a Multi-Agent System</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># multi_agent_system.py
+import uuid
+import time
+import asyncio
+from typing import List
+from opentelemetry import trace
+
+# Use the same tracer setup from Tutorial 1
+
+class Coordinator:
+    def __init__(self):
+        self.name = "coordinator"
+        self.conversation_id = str(uuid.uuid4())
+        print(f"Conversation ID: {self.conversation_id}")
+
+    def delegate_task(self, task: str, agent_name: str):
+        """Delegate task to specific agent"""
+        with tracer.start_as_current_span("agent.message") as span:
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("agent.name", self.name)
+            span.set_attribute("message_type", "request")
+            span.set_attribute("target_agent", agent_name)
+            span.set_attribute("message_content", task)
+
+            print(f"Delegating to {agent_name}: {task}")
+
+class SpecializedAgent:
+    def __init__(self, name: str, specialty: str, conversation_id: str):
+        self.name = name
+        self.specialty = specialty
+        self.conversation_id = conversation_id
+
+    def start(self):
+        with tracer.start_as_current_span("agent.start") as span:
+            span.set_attribute("agent.name", self.name)
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("agent.type", self.specialty)
+        print(f"{self.name} agent ready ({self.specialty})")
+
+    def process_request(self, request: str):
+        """Process request using LLM and tools"""
+        # LLM reasoning
+        with tracer.start_as_current_span("llm.call") as span:
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("agent.name", self.name)
+            span.set_attribute("llm.model", "gpt-4")
+            span.set_attribute("llm.prompt", f"As a {self.specialty} specialist: {request}")
+
+            time.sleep(1.0)  # Simulate processing
+            response = f"Processing {request} using {self.specialty} expertise"
+            span.set_attribute("llm.response", response)
+
+        # Tool usage
+        with tracer.start_as_current_span("tool.call") as span:
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("agent.name", self.name)
+            span.set_attribute("tool.name", f"{self.specialty}_tool")
+            span.set_attribute("tool.params", f'{{"query": "{request}"}}')
+
+            time.sleep(0.7)
+            result = f"Completed {self.specialty} analysis"
+            span.set_attribute("tool.result", result)
+            span.set_attribute("tool.status", "success")
+
+        return result
+
+# Run the multi-agent system
+coordinator = Coordinator()
+conversation_id = coordinator.conversation_id
+
+# Create specialized agents
+weather_agent = SpecializedAgent("weather-expert", "meteorology", conversation_id)
+traffic_agent = SpecializedAgent("traffic-expert", "transportation", conversation_id)
+
+# Start agents
+weather_agent.start()
+traffic_agent.start()
+
+# Coordinate tasks
+coordinator.delegate_task("Check weather for road trip", "weather-expert")
+weather_result = weather_agent.process_request("Weather forecast for highway route")
+
+coordinator.delegate_task("Find optimal route", "traffic-expert")
+traffic_result = traffic_agent.process_request("Traffic analysis for route planning")
+
+print(f"Weather: {weather_result}")
+print(f"Traffic: {traffic_result}")
+
+time.sleep(2)  # Allow traces to be sent</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_enhanced_monitoring_dashboard"><a class="anchor" href="#_step_2_enhanced_monitoring_dashboard"></a>Step 2: Enhanced Monitoring Dashboard</h3>
+<div class="paragraph">
+<p>Create an improved monitoring interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Multi-Agent Monitor&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .controls { margin: 20px 0; }
+        .agent-section {
+            display: inline-block;
+            width: 48%;
+            margin: 1%;
+            vertical-align: top;
+        }
+        .event {
+            margin: 5px 0;
+            padding: 8px;
+            border-left: 4px solid #ccc;
+            background: #f9f9f9;
+            font-size: 0.9em;
+        }
+        .coordinator { border-left-color: #6f42c1; }
+        .weather-expert { border-left-color: #007acc; }
+        .traffic-expert { border-left-color: #28a745; }
+        .timestamp { color: #666; font-size: 0.8em; }
+        .conversation-id {
+            background: #e9ecef;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Multi-Agent System Monitor&lt;/h1&gt;
+
+    &lt;div class="controls"&gt;
+        &lt;input type="text" id="conversationId" placeholder="Enter Conversation ID" style="width: 300px;"&gt;
+        &lt;button onclick="connect()"&gt;Connect to Conversation&lt;/button&gt;
+        &lt;button onclick="connectGlobal()"&gt;Global Stream&lt;/button&gt;
+        &lt;button onclick="clearEvents()"&gt;Clear&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div id="connectionStatus"&gt;&lt;/div&gt;
+    &lt;div id="conversationInfo" class="conversation-id" style="display: none;"&gt;&lt;/div&gt;
+
+    &lt;div id="agentColumns"&gt;
+        &lt;div class="agent-section"&gt;
+            &lt;h3&gt;Coordinator Events&lt;/h3&gt;
+            &lt;div id="coordinator-events"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="agent-section"&gt;
+            &lt;h3&gt;Specialist Agents&lt;/h3&gt;
+            &lt;div id="specialist-events"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="agent-section" style="width: 98%;"&gt;
+        &lt;h3&gt;All Events (Chronological)&lt;/h3&gt;
+        &lt;div id="all-events"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        let ws = null;
+        let currentConversation = null;
+
+        function connect() {
+            const conversationId = document.getElementById('conversationId').value;
+            if (!conversationId) {
+                alert('Please enter a conversation ID');
+                return;
+            }
+
+            if (ws) ws.close();
+
+            ws = new WebSocket(`ws://localhost:8000/ws/${conversationId}`);
+            currentConversation = conversationId;
+            setupWebSocket();
+        }
+
+        function connectGlobal() {
+            if (ws) ws.close();
+
+            ws = new WebSocket('ws://localhost:8000/ws');
+            currentConversation = null;
+            setupWebSocket();
+        }
+
+        function setupWebSocket() {
+            const status = document.getElementById('connectionStatus');
+            const info = document.getElementById('conversationInfo');
+
+            ws.onopen = () =&gt; {
+                const connectionType = currentConversation ?
+                    `conversation-specific (${currentConversation})` : 'global';
+                status.innerHTML = `&lt;span style="color: green;"&gt;Connected to ${connectionType} stream&lt;/span&gt;`;
+
+                if (currentConversation) {
+                    info.textContent = `Monitoring conversation: ${currentConversation}`;
+                    info.style.display = 'block';
+                } else {
+                    info.style.display = 'none';
+                }
+            };
+
+            ws.onmessage = (event) =&gt; {
+                const data = JSON.parse(event.data);
+                addEvent(data);
+            };
+
+            ws.onclose = () =&gt; {
+                status.innerHTML = '&lt;span style="color: red;"&gt;Disconnected&lt;/span&gt;';
+            };
+        }
+
+        function addEvent(eventData) {
+            const agentName = eventData.agent_name || 'unknown';
+            const timestamp = new Date(eventData.timestamp).toLocaleTimeString();
+
+            const eventDiv = document.createElement('div');
+            eventDiv.className = `event ${agentName}`;
+
+            let content = `&lt;strong&gt;${eventData.event_type}&lt;/strong&gt; - ${agentName}`;
+
+            if (eventData.event_type === 'agent.message') {
+                content += `&lt;br&gt;→ ${eventData.target_agent}: ${eventData.message_content}`;
+            } else if (eventData.event_type === 'llm.call') {
+                content += `&lt;br&gt;💭 ${eventData.prompt?.substring(0, 50)}...`;
+            } else if (eventData.event_type === 'tool.output') {
+                content += `&lt;br&gt;🔧 ${eventData.tool_name}: ${eventData.tool_status}`;
+            }
+
+            content += `&lt;div class="timestamp"&gt;${timestamp}&lt;/div&gt;`;
+            eventDiv.innerHTML = content;
+
+            // Add to appropriate sections
+            const allEvents = document.getElementById('all-events');
+            allEvents.insertBefore(eventDiv.cloneNode(true), allEvents.firstChild);
+
+            if (agentName === 'coordinator') {
+                const coordinatorEvents = document.getElementById('coordinator-events');
+                coordinatorEvents.insertBefore(eventDiv, coordinatorEvents.firstChild);
+            } else {
+                const specialistEvents = document.getElementById('specialist-events');
+                specialistEvents.insertBefore(eventDiv, specialistEvents.firstChild);
+            }
+        }
+
+        function clearEvents() {
+            document.getElementById('all-events').innerHTML = '';
+            document.getElementById('coordinator-events').innerHTML = '';
+            document.getElementById('specialist-events').innerHTML = '';
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_run_and_monitor"><a class="anchor" href="#_step_3_run_and_monitor"></a>Step 3: Run and Monitor</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the multi-agent monitor in your browser</p>
+</li>
+<li>
+<p>Run your multi-agent system: <code>python multi_agent_system.py</code></p>
+</li>
+<li>
+<p>Copy the conversation ID and paste it into the monitor</p>
+</li>
+<li>
+<p>Click "Connect to Conversation" to see the coordinated activity</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_you_achieved_2"><a class="anchor" href="#_what_you_achieved_2"></a>What You Achieved</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Monitored a multi-agent system with coordination</p>
+</li>
+<li>
+<p>Tracked inter-agent communication messages</p>
+</li>
+<li>
+<p>Visualized agent specialization and task delegation</p>
+</li>
+<li>
+<p>Created an organized dashboard for complex systems</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_debugging_agent_failures_observability_dashboard"><a class="anchor" href="#_debugging_agent_failures_observability_dashboard"></a>Debugging Agent Failures (Observability Dashboard)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Learn how to use the observability dashboard to debug common agent failures.</p>
+</div>
+<div class="sect2">
+<h3 id="_what_youll_learn_6"><a class="anchor" href="#_what_youll_learn_6"></a>What You&#8217;ll Learn</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>How to trace errors through multi-step processes</p>
+</li>
+<li>
+<p>How to identify performance bottlenecks</p>
+</li>
+<li>
+<p>How to monitor token usage and costs</p>
+</li>
+<li>
+<p>How to debug conversation flow issues</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_prerequisites_4"><a class="anchor" href="#_prerequisites_4"></a>Prerequisites</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Completed previous tutorials</p>
+</li>
+<li>
+<p>Basic debugging knowledge</p>
+</li>
+<li>
+<p>30 minutes of time</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_1_create_an_agent_with_intentional_issues"><a class="anchor" href="#_step_1_create_an_agent_with_intentional_issues"></a>Step 1: Create an Agent with Intentional Issues</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># debugging_agent.py
+import uuid
+import time
+import random
+from opentelemetry import trace
+from opentelemetry.trace import Status, StatusCode
+
+# Use the same tracer setup from previous tutorials
+
+class ProblematicAgent:
+    def __init__(self, name: str):
+        self.name = name
+        self.conversation_id = str(uuid.uuid4())
+        print(f"Debugging session: {self.conversation_id}")
+
+    def start(self):
+        with tracer.start_as_current_span("agent.start") as span:
+            span.set_attribute("agent.name", self.name)
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("agent.type", "debug-example")
+        print(f"Started {self.name}")
+
+    def unreliable_llm_call(self, prompt: str):
+        """LLM call that sometimes fails"""
+        with tracer.start_as_current_span("llm.call") as span:
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("agent.name", self.name)
+            span.set_attribute("llm.model", "gpt-4")
+            span.set_attribute("llm.prompt", prompt)
+
+            # Simulate random failures
+            if random.random() &lt; 0.3:  # 30% failure rate
+                span.record_exception(Exception("Rate limit exceeded"))
+                span.set_status(Status(StatusCode.ERROR, "LLM request failed"))
+
+                # Generate error event
+                with tracer.start_as_current_span("error") as error_span:
+                    error_span.set_attribute("conversation.id", self.conversation_id)
+                    error_span.set_attribute("agent.name", self.name)
+                    error_span.set_attribute("error_type", "RateLimitError")
+                    error_span.set_attribute("error_message", "Rate limit exceeded")
+                    error_span.set_attribute("error_code", "RATE_LIMIT_EXCEEDED")
+
+                raise Exception("Rate limit exceeded")
+
+            # Simulate slow responses
+            delay = random.uniform(0.5, 3.0)
+            time.sleep(delay)
+
+            response = f"Processed: {prompt[:30]}... (took {delay:.1f}s)"
+            token_count = len(prompt.split()) + len(response.split())
+
+            span.set_attribute("llm.response", response)
+            span.set_attribute("llm.tokens.prompt", len(prompt.split()))
+            span.set_attribute("llm.tokens.completion", len(response.split()))
+            span.set_attribute("llm.tokens.total", token_count)
+            span.set_attribute("llm.response_time_ms", int(delay * 1000))
+
+            return response
+
+    def memory_intensive_tool(self, data_size: str):
+        """Tool that uses varying amounts of resources"""
+        with tracer.start_as_current_span("tool.call") as span:
+            span.set_attribute("conversation.id", self.conversation_id)
+            span.set_attribute("agent.name", self.name)
+            span.set_attribute("tool.name", "data_processor")
+            span.set_attribute("tool.params", f'{{"data_size": "{data_size}"}}')
+
+            # Simulate processing time based on data size
+            size_map = {"small": 0.2, "medium": 1.5, "large": 4.0, "huge": 8.0}
+            processing_time = size_map.get(data_size, 1.0)
+
+            time.sleep(processing_time)
+
+            if data_size == "huge" and random.random() &lt; 0.5:
+                # Simulate timeout for huge data
+                span.set_status(Status(StatusCode.ERROR, "Processing timeout"))
+
+                with tracer.start_as_current_span("error") as error_span:
+                    error_span.set_attribute("conversation.id", self.conversation_id)
+                    error_span.set_attribute("agent.name", self.name)
+                    error_span.set_attribute("error_type", "TimeoutError")
+                    error_span.set_attribute("error_message", f"Tool timeout after {processing_time}s")
+                    error_span.set_attribute("error_code", "TOOL_TIMEOUT")
+
+                raise Exception(f"Tool timeout after {processing_time}s")
+
+            result = f"Processed {data_size} dataset in {processing_time:.1f}s"
+            span.set_attribute("tool.result", result)
+            span.set_attribute("tool.status", "success")
+            span.set_attribute("tool.execution_time_ms", int(processing_time * 1000))
+
+            return result
+
+# Run problematic scenarios
+agent = ProblematicAgent("debug-agent")
+agent.start()
+
+test_cases = [
+    ("What is machine learning?", "small"),
+    ("Explain quantum computing in detail with examples and applications", "medium"),
+    ("Analyze this massive dataset with complex algorithms", "large"),
+    ("Process enterprise-wide data analytics", "huge"),
+]
+
+for prompt, data_size in test_cases:
+    try:
+        print(f"\nTesting: {prompt[:30]}... with {data_size} data")
+
+        # Try LLM call
+        try:
+            response = agent.unreliable_llm_call(prompt)
+            print(f"LLM Response: {response}")
+        except Exception as e:
+            print(f"LLM Error: {e}")
+            continue  # Skip tool call if LLM fails
+
+        # Try tool call
+        try:
+            result = agent.memory_intensive_tool(data_size)
+            print(f"Tool Result: {result}")
+        except Exception as e:
+            print(f"Tool Error: {e}")
+
+        time.sleep(0.5)  # Brief pause between tests
+
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+print(f"\nDebugging session complete. Use conversation ID: {agent.conversation_id}")
+time.sleep(2)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_debug_dashboard"><a class="anchor" href="#_step_2_debug_dashboard"></a>Step 2: Debug Dashboard</h3>
+<div class="paragraph">
+<p>Create a specialized debugging interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Agent Debugging Dashboard&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f8f9fa; }
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .panel { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 15px 0; }
+        .metric { background: #e9ecef; padding: 10px; border-radius: 4px; text-align: center; }
+        .metric-value { font-size: 1.5em; font-weight: bold; color: #007acc; }
+        .event { margin: 5px 0; padding: 8px; border-left: 4px solid #ccc; font-size: 0.9em; }
+        .error { border-left-color: #dc3545; background: #f8d7da; }
+        .warning { border-left-color: #ffc107; background: #fff3cd; }
+        .success { border-left-color: #28a745; background: #d1e7dd; }
+        .slow { border-left-color: #fd7e14; background: #ffe5d0; }
+        .controls { margin: 20px 0; }
+        input[type="text"] { padding: 8px; width: 250px; margin-right: 10px; }
+        button { padding: 8px 16px; margin-right: 10px; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;🔍 Agent Debugging Dashboard&lt;/h1&gt;
+
+    &lt;div class="controls"&gt;
+        &lt;input type="text" id="conversationId" placeholder="Enter Conversation ID"&gt;
+        &lt;button onclick="connect()"&gt;Start Debugging&lt;/button&gt;
+        &lt;button onclick="clearAll()"&gt;Clear All&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class="metrics" id="metrics"&gt;
+        &lt;div class="metric"&gt;
+            &lt;div class="metric-value" id="totalEvents"&gt;0&lt;/div&gt;
+            &lt;div&gt;Total Events&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="metric"&gt;
+            &lt;div class="metric-value" id="errorCount"&gt;0&lt;/div&gt;
+            &lt;div&gt;Errors&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="metric"&gt;
+            &lt;div class="metric-value" id="avgLatency"&gt;-&lt;/div&gt;
+            &lt;div&gt;Avg Latency (ms)&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="metric"&gt;
+            &lt;div class="metric-value" id="totalTokens"&gt;0&lt;/div&gt;
+            &lt;div&gt;Total Tokens&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="dashboard"&gt;
+        &lt;div class="panel"&gt;
+            &lt;h3&gt;🚨 Errors &amp; Issues&lt;/h3&gt;
+            &lt;div id="errors"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="panel"&gt;
+            &lt;h3&gt;⚡ Performance Issues&lt;/h3&gt;
+            &lt;div id="performance"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="panel"&gt;
+            &lt;h3&gt;💰 Token Usage&lt;/h3&gt;
+            &lt;div id="tokens"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="panel"&gt;
+            &lt;h3&gt;📊 All Events&lt;/h3&gt;
+            &lt;div id="allEvents" style="max-height: 400px; overflow-y: auto;"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        let ws = null;
+        let metrics = {
+            totalEvents: 0,
+            errorCount: 0,
+            totalTokens: 0,
+            responseTimes: []
+        };
+
+        function connect() {
+            const conversationId = document.getElementById('conversationId').value;
+            if (!conversationId) {
+                alert('Please enter a conversation ID');
+                return;
+            }
+
+            if (ws) ws.close();
+
+            ws = new WebSocket(`ws://localhost:8000/ws/${conversationId}`);
+
+            ws.onopen = () =&gt; {
+                console.log('Connected to debugging session');
+            };
+
+            ws.onmessage = (event) =&gt; {
+                const data = JSON.parse(event.data);
+                processEvent(data);
+            };
+        }
+
+        function processEvent(eventData) {
+            metrics.totalEvents++;
+
+            const timestamp = new Date(eventData.timestamp).toLocaleTimeString();
+            const eventDiv = document.createElement('div');
+
+            // Categorize and process different event types
+            if (eventData.event_type === 'error') {
+                metrics.errorCount++;
+                eventDiv.className = 'event error';
+                eventDiv.innerHTML = `
+                    &lt;strong&gt;ERROR&lt;/strong&gt; - ${eventData.error_type}&lt;br&gt;
+                    ${eventData.error_message}&lt;br&gt;
+                    &lt;small&gt;${timestamp}&lt;/small&gt;
+                `;
+
+                document.getElementById('errors').insertBefore(eventDiv.cloneNode(true),
+                    document.getElementById('errors').firstChild);
+            }
+            else if (eventData.event_type === 'llm.call') {
+                const responseTime = eventData.metadata?.response_time_ms;
+                if (responseTime) {
+                    metrics.responseTimes.push(responseTime);
+                }
+
+                const tokens = eventData.tokens?.total || 0;
+                metrics.totalTokens += tokens;
+
+                eventDiv.className = responseTime &gt; 2000 ? 'event slow' : 'event success';
+                eventDiv.innerHTML = `
+                    &lt;strong&gt;LLM CALL&lt;/strong&gt; - ${eventData.llm_model}&lt;br&gt;
+                    Tokens: ${tokens}, Time: ${responseTime}ms&lt;br&gt;
+                    &lt;small&gt;${timestamp}&lt;/small&gt;
+                `;
+
+                if (responseTime &gt; 2000) {
+                    document.getElementById('performance').insertBefore(eventDiv.cloneNode(true),
+                        document.getElementById('performance').firstChild);
+                }
+
+                // Token usage tracking
+                const tokenDiv = document.createElement('div');
+                tokenDiv.className = 'event';
+                tokenDiv.innerHTML = `${tokens} tokens - ${eventData.prompt?.substring(0, 50)}... &lt;small&gt;${timestamp}&lt;/small&gt;`;
+                document.getElementById('tokens').insertBefore(tokenDiv,
+                    document.getElementById('tokens').firstChild);
+            }
+            else if (eventData.event_type === 'tool.output') {
+                const execTime = eventData.metadata?.execution_time_ms;
+                if (execTime &amp;&amp; execTime &gt; 3000) {
+                    eventDiv.className = 'event warning';
+                    eventDiv.innerHTML = `
+                        &lt;strong&gt;SLOW TOOL&lt;/strong&gt; - ${eventData.tool_name}&lt;br&gt;
+                        Execution time: ${execTime}ms&lt;br&gt;
+                        &lt;small&gt;${timestamp}&lt;/small&gt;
+                    `;
+                    document.getElementById('performance').insertBefore(eventDiv.cloneNode(true),
+                        document.getElementById('performance').firstChild);
+                }
+
+                eventDiv.className = 'event success';
+                eventDiv.innerHTML = `&lt;strong&gt;TOOL&lt;/strong&gt; - ${eventData.tool_name} (${eventData.tool_status}) &lt;small&gt;${timestamp}&lt;/small&gt;`;
+            }
+            else {
+                eventDiv.className = 'event';
+                eventDiv.innerHTML = `&lt;strong&gt;${eventData.event_type.toUpperCase()}&lt;/strong&gt; - ${eventData.agent_name} &lt;small&gt;${timestamp}&lt;/small&gt;`;
+            }
+
+            // Add to all events
+            document.getElementById('allEvents').insertBefore(eventDiv,
+                document.getElementById('allEvents').firstChild);
+
+            updateMetrics();
+        }
+
+        function updateMetrics() {
+            document.getElementById('totalEvents').textContent = metrics.totalEvents;
+            document.getElementById('errorCount').textContent = metrics.errorCount;
+            document.getElementById('totalTokens').textContent = metrics.totalTokens;
+
+            if (metrics.responseTimes.length &gt; 0) {
+                const avgLatency = Math.round(
+                    metrics.responseTimes.reduce((a, b) =&gt; a + b, 0) / metrics.responseTimes.length
+                );
+                document.getElementById('avgLatency').textContent = avgLatency;
+            }
+        }
+
+        function clearAll() {
+            document.getElementById('errors').innerHTML = '';
+            document.getElementById('performance').innerHTML = '';
+            document.getElementById('tokens').innerHTML = '';
+            document.getElementById('allEvents').innerHTML = '';
+
+            metrics = {
+                totalEvents: 0,
+                errorCount: 0,
+                totalTokens: 0,
+                responseTimes: []
+            };
+            updateMetrics();
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_debug_your_agent"><a class="anchor" href="#_step_3_debug_your_agent"></a>Step 3: Debug Your Agent</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the problematic agent: <code>python debugging_agent.py</code></p>
+</li>
+<li>
+<p>Copy the conversation ID from the output</p>
+</li>
+<li>
+<p>Open the debugging dashboard and connect to the conversation</p>
+</li>
+<li>
+<p>Observe the different types of issues:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Rate limit errors from the LLM</p>
+</li>
+<li>
+<p>Slow response times</p>
+</li>
+<li>
+<p>Tool timeouts</p>
+</li>
+<li>
+<p>Token usage patterns</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_you_learned"><a class="anchor" href="#_what_you_learned"></a>What You Learned</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>How to identify and categorize different types of failures</p>
+</li>
+<li>
+<p>Performance monitoring and latency tracking</p>
+</li>
+<li>
+<p>Token usage monitoring for cost control</p>
+</li>
+<li>
+<p>Creating specialized debugging interfaces</p>
+</li>
+<li>
+<p>Understanding error propagation in agent systems</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_debugging_tips"><a class="anchor" href="#_debugging_tips"></a>Debugging Tips</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Error Patterns</strong>: Look for repeated error types that might indicate configuration issues</p>
+</li>
+<li>
+<p><strong>Performance</strong>: Monitor response times to identify bottlenecks</p>
+</li>
+<li>
+<p><strong>Token Usage</strong>: Track token consumption to control costs</p>
+</li>
+<li>
+<p><strong>Conversation Flow</strong>: Use conversation filtering to trace issues through multi-step processes</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_next_steps_3"><a class="anchor" href="#_next_steps_3"></a>Next Steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that you&#8217;ve completed the tutorials, you&#8217;re ready to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Integrate monitoring into your production agents</p>
+</li>
+<li>
+<p>Explore <a href="how-to-guides.html" class="xref page">specific implementation patterns</a></p>
+</li>
+<li>
+<p>Learn about advanced features in the <a href="reference.html" class="xref page">API reference</a></p>
+</li>
+<li>
+<p>Understand the system architecture in <a href="explanation.html" class="xref page">explanations</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
