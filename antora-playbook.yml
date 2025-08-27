@@ -24,7 +24,7 @@ content:
       start_path: docs
     # Observability dashboard documentation
     - url: https://github.com/agentic-layer/observability-dashboard.git
-      branches: [ 'feature/*' ] #ToDo change to main
+      branches: [main]
       start_path: docs
 
 ui:
