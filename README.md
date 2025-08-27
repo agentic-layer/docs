@@ -22,9 +22,6 @@ A documentation site generator configuration that aggregates and publishes docum
 |-----------|---------------|
 | Node.js | >= 18.x |
 | npm | Comes with Node.js |
-| Antora | Latest stable version |
-| Git | For accessing remote documentation sources |
-| Internet connection | For fetching documentation from GitHub repositories |
 
 ## Getting Started
 
@@ -131,5 +128,5 @@ To add a new GitHub repository as a documentation source to the antora-playbook:
 
 - Follow the existing Antora playbook configuration patterns
 - Test documentation builds locally before pushing changes
-- Ensure all referenced Git repositories and branches are accessible
+- Ensure all referenced Git repositories and branches are accessible; i.e. verfy repository access and that branches exist
 - Update branch references from `feature/*` to `main` when components are production-ready
