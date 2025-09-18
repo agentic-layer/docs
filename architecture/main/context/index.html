@@ -106,33 +106,9 @@
 </aside>
 <article class="doc">
 <h1 class="page">System Scope and Context</h1>
-<div class="literalblock">
+<div class="imageblock kroki">
 <div class="content">
-<pre>@startuml
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
-
-title System Context Diagram for Agentic Layer
-
-Boundary(ec, "Agentic Layer Platform Boundary") {
-    Person_Ext(users, "Users", "End users")
-    System_Ext(frontends, "External Frontends", "Web/mobile/other UI interacting with users")
-    System_Ext(extAgents, "External Agents", "Agents running outside the platform")
-    System(agentic, "Agentic Layer", "Orchestrates AI interactions and external integrations")
-    System_Ext(llm, "LLM Provider", "External Large Language Model Providers (e.g., OpenAI, Gemini)")
-    System_Ext(obs, "Observability Stack", "Monitoring &amp; logging")
-    System_Ext(audit, "Audit Trail", "Stores audit records")
-
-    Rel(users, frontends, "Uses")
-    Rel(users, extAgents, "Uses")
-    Rel(frontends, agentic, "Connects to")
-    Rel(extAgents, agentic, "Connects to")
-    Rel(agentic, llm, "Sends prompt/receives result")
-    Rel_Down(agentic, obs, "Sends telemetry")
-    Rel_Down(agentic, audit, "Sends audit events")
-}
-
-LAYOUT_WITH_LEGEND()
-@enduml</pre>
+<img src="_images/system-context-7e809ea0ca42621100949220825d30e5fdc08786.svg" alt="system-context">
 </div>
 </div>
 </article>
