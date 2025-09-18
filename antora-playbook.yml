@@ -37,6 +37,8 @@ ui:
 asciidoc:
   extensions:
     - asciidoctor-kroki
+  attributes:
+    kroki-fetch-diagram: true
 
 output:
   dir: build/site  # Generated site output directory
