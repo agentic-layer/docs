@@ -119,9 +119,25 @@
 <div class="sect1">
 <h2 id="_agent_runtime_view"><a class="anchor" href="#_agent_runtime_view"></a>Agent Runtime View</h2>
 <div class="sectionbody">
-<div class="imageblock kroki">
+<div class="literalblock kroki-error">
 <div class="content">
-<img src="_images/agent-runtime-view-ad1a210278aa173a7c82a954b46f3a776e27378e.svg" alt="agent-runtime-view">
+<pre>@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+left to right direction
+
+Container_Boundary(k8sCluster, "Kubernetes Cluster") {
+    Container(agentOperator, "Agent Runtime Operator", "K8s Operator", "Manages agent gateway lifecycle")
+    Container(agentGateway, "Agent Gateway", "API Gateway", "Routes requests to appropriate agents, maps APIs")
+    Container(agents, "AI Agents", "Agent Runtime", "Business logic and AI orchestration")
+}
+
+' Management relationships
+Rel(agentOperator, agentGateway, "Registers agents", "K8s API")
+Rel(agentOperator, agents, "Configure agents", "K8s API")
+Rel(agentGateway, agents, "Routes to agent", "Internal")
+
+LAYOUT_WITH_LEGEND()
+@enduml</pre>
 </div>
 </div>
 </div>
