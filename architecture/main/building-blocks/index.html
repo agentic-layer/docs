@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: Agentic Layer Documentation</title>
+    <title>Building Block View :: Agentic Layer Documentation</title>
     <link rel="canonical" href="https://agentic-layer.github.io/antora-playbook/architecture/main/building-blocks/index.html">
     <meta name="generator" content="Antora 3.1.12">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -105,7 +105,100 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
+<h1 class="page">Building Block View</h1>
+<div class="sect1">
+<h2 id="_request_flow"><a class="anchor" href="#_request_flow"></a>Request Flow</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+left to right direction
 
+System_Ext(extFrontends, "External Frontends", "User interfaces")
+System_Ext(extAgents, "External Agents", "Third-party AI agents")
+
+Container_Boundary(k8sCluster, "Kubernetes Cluster") {
+    Container(agentGateway, "Agent Gateway", "API Gateway", "Routes requests to appropriate agents")
+    Container(agents, "AI Agents", "Agent Runtime", "Business logic and AI orchestration")
+    Container(aiGateway, "AI Gateway", "LLM Proxy", "Manages LLM provider interactions")
+}
+
+System_Ext(llmProviders, "LLM Providers", "External AI services")
+
+' Request flow
+Rel(extFrontends, agentGateway, "Sends requests", "HTTPS/API")
+Rel(extAgents, agentGateway, "Agent requests", "HTTPS/API")
+Rel(agentGateway, agents, "Routes to agent", "Internal")
+Rel(agents, aiGateway, "LLM requests", "Internal")
+Rel(aiGateway, llmProviders, "API calls", "HTTPS")
+
+LAYOUT_WITH_LEGEND()
+@enduml</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent_runtime_view"><a class="anchor" href="#_agent_runtime_view"></a>Agent Runtime View</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+left to right direction
+
+Container_Boundary(k8sCluster, "Kubernetes Cluster") {
+    Container(agentOperator, "Agent Runtime Operator", "K8s Operator", "Manages agent gateway lifecycle")
+    Container(agentGateway, "Agent Gateway", "API Gateway", "Routes requests to appropriate agents, maps APIs")
+    Container(agents, "AI Agents", "Agent Runtime", "Business logic and AI orchestration")
+}
+
+' Management relationships
+Rel(agentOperator, agentGateway, "Registers agents", "K8s API")
+Rel(agentOperator, agents, "Configure agents", "K8s API")
+Rel(agentGateway, agents, "Routes to agent", "Internal")
+
+LAYOUT_WITH_LEGEND()
+@enduml</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ai_gateway_view"><a class="anchor" href="#_ai_gateway_view"></a>AI Gateway View</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+left to right direction
+
+Container(agents, "AI Agents", "Agent Runtime", "Business logic and AI orchestration")
+
+Container_Boundary(aiGateway, "AI Gateway") {
+    Component(modelRouter, "Model Router", "Router", "Routes requests to appropriate LLM providers")
+    Component(guardrails, "Guardrails", "Security Layer", "Content filtering and safety checks")
+    Component(metrics, "Metrics", "Telemetry", "Collects and exports usage metrics")
+    Component(tokenMgmt, "Access Token Management", "Auth", "Manages API keys and authentication")
+}
+
+System_Ext(llmProviders, "LLM Providers", "External AI services")
+
+' AI Gateway flow
+Rel(agents, aiGateway, "LLM requests", "HTTPS/API")
+Rel(aiGateway, tokenMgmt, "Authenticates request", "Internal")
+Rel(tokenMgmt, guardrails, "Authenticated request", "Internal")
+Rel(guardrails, metrics, "Validated request", "Internal")
+Rel(metrics, modelRouter, "Tracked request", "Internal")
+Rel(modelRouter, llmProviders, "API calls", "HTTPS")
+
+LAYOUT_WITH_LEGEND()
+@enduml</pre>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
