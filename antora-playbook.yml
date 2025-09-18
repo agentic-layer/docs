@@ -14,7 +14,7 @@ content:
     - url: https://github.com/agentic-layer/documentation.git
       branches: [main]
       start_path: home/docs
-    # Architecture documentation component  
+    # Architecture documentation component
     - url: https://github.com/agentic-layer/documentation.git
       branches: [main]
       start_path: architecture/docs
@@ -33,6 +33,10 @@ ui:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true  # Use latest snapshot build
   supplemental_files: ./supplemental-ui # Custom UI overrides and additions
+
+asciidoc:
+  extensions:
+    - asciidoctor-kroki
 
 output:
   dir: build/site  # Generated site output directory
