@@ -39,46 +39,16 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../index.html">Architecture Documentation</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../introduction/index.html">1. Introduction and Goals</a>
+    <a class="nav-link" href="../introduction/index.html">Introduction and Goals</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../constraints/index.html">2. Architecture Constraints</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../context/index.html">System Scope and Context</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../context/index.html">3. System Scope and Context</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">Building Block View</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../solution-strategy/index.html">4. Solution Strategy</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="index.html">5. Building Block View</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../runtime/index.html">6. Runtime View</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../deployment/index.html">7. Deployment View</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../crosscutting/index.html">8. Cross-cutting Concepts</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../decisions/index.html">9. Architecture Decisions</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../quality/index.html">10. Quality Requirements</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../risks/index.html">11. Risks and Technical Debts</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../glossary/index.html">12. Glossary</a>
-  </li>
-</ul>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../glossary/index.html">Glossary</a>
   </li>
 </ul>
   </li>
@@ -95,8 +65,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Agentic Layer Architecture</a></li>
-    <li><a href="../index.html">Architecture Documentation</a></li>
-    <li><a href="index.html">5. Building Block View</a></li>
+    <li><a href="index.html">Building Block View</a></li>
   </ul>
 </nav>
 </div>
@@ -107,31 +76,226 @@
 <article class="doc">
 <h1 class="page">Building Block View</h1>
 <div class="sect1">
-<h2 id="_request_flow"><a class="anchor" href="#_request_flow"></a>Request Flow</h2>
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
-<div class="imageblock kroki">
-<div class="content">
-<img src="_images/core-request-flow-d97846d43c84b9f6a6476e0a9b9f6c13d799a45a.svg" alt="core-request-flow">
+<div class="paragraph">
+<p>The Agentic Layer architecture currently consists of three building blocks that work together to provide AI orchestration capabilities:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Agent Runtime</strong>: The execution environment for AI agents, including the Agent Gateway for request routing and the Agent Runtime Operator for lifecycle management</p>
+</li>
+<li>
+<p><strong>AI Gateway</strong>: The abstraction layer for LLM provider interactions, providing unified access, security, and intelligent routing</p>
+</li>
+<li>
+<p><strong>Observability Dashboard</strong>: A simple dashboards that visualizes the interaction between agents and tools in real time</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_agent_runtime_view"><a class="anchor" href="#_agent_runtime_view"></a>Agent Runtime View</h2>
+<h2 id="_overall_request_flow"><a class="anchor" href="#_overall_request_flow"></a>Overall Request Flow</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The following diagram shows how these building blocks interact during typical request processing:</p>
+</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="_images/core-request-flow-27e007f2a2230504a799024476ca20866243b4be.svg" alt="core-request-flow">
+</div>
+</div>
+<div class="paragraph">
+<p>This flow demonstrates the request processing pipeline:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>External systems</strong> (Frontends and Agents) send requests via HTTPS/API</p>
+</li>
+<li>
+<p><strong>Agent Gateway</strong> receives and routes requests to appropriate agents</p>
+</li>
+<li>
+<p><strong>AI Agents</strong> process business logic and make LLM requests</p>
+</li>
+<li>
+<p><strong>AI Gateway</strong> handles LLM provider interactions with security and routing</p>
+</li>
+<li>
+<p><strong>Observability Dashboard</strong> collects telemetry and provides real-time visualization</p>
+</li>
+<li>
+<p><strong>LLM Providers</strong> process AI requests and return results</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent_runtime"><a class="anchor" href="#_agent_runtime"></a>Agent Runtime</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Agent Runtime building block provides the execution environment and management infrastructure for AI agents within the Kubernetes cluster.</p>
+</div>
+<div class="sect2">
+<h3 id="_components"><a class="anchor" href="#_components"></a>Components</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Agent Runtime Operator</strong>: Kubernetes operator that manages agent lifecycles, configurations, and deployments</p>
+</li>
+<li>
+<p><strong>Agent Gateway</strong>: API gateway that routes incoming requests to agents and maps external APIs to internal agent interfaces</p>
+</li>
+<li>
+<p><strong>AI Agents</strong>: Individual agent instances that execute business logic and orchestrate AI operations</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_agent_runtime_architecture"><a class="anchor" href="#_agent_runtime_architecture"></a>Agent Runtime Architecture</h3>
 <div class="imageblock kroki">
 <div class="content">
 <img src="_images/agent-runtime-view-ad1a210278aa173a7c82a954b46f3a776e27378e.svg" alt="agent-runtime-view">
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_agent_runtime_responsibilities"><a class="anchor" href="#_agent_runtime_responsibilities"></a>Agent Runtime Responsibilities</h3>
+<div class="paragraph">
+<p><strong>Agent Runtime Operator</strong> serves as the control plane for agent management:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Registers and configures agents with the Agent Gateway</p>
+</li>
+<li>
+<p>Manages agent lifecycles, scaling, and resource allocation</p>
+</li>
+<li>
+<p>Provides Kubernetes-native deployment and operational patterns</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Agent Gateway</strong> acts as the request entry point:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Routes requests to appropriate agents based on capabilities and load</p>
+</li>
+<li>
+<p>Maps external APIs to internal agent interfaces</p>
+</li>
+<li>
+<p>Provides load balancing and health checking for agent instances</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>AI Agents</strong> execute the core business logic:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Process domain-specific workflows and business rules</p>
+</li>
+<li>
+<p>Orchestrate interactions with external systems and services</p>
+</li>
+<li>
+<p>Make intelligent decisions about when and how to use LLM capabilities</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div class="sect1">
-<h2 id="_ai_gateway_view"><a class="anchor" href="#_ai_gateway_view"></a>AI Gateway View</h2>
+<h2 id="_ai_gateway"><a class="anchor" href="#_ai_gateway"></a>AI Gateway</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The AI Gateway building block abstracts interactions with multiple LLM providers, providing a unified interface with built-in security, monitoring, and intelligent routing capabilities.</p>
+</div>
+<div class="sect2">
+<h3 id="_ai_gateway_architecture"><a class="anchor" href="#_ai_gateway_architecture"></a>AI Gateway Architecture</h3>
 <div class="imageblock kroki">
 <div class="content">
 <img src="_images/ai-gateway-view-b6ff8de0a7121c9383ac559340b99b4358999801.svg" alt="ai-gateway-view">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ai_gateway_components_and_flow"><a class="anchor" href="#_ai_gateway_components_and_flow"></a>AI Gateway Components and Flow</h3>
+<div class="paragraph">
+<p>The AI Gateway processes requests through a secure, monitored pipeline:</p>
+</div>
+<div class="paragraph">
+<p><strong>Access Token Management</strong> handles authentication:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Manages API keys and authentication tokens for different LLM providers</p>
+</li>
+<li>
+<p>Provides secure credential storage and rotation capabilities</p>
+</li>
+<li>
+<p>Ensures proper authentication for all external AI service calls</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>AI Guardrails</strong> provides security and safety controls:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Content filtering and safety checks for both input and output</p>
+</li>
+<li>
+<p>Policy enforcement based on organizational security requirements</p>
+</li>
+<li>
+<p>Prevents malicious or inappropriate content from reaching LLM providers</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Metrics</strong> component enables comprehensive monitoring:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Collects usage statistics, performance metrics, and cost tracking</p>
+</li>
+<li>
+<p>Exports telemetry data to observability infrastructure</p>
+</li>
+<li>
+<p>Provides insights into AI usage patterns and provider performance</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Model Router</strong> manages intelligent LLM routing:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Routes requests to appropriate LLM providers based on capabilities, cost, and availability</p>
+</li>
+<li>
+<p>Provides failover and load balancing across multiple providers</p>
+</li>
+</ul>
 </div>
 </div>
 </div>

@@ -39,46 +39,16 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../index.html">Architecture Documentation</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../introduction/index.html">1. Introduction and Goals</a>
+    <a class="nav-link" href="../introduction/index.html">Introduction and Goals</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../constraints/index.html">2. Architecture Constraints</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">System Scope and Context</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="index.html">3. System Scope and Context</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../building-blocks/index.html">Building Block View</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../solution-strategy/index.html">4. Solution Strategy</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../building-blocks/index.html">5. Building Block View</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../runtime/index.html">6. Runtime View</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../deployment/index.html">7. Deployment View</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../crosscutting/index.html">8. Cross-cutting Concepts</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../decisions/index.html">9. Architecture Decisions</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../quality/index.html">10. Quality Requirements</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../risks/index.html">11. Risks and Technical Debts</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../glossary/index.html">12. Glossary</a>
-  </li>
-</ul>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../glossary/index.html">Glossary</a>
   </li>
 </ul>
   </li>
@@ -95,8 +65,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Agentic Layer Architecture</a></li>
-    <li><a href="../index.html">Architecture Documentation</a></li>
-    <li><a href="index.html">3. System Scope and Context</a></li>
+    <li><a href="index.html">System Scope and Context</a></li>
   </ul>
 </nav>
 </div>
@@ -106,9 +75,146 @@
 </aside>
 <article class="doc">
 <h1 class="page">System Scope and Context</h1>
+<div class="sect1">
+<h2 id="_business_context"><a class="anchor" href="#_business_context"></a>Business Context</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Agentic Layer operates within a broader enterprise ecosystem, serving as a control plane that coordinates AI agents and manages their interactions with external systems. The system is designed to integrate into existing enterprise infrastructure rather than replace it, providing AI orchestration capabilities while maintaining organizational sovereignty over data and operations.</p>
+</div>
+<div class="sect2">
+<h3 id="_system_boundary"><a class="anchor" href="#_system_boundary"></a>System Boundary</h3>
+<div class="paragraph">
+<p>The Agentic Layer Platform Boundary defines the scope of components under direct control of the AI orchestration system. This includes all Kubernetes-native components for agent management, AI gateway services, governance tools, and operational interfaces. External systems maintain their independence while benefiting from standardized AI integration patterns.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_system_context_overview"><a class="anchor" href="#_system_context_overview"></a>System Context Overview</h2>
+<div class="sectionbody">
 <div class="imageblock kroki">
 <div class="content">
-<img src="_images/system-context-7e809ea0ca42621100949220825d30e5fdc08786.svg" alt="system-context">
+<img src="_images/system-context-67fb17cb159415b4822bd5250e03cf3e7d699776.svg" alt="system-context">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_external_actors_and_systems"><a class="anchor" href="#_external_actors_and_systems"></a>External Actors and Systems</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_users"><a class="anchor" href="#_users"></a>Users</h3>
+<div class="paragraph">
+<p><strong>End users</strong> who interact with AI-powered applications and services. These users may access AI capabilities through various interfaces including web applications, mobile apps, or direct API integrations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_external_frontends"><a class="anchor" href="#_external_frontends"></a>External Frontends</h3>
+<div class="paragraph">
+<p><strong>Web, mobile, and other user interfaces</strong> that provide user-facing applications leveraging AI capabilities. These frontends connect to the Agentic Layer to access coordinated AI services while maintaining their own user experience and business logic.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_external_agents"><a class="anchor" href="#_external_agents"></a>External Agents</h3>
+<div class="paragraph">
+<p><strong>AI agents running outside the platform</strong> that need to integrate with or leverage the centralized AI orchestration capabilities. These may include existing AI systems, specialized agents, or third-party AI services that benefit from the governance and routing provided by the Agentic Layer.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_llm_providers"><a class="anchor" href="#_llm_providers"></a>LLM Providers</h3>
+<div class="paragraph">
+<p><strong>External Large Language Model providers</strong> such as OpenAI, Google Gemini, Anthropic Claude, and other AI service providers. The Agentic Layer abstracts differences between these providers through the AI Gateway/Model Router component.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_observability_stack"><a class="anchor" href="#_observability_stack"></a>Observability Stack</h3>
+<div class="paragraph">
+<p><strong>External monitoring and logging infrastructure</strong> that receives telemetry data from the Agentic Layer. This typically includes enterprise monitoring solutions, log aggregation systems, and performance monitoring tools.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_audit_trail"><a class="anchor" href="#_audit_trail"></a>Audit Trail</h3>
+<div class="paragraph">
+<p><strong>External audit and compliance systems</strong> that store audit records for regulatory compliance, security monitoring, and governance requirements. This ensures audit data is preserved independently of the operational platform.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_system_interactions"><a class="anchor" href="#_system_interactions"></a>System Interactions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_user_interactions"><a class="anchor" href="#_user_interactions"></a>User Interactions</h3>
+<div class="paragraph">
+<p>Users interact with the system through two primary paths:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Via External Frontends</strong>: Users access AI capabilities through web applications, mobile apps, or other user interfaces that connect to the Agentic Layer</p>
+</li>
+<li>
+<p><strong>Via External Agents</strong>: Users may work with external AI agents that leverage the Agentic Layer&#8217;s orchestration capabilities</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ai_service_integration"><a class="anchor" href="#_ai_service_integration"></a>AI Service Integration</h3>
+<div class="paragraph">
+<p>The <strong>Agentic Layer orchestrates AI interactions</strong> by:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Sending prompts and receiving results from LLM providers through the AI Gateway/Model Router</p>
+</li>
+<li>
+<p>Providing unified access to multiple AI service providers with intelligent routing and failover</p>
+</li>
+<li>
+<p>Managing authentication, rate limiting, and usage tracking across providers</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operational_data_flows"><a class="anchor" href="#_operational_data_flows"></a>Operational Data Flows</h3>
+<div class="paragraph">
+<p>The system maintains operational transparency through:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Telemetry Data</strong>: Comprehensive metrics, performance data, and system health information sent to observability infrastructure</p>
+</li>
+<li>
+<p><strong>Audit Events</strong>: Complete records of AI operations, decisions, and access patterns sent to audit systems for compliance and security monitoring</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_technical_context"><a class="anchor" href="#_technical_context"></a>Technical Context</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Agentic Layer serves as an <strong>integration hub</strong> rather than a data repository. It orchestrates interactions between various systems while maintaining clear separation of concerns:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Stateless Operations</strong>: The platform focuses on coordination and routing rather than data storage</p>
+</li>
+<li>
+<p><strong>API-First Integration</strong>: All interactions occur through well-defined APIs and standard protocols</p>
+</li>
+<li>
+<p><strong>Kubernetes-Native Deployment</strong>: All components leverage Kubernetes primitives for scaling, service discovery, and operational management</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </article>

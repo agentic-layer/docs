@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: Agentic Layer Documentation</title>
+    <title>Glossary :: Agentic Layer Documentation</title>
     <link rel="canonical" href="https://agentic-layer.github.io/antora-playbook/architecture/main/glossary/index.html">
     <meta name="generator" content="Antora 3.1.12">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -39,46 +39,16 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../index.html">Architecture Documentation</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../introduction/index.html">1. Introduction and Goals</a>
+    <a class="nav-link" href="../introduction/index.html">Introduction and Goals</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../constraints/index.html">2. Architecture Constraints</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../context/index.html">System Scope and Context</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../context/index.html">3. System Scope and Context</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../building-blocks/index.html">Building Block View</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../solution-strategy/index.html">4. Solution Strategy</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../building-blocks/index.html">5. Building Block View</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../runtime/index.html">6. Runtime View</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../deployment/index.html">7. Deployment View</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../crosscutting/index.html">8. Cross-cutting Concepts</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../decisions/index.html">9. Architecture Decisions</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../quality/index.html">10. Quality Requirements</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../risks/index.html">11. Risks and Technical Debts</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="index.html">12. Glossary</a>
-  </li>
-</ul>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">Glossary</a>
   </li>
 </ul>
   </li>
@@ -95,8 +65,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Agentic Layer Architecture</a></li>
-    <li><a href="../index.html">Architecture Documentation</a></li>
-    <li><a href="index.html">12. Glossary</a></li>
+    <li><a href="index.html">Glossary</a></li>
   </ul>
 </nav>
 </div>
@@ -105,7 +74,192 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-
+<h1 class="page">Glossary</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This glossary defines the key terms and concepts used throughout the Agentic Layer architecture documentation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a"><a class="anchor" href="#_a"></a>A</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Agent Catalog</strong></dt>
+<dd>
+<p>Centralized registry and management system for discovering, versioning, and managing the lifecycle of AI agents within the platform. Provides metadata, documentation, and operational status for all registered agents.</p>
+</dd>
+<dt class="hdlist1"><strong>Agent Gateway</strong></dt>
+<dd>
+<p>Entry point and routing component that handles incoming requests and distributes them to appropriate AI agents based on capabilities, availability, and load balancing policies.</p>
+</dd>
+<dt class="hdlist1"><strong>Agent Runtime Agent Orchestration</strong></dt>
+<dd>
+<p>Kubernetes-native execution environment that manages the lifecycle, scaling, and resource allocation of AI agents. Provides automated deployment, scaling, and monitoring of agent instances.</p>
+</dd>
+<dt class="hdlist1"><strong>Agentic Layer</strong></dt>
+<dd>
+<p>Core platform layer containing the foundational components for AI agent orchestration, including AI Gateway, Agent Runtime, Connectors &amp; Tools, and governance components. Built on Kubernetes infrastructure.</p>
+</dd>
+<dt class="hdlist1"><strong>Agentic Workforce Management</strong></dt>
+<dd>
+<p>Component responsible for coordinating and orchestrating complex AI workflows across multiple agents and organizational boundaries. Manages task distribution, workflow execution, and inter-agent communication.</p>
+</dd>
+<dt class="hdlist1"><strong>Agentic Workforces</strong></dt>
+<dd>
+<p>Application-level implementations of AI agent systems designed for specific enterprise use cases, such as Insurance Claims Processing, Healthcare Operations, or Procurement workflows.</p>
+</dd>
+<dt class="hdlist1"><strong>AI Gateway / Model Router</strong></dt>
+<dd>
+<p>Unified interface component that abstracts interactions with multiple Large Language Model (LLM) providers. Provides intelligent routing, failover capabilities, and consistent API interfaces across different AI service providers.</p>
+</dd>
+<dt class="hdlist1"><strong>AI Guardrails</strong></dt>
+<dd>
+<p>Security and safety component that implements content filtering, safety checks, access controls, and policy enforcement for AI interactions to ensure compliant and secure operations.</p>
+</dd>
+<dt class="hdlist1"><strong>Audit Trail</strong></dt>
+<dd>
+<p>Comprehensive logging and tracking system that records all AI operations, decisions, and interactions for regulatory compliance, security monitoring, and operational transparency.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_b"><a class="anchor" href="#_b"></a>B</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>BYOC (Bring Your Own Cloud)</strong></dt>
+<dd>
+<p>Deployment model that allows organizations to run the Agentic Layer components within their own cloud infrastructure, maintaining full control over data, security, and compliance requirements.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_c"><a class="anchor" href="#_c"></a>C</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Cloud-Native Architecture</strong></dt>
+<dd>
+<p>Design approach leveraging cloud computing principles, including containerization, microservices, dynamic orchestration, and declarative APIs. Built specifically for cloud environments with Kubernetes as the foundation.</p>
+</dd>
+<dt class="hdlist1"><strong>Compliance Dashboard</strong></dt>
+<dd>
+<p>Management interface providing real-time monitoring and reporting for regulatory compliance requirements including EU AI Act, GDPR, and industry-specific standards.</p>
+</dd>
+<dt class="hdlist1"><strong>Connectors &amp; Tools</strong></dt>
+<dd>
+<p>Integration components that enable seamless connectivity between the Agentic Layer and external systems, databases, APIs, and third-party services.</p>
+</dd>
+<dt class="hdlist1"><strong>Control Plane for Intelligent Workloads</strong></dt>
+<dd>
+<p>The Agentic Layer&#8217;s primary function as a management and orchestration system for AI-driven processes and autonomous agents within enterprise environments.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_d"><a class="anchor" href="#_d"></a>D</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Data Sovereignty</strong></dt>
+<dd>
+<p>The concept of maintaining complete control and governance over data location, processing, and access within defined jurisdictional and organizational boundaries.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_k"><a class="anchor" href="#_k"></a>K</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Kubernetes Platform</strong></dt>
+<dd>
+<p>The foundational infrastructure layer providing container orchestration, scaling, resource management, and service discovery for all Agentic Layer components.</p>
+</dd>
+<dt class="hdlist1"><strong>Kubernetes-Native</strong></dt>
+<dd>
+<p>Architecture and components designed specifically to leverage Kubernetes primitives, APIs, and operational patterns for deployment, scaling, and management.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_l"><a class="anchor" href="#_l"></a>L</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>LLM (Large Language Model)</strong></dt>
+<dd>
+<p>AI models trained on vast amounts of text data to understand and generate human-like text. Examples include GPT, Gemini, Claude, and other foundation models accessed through the AI Gateway.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_m"><a class="anchor" href="#_m"></a>M</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Multi-Framework Runtime</strong></dt>
+<dd>
+<p>Execution environment that supports agents built with different AI frameworks and technologies while providing consistent operational characteristics and management interfaces.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_o"><a class="anchor" href="#_o"></a>O</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Observability Dashboard</strong></dt>
+<dd>
+<p>Operational interface providing comprehensive monitoring, metrics visualization, distributed tracing, and system health information for the entire Agentic Layer platform.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_t"><a class="anchor" href="#_t"></a>T</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Testbench</strong></dt>
+<dd>
+<p>Integrated testing framework providing automated validation, performance testing, and quality assurance capabilities for AI agents before production deployment.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_v"><a class="anchor" href="#_v"></a>V</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Vendor Lock-in</strong></dt>
+<dd>
+<p>Dependency on a specific vendor&#8217;s proprietary technologies that makes switching to alternatives difficult or costly. The Agentic Layer&#8217;s open-source and agnostic design prevents vendor lock-in.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
