@@ -47,6 +47,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../building-blocks/index.html">Building Block View</a>
   </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">Cross-cutting Concepts</a>
+  </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../glossary/index.html">Glossary</a>
   </li>
@@ -75,8 +78,106 @@
 </aside>
 <article class="doc">
 <h1 class="page">Cross-cutting Concepts</h1>
+<div class="sect1">
+<h2 id="_capabilities_and_plugins_principle"><a class="anchor" href="#_capabilities_and_plugins_principle"></a>Capabilities and Plugins Principle</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>TBD</p>
+<p>The Agentic Layer architecture embraces a fundamental design principle of <strong>capabilities and plugins</strong> that enables flexible switching of implementations for various system aspects. This approach promotes modularity, extensibility, and vendor independence across all major components.</p>
+</div>
+<div class="sect2">
+<h3 id="_core_principle"><a class="anchor" href="#_core_principle"></a>Core Principle</h3>
+<div class="paragraph">
+<p>The capabilities and plugins pattern allows the system to define stable interfaces while supporting multiple implementations. Each capability represents a well-defined set of functionality that can be fulfilled by different plugins, enabling runtime or deployment-time selection of the most appropriate implementation.</p>
+</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="_images/capabilities-plugins-principle-e92ed28761faa074c1ab8bad4e9c7d5d11c2c9fa.svg" alt="capabilities-plugins-principle">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_key_benefits"><a class="anchor" href="#_key_benefits"></a>Key Benefits</h3>
+<div class="paragraph">
+<p><strong>Implementation Independence</strong>: Components depend on capabilities rather than specific implementations, reducing coupling and increasing flexibility.</p>
+</div>
+<div class="paragraph">
+<p><strong>Vendor Neutrality</strong>: Avoid vendor lock-in by supporting multiple implementations of the same capability.</p>
+</div>
+<div class="paragraph">
+<p><strong>Runtime Flexibility</strong>: Switch between implementations based on operational requirements, performance characteristics, or cost considerations.</p>
+</div>
+<div class="paragraph">
+<p><strong>Extensibility</strong>: Add new implementations without modifying existing code or disrupting running systems.</p>
+</div>
+<div class="paragraph">
+<p><strong>Testing and Development</strong>: Use different implementations for testing, development, and production environments.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_application_areas"><a class="anchor" href="#_application_areas"></a>Application Areas</h3>
+<div class="sect3">
+<h4 id="_agent_gateway_implementations"><a class="anchor" href="#_agent_gateway_implementations"></a>Agent Gateway Implementations</h4>
+<div class="paragraph">
+<p>The Agent or AI Gateway capability could support multiple reverse proxy and API gateway implementations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Nginx</strong>: Traditional reverse proxy for high-performance routing</p>
+</li>
+<li>
+<p><strong>Envoy</strong>: Modern service mesh proxy with advanced traffic management</p>
+</li>
+<li>
+<p><strong>Kong</strong>: API gateway with rich plugin ecosystem</p>
+</li>
+<li>
+<p><strong>Istio Gateway</strong>: Kubernetes-native gateway with service mesh integration</p>
+</li>
+</ul>
+</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="_images/agent-gateway-plugins-cfada293fbfaf6ed84ea11402575c70950afa53f.svg" alt="agent-gateway-plugins">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_implementation_guidelines"><a class="anchor" href="#_implementation_guidelines"></a>Implementation Guidelines</h3>
+<div class="sect3">
+<h4 id="_kubernetes_native_capabilities"><a class="anchor" href="#_kubernetes_native_capabilities"></a>Kubernetes-Native Capabilities</h4>
+<div class="paragraph">
+<p>The Agentic Layer leverages <strong>Kubernetes Custom Resource Definitions (CRDs)</strong> as the interface definition mechanism for capabilities. Each capability is defined as a CRD that establishes the contract and configuration schema.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_plugin_definition_through_custom_resources"><a class="anchor" href="#_plugin_definition_through_custom_resources"></a>Plugin Definition through Custom Resources</h4>
+<div class="paragraph">
+<p>Plugins are defined and configured using <strong>Custom Resources (CRs)</strong> that correspond to their capability CRDs. This approach provides:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Declarative Configuration</strong>: Plugin instances are declared through Kubernetes manifests</p>
+</li>
+<li>
+<p><strong>Kubernetes-Native Management</strong>: Leverage kubectl, operators, and existing K8s tooling</p>
+</li>
+<li>
+<p><strong>Version Control</strong>: Plugin configurations are stored as code alongside infrastructure definitions</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_standard_transport_apis"><a class="anchor" href="#_standard_transport_apis"></a>Standard Transport APIs</h4>
+<div class="paragraph">
+<p>At the transport layer, the system uses <strong>standard APIs</strong> to ensure broad compatibility and interoperability.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </article>
   </div>
