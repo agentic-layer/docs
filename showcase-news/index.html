@@ -51,9 +51,548 @@
 </aside>
 <article class="doc">
 <h1 class="page">Agentic AI News Showcase</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial will guide you through setting up the Agentic AI News Showcase in a local Kubernetes cluster. The showcase demonstrates multi-agent AI communication using the Agentic Layer platform.</p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/demo.png" alt="Agentic AI News Showcase" width="600" height="400">
+</div>
+</div>
+<div class="paragraph">
+<p>You can find the complete source code in the <a href="https://github.com/agentic-layer/showcase-news" target="_blank" rel="noopener">showcase-news repository</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_youll_build"><a class="anchor" href="#_what_youll_build"></a>What You&#8217;ll Build</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This showcase demonstrates multi-agent AI communication where:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>User</strong> asks the News-Agent questions like "What&#8217;s new in AI?" or "Summarize that article"</p>
+</li>
+<li>
+<p><strong>News-Agent</strong> fetches latest articles using the News MCP Server (which aggregates RSS feeds from OpenAI, AI News, VentureBeat, etc.)</p>
+</li>
+<li>
+<p>For summarization requests, <strong>News-Agent</strong> delegates to the <strong>Summarizer Agent</strong> via A2A protocol</p>
+</li>
+<li>
+<p><strong>Summarizer Agent</strong> scrapes article content from the web and generates concise summaries</p>
+</li>
+<li>
+<p>All agent interactions are traced and visualized through the <strong>Observability Dashboard</strong></p>
+</li>
+</ul>
+</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="_images/diag-9e1b7403aa02a1ef08127ded72e5eead9511df7c.svg" alt="Diagram">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before starting, ensure you have the following installed and configured:</p>
+</div>
+<div class="sect2">
+<h3 id="_required_software"><a class="anchor" href="#_required_software"></a>Required Software</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Docker</strong> - For containerization</p>
+</li>
+<li>
+<p><strong>kubectl</strong> - Kubernetes command-line tool</p>
+</li>
+<li>
+<p><strong>Tilt</strong> - <a href="https://tilt.dev/" target="_blank" rel="noopener">Install Tilt</a> for local development</p>
+</li>
+<li>
+<p><strong>curl</strong> - For downloading manifests</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_access_requirements"><a class="anchor" href="#_access_requirements"></a>Access Requirements</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Gemini API Key</strong> - Get yours from <a href="https://ai.google.dev/gemini-api/docs/api-key" target="_blank" rel="noopener">Google AI Studio</a></p>
+</li>
+<li>
+<p><strong>Local Kubernetes Cluster</strong> - We recommend:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Docker Desktop (with Kubernetes enabled)</p>
+</li>
+<li>
+<p>Rancher Desktop (with Kubernetes enabled)</p>
+</li>
+<li>
+<p><a href="https://kind.sigs.k8s.io/" target="_blank" rel="noopener">kind</a></p>
+</li>
+<li>
+<p><a href="https://k3s.io/" target="_blank" rel="noopener">k3s</a> or <a href="https://k3d.io/" target="_blank" rel="noopener">k3d</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_1_set_up_your_environment"><a class="anchor" href="#_step_1_set_up_your_environment"></a>Step 1: Set Up Your Environment</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_clone_the_repository"><a class="anchor" href="#_clone_the_repository"></a>Clone the Repository</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/agentic-layer/showcase-news.git
+cd showcase-news</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configure_your_api_key"><a class="anchor" href="#_configure_your_api_key"></a>Configure Your API Key</h3>
+<div class="paragraph">
+<p>Set your Gemini API key as an environment variable:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export GOOGLE_API_KEY="your-gemini-api-key-here"</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can also create a <code>.env</code> file in the project root with <code>GOOGLE_API_KEY=your-key</code> to persist this setting.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_verify_kubernetes_context"><a class="anchor" href="#_verify_kubernetes_context"></a>Verify Kubernetes Context</h3>
+<div class="paragraph">
+<p>Ensure your kubectl is pointing to your local cluster:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl config current-context
+kubectl cluster-info</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_2_install_components"><a class="anchor" href="#_step_2_install_components"></a>Step 2: Install Components</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Choose between the automated Tilt approach or manual installation to understand each component:</p>
+</div>
+<div class="sect2">
+<h3 id="_option_a_automated_installation_with_tilt"><a class="anchor" href="#_option_a_automated_installation_with_tilt"></a>Option A: Automated Installation with Tilt</h3>
+<div class="paragraph">
+<p>The quickest way to get started is using Tilt, which automates the entire installation process:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tilt up</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tilt will automatically:
+* Install cert-manager for webhook certificate management
+* Install the Agentic Runtime Operator
+* Deploy the monitoring stack (LGTM)
+* Deploy the Agentic Layer observability dashboard
+* Deploy the showcase applications
+* Create required secrets from your environment variables
+* Build and deploy the news-fetcher MCP server
+* Set up port forwarding for easy access</p>
+</div>
+<div class="paragraph">
+<p>Once Tilt shows all resources as ready, skip to Step 3.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_option_b_manual_installation_understanding_each_component"><a class="anchor" href="#_option_b_manual_installation_understanding_each_component"></a>Option B: Manual Installation (Understanding Each Component)</h3>
+<div class="paragraph">
+<p>If you want to understand what Tilt does behind the scenes, follow these manual steps:</p>
+</div>
+<div class="sect3">
+<h4 id="_install_cert_manager"><a class="anchor" href="#_install_cert_manager"></a>Install cert-manager</h4>
+<div class="paragraph">
+<p>The Agentic Runtime Operator requires cert-manager for webhook certificate management. Install it using:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.yaml | kubectl apply -f -</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Wait for cert-manager to be ready:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl wait --for=condition=Ready pods --all -n cert-manager --timeout=60s</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_install_agentic_runtime_operator"><a class="anchor" href="#_install_agentic_runtime_operator"></a>Install Agentic Runtime Operator</h4>
+<div class="paragraph">
+<p>The Agentic Runtime Operator manages AI agents as Kubernetes custom resources. Install the latest version:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L https://github.com/agentic-layer/agent-runtime-operator/releases/download/v0.4.4/install.yaml | kubectl apply -f -</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Wait for the operator to be available:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl wait --for=condition=Available --timeout=60s -n agent-runtime-operator-system deployment/agent-runtime-operator-controller-manager</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_apply_deployment_manifests"><a class="anchor" href="#_apply_deployment_manifests"></a>Apply Deployment Manifests</h4>
+<div class="paragraph">
+<p>The showcase consists of several components. Let&#8217;s apply them in the correct order:</p>
+</div>
+<div class="paragraph">
+<p><strong>Create Monitoring Stack:</strong>
+This deploys the LGTM (Loki, Grafana, Tempo, Mimir) observability stack:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f deploy/lgtm.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The monitoring stack provides:
+* <strong>Grafana</strong> - Dashboards and visualization (port 3000)
+* <strong>OpenTelemetry Collector</strong> - Trace collection (ports 4317/4318)
+* <strong>Loki, Tempo, Prometheus</strong> - Logs, traces, and metrics storage</p>
+</div>
+<div class="paragraph">
+<p><strong>Deploy Agentic Layer Components:</strong>
+This includes the observability dashboard for visualizing agent interactions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -k deploy/agentic-layer/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The observability dashboard:
+* Visualizes agent-to-agent communication in real-time
+* Provides debugging capabilities for AI workflows
+* Exposes metrics about agent performance</p>
+</div>
+<div class="paragraph">
+<p><strong>Create API Key Secret:</strong>
+Before deploying the agents, create the required secret with your Gemini API key:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create secret generic api-keys \
+  --from-literal=GOOGLE_API_KEY="$GOOGLE_API_KEY" \
+  -n showcase-news</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Build and Load News Fetcher Image:</strong>
+The news-fetcher requires building a custom Docker image before deployment:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Build the Docker image
+docker build -t news-fetcher:latest ./mcp-servers/news-fetcher
+
+# Make the image available to your cluster
+# For kind clusters:
+kind load docker-image news-fetcher:latest
+
+# For k3s/k3d clusters:
+# k3d image import news-fetcher:latest
+
+# For Docker Desktop: the image is already available</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Deploy Showcase Applications:</strong>
+Now deploy the main showcase components:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -k deploy/showcase-news/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This deploys:
+* <strong>showcase-news namespace</strong> - Isolated environment for the demo
+* <strong>news-agent</strong> - Main agent that handles user queries
+* <strong>summarizer-agent</strong> - Specialized agent for article summarization
+* <strong>news-fetcher</strong> - MCP server that aggregates RSS feeds</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_verify_deployment"><a class="anchor" href="#_verify_deployment"></a>Verify Deployment</h4>
+<div class="paragraph">
+<p>Check that all components are running:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get pods -n showcase-news
+kubectl get pods -n observability-dashboard
+kubectl get pods -n monitoring</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_set_up_port_forwarding"><a class="anchor" href="#_set_up_port_forwarding"></a>Set Up Port Forwarding</h4>
+<div class="paragraph">
+<p>Access the applications through kubectl port forwarding:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># News Agent
+kubectl port-forward -n showcase-news service/news-agent 8001:8000 &amp;
+
+# Summarizer Agent
+kubectl port-forward -n showcase-news service/summarizer-agent 8002:8000 &amp;
+
+# News Fetcher
+kubectl port-forward -n showcase-news service/news-fetcher 8003:8000 &amp;
+
+# Observability Dashboard
+kubectl port-forward -n observability-dashboard service/observability-dashboard 8100:8000 &amp;
+
+# Grafana
+kubectl port-forward -n monitoring service/lgtm 3000:3000 &amp;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>&amp;</code> runs each command in the background. Keep the terminal open to maintain the port forwards.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_3_access_the_applications"><a class="anchor" href="#_step_3_access_the_applications"></a>Step 3: Access the Applications</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once all components are running and port forwarding is set up, you can access:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Observability Dashboard</strong>: <a href="http://localhost:8100" class="bare">http://localhost:8100</a> - Real-time agent communication visualization</p>
+</li>
+<li>
+<p><strong>Grafana</strong>: <a href="http://localhost:3000" class="bare">http://localhost:3000</a> - System metrics and logs</p>
+</li>
+<li>
+<p><strong>News-Agent API</strong>: <a href="http://localhost:8001" class="bare">http://localhost:8001</a> - Main agent endpoint</p>
+</li>
+<li>
+<p><strong>Summarizer-Agent API</strong>: <a href="http://localhost:8002" class="bare">http://localhost:8002</a> - Summarization agent endpoint</p>
+</li>
+<li>
+<p><strong>News Fetcher API</strong>: <a href="http://localhost:8003" class="bare">http://localhost:8003</a> - MCP server for news feeds</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_4_test_the_setup"><a class="anchor" href="#_step_4_test_the_setup"></a>Step 4: Test the Setup</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_basic_news_query"><a class="anchor" href="#_basic_news_query"></a>Basic News Query</h3>
+<div class="paragraph">
+<p>Test the news-agent with a simple query:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl http://localhost:8001/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "message/send",
+    "params": {
+      "message": {
+        "role": "user",
+        "parts": [
+          {
+            "kind": "text",
+            "text": "Whats the latest news in AI? Summarize the top article to me."
+          }
+        ],
+        "messageId": "9229e770-767c-417b-a0b0-f0741243c579",
+        "contextId": "abcd1234-5678-90ab-cdef-1234567890a0"
+      },
+      "metadata": {}
+    }
+  }' | jq</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_direct_summarization"><a class="anchor" href="#_direct_summarization"></a>Direct Summarization</h3>
+<div class="paragraph">
+<p>Test the summarizer agent directly:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl http://localhost:8002/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "message/send",
+    "params": {
+      "message": {
+        "role": "user",
+        "parts": [
+          {
+            "kind": "text",
+            "text": "Please summarize this blog post: https://blog.qaware.de/posts/deepquali/"
+          }
+        ],
+        "messageId": "9229e770-767c-417b-a0b0-f0741243c579",
+        "contextId": "abcd1234-5678-90ab-cdef-1234567890ad"
+      },
+      "metadata": {}
+    }
+  }' | jq</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_understanding_the_architecture"><a class="anchor" href="#_understanding_the_architecture"></a>Understanding the Architecture</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The showcase demonstrates several key concepts:</p>
+</div>
+<div class="sect2">
+<h3 id="_agent_to_agent_communication"><a class="anchor" href="#_agent_to_agent_communication"></a>Agent-to-Agent Communication</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>The <strong>News Agent</strong> delegates summarization tasks to the <strong>Summarizer Agent</strong></p>
+</li>
+<li>
+<p>Communication uses the A2A (Agent-to-Agent) protocol</p>
+</li>
+<li>
+<p>All interactions are traced and visualized in real-time</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mcp_integration"><a class="anchor" href="#_mcp_integration"></a>MCP Integration</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Model Context Protocol (MCP)</strong> servers provide tools for agents</p>
+</li>
+<li>
+<p>The <strong>news-fetcher</strong> MCP server aggregates RSS feeds from multiple sources</p>
+</li>
+<li>
+<p>Agents use MCP tools to fetch and process external data</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_observability"><a class="anchor" href="#_observability"></a>Observability</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>All agent interactions are instrumented with OpenTelemetry</p>
+</li>
+<li>
+<p>Traces flow to the observability dashboard for visualization</p>
+</li>
+<li>
+<p>The monitoring stack provides comprehensive system insights</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cleanup"><a class="anchor" href="#_cleanup"></a>Cleanup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you&#8217;re done exploring, clean up the resources:</p>
+</div>
+<div class="sect2">
+<h3 id="_if_you_used_tilt"><a class="anchor" href="#_if_you_used_tilt"></a>If You Used Tilt</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tilt down --delete-namespaces</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_if_you_used_manual_installation"><a class="anchor" href="#_if_you_used_manual_installation"></a>If You Used Manual Installation</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Stop port forwarding (Ctrl+C or kill background jobs)
+jobs
+kill %1 %2 %3 %4 %5  # Adjust numbers based on your running jobs
+
+# Delete deployed resources
+kubectl delete -k deploy/
+kubectl delete -f https://github.com/agentic-layer/agent-runtime-operator/releases/download/v0.4.4/install.yaml
+kubectl delete -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.yaml
+
+# Remove the built Docker image (optional)
+docker rmi news-fetcher:latest</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </article>
