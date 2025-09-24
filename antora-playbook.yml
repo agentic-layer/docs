@@ -10,20 +10,19 @@ site:
 content:
   edit_url: false # Disable "Edit this page" links
   sources:
-    # Home documentation component
     - url: https://github.com/agentic-layer/documentation.git
       branches: [main]
       start_path: home/docs
-    # Architecture documentation component
     - url: https://github.com/agentic-layer/documentation.git
       branches: [main]
       start_path: architecture/docs
-    # Agent runtime operator documentation
     - url: https://github.com/agentic-layer/agent-runtime-operator.git
       branches: [main]
       start_path: docs
-    # Observability dashboard documentation
     - url: https://github.com/agentic-layer/observability-dashboard.git
+      branches: [main]
+      start_path: docs
+    - url: https://github.com/agentic-layer/showcase-news.git
       branches: [main]
       start_path: docs
 
