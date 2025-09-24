@@ -3,7 +3,7 @@
 # Combines home docs, architecture docs, and agent runtime operator docs into a unified site.
 
 site:
-  title: Agentic Layer Documentation
+  title: Agentic Layer
   url: https://agentic-layer.github.io/antora-playbook/  # Site URL for production deployment
   start_page: home::index.adoc  # Landing page when visiting the site
 
