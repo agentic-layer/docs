@@ -25,6 +25,9 @@ content:
     - url: https://github.com/agentic-layer/showcase-news.git
       branches: [main]
       start_path: docs
+    - url: https://github.com/agentic-layer/ai-gatway-litellm.git
+      branches: [main]
+      start_path: docs
 
 ui:
   bundle:
