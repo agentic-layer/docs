@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Create an AI Agent :: Agentic Layer</title>
+    <link rel="canonical" href="https://agentic-layer.github.io/antora-playbook/agent-runtime-operator/agents/how-to-guide.html">
+    <meta name="generator" content="Antora 3.1.12">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://agentic-layer.github.io/antora-playbook">Agentic Layer</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="agent-runtime-operator" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Agent Runtime Operator</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-To Guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime/how-to-guide.html">Install the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="how-to-guide.html">Create an AI Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="reference.html">AI Agents Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateways/reference.html">Agent Gateway Reference</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Agent Runtime Operator</a></li>
+    <li>How-To Guides</li>
+    <li><a href="how-to-guide.html">Create an AI Agent</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Create an AI Agent</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide walks you through creating and deploying agents using the Agent Runtime Operator. Whether you&#8217;re building your first agent or exploring advanced patterns, this guide provides step-by-step instructions to get you up and running.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Before following this guide, make sure you have the Agent Runtime Operator installed. See <a href="../agent-runtime/how-to-guide.html" class="xref page">Install the Agent Runtime Operator</a> for installation instructions.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_start_your_first_agent"><a class="anchor" href="#_quick_start_your_first_agent"></a>Quick Start: Your First Agent</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Get your first agent running in under 5 minutes.</p>
+</div>
+<div class="sect2">
+<h3 id="_deploy_your_first_agent"><a class="anchor" href="#_deploy_your_first_agent"></a>Deploy your first agent</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Replace <code>your-gemini-api-key-here</code> with your actual Gemini API key before deploying.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Create a simple helpful assistant using templates
+cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: Agent
+metadata:
+  name: my-first-agent
+spec:
+  framework: google-adk
+  description: "A helpful AI assistant"
+  instruction: "You are a helpful AI assistant that can answer questions, provide explanations, and help with various tasks. Be friendly, informative, and concise in your responses."
+  model: "gemini/gemini-2.5-flash"
+  protocols:
+    - type: A2A
+  replicas: 1
+  env:
+    - name: GEMINI_API_KEY
+      value: "your-gemini-api-key-here"
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_verify_your_agent_is_running"><a class="anchor" href="#_verify_your_agent_is_running"></a>Verify your agent is running</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check the agent resource
+kubectl get agent my-first-agent
+
+# Check the deployment
+kubectl get deployment my-first-agent
+
+# Check the service
+kubectl get service my-first-agent</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_check_the_logs"><a class="anchor" href="#_check_the_logs"></a>Check the logs</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># View agent logs
+kubectl logs -l app=my-first-agent</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>🎉 <strong>Congratulations!</strong> You&#8217;ve successfully deployed your first agent.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_template_based_agents_recommended"><a class="anchor" href="#_template_based_agents_recommended"></a>Template-Based Agents (Recommended)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Template-based agents are the easiest way to get started. The operator handles the container image and runtime configuration for you.</p>
+</div>
+<div class="sect2">
+<h3 id="_when_to_use_templates_vs_custom_images"><a class="anchor" href="#_when_to_use_templates_vs_custom_images"></a>When to use templates vs custom images</h3>
+<div class="paragraph">
+<p><strong>Use templates when:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You&#8217;re just getting started with agents</p>
+</li>
+<li>
+<p>You want to quickly prototype agent behavior</p>
+</li>
+<li>
+<p>You need standard agent capabilities with tools and sub-agents</p>
+</li>
+<li>
+<p>You don&#8217;t need custom dependencies or specialized runtime environments</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Use custom images when:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You have specific runtime requirements</p>
+</li>
+<li>
+<p>You need custom dependencies or libraries</p>
+</li>
+<li>
+<p>You want full control over the agent implementation</p>
+</li>
+<li>
+<p>You&#8217;re migrating existing agent code</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_by_step_news_agent_with_tools"><a class="anchor" href="#_step_by_step_news_agent_with_tools"></a>Step-by-Step: News Agent with Tools</h3>
+<div class="paragraph">
+<p>Let&#8217;s create a more sophisticated news agent that uses external tools:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: Agent
+metadata:
+  name: news-agent
+spec:
+  framework: google-adk
+  description: "A news agent that fetches and summarizes current articles"
+  instruction: "You are a news agent that can fetch current news articles and provide summaries. Use the news fetcher tool to get articles and provide concise summaries."
+  model: "gemini/gemini-2.5-flash"
+
+  # External tools the agent can use
+  tools:
+    - name: news_fetcher
+      url: "https://news.mcpservers.org/fetch/mcp"
+    - name: web_fetch
+      url: "https://remote.mcpservers.org/fetch/mcp"
+
+  # Sub-agents this agent can delegate to
+  subAgents:
+    - name: summarizer_agent
+      url: "https://agents.example.com/summarizer-agent.json"
+
+  protocols:
+    - type: A2A
+  replicas: 1</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration_options_for_templates"><a class="anchor" href="#_configuration_options_for_templates"></a>Configuration Options for Templates</h3>
+<div class="sect3">
+<h4 id="_basic_configuration"><a class="anchor" href="#_basic_configuration"></a>Basic Configuration</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>description</strong>: Brief description of your agent&#8217;s purpose</p>
+</li>
+<li>
+<p><strong>instruction</strong>: Detailed system prompt defining the agent&#8217;s behavior</p>
+</li>
+<li>
+<p><strong>model</strong>: Language model to use (defaults to framework default if not specified)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_custom_image_agents"><a class="anchor" href="#_custom_image_agents"></a>Custom Image Agents</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you need full control over your agent&#8217;s implementation, use custom images.</p>
+</div>
+<div class="sect2">
+<h3 id="_when_you_need_custom_images"><a class="anchor" href="#_when_you_need_custom_images"></a>When you need custom images</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Custom runtime environments or dependencies</p>
+</li>
+<li>
+<p>Specialized libraries or frameworks</p>
+</li>
+<li>
+<p>Legacy agent code migration</p>
+</li>
+<li>
+<p>Performance-critical implementations</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_by_step_weather_agent"><a class="anchor" href="#_step_by_step_weather_agent"></a>Step-by-Step: Weather Agent</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: Agent
+metadata:
+  name: weather-agent
+spec:
+  framework: google-adk
+  image: ghcr.io/agentic-layer/weather-agent:0.3.0
+  protocols:
+    - type: A2A
+  replicas: 1
+  env:
+    - name: LOG_LEVEL
+      value: "info"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_building_custom_agents"><a class="anchor" href="#_building_custom_agents"></a>Building Custom Agents</h3>
+<div class="paragraph">
+<p>For examples and guidance on building custom agent images:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Examples</strong>: <a href="https://github.com/agentic-layer/agent-samples" class="bare">https://github.com/agentic-layer/agent-samples</a></p>
+</li>
+<li>
+<p><strong>SDK for ADK-based agents</strong>: <a href="https://github.com/agentic-layer/sdk-python" class="bare">https://github.com/agentic-layer/sdk-python</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_container_requirements"><a class="anchor" href="#_container_requirements"></a>Container Requirements</h3>
+<div class="paragraph">
+<p>Your custom agent container must:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Expose an HTTP server on the configured port</p>
+</li>
+<li>
+<p>Implement the A2A protocol specification</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent_specific_configuration"><a class="anchor" href="#_agent_specific_configuration"></a>Agent-Specific Configuration</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_protocols"><a class="anchor" href="#_protocols"></a>Protocols</h3>
+<div class="paragraph">
+<p>All agents use the <strong>A2A (Agent-to-Agent) protocol</strong> for communication:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">protocols:
+  - type: A2A
+    port: 8000  # Optional: defaults to framework default
+    path: "/"   # Optional: defaults to root path</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_framework_options"><a class="anchor" href="#_framework_options"></a>Framework Options</h3>
+<div class="paragraph">
+<p>The configured framework determines the base image and runtime environment.</p>
+</div>
+<div class="paragraph">
+<p>Currently supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>google-adk</strong>: Google Agent Development Kit framework</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  framework: google-adk  # Default framework</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Additional frameworks will be supported in the future.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p>Happy agent building! 🤖</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

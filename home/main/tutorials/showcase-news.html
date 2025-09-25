@@ -16,13 +16,13 @@
     </div>
     <div class="navbar-menu">
       <div class="navbar-end">
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">Git Repositories</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="https://github.com/agentic-layer/agent-runtime-operator" target="_blank">Agent Runtime Operator</a>
-            <a class="navbar-item" href="https://github.com/agentic-layer/observability-dashboard" target="_blank">Observability Dashboard</a>
-            <a class="navbar-item" href="https://github.com/agentic-layer/agent-samples" target="_blank">Agent Samples</a>
-          </div>
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../../../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
         </div>
       </div>
     </div>
@@ -37,30 +37,47 @@
     <h3 class="title"><a href="../index.html">Agentic Layer</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Tutorials</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="showcase-news.html">Agentic AI News Showcase</a>
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../agent-runtime-operator/agent-runtime/how-to-guide.html">Install the Agent Runtime Operator</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../agent-runtime-operator/agents/how-to-guide.html">Create an AI Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../agent-runtime-operator/agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../agent-runtime-operator/agents/reference.html">AI Agents Reference</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../agent-runtime-operator/agent-gateways/reference.html">Agent Gateway Reference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Explanation</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../../architecture/main/index.html">Agentic Layer Architecture</a>
-  </li>
-</ul>
   </li>
 </ul>
   </li>
@@ -257,15 +274,35 @@ kubectl cluster-info</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Tilt will automatically:
-* Install cert-manager for webhook certificate management
-* Install the Agentic Runtime Operator
-* Deploy the monitoring stack (LGTM)
-* Deploy the Agentic Layer observability dashboard
-* Deploy the showcase applications
-* Create required secrets from your environment variables
-* Build and deploy the news-fetcher MCP server
-* Set up port forwarding for easy access</p>
+<p>Tilt will automatically:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Install cert-manager for webhook certificate management</p>
+</li>
+<li>
+<p>Install the Agentic Runtime Operator</p>
+</li>
+<li>
+<p>Deploy the monitoring stack (LGTM)</p>
+</li>
+<li>
+<p>Deploy the Agentic Layer observability dashboard</p>
+</li>
+<li>
+<p>Deploy the showcase applications</p>
+</li>
+<li>
+<p>Create required secrets from your environment variables</p>
+</li>
+<li>
+<p>Build and deploy the news-fetcher MCP server</p>
+</li>
+<li>
+<p>Set up port forwarding for easy access</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Once Tilt shows all resources as ready, skip to Step 3.</p>
@@ -329,10 +366,20 @@ This deploys the LGTM (Loki, Grafana, Tempo, Mimir) observability stack:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The monitoring stack provides:
-* <strong>Grafana</strong> - Dashboards and visualization (port 3000)
-* <strong>OpenTelemetry Collector</strong> - Trace collection (ports 4317/4318)
-* <strong>Loki, Tempo, Prometheus</strong> - Logs, traces, and metrics storage</p>
+<p>The monitoring stack provides:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Grafana</strong> - Dashboards and visualization (port 3000)</p>
+</li>
+<li>
+<p><strong>OpenTelemetry Collector</strong> - Trace collection (ports 4317/4318)</p>
+</li>
+<li>
+<p><strong>Loki, Tempo, Prometheus</strong> - Logs, traces, and metrics storage</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>Deploy Agentic Layer Components:</strong>
@@ -344,10 +391,20 @@ This includes the observability dashboard for visualizing agent interactions:</p
 </div>
 </div>
 <div class="paragraph">
-<p>The observability dashboard:
-* Visualizes agent-to-agent communication in real-time
-* Provides debugging capabilities for AI workflows
-* Exposes metrics about agent performance</p>
+<p>The observability dashboard:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Visualizes agent-to-agent communication in real-time</p>
+</li>
+<li>
+<p>Provides debugging capabilities for AI workflows</p>
+</li>
+<li>
+<p>Exposes metrics about agent performance</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>Create API Key Secret:</strong>
@@ -389,11 +446,23 @@ Now deploy the main showcase components:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This deploys:
-* <strong>showcase-news namespace</strong> - Isolated environment for the demo
-* <strong>news-agent</strong> - Main agent that handles user queries
-* <strong>summarizer-agent</strong> - Specialized agent for article summarization
-* <strong>news-fetcher</strong> - MCP server that aggregates RSS feeds</p>
+<p>This deploys:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>showcase-news namespace</strong> - Isolated environment for the demo</p>
+</li>
+<li>
+<p><strong>news-agent</strong> - Main agent that handles user queries</p>
+</li>
+<li>
+<p><strong>summarizer-agent</strong> - Specialized agent for article summarization</p>
+</li>
+<li>
+<p><strong>news-fetcher</strong> - MCP server that aggregates RSS feeds</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Install the Agent Runtime Operator :: Agentic Layer</title>
+    <link rel="canonical" href="https://agentic-layer.github.io/antora-playbook/agent-runtime-operator/agent-runtime/how-to-guide.html">
+    <meta name="generator" content="Antora 3.1.12">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://agentic-layer.github.io/antora-playbook">Agentic Layer</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="agent-runtime-operator" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Agent Runtime Operator</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-To Guides</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="how-to-guide.html">Install the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agents/how-to-guide.html">Create an AI Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agents/reference.html">AI Agents Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateways/reference.html">Agent Gateway Reference</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Agent Runtime Operator</a></li>
+    <li>How-To Guides</li>
+    <li><a href="how-to-guide.html">Install the Agent Runtime Operator</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Install the Agent Runtime Operator</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide walks you through installing the Agent Runtime Operator on your Kubernetes cluster. The operator provides a unified, framework-agnostic way to deploy and manage agentic workloads.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before you begin, ensure you have:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>kubectl</strong>: Kubernetes command-line tool</p>
+</li>
+<li>
+<p><strong>kind</strong>: For running Kubernetes locally (optional)</p>
+</li>
+<li>
+<p><strong>Docker</strong>: Running and accessible</p>
+</li>
+<li>
+<p>A Kubernetes cluster (local or remote)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_installation"><a class="anchor" href="#_quick_installation"></a>Quick Installation</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_step_1_set_up_your_cluster_for_local_development"><a class="anchor" href="#_step_1_set_up_your_cluster_for_local_development"></a>Step 1: Set up your cluster (for local development)</h3>
+<div class="paragraph">
+<p>If you don&#8217;t have a Kubernetes cluster, create a local one with kind:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Create a local Kubernetes cluster
+kind create cluster</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_install_cert_manager"><a class="anchor" href="#_step_2_install_cert_manager"></a>Step 2: Install cert-manager</h3>
+<div class="paragraph">
+<p>The Agent Runtime Operator requires cert-manager for webhook support:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Install cert-manager
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.18.2/cert-manager.yaml
+
+# Wait for cert-manager to be ready
+kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=cert-manager -n cert-manager --timeout=60s</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_install_the_agent_runtime_operator"><a class="anchor" href="#_step_3_install_the_agent_runtime_operator"></a>Step 3: Install the Agent Runtime Operator</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Install the operator
+kubectl apply -f https://github.com/agentic-layer/agent-runtime-operator/releases/download/v0.4.4/install.yaml
+
+# Wait for the operator to be ready
+kubectl wait --for=condition=Available --timeout=60s -n agent-runtime-operator-system deployment/agent-runtime-operator-controller-manager</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Find the latest version at <a href="https://github.com/agentic-layer/agent-runtime-operator/releases" class="bare">https://github.com/agentic-layer/agent-runtime-operator/releases</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_4_verify_the_installation"><a class="anchor" href="#_step_4_verify_the_installation"></a>Step 4: Verify the installation</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check that the operator is running
+kubectl get pods -n agent-runtime-operator-system
+
+# Check that the CRDs are installed
+kubectl get crd agents.runtime.agentic-layer.ai</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see the operator pod running and the Agent CRD available.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alternative_installation_methods"><a class="anchor" href="#_alternative_installation_methods"></a>Alternative Installation Methods</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_using_flux_gitops"><a class="anchor" href="#_using_flux_gitops"></a>Using Flux (GitOps)</h3>
+<div class="paragraph">
+<p>If you&#8217;re using Flux for GitOps, you can install the operator using an OCI repository:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: agent-runtime-operator
+  namespace: flux-system
+spec:
+  interval: 5m
+  url: oci://ghcr.io/agentic-layer/manifests/agent-runtime-operator
+  ref:
+    semver: "&gt;= 0, &lt; 1"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: agent-runtime-operator
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: OCIRepository
+    name: agent-runtime-operator
+  interval: 10m
+  path: ./default
+  prune: true
+  wait: true
+  dependsOn:
+    # Ensure cert-manager is installed first (if you install it with Flux as well)
+    - name: cert-manager</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_next_steps"><a class="anchor" href="#_next_steps"></a>Next Steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that you have the Agent Runtime Operator installed, you can:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="../agents/how-to-guide.html" class="xref page">Create your first agent</a> - Learn how to deploy template-based and custom agents</p>
+</li>
+<li>
+<p>Explore agent samples at <a href="https://github.com/agentic-layer/agent-samples" class="bare">https://github.com/agentic-layer/agent-samples</a></p>
+</li>
+<li>
+<p>Build custom agents using the SDK at <a href="https://github.com/agentic-layer/sdk-python" class="bare">https://github.com/agentic-layer/sdk-python</a></p>
+</li>
+</ol>
+</div>
+<hr>
+<div class="paragraph">
+<p>The operator is now ready to manage your agent workloads! 🚀</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
