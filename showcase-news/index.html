@@ -91,34 +91,9 @@
 </li>
 </ul>
 </div>
-<div class="listingblock kroki-error">
+<div class="imageblock kroki">
 <div class="content">
-<pre>graph LR
-    User["👤 User"]
-    NewsAgent["📰 News Agent"]
-    SummarizerAgent["📝 Summarizer Agent"]
-    MCPServer["🔧 News MCP Server"]
-
-    User --&gt;|'1. What's new in AI?'|NewsAgent
-    NewsAgent --&gt;|2 . Tool Call:&lt;br&gt;Fetch Articles|MCPServer
-    MCPServer --&gt;|3 . fetch|RSSFeeds["📡 RSS Feeds"]
-    User --&gt;|'4 . Summarize the first article'|NewsAgent
-    NewsAgent --&gt;|5 . Agent Task:&lt;br&gt;Summarize URL|SummarizerAgent
-    SummarizerAgent --&gt;|6. Tool Call:&lt;br&gt;Fetch Articles|MCPServer
-    MCPServer --&gt;|7 . GET|Internet["🌐 Internet"]
-
-%% Styling
-classDef userClass fill: #e1f5fe
-classDef agentClass fill: #f3e5f5
-classDef mcpClass fill: #e8f5e8
-classDef externalClass fill: #fff3e0
-
-class User userClass
-class NewsAgent agentClass
-class SummarizerAgent agentClass
-class MCPServer mcpClass
-class Internet externalClass
-class RSSFeeds externalClass</pre>
+<a class="image" href="_images/showcase-sequence-3d25715c2f88ffffbd06d121098b1411ff795d70.svg" target="_blank" rel="noopener"><img src="_images/showcase-sequence-3d25715c2f88ffffbd06d121098b1411ff795d70.svg" alt="showcase-sequence"></a>
 </div>
 </div>
 </div>
