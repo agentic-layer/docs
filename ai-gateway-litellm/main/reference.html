@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>LiteLLM based AI Gateway :: Agentic Layer</title>
-    <link rel="canonical" href="https://agentic-layer.github.io/antora-playbook/ai-gateway-litellm/main/index.html">
+    <title>ModelRouter CRD Reference :: Agentic Layer</title>
+    <link rel="canonical" href="https://agentic-layer.github.io/antora-playbook/ai-gateway-litellm/main/reference.html">
     <meta name="generator" content="Antora 3.1.12">
     <link rel="stylesheet" href="../../_/css/site.css">
   </head>
@@ -49,7 +49,7 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Reference</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="reference.html">ModelRouter CRD Reference</a>
   </li>
 </ul>
@@ -67,7 +67,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">AI Gateway Litellm (Operator)</a></li>
-    <li><a href="index.html">LiteLLM based AI Gateway</a></li>
+    <li>Reference</li>
+    <li><a href="reference.html">ModelRouter CRD Reference</a></li>
   </ul>
 </nav>
 </div>
@@ -76,45 +77,65 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">LiteLLM based AI Gateway</h1>
-<div id="preamble">
+<h1 class="page">ModelRouter CRD Reference</h1>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is a LiteLLM based implementation of the Agentic Layer AI Gateway.</p>
-</div>
-<div class="paragraph">
-<p>The AI Gateway is a component that sits between an AI Agent and a Large Language Model (LLM).
-It can handle tasks such as routing requests to different models, managing authentication, logging, and other middleware functions.</p>
+<p>The ModelRouter custom resource defines an AI model gateway that routes requests to multiple LLM providers through a unified interface.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_how_to_guides"><a class="anchor" href="#_how_to_guides"></a>How-To Guides</h2>
+<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Step-by-step guides to get you up and running:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: gateway.agentic-layer.ai/v1alpha1
+kind: ModelRouter
+metadata:
+  name: my-litellm-router
+  namespace: default
+spec:
+  type: litellm
+  port: 4000
+  aiModels:
+    - name: openai/gpt-3.5-turbo
+    - name: gemini/gemini-2.5-flash</code></pre>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="how-to-guide.html" class="xref page">Getting Started</a> - Complete installation guide with prerequisites, setup steps, and verification</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_reference"><a class="anchor" href="#_reference"></a>Reference</h2>
+<h2 id="_required_specification_fields"><a class="anchor" href="#_required_specification_fields"></a>Required Specification Fields</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_spec_type"><a class="anchor" href="#_spec_type"></a>spec.type</h3>
 <div class="paragraph">
-<p>Detailed reference information for all components:</p>
+<p><strong>Type</strong>: <code>string</code><br></p>
+</div>
+<div class="paragraph">
+<p>Specifies the type of model router implementation. Currently supports:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="reference.html" class="xref page">ModelRouter CRD Reference</a> - Complete API reference for Agent Gateway resources</p>
+<p><code>litellm</code> - LiteLLM proxy implementation</p>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spec_aimodels"><a class="anchor" href="#_spec_aimodels"></a>spec.aiModels</h3>
+<div class="paragraph">
+<p><strong>Type</strong>: <code>[]AiModel</code><br></p>
+</div>
+<div class="paragraph">
+<p>List of AI models to be made available through the router. Each model must specify a name in the format <code>provider/model-name</code>.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://docs.litellm.ai/docs/providers" class="bare">https://docs.litellm.ai/docs/providers</a> for a list of supported providers.</p>
+</div>
 </div>
 </div>
 </div>

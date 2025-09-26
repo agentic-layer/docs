@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://agentic-layer.github.io/antora-playbook/ai-gateway-litellm/main/how-to-guide.html</loc>
+<lastmod>2025-09-26T12:06:06.008Z</lastmod>
+</url>
+<url>
 <loc>https://agentic-layer.github.io/antora-playbook/ai-gateway-litellm/main/index.html</loc>
-<lastmod>2025-09-26T06:21:18.354Z</lastmod>
+<lastmod>2025-09-26T12:06:06.008Z</lastmod>
+</url>
+<url>
+<loc>https://agentic-layer.github.io/antora-playbook/ai-gateway-litellm/main/reference.html</loc>
+<lastmod>2025-09-26T12:06:06.008Z</lastmod>
 </url>
 </urlset>

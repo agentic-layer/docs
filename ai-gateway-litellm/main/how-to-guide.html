@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Getting Started :: Agentic Layer</title>
+    <link rel="canonical" href="https://agentic-layer.github.io/antora-playbook/ai-gateway-litellm/main/how-to-guide.html">
+    <meta name="generator" content="Antora 3.1.12">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://agentic-layer.github.io/antora-playbook">Agentic Layer</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="ai-gateway-litellm" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">AI Gateway Litellm (Operator)</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-To Guides</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="how-to-guide.html">Getting Started</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="reference.html">ModelRouter CRD Reference</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">AI Gateway Litellm (Operator)</a></li>
+    <li>How-To Guides</li>
+    <li><a href="how-to-guide.html">Getting Started</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Getting Started</h1>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before working with this project, ensure you have the following tools installed on your system:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Go</strong>: version 1.24.0 or higher</p>
+</li>
+<li>
+<p><strong>Docker</strong>: version 20.10+ (or a compatible alternative like Podman)</p>
+</li>
+<li>
+<p><strong>kubectl</strong>: The Kubernetes command-line tool</p>
+</li>
+<li>
+<p><strong>kind</strong>: For running Kubernetes locally in Docker</p>
+</li>
+<li>
+<p><strong>make</strong>: The build automation tool</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_setup_local_environment"><a class="anchor" href="#_setup_local_environment"></a>Setup Local Environment</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Create a local Kubernetes cluster using kind
+kind create cluster</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Install cert-manager for webhook support (update the version to the latest stable if needed)
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.18.2/cert-manager.yaml
+# Wait for cert-manager to be ready
+kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=cert-manager -n cert-manager --timeout=60s</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installation"><a class="anchor" href="#_installation"></a>Installation</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Install the AI Gateway Litellm operator (update the version to the latest stable if needed)
+kubectl apply -f https://github.com/agentic-layer/ai-gateway-litellm/releases/download/v0.0.6/install.yaml
+# Wait for the operator to be ready
+kubectl wait --for=condition=Available --timeout=60s -n ai-gateway-litellm-system deployment/ai-gateway-litellm-controller-manager</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy_a_litellm_modelrouter"><a class="anchor" href="#_deploy_a_litellm_modelrouter"></a>Deploy a LiteLLM ModelRouter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide walks you through deploying a LiteLLM instance using the ModelRouter custom resource.</p>
+</div>
+<div class="sect2">
+<h3 id="_create_api_key_secret"><a class="anchor" href="#_create_api_key_secret"></a>Create API Key Secret</h3>
+<div class="paragraph">
+<p>First, create a secret containing credentials for the LLM providers you plan to use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create secret generic api-key-secrets \
+  --from-literal=OPENAI_API_KEY=$OPENAI_API_KEY \
+  --from-literal=GEMINI_API_KEY=$GEMINI_API_KEY \
+  --from-literal=ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The secret name must match the value configured in the operator. The default expected name is <code>api-key-secrets</code>. API keys that are not provided will not cause deployment failures - the corresponding models just won&#8217;t be available.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_a_modelrouter_resource"><a class="anchor" href="#_create_a_modelrouter_resource"></a>Create a ModelRouter Resource</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a ModelRouter resource file:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: gateway.agentic-layer.ai/v1alpha1
+kind: ModelRouter
+metadata:
+  name: my-litellm
+spec:
+  type: litellm
+  aiModels:
+    - name: openai/gpt-3.5-turbo
+    - name: gemini/gemini-1.5-pro</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Apply the configuration:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f my-modelrouter.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_verify_the_deployment"><a class="anchor" href="#_verify_the_deployment"></a>Verify the Deployment</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check the ModelRouter status:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get modelrouters my-litellm -o yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the created resources:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check the deployment created by the operator
+kubectl get deployments -l app=my-litellm
+
+# Check the service
+kubectl get services -l app=my-litellm
+
+# Check the configmap with LiteLLM configuration
+kubectl get configmaps my-litellm-config</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the pod logs to ensure LiteLLM started successfully:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -l app=my-litellm -c litellm</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
