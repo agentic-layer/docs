@@ -25,6 +25,9 @@ content:
     - url: https://github.com/agentic-layer/showcase-news.git
       branches: [main]
       start_path: docs
+    - url: https://github.com/agentic-layer/ai-gateway-operator.git
+      branches: [main]
+      start_path: docs
     - url: https://github.com/agentic-layer/ai-gateway-litellm-operator.git
       branches: [main]
       start_path: docs
