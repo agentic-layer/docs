@@ -48,15 +48,6 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Reference</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../operator/reference.html">AI Gateway LiteLLM Reference</a>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
@@ -84,7 +75,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide walks you through deploying a LiteLLM instance using the ModelRouter custom resource.</p>
+<p>This guide walks you through deploying a LiteLLM instance using the AiGateway custom resource.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -130,24 +121,26 @@ The secret name must match the value configured in the operator. The default exp
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_a_modelrouter_resource"><a class="anchor" href="#_create_a_modelrouter_resource"></a>Create a ModelRouter Resource</h2>
+<h2 id="_create_an_aigateway_resource"><a class="anchor" href="#_create_an_aigateway_resource"></a>Create an AiGateway Resource</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create a ModelRouter resource file:</p>
+<p>Create a AiGateway resource file:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: gateway.agentic-layer.ai/v1alpha1
-kind: ModelRouter
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: agentic-layer.ai/v1alpha1
+kind: AiGateway
 metadata:
   name: ai-gateway-litellm
   namespace: ai-gateway
 spec:
-  type: litellm
+  AiGatewayClassName: litellm
   aiModels:
-    - name: openai/gpt-3.5-turbo
-    - name: gemini/gemini-1.5-pro</code></pre>
+    - provider: openai
+      name: gpt-3.5-turbo
+    - provider: gemini
+      name: gemini-1.5-pro</code></pre>
 </div>
 </div>
 </li>
@@ -155,7 +148,7 @@ spec:
 <p>Apply the configuration:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f my-modelrouter.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f my-aigateway.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -169,10 +162,10 @@ spec:
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Check the ModelRouter status:</p>
+<p>Check the AiGateway status:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get modelrouters ai-gateway-litellm -o yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get aigateways ai-gateway-litellm -o yaml</code></pre>
 </div>
 </div>
 </li>
