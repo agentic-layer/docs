@@ -16,6 +16,23 @@ jobs:
     permissions:
       contents: write # Required to push to the gh-pages branch
 
+    services:
+      mermaid:
+        image: yuzutech/kroki-mermaid:latest
+        ports:
+          - 8002:8002
+      kroki:
+        image: yuzutech/kroki:latest
+        env:
+          KROKI_MERMAID_HOST: mermaid
+        ports:
+          - 8000:8000
+        options: >-
+          --health-cmd "curl -f http://localhost:8000/health || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout playbook source
         uses: actions/checkout@v5

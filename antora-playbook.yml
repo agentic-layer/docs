@@ -44,6 +44,7 @@ asciidoc:
     - asciidoctor-kroki
   attributes:
     kroki-fetch-diagram: true
+    kroki-server-url: http://localhost:8000
 
 output:
   dir: build/site  # Generated site output directory
