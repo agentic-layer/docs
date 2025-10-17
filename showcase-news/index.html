@@ -281,11 +281,11 @@ kubectl cluster-info</code></pre>
 <div class="sect3">
 <h4 id="_install_agentic_runtime_operator"><a class="anchor" href="#_install_agentic_runtime_operator"></a>Install Agentic Runtime Operator</h4>
 <div class="paragraph">
-<p>The Agentic Runtime Operator manages AI agents as Kubernetes custom resources. Install the latest version:</p>
+<p>The Agentic Runtime Operator manages AI agents and MCP servers as Kubernetes custom resources. Install the latest version:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L https://github.com/agentic-layer/agent-runtime-operator/releases/download/v0.4.4/install.yaml | kubectl apply -f -</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L https://github.com/agentic-layer/agent-runtime-operator/releases/download/v0.7.0/install.yaml | kubectl apply -f -</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -637,7 +637,7 @@ kill %1 %2 %3 %4 %5  # Adjust numbers based on your running jobs
 
 # Delete deployed resources
 kubectl delete -k deploy/
-kubectl delete -f https://github.com/agentic-layer/agent-runtime-operator/releases/download/v0.4.4/install.yaml
+kubectl delete -f https://github.com/agentic-layer/agent-runtime-operator/releases/download/v0.7.0/install.yaml
 kubectl delete -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.yaml
 
 # Remove the built Docker image (optional)
