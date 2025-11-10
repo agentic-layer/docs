@@ -91,7 +91,7 @@
 <p><strong>Kubernetes</strong>: A running Kubernetes cluster</p>
 </li>
 <li>
-<p><strong>AI Gateway Operator</strong>: The core operator for managing AI gateways. See <a href="../../ai-gateway-operator/operator/how-to-guide.html" class="xref page">Install the AI Gateway Operator</a> for installation instructions.</p>
+<p><strong>Agent Runtime Operator</strong>: Includes the required CRDs for AI Gateways. See <a href="../../agent-runtime-operator/agent-runtime/how-to-guide.html" class="xref page">Install the Agent Runtime Operator</a> for installation instructions.</p>
 </li>
 </ul>
 </div>
@@ -107,7 +107,7 @@
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Install the operator
-kubectl apply -f https://github.com/agentic-layer/ai-gateway-litellm/releases/download/v0.0.6/install.yaml
+kubectl apply -f https://github.com/agentic-layer/ai-gateway-litellm-operator/releases/download/v0.2.0/install.yaml
 # Wait for the operator to be ready
 kubectl wait --for=condition=Available --timeout=60s -n ai-gateway-litellm-system deployment/ai-gateway-litellm-controller-manager</code></pre>
 </div>

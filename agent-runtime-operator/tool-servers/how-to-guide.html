@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Create a Tool Server :: Agentic Layer</title>
+    <link rel="canonical" href="https://agentic-layer.github.io/antora-playbook/agent-runtime-operator/tool-servers/how-to-guide.html">
+    <meta name="generator" content="Antora 3.1.12">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://agentic-layer.github.io/antora-playbook">Agentic Layer</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="agent-runtime-operator" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Agent Runtime Operator</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-To Guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime/how-to-guide.html">Install the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agents/how-to-guide.html">Create an AI Agent</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="how-to-guide.html">Create a Tool Server</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime/reference.html">Agent Runtime Reference</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Agent Runtime Operator</a></li>
+    <li>How-To Guides</li>
+    <li><a href="how-to-guide.html">Create a Tool Server</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Create a Tool Server</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide walks you through creating and deploying tool servers using the Agent Runtime Operator. Tool servers extend your agents' capabilities by providing external tools and functionality through the Model Context Protocol (MCP).</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Before following this guide, make sure you have the Agent Runtime Operator installed. See <a href="../agent-runtime/how-to-guide.html" class="xref page">Install the Agent Runtime Operator</a> for installation instructions.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_start_your_first_tool_server"><a class="anchor" href="#_quick_start_your_first_tool_server"></a>Quick Start: Your First Tool Server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Get your first tool server running in under 5 minutes.</p>
+</div>
+<div class="sect2">
+<h3 id="_deploy_your_first_tool_server"><a class="anchor" href="#_deploy_your_first_tool_server"></a>Deploy your first tool server</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Create a tool server using the Context7 MCP server (provides up-to-date code docs)
+cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: ToolServer
+metadata:
+  name: context7-toolserver
+spec:
+  protocol: mcp
+  transportType: http
+  image: mcp/context7:latest
+  port: 8080
+  replicas: 2
+  env:
+    - name: LOG_LEVEL
+      value: info
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_verify_your_tool_server_is_running"><a class="anchor" href="#_verify_your_tool_server_is_running"></a>Verify your tool server is running</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check the tool server resource
+kubectl get toolserver context7-toolserver
+
+# Check the deployment
+kubectl get deployment context7-toolserver
+
+# Check the service
+kubectl get service context7-toolserver</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_check_the_logs"><a class="anchor" href="#_check_the_logs"></a>Check the logs</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># View tool server logs
+kubectl logs -l app=context7-toolserver</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>🎉 <strong>Congratulations!</strong> You&#8217;ve successfully deployed your first tool server.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_tool_servers_with_agents"><a class="anchor" href="#_using_tool_servers_with_agents"></a>Using Tool Servers with Agents</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To connect a tool server to your agent, reference it using <code>toolServerRef</code>:</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Replace <code>your-gemini-api-key-here</code> with your actual Gemini API key before deploying.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: Agent
+metadata:
+  name: coding-assistant
+spec:
+  framework: google-adk
+  description: "A coding assistant with access to up-to-date documentation"
+  instruction: "You are a helpful coding assistant. Use the context7 tool to fetch up-to-date documentation for libraries and frameworks to help answer coding questions accurately."
+  model: "gemini/gemini-2.5-flash"
+  tools:
+    - name: context7_tools
+      toolServerRef:
+        name: context7-toolserver
+  protocols:
+    - type: A2A
+  replicas: 1
+  env:
+    - name: GEMINI_API_KEY
+      value: "your-gemini-api-key-here"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The operator automatically wires the agent to the tool server using the ToolServer&#8217;s name.</p>
+</div>
+<div class="paragraph">
+<p>For more details on creating and configuring agents, see <a href="../agents/how-to-guide.html" class="xref page">Create an AI Agent</a>.</p>
+</div>
+<div class="paragraph">
+<p>Happy tool server building! 🔧</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
