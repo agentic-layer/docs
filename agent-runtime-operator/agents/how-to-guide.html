@@ -404,6 +404,164 @@ spec:
 <div class="paragraph">
 <p>Additional frameworks will be supported in the future.</p>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_an_agentic_workforce"><a class="anchor" href="#_create_an_agentic_workforce"></a>Create an Agentic Workforce</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_what_is_an_agentic_workforce"><a class="anchor" href="#_what_is_an_agentic_workforce"></a>What is an agentic workforce?</h3>
+<div class="paragraph">
+<p>An agentic workforce is a collection of agents that work together to handle complex tasks. Instead of managing individual
+agents, you define entry points and let the operator automatically discover all connected agents and their capabilities.</p>
+</div>
+<div class="paragraph">
+<p><strong>Key terms</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>entry-point agents</strong> serve as the initial contact points, and the operator automatically discovers all</p>
+</li>
+<li>
+<p><strong>transitive agents</strong> are sub-agents called by your entry-point agents</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_when_to_use_an_agentic_workforce"><a class="anchor" href="#_when_to_use_an_agentic_workforce"></a>When to use an agentic workforce</h3>
+<div class="paragraph">
+<p><strong>Use agentic workforces when:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You have multiple agents that need to collaborate on tasks</p>
+</li>
+<li>
+<p>You want centralized visibility into all agents and tools in a system</p>
+</li>
+<li>
+<p>You need to track which agents can delegate to which other agents</p>
+</li>
+<li>
+<p>You want to organize agents by business domain or use case</p>
+</li>
+<li>
+<p>You need automatic discovery of agent dependencies and capabilities</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Use individual agents when:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You have a single, standalone agent</p>
+</li>
+<li>
+<p>Your agent doesn&#8217;t interact with other agents</p>
+</li>
+<li>
+<p>You need simple, direct agent deployment</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deploy_your_first_workforce"><a class="anchor" href="#_deploy_your_first_workforce"></a>Deploy your first workforce</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This example assumes you have already deployed the agents referenced as entry points. See the sections above for
+how to create agents.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Create a workforce that orchestrates multiple customer service agents
+cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: AgenticWorkforce
+metadata:
+  name: customer-service-workforce
+spec:
+  # Human-readable name for the workforce
+  name: "Customer Service Team"
+
+  # Description of the workforce's purpose
+  description: "A workforce handling customer inquiries, support tickets, and product recommendations"
+
+  # Owner of the workforce (email or identifier)
+  owner: "platform-team@example.com"
+
+  # Optional tags for organization
+  tags:
+    - customer-service
+    - support
+    - production
+
+  # Entry point agents - the initial agents users interact with
+  # The operator discovers all transitive agents (sub-agents) automatically
+  entryPointAgents:
+    # Agent in the same namespace
+    - name: my-first-agent
+
+    # Agent in a different namespace (optional)
+    # - name: specialist-agent
+    #   namespace: ai-agents
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_verify_your_workforce_is_running"><a class="anchor" href="#_verify_your_workforce_is_running"></a>Verify your workforce is running</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check the workforce resource
+kubectl get agenticworkforce customer-service-workforce
+
+# View detailed status including discovered agents and tools
+kubectl describe agenticworkforce customer-service-workforce
+
+# Check discovered transitive agents
+kubectl get agenticworkforce customer-service-workforce -o jsonpath='{.status.transitiveAgents[*].name}'
+
+# Check discovered transitive tools
+kubectl get agenticworkforce customer-service-workforce -o jsonpath='{.status.transitiveTools[*]}'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_understanding_workforce_discovery"><a class="anchor" href="#_understanding_workforce_discovery"></a>Understanding workforce discovery</h3>
+<div class="paragraph">
+<p>The operator automatically analyzes your entry-point agents to discover:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Transitive agents</strong>: All sub-agents that your entry points can delegate to (both in-cluster and remote)</p>
+</li>
+<li>
+<p><strong>Transitive tools</strong>: All tools available across the entire workforce</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This information appears in the workforce&#8217;s status, giving you complete visibility into your agent ecosystem.</p>
+</div>
+<div class="paragraph">
+<p>🎉 <strong>Congratulations!</strong> You&#8217;ve successfully created your first agentic workforce.</p>
+</div>
 <hr>
 <div class="paragraph">
 <p>Happy agent building! 🤖</p>
