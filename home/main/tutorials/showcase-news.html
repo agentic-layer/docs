@@ -300,13 +300,16 @@ kubectl cluster-info</code></pre>
 <p>Install the Agent Runtime Operator, Agent Gateway Operator, and AI Gateway Operator</p>
 </li>
 <li>
+<p>Deploy an instance of an Agent Gateway and an AI Gateway</p>
+</li>
+<li>
+<p>Deploy the showcase applications (Agents and ToolServer)</p>
+</li>
+<li>
 <p>Deploy the monitoring stack (LGTM)</p>
 </li>
 <li>
 <p>Deploy the Agentic Layer observability dashboard</p>
-</li>
-<li>
-<p>Deploy the showcase applications</p>
 </li>
 <li>
 <p>Create required secrets from your environment variables</p>
@@ -350,82 +353,45 @@ kubectl cluster-info</code></pre>
 <div class="sect3">
 <h4 id="_install_agent_runtime_operator"><a class="anchor" href="#_install_agent_runtime_operator"></a>Install Agent Runtime Operator</h4>
 <div class="paragraph">
-<p>The Agent Runtime Operator manages AI agents and MCP servers as Kubernetes custom resources. Install the latest version:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L https://github.com/agentic-layer/agent-runtime-operator/releases/download/v0.7.0/install.yaml | kubectl apply -f -</code></pre>
-</div>
+<p>The Agent Runtime Operator manages AI <code>Agents</code> and MCP <code>ToolServers</code> as Kubernetes custom resources.</p>
 </div>
 <div class="paragraph">
-<p>Wait for the operator to be available:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl wait --for=condition=Available --timeout=60s -n agent-runtime-operator-system deployment/agent-runtime-operator-controller-manager</code></pre>
-</div>
+<p>See the <a href="../../../agent-runtime-operator/agent-runtime/how-to-guide.html" class="xref page">agent-runtime-operator</a> installation instructions.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_install_the_agent_gateway_operator"><a class="anchor" href="#_install_the_agent_gateway_operator"></a>Install the Agent Gateway Operator</h4>
+<h4 id="_agent_gateway"><a class="anchor" href="#_agent_gateway"></a>Agent Gateway</h4>
+<div class="sect4">
+<h5 id="_install_the_agent_gateway_operator"><a class="anchor" href="#_install_the_agent_gateway_operator"></a>Install the Agent Gateway Operator</h5>
 <div class="paragraph">
 <p>This operator manages AgentGateway resources and automatically generates KrakenD configurations to expose Agent workloads through a unified gateway interface.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="../../../agent-runtime-operator/agent-runtime/how-to-guide.html" class="xref page">installation instructions</a></p>
+<p>See the <a href="../../../agent-runtime-operator/agent-gateways/how-to-guide.html" class="xref page">agent-gateway-operator</a> installation instructions.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_install_an_agent_gateway_instance"><a class="anchor" href="#_install_an_agent_gateway_instance"></a>Install an Agent Gateway instance</h4>
+<div class="sect4">
+<h5 id="_install_an_agent_gateway_instance"><a class="anchor" href="#_install_an_agent_gateway_instance"></a>Install an Agent Gateway instance</h5>
 <div class="paragraph">
-<p>Configure an <code>AgentGateway</code> instance: <a href="../../../ai-gateway-litellm-operator/gateway/how-to-guide.html" class="xref page">see example</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_install_ai_gateway_operator"><a class="anchor" href="#_install_ai_gateway_operator"></a>Install AI Gateway Operator</h4>
-<div class="paragraph">
-<p>This operator managed AiGateway resources and manages LiteLLM deployments. It serves as an abstraction layer for LLM provider interactions, providing unified access, security, and intelligent routing.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f https://github.com/agentic-layer/ai-gateway-litellm-operator/releases/download/v0.2.0/install.yaml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Wait for the operator to be available:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl wait --for=condition=Available --timeout=60s -n agent-runtime-operator-system deployment/agent-runtime-operator-controller-manager</code></pre>
+<p>Configure an <code>AgentGateway</code> instance: <a href="../../../agent-runtime-operator/agent-gateways/how-to-guide.html" class="xref page">see example</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_install_ai_gateway_operator_instance"><a class="anchor" href="#_install_ai_gateway_operator_instance"></a>Install AI Gateway Operator instance</h4>
+<h4 id="_ai_gateway"><a class="anchor" href="#_ai_gateway"></a>AI Gateway</h4>
+<div class="sect4">
+<h5 id="_install_ai_gateway_operator"><a class="anchor" href="#_install_ai_gateway_operator"></a>Install AI Gateway Operator</h5>
 <div class="paragraph">
-<p>Configure an instance of an <code>AiGateway</code>:</p>
+<p>This operator manages AiGateway resources and manages LiteLLM deployments. It serves as an abstraction layer for LLM provider interactions, providing unified access, security, and intelligent routing.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">cat &lt;&lt;EOF | kubectl apply -f -
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: ai-gateway
----
-apiVersion: runtime.agentic-layer.ai/v1alpha1
-kind: AiGateway
-metadata:
-    name: ai-gateway-litellm
-    namespace: ai-gateway
-spec:
-  aiGatewayClassName: litellm
-  aiModels:
-    - name: gemini-2.5-flash-lite
-      provider: gemini
-    - name: gemini-2.0-flash
-      provider: gemini
-EOF</code></pre>
+<div class="paragraph">
+<p>See the <a href="../../../ai-gateway-litellm-operator/operator/how-to-guide.html" class="xref page">ai-gateway-litellm-operator</a> installation instructions.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_install_ai_gateway_operator_instance"><a class="anchor" href="#_install_ai_gateway_operator_instance"></a>Install AI Gateway Operator instance</h5>
+<div class="paragraph">
+<p>Configure an <code>AiGateway</code> instance: <a href="../../../ai-gateway-litellm-operator/gateway/how-to-guide.html" class="xref page">see example</a>.</p>
 </div>
 </div>
 </div>
@@ -625,10 +591,36 @@ The <code>&amp;</code> runs each command in the background. Keep the terminal op
 <div class="sect1">
 <h2 id="_step_4_test_the_setup"><a class="anchor" href="#_step_4_test_the_setup"></a>Step 4: Test the Setup</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_basic_news_query"><a class="anchor" href="#_basic_news_query"></a>Basic News Query</h3>
 <div class="paragraph">
-<p>Test the news-agent with a simple query:</p>
+<p>There are two different ways to talk to our agents:
+- Via the agent gateway (recommended).
+- Directly via the A2A protocol.</p>
+</div>
+<div class="sect2">
+<h3 id="_via_the_agent_gateway"><a class="anchor" href="#_via_the_agent_gateway"></a>Via the Agent Gateway</h3>
+<div class="paragraph">
+<p>This variant has the advantage of exposing the agents via an (almost-) OpenAI compatible API.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl http://localhost:8004/news-agent/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "news-agent",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What are the latest AI news? Summarize the top article."
+      }
+    ]
+  }' | jq</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_directly_via_a2a"><a class="anchor" href="#_directly_via_a2a"></a>Directly via A2A</h3>
+<div class="paragraph">
+<p>You can query the news-agent directly with a simple A2A query. This connection is only possible because we directly expose the agent.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -655,11 +647,8 @@ The <code>&amp;</code> runs each command in the background. Keep the terminal op
   }' | jq</code></pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_direct_summarization"><a class="anchor" href="#_direct_summarization"></a>Direct Summarization</h3>
 <div class="paragraph">
-<p>Test the summarizer agent directly:</p>
+<p>Or, test the summarizer agent directly:</p>
 </div>
 <div class="listingblock">
 <div class="content">
