@@ -304,7 +304,7 @@ kubectl cluster-info</code></pre>
 <p>This operator manages AgentGateway resources and automatically generates KrakenD configurations to expose Agent workloads through a unified gateway interface.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="../agent-runtime-operator/agent-gateways/how-to-guide.html" class="xref page">agent-gateway-operator</a> installation instructions.</p>
+<p>See the <a href="../agent-gateway-krakend-operator/operator/how-to-guide.html" class="xref page">agent-gateway-operator</a> installation instructions.</p>
 </div>
 </div>
 <div class="sect4">
@@ -328,7 +328,7 @@ kubectl cluster-info</code></pre>
 <div class="sect4">
 <h5 id="_install_ai_gateway_operator_instance"><a class="anchor" href="#_install_ai_gateway_operator_instance"></a>Install AI Gateway Operator instance</h5>
 <div class="paragraph">
-<p>Configure an <code>AiGateway</code> instance: <a href="../ai-gateway-litellm-operator/gateway/how-to-guide.html" class="xref page">see example</a>.</p>
+<p>Configure an <code>AiGateway</code> instance: <a href="../agent-runtime-operator/ai-gateways/how-to-guide.html" class="xref page">see example</a>.</p>
 </div>
 </div>
 </div>
@@ -476,7 +476,7 @@ kubectl port-forward -n showcase-news service/summarizer-agent 8002:8000 &amp;
 kubectl port-forward -n showcase-news service/news-fetcher 8003:8000 &amp;
 
 # Agent Gateway
-kubectl port-forward -n showcase-news service/my-agent-gateway 8004:10000 &amp;
+kubectl port-forward -n showcase-news service/my-agent-gateway 8004:8080 &amp;
 
 # Observability Dashboard
 kubectl port-forward -n observability-dashboard service/observability-dashboard 8100:8000 &amp;

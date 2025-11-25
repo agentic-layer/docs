@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>LiteLLM based AI Gateway :: Agentic Layer</title>
-    <link rel="canonical" href="https://agentic-layer.github.io/antora-playbook/ai-gateway-operator/index.html">
+    <title>KrakenD based Agent Gateway :: Agentic Layer</title>
+    <link rel="canonical" href="https://agentic-layer.github.io/antora-playbook/agent-gateway-krakend-operator/index.html">
     <meta name="generator" content="Antora 3.1.12">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -28,20 +28,23 @@
     </div>
   </nav>
 </header><div class="body">
-<div class="nav-container" data-component="ai-gateway-operator" data-version="">
+<div class="nav-container" data-component="agent-gateway-krakend-operator" data-version="">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
     <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
-    <h3 class="title"><a href="index.html">AI Gateway Operator</a></h3>
+    <h3 class="title"><a href="index.html">Agent Gateway KrakenD Operator</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-To Guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="operator/how-to-guide.html">Install the AI Gateway Operator</a>
+    <a class="nav-link" href="operator/how-to-guide.html">Install the Agent Gateway Operator for KrakenD</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-gateways/how-to-guide.html">Create a KrakenD Agent Gateway</a>
   </li>
 </ul>
   </li>
@@ -50,7 +53,7 @@
     <span class="nav-text">Reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="operator/reference.html">AI Gateway LiteLLM Reference</a>
+    <a class="nav-link" href="operator/reference.html">Agent Gateway Reference</a>
   </li>
 </ul>
   </li>
@@ -66,8 +69,8 @@
   <a href="../home/main/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="index.html">AI Gateway Operator</a></li>
-    <li><a href="index.html">LiteLLM based AI Gateway</a></li>
+    <li><a href="index.html">Agent Gateway KrakenD Operator</a></li>
+    <li><a href="index.html">KrakenD based Agent Gateway</a></li>
   </ul>
 </nav>
 </div>
@@ -76,16 +79,15 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">LiteLLM based AI Gateway</h1>
+<h1 class="page">KrakenD based Agent Gateway</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This operator provides AI gateway capabilities for routing and managing requests to Large Language Models (LLMs) across multiple providers.
-Implementations are provided by other operators, such as <a href="https://github.com/agentic-layer/ai-gateway-litellm-operator">ai-gateway-litellm-operator</a>.</p>
+<p>This is a KrakenD based implementation of the Agentic Layer Agent Gateway.</p>
 </div>
 <div class="paragraph">
-<p>The AI Gateway is a component that sits between an AI Agent and a Large Language Model (LLM).
-It can handle tasks such as routing requests to different models, managing authentication, logging, and other middleware functions.</p>
+<p>The Agent Gateway KrakenD Operator is a specialized Kubernetes operator that provides a KrakenD-based Agent gateway implementation for the Agent Runtime Operator ecosystem.
+It manages <code>AgentGateway</code> resources and automatically generates KrakenD configurations to expose Agent workloads through a unified gateway interface.</p>
 </div>
 </div>
 </div>
@@ -98,22 +100,10 @@ It can handle tasks such as routing requests to different models, managing authe
 <div class="ulist">
 <ul>
 <li>
-<p><a href="operator/how-to-guide.html" class="xref page">Install the AI Gateway Operator</a></p>
+<p><a href="operator/how-to-guide.html" class="xref page">Install the Agent Gateway Operator for KrakenD</a></p>
 </li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_reference"><a class="anchor" href="#_reference"></a>Reference</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Detailed reference information for all components:</p>
-</div>
-<div class="ulist">
-<ul>
 <li>
-<p><a href="operator/reference.html" class="xref page">AI Gateway LiteLLM Reference</a></p>
+<p><a href="../agent-runtime-operator/agent-gateways/how-to-guide.html" class="xref page">Create a KrakenD Agent Gateway</a></p>
 </li>
 </ul>
 </div>
