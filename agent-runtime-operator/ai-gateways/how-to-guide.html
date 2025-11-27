@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Create a LiteLLM AI Gateway :: Agentic Layer</title>
+    <title>Create an AI Gateway :: Agentic Layer</title>
     <link rel="canonical" href="https://agentic-layer.github.io/antora-playbook/agent-runtime-operator/ai-gateways/how-to-guide.html">
     <meta name="generator" content="Antora 3.1.12">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -50,10 +50,10 @@
     <a class="nav-link" href="../tool-servers/how-to-guide.html">Create a Tool Server</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../agent-gateways/how-to-guide.html">Create a KrakenD Agent Gateway</a>
+    <a class="nav-link" href="../agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="how-to-guide.html">Create a LiteLLM AI Gateway</a>
+    <a class="nav-link" href="how-to-guide.html">Create an AI Gateway</a>
   </li>
 </ul>
   </li>
@@ -80,7 +80,7 @@
   <ul>
     <li><a href="../index.html">Agent Runtime Operator</a></li>
     <li>How-To Guides</li>
-    <li><a href="how-to-guide.html">Create a LiteLLM AI Gateway</a></li>
+    <li><a href="how-to-guide.html">Create an AI Gateway</a></li>
   </ul>
 </nav>
 </div>
@@ -89,20 +89,26 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Create a LiteLLM AI Gateway</h1>
+<h1 class="page">Create an AI Gateway</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide walks you through deploying a LiteLLM instance using the AiGateway custom resource.</p>
+<p>This guide walks you through deploying an instance of the <code>AiGateway</code> custom resource.</p>
 </div>
-<div class="admonitionblock important">
+<div class="paragraph">
+<p>An <code>AiGateway</code> is like a Kubernetes <a href="https://kubernetes.io/docs/concepts/services-networking/gateway/#api-kind-gateway">Gateway</a> in that there might be many different implementations (also known as "classes"). Example implementations of the Kubernetes Gateway specification include Envoy Gateway, Cilium, or <code>amazon-vpc-lattice</code>).</p>
+</div>
+<div class="paragraph">
+<p>One example implementation of the Agentic Layer <code>AiGateway</code> specification is based on LiteLLM. This guide explains how to instantiate one such instance of an <code>AiGateway</code>.</p>
+</div>
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Before following this guide, make sure you have an AI Gateway Operator installed. See <a href="../../ai-gateway-litellm-operator/operator/how-to-guide.html" class="xref page">Install the AI Gateway LiteLLM Operator</a> for installation instructions of one such operator.
+Before following this guide, make sure you have some kind of AiGateway Operator installed. See <a href="../../ai-gateway-litellm-operator/operator/how-to-guide.html" class="xref page">Install the AI Gateway LiteLLM Operator</a> for installation instructions of one such operator.
 </td>
 </tr>
 </table>
@@ -150,7 +156,7 @@ The secret name must match the value configured in the operator. The default exp
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
 kind: AiGateway
 metadata:
-  name: ai-gateway-litellm
+  name: ai-gateway
   namespace: ai-gateway
 spec:
   AiGatewayClassName: litellm
@@ -162,6 +168,13 @@ spec:
 </div>
 </div>
 </li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Note: The <code>AiGatewayClassName</code> is optional.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Apply the configuration:</p>
 <div class="listingblock">
@@ -183,7 +196,7 @@ spec:
 <p>Check the AiGateway status:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get aigateways ai-gateway-litellm -o yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get aigateways ai-gateway -o yaml</code></pre>
 </div>
 </div>
 </li>
@@ -192,13 +205,13 @@ spec:
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check the deployment created by the operator
-kubectl get deployments -l app=ai-gateway-litellm
+kubectl get deployments -l app=ai-gateway
 
 # Check the service
-kubectl get services -l app=ai-gateway-litellm
+kubectl get services -l app=ai-gateway
 
 # Check the configmap with LiteLLM configuration
-kubectl get configmaps ai-gateway-litellm-config</code></pre>
+kubectl get configmaps ai-gateway-config</code></pre>
 </div>
 </div>
 </li>
@@ -206,7 +219,7 @@ kubectl get configmaps ai-gateway-litellm-config</code></pre>
 <p>Check the pod logs to ensure LiteLLM started successfully:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -l app=ai-gateway-litellm -c litellm</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -l app=ai-gateway -c litellm</code></pre>
 </div>
 </div>
 </li>

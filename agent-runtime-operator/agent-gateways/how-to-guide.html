@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Create a KrakenD Agent Gateway :: Agentic Layer</title>
+    <title>Create an Agent Gateway :: Agentic Layer</title>
     <link rel="canonical" href="https://agentic-layer.github.io/antora-playbook/agent-runtime-operator/agent-gateways/how-to-guide.html">
     <meta name="generator" content="Antora 3.1.12">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -50,10 +50,10 @@
     <a class="nav-link" href="../tool-servers/how-to-guide.html">Create a Tool Server</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="how-to-guide.html">Create a KrakenD Agent Gateway</a>
+    <a class="nav-link" href="how-to-guide.html">Create an Agent Gateway</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../ai-gateways/how-to-guide.html">Create a LiteLLM AI Gateway</a>
+    <a class="nav-link" href="../ai-gateways/how-to-guide.html">Create an AI Gateway</a>
   </li>
 </ul>
   </li>
@@ -80,7 +80,7 @@
   <ul>
     <li><a href="../index.html">Agent Runtime Operator</a></li>
     <li>How-To Guides</li>
-    <li><a href="how-to-guide.html">Create a KrakenD Agent Gateway</a></li>
+    <li><a href="how-to-guide.html">Create an Agent Gateway</a></li>
   </ul>
 </nav>
 </div>
@@ -89,20 +89,26 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Create a KrakenD Agent Gateway</h1>
+<h1 class="page">Create an Agent Gateway</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide walks you through deploying a KrakenD instance using the AgentGateway custom resource.</p>
+<p>This guide walks you through deploying an instance of the <code>AgentGateway</code> custom resource.</p>
 </div>
-<div class="admonitionblock important">
+<div class="paragraph">
+<p>An <code>AgentGateway</code> is like a Kubernetes <a href="https://kubernetes.io/docs/concepts/services-networking/gateway/#api-kind-gateway">Gateway</a> in that there might be many different implementations (also known as "classes"). Example implementations of the Kubernetes Gateway specification include Envoy Gateway, Cilium, or <code>amazon-vpc-lattice</code>).</p>
+</div>
+<div class="paragraph">
+<p>One implementation of the <code>AgentGateway</code> specification is based on KrakenD. This guide explains how to instantiate one such instance of an <code>AgentGateway</code>.</p>
+</div>
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Before following this guide, make sure you have the KrakenD Agent Gateway Operator installed. See <a href="../../agent-gateway-krakend-operator/operator/how-to-guide.html" class="xref page">Install the AI Gateway KrakenD Operator</a> for installation instructions.
+Before following this guide, make sure you have some kind of Agent Gateway Operator installed. See <a href="../../agent-gateway-krakend-operator/operator/how-to-guide.html" class="xref page">Install the Agent Gateway KrakenD Operator</a> for one example.
 </td>
 </tr>
 </table>
