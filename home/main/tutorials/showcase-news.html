@@ -294,13 +294,16 @@ kubectl cluster-info</code></pre>
 <p>Install cert-manager for webhook certificate management</p>
 </li>
 <li>
-<p>Install the Agent Runtime Operator, Agent Gateway Operator, and AI Gateway Operator</p>
+<p>Install the Agent Runtime Operator</p>
 </li>
 <li>
-<p>Deploy an instance of an Agent Gateway and an AI Gateway</p>
+<p>Install example implementations of an Agent Gateway Operator and AI Gateway Operator</p>
 </li>
 <li>
 <p>Deploy the showcase applications (Agents and ToolServer)</p>
+</li>
+<li>
+<p>Deploy an instance of an Agent Gateway and an AI Gateway</p>
 </li>
 <li>
 <p>Deploy the monitoring stack (LGTM)</p>
@@ -358,38 +361,50 @@ kubectl cluster-info</code></pre>
 </div>
 <div class="sect3">
 <h4 id="_agent_gateway"><a class="anchor" href="#_agent_gateway"></a>Agent Gateway</h4>
-<div class="sect4">
-<h5 id="_install_the_agent_gateway_operator"><a class="anchor" href="#_install_the_agent_gateway_operator"></a>Install the Agent Gateway Operator</h5>
 <div class="paragraph">
-<p>This operator manages AgentGateway resources and automatically generates KrakenD configurations to expose Agent workloads through a unified gateway interface.</p>
+<p>An AgentGateway exposes Agent workloads through a unified gateway interface.
+Kubernetes operators that instantiate an AgentGateway do so by watching <code>AgentGateway</code> resources and automatically deploying some kind of gateway application.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="../../../agent-gateway-krakend-operator/operator/how-to-guide.html" class="xref page">agent-gateway-operator</a> installation instructions.</p>
+<p>The Agentic Layer team has developed an example implementation of the AgentGateway specification based on KrakenD, namely the "Agent Gateway KrakenD Operator".</p>
 </div>
-</div>
-<div class="sect4">
-<h5 id="_install_an_agent_gateway_instance"><a class="anchor" href="#_install_an_agent_gateway_instance"></a>Install an Agent Gateway instance</h5>
 <div class="paragraph">
-<p>Configure an <code>AgentGateway</code> instance: <a href="../../../agent-runtime-operator/agent-gateways/how-to-guide.html" class="xref page">see example</a>.</p>
+<p>To instantiate an AgentGateway:</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install an operator, e.g. the <a href="../../../agent-gateway-krakend-operator/operator/how-to-guide.html" class="xref page">agent-gateway-krakend-operator</a>.</p>
+</li>
+<li>
+<p>Apply an <code>AgentGateway</code> using <code>kubectl apply</code> (see <a href="../../../agent-runtime-operator/agent-gateways/how-to-guide.html" class="xref page">instructions</a>).</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_ai_gateway"><a class="anchor" href="#_ai_gateway"></a>AI Gateway</h4>
-<div class="sect4">
-<h5 id="_install_ai_gateway_operator"><a class="anchor" href="#_install_ai_gateway_operator"></a>Install AI Gateway Operator</h5>
 <div class="paragraph">
-<p>This operator manages AiGateway resources and manages LiteLLM deployments. It serves as an abstraction layer for LLM provider interactions, providing unified access, security, and intelligent routing.</p>
+<p>An AI Gateway serves as an abstraction layer for LLM provider interactions, providing unified access, security, and intelligent routing.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="../../../ai-gateway-litellm-operator/operator/how-to-guide.html" class="xref page">ai-gateway-litellm-operator</a> installation instructions.</p>
+<p>Kubernetes operators that instantiate an AI gateway do so by watching <code>AiGateway</code> resources and then deploying and configuring some kind of LLM proxy.</p>
 </div>
-</div>
-<div class="sect4">
-<h5 id="_install_ai_gateway_operator_instance"><a class="anchor" href="#_install_ai_gateway_operator_instance"></a>Install AI Gateway Operator instance</h5>
 <div class="paragraph">
-<p>Configure an <code>AiGateway</code> instance: <a href="../../../agent-runtime-operator/ai-gateways/how-to-guide.html" class="xref page">see example</a>.</p>
+<p>One example implementation of the AiGateway specification, maintained by the Agentic Layer team, is based on LiteLLM.</p>
 </div>
+<div class="paragraph">
+<p>To instantiate an AIGateway:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install an operator, e.g. the <a href="../../../ai-gateway-litellm-operator/operator/how-to-guide.html" class="xref page">ai-gateway-litellm-operator</a>.</p>
+</li>
+<li>
+<p>Apply an <code>AiGateway</code> instance using <code>kubectl apply</code> (see <a href="../../../agent-runtime-operator/ai-gateways/how-to-guide.html" class="xref page">instructions</a>.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -536,7 +551,7 @@ kubectl port-forward -n showcase-news service/summarizer-agent 8002:8000 &amp;
 kubectl port-forward -n showcase-news service/news-fetcher 8003:8000 &amp;
 
 # Agent Gateway
-kubectl port-forward -n showcase-news service/my-agent-gateway 8004:8080 &amp;
+kubectl port-forward -n showcase-news service/my-agent-gateway 8004:10000 &amp;
 
 # Observability Dashboard
 kubectl port-forward -n observability-dashboard service/observability-dashboard 8100:8000 &amp;
