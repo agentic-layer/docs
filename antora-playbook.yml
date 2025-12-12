@@ -1,10 +1,9 @@
 # Antora Playbook Configuration
 # Generates documentation site from multiple Git repositories containing AsciiDoc content.
-# Combines home docs, architecture docs, and agent runtime operator docs into a unified site.
 
 site:
   title: Agentic Layer
-  url: https://agentic-layer.github.io/antora-playbook/  # Site URL for production deployment
+  url: https://docs.agentic-layer.ai  # Site URL for production deployment
   start_page: home::index.adoc  # Landing page when visiting the site
 
 content:

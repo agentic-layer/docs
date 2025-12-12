@@ -43,7 +43,7 @@ The project is configured through the `antora-playbook.yml` file, which defines:
 
 ### Site Configuration
 - **Title**: Agentic Layer Documentation
-- **URL**: https://agentic-layer.github.io/antora-playbook/
+- **URL**: https://docs.agentic-layer.ai
 - **Start Page**: home::index.adoc
 
 ### Content Sources
