@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <sitemap>
-<loc>https://agentic-layer.github.io/antora-playbook/sitemap-agent-gateway-krakend-operator.xml</loc>
+<loc>https://docs.agentic-layer.ai/sitemap-agent-gateway-krakend-operator.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://agentic-layer.github.io/antora-playbook/sitemap-agent-runtime-operator.xml</loc>
+<loc>https://docs.agentic-layer.ai/sitemap-agent-runtime-operator.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://agentic-layer.github.io/antora-playbook/sitemap-ai-gateway-litellm-operator.xml</loc>
+<loc>https://docs.agentic-layer.ai/sitemap-ai-gateway-litellm-operator.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://agentic-layer.github.io/antora-playbook/sitemap-architecture.xml</loc>
+<loc>https://docs.agentic-layer.ai/sitemap-architecture.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://agentic-layer.github.io/antora-playbook/sitemap-home.xml</loc>
+<loc>https://docs.agentic-layer.ai/sitemap-home.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://agentic-layer.github.io/antora-playbook/sitemap-showcase-news.xml</loc>
+<loc>https://docs.agentic-layer.ai/sitemap-showcase-news.xml</loc>
 </sitemap>
 </sitemapindex>
