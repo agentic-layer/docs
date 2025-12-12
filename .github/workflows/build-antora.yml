@@ -1,0 +1,66 @@
+# Reusable Workflow: Build Antora Documentation Site
+# This workflow can be called from other workflows to build the Antora site.
+# Includes Kroki/Mermaid services for diagram rendering.
+
+name: Build Antora Site
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: 'Node.js version to use'
+        required: false
+        type: string
+        default: '24.3.0'
+      playbook-file:
+        description: 'Path to Antora playbook file'
+        required: false
+        type: string
+        default: 'antora-playbook.yml'
+    outputs:
+      build-path:
+        description: 'Path to the built site directory'
+        value: 'build/site'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mermaid:
+        image: yuzutech/kroki-mermaid:latest
+        ports:
+          - 8002:8002
+      kroki:
+        image: yuzutech/kroki:latest
+        env:
+          KROKI_MERMAID_HOST: mermaid
+        ports:
+          - 8000:8000
+        options: >-
+          --health-cmd "curl -f http://localhost:8000/health || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout playbook source
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Install Antora and Dependencies
+        run: npm install
+
+      - name: Generate Site
+        run: npx antora generate --log-failure-level warn ${{ inputs.playbook-file }}
+
+      - name: Upload built site
+        uses: actions/upload-artifact@v4
+        with:
+          name: antora-site
+          path: build/site
+          retention-days: 1

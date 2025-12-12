@@ -1,0 +1,16 @@
+# GitHub Actions Workflow: Check Antora Documentation Build
+# Validates that the documentation site builds successfully on PRs and Renovate branches.
+# Does not deploy - only verifies the build works.
+
+name: Check Antora Build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - 'renovate/**'
+
+jobs:
+  check:
+    name: Build documentation site
+    uses: ./.github/workflows/build-antora.yml

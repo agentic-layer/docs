@@ -1,52 +1,36 @@
-# GitHub Actions Workflow: Build and Deploy Antora Documentation
-# Automatically builds documentation site from multiple repositories and deploys to GitHub Pages.
+# GitHub Actions Workflow: Deploy Antora Documentation
+# Builds documentation site and deploys to GitHub Pages.
+# Runs on pushes to main, scheduled runs, and manual triggers.
 
-name: Build and Deploy Antora Docs
+name: Deploy Antora Docs
+
 on:
   push:
-    branches: [main]  # Auto-deploy on main branch updates
-  workflow_dispatch:  # Manual trigger option
+    branches:
+      - main
+  workflow_dispatch:
   schedule:
     - cron: '0 2 * * *'  # Run daily at 2 AM UTC
 
 jobs:
-  build-and-deploy:
+  build:
+    name: Build documentation site
+    uses: ./.github/workflows/build-antora.yml
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write # Required to push to the gh-pages branch
-
-    services:
-      mermaid:
-        image: yuzutech/kroki-mermaid:latest
-        ports:
-          - 8002:8002
-      kroki:
-        image: yuzutech/kroki:latest
-        env:
-          KROKI_MERMAID_HOST: mermaid
-        ports:
-          - 8000:8000
-        options: >-
-          --health-cmd "curl -f http://localhost:8000/health || exit 1"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+      contents: write
 
     steps:
-      - name: Checkout playbook source
-        uses: actions/checkout@v5
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
+      - name: Download built site
+        uses: actions/download-artifact@v4
         with:
-          node-version: '24.3.0'  # Specific version for consistency
-
-      - name: Install Antora and Dependencies
-        run: npm install
-
-      - name: Generate Site
-        run: npx antora generate --log-failure-level warn antora-playbook.yml
+          name: antora-site
+          path: build/site
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
