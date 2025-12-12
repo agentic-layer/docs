@@ -1,27 +1,17 @@
 # Antora Playbook
 
-> **🔒 Private Repository** - Documentation management. Private due to secret Tokens used in Github workflows.
-
 A documentation site generator configuration that aggregates and publishes documentation from multiple Git repositories into a unified, searchable documentation website for the Agentic Layer ecosystem.
 
 ----
 
 ## Table of Contents
 
-- [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
 - [Configuration](#configuration)
 - [Publishing](#publishing)
 - [Contributing](#contributing)
 
 ----
-
-## Prerequisites
-
-| Component | Version/Notes |
-|-----------|---------------|
-| Node.js | >= 18.x |
-| npm | Comes with Node.js |
 
 ## Getting Started
 
