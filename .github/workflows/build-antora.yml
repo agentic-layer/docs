@@ -59,7 +59,7 @@ jobs:
         run: npx antora generate --log-failure-level warn ${{ inputs.playbook-file }}
 
       - name: Upload built site
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: antora-site
           path: build/site

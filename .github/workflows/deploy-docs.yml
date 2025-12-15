@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Download built site
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: antora-site
           path: build/site
