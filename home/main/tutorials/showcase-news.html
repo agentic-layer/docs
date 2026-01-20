@@ -627,10 +627,10 @@ The <code>&amp;</code> runs each command in the background. Keep the terminal op
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl http://localhost:8004/news-agent/chat/completions \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl http://localhost:8004/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "news-agent",
+    "model": "showcase-news/news-agent",
     "messages": [
       {
         "role": "user",
