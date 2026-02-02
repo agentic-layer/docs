@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Cross-cutting Concepts :: Agentic Layer</title>
-    <link rel="canonical" href="https://docs.agentic-layer.ai/architecture/main/crosscutting/index.html">
+    <link rel="canonical" href="https://docs.agentic-layer.ai/home/main/architecture/crosscutting/index.html">
     <meta name="generator" content="Antora 3.1.14">
-    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../../_/css/site.css">
   </head>
   <body class="article">
 <header class="header">
@@ -19,7 +19,7 @@
         <div class="navbar-item">
           <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
             <span class="icon" style="margin-right: 0.25rem;">
-              <img src="../../../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+              <img src="../../../../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
             </span>
             <span>GitHub</span>
           </a>
@@ -28,30 +28,80 @@
     </div>
   </nav>
 </header><div class="body">
-<div class="nav-container" data-component="architecture" data-version="main">
+<div class="nav-container" data-component="home" data-version="main">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
     <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
-    <h3 class="title"><a href="../index.html">Agentic Layer Architecture</a></h3>
+    <h3 class="title"><a href="../../index.html">Agentic Layer</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../tutorials/showcase-news.html">Agentic AI News Showcase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../../agent-runtime-operator/agent-runtime/how-to-guide.html">Install the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../../agent-runtime-operator/agents/how-to-guide.html">Create an AI Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../../agent-runtime-operator/agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../../agent-runtime-operator/ai-gateways/how-to-guide.html">Create an AI Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../../agent-gateway-krakend-operator/operator/how-to-guide.html">Install the Agent Gateway Operator for KrakenD</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../../ai-gateway-litellm-operator/operator/how-to-guide.html">Install the AI Gateway Operator for LiteLLM</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../../agent-runtime-operator/agent-runtime/reference.html">Agent Runtime Reference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanation</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../index.html">Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../introduction/index.html">Introduction and Goals</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../context/index.html">System Scope and Context</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../building-blocks/index.html">Building Block View</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="index.html">Cross-cutting Concepts</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../glossary/index.html">Glossary</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -64,14 +114,16 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../../../home/main/index.html" class="home-link"></a>
+  <a href="../../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Agentic Layer Architecture</a></li>
+    <li><a href="../../index.html">Agentic Layer</a></li>
+    <li>Explanation</li>
+    <li><a href="../index.html">Architecture</a></li>
     <li><a href="index.html">Cross-cutting Concepts</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/agentic-layer/docs/edit/main/architecture/docs/modules/crosscutting/pages/index.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/docs/edit/main/home/modules/architecture/pages/crosscutting/index.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -92,7 +144,7 @@
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<a class="image" href="_images/capabilities-plugins-principle-8d7e3e7faa358d1164218858ea33aaed184f7c86.svg" target="_blank" rel="noopener"><img src="_images/capabilities-plugins-principle-8d7e3e7faa358d1164218858ea33aaed184f7c86.svg" alt="capabilities-plugins-principle"></a>
+<a class="image" href="../_images/capabilities-plugins-principle-8d7e3e7faa358d1164218858ea33aaed184f7c86.svg" target="_blank" rel="noopener"><img src="../_images/capabilities-plugins-principle-8d7e3e7faa358d1164218858ea33aaed184f7c86.svg" alt="capabilities-plugins-principle"></a>
 </div>
 </div>
 </div>
@@ -139,7 +191,7 @@
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<a class="image" href="_images/agent-gateway-plugins-05774d4f3d61d919f0bfd517d32cbde82114f42f.svg" target="_blank" rel="noopener"><img src="_images/agent-gateway-plugins-05774d4f3d61d919f0bfd517d32cbde82114f42f.svg" alt="agent-gateway-plugins"></a>
+<a class="image" href="../_images/agent-gateway-plugins-05774d4f3d61d919f0bfd517d32cbde82114f42f.svg" target="_blank" rel="noopener"><img src="../_images/agent-gateway-plugins-05774d4f3d61d919f0bfd517d32cbde82114f42f.svg" alt="agent-gateway-plugins"></a>
 </div>
 </div>
 </div>
@@ -188,7 +240,7 @@
   <p>This page was built using the Antora default UI.</p>
   <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
 </footer>
-<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
-<script async src="../../../_/js/vendor/highlight.js"></script>
+<script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
+<script async src="../../../../_/js/vendor/highlight.js"></script>
   </body>
 </html>
