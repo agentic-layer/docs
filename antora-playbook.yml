@@ -7,7 +7,6 @@ site:
   start_page: home::index.adoc  # Landing page when visiting the site
 
 content:
-  edit_url: false # Disable "Edit this page" links
   sources:
     - url: ./
       branches: HEAD
