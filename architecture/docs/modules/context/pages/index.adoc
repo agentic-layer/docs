@@ -1,0 +1,85 @@
+= System Scope and Context
+
+== Business Context
+
+The Agentic Layer operates within a broader enterprise ecosystem, serving as a control plane that coordinates AI agents and manages their interactions with external systems. The system is designed to integrate into existing enterprise infrastructure rather than to replace it, providing AI orchestration capabilities while maintaining organizational sovereignty over data and operations.
+
+=== System Boundary
+
+The Agentic Layer Platform Boundary defines the scope of components under direct control of the AI orchestration system. This includes all Kubernetes-native components for agent management, AI gateway services, governance tools, and operational interfaces. External systems maintain their independence while benefiting from standardized AI integration patterns.
+
+== System Context Overview
+
+[plantuml, system-context, format="svg", link="self", window="_blank"]
+....
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Person_Ext(users, "Users", "End users")
+System_Ext(frontends, "External Frontends", "Web/mobile/other UI interacting with users")
+System_Ext(extAgents, "External Agents", "Agents running outside the platform")
+System(agentic, "Agentic Layer", "Orchestrates AI interactions and external integrations")
+System_Ext(llm, "LLM Provider", "External Large Language Model Providers (e.g., OpenAI, Gemini)")
+System_Ext(obs, "Observability Stack", "Monitoring & logging")
+System_Ext(audit, "Audit Trail", "Stores audit records")
+
+Rel(users, frontends, "Uses")
+Rel(users, extAgents, "Uses")
+Rel(frontends, agentic, "Connects to")
+Rel(extAgents, agentic, "Connects to")
+Rel(agentic, llm, "Sends prompt/receives result")
+Rel_Down(agentic, obs, "Sends telemetry")
+Rel_Down(agentic, audit, "Sends audit events")
+
+LAYOUT_WITH_LEGEND()
+@enduml
+....
+
+== External Actors and Systems
+
+=== Users
+**End users** who interact with AI-powered applications and services. These users may access AI capabilities through various interfaces including web applications, mobile apps, or direct API integrations.
+
+=== External Frontends
+**Web, mobile, and other user interfaces** that provide user-facing applications leveraging AI capabilities. These frontends connect to the Agentic Layer to access coordinated AI services while maintaining their own user experience and business logic.
+
+=== External Agents
+**AI agents running outside the platform** that need to integrate with or leverage the centralized AI orchestration capabilities. These may include existing AI systems, specialized agents, or third-party AI services that benefit from the governance and routing provided by the Agentic Layer.
+
+=== LLM Providers
+**External Large Language Model providers** such as OpenAI, Google Gemini, Anthropic Claude, and other AI service providers. The Agentic Layer abstracts differences between these providers through the AI Gateway/Model Router component.
+
+=== Observability Stack
+**External monitoring and logging infrastructure** that receives telemetry data from the Agentic Layer. This typically includes enterprise monitoring solutions, log aggregation systems, and performance monitoring tools.
+
+=== Audit Trail
+**External audit and compliance systems** that store audit records for regulatory compliance, security monitoring, and governance requirements. This ensures audit data is preserved independently of the operational platform.
+
+== System Interactions
+
+=== User Interactions
+Users interact with the system through two primary paths:
+
+- **Via External Frontends**: Users access AI capabilities through web applications, mobile apps, or other user interfaces that connect to the Agentic Layer
+- **Via External Agents**: Users may work with external AI agents that leverage the Agentic Layer's orchestration capabilities
+
+=== AI Service Integration
+The **Agentic Layer orchestrates AI interactions** by:
+
+- Sending prompts and receiving results from LLM providers through the AI Gateway/Model Router
+- Providing unified access to multiple AI service providers with intelligent routing and failover
+- Managing authentication, rate limiting, and usage tracking across providers
+
+=== Operational Data Flows
+The system maintains operational transparency through:
+
+- **Telemetry Data**: Comprehensive metrics, performance data, and system health information sent to observability infrastructure
+- **Audit Events**: Complete records of AI operations, decisions, and access patterns sent to audit systems for compliance and security monitoring
+
+== Technical Context
+
+The Agentic Layer serves as an **integration hub** rather than a data repository. It orchestrates interactions between various systems while maintaining clear separation of concerns:
+
+- **Stateless Operations**: The platform focuses on coordination and routing rather than data storage
+- **API-First Integration**: All interactions occur through well-defined APIs and standard protocols
+- **Kubernetes-Native Deployment**: All components leverage Kubernetes primitives for scaling, service discovery, and operational management

@@ -1,0 +1,6 @@
+name: home
+title: Agentic Layer
+version: main
+start_page: ROOT:index.adoc
+nav:
+- modules/ROOT/nav.adoc

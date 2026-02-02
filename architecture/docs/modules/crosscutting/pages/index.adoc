@@ -1,0 +1,93 @@
+= Cross-cutting Concepts
+
+== Capabilities and Plugins Principle
+
+The Agentic Layer architecture embraces a fundamental design principle of **capabilities and plugins** that enables flexible switching of implementations for various system aspects. This approach promotes modularity, extensibility, and vendor independence across all major components.
+
+=== Core Principle
+
+The capabilities and plugins pattern allows the system to define stable interfaces while supporting multiple implementations. Each capability represents a well-defined set of functionality that can be fulfilled by different plugins, enabling runtime or deployment-time selection of the most appropriate implementation.
+
+[plantuml, capabilities-plugins-principle, format="svg", link="self", window="_blank"]
+....
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(system, "Agentic Layer System") {
+    Component(capability, "Capability Interface", "Contract", "Defines required functionality")
+    Component(plugin1, "Plugin A", "Implementation", "First implementation option")
+    Component(plugin2, "Plugin B", "Implementation", "Alternative implementation")
+    Component(plugin3, "Plugin C", "Implementation", "Third-party implementation")
+}
+
+Rel(capability, plugin1, "implements", "")
+Rel(capability, plugin2, "implements", "")
+Rel(capability, plugin3, "implements", "")
+
+note right of capability : Stable interface\nallows switching\nbetween implementations
+
+@enduml
+....
+
+=== Key Benefits
+
+**Implementation Independence**: Components depend on capabilities rather than specific implementations, reducing coupling and increasing flexibility.
+
+**Vendor Neutrality**: Avoid vendor lock-in by supporting multiple implementations of the same capability.
+
+**Runtime Flexibility**: Switch between implementations based on operational requirements, performance characteristics, or cost considerations.
+
+**Extensibility**: Add new implementations without modifying existing code or disrupting running systems.
+
+**Testing and Development**: Use different implementations for testing, development, and production environments.
+
+=== Application Areas
+
+==== Exemplary Agent Gateway Implementations
+
+The Agent or AI Gateway capability could support multiple reverse proxy and API gateway implementations:
+
+* **Nginx**: Traditional reverse proxy for high-performance routing
+* **Envoy**: Modern service mesh proxy with advanced traffic management
+* **Kong**: API gateway with rich plugin ecosystem
+* **Istio Gateway**: Kubernetes-native gateway with service mesh integration
+
+[plantuml, agent-gateway-plugins, format="svg", link="self", window="_blank"]
+....
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(agentRuntime, "Agent Runtime") {
+    Component(gatewayCapability, "Gateway Capability", "Interface", "Request routing and load balancing")
+    Component(nginxPlugin, "Nginx Plugin", "Implementation", "Traditional reverse proxy")
+    Component(envoyPlugin, "Envoy Plugin", "Implementation", "Service mesh proxy")
+    Component(kongPlugin, "Kong Plugin", "Implementation", "API gateway with plugins")
+    Component(istioPlugin, "Istio Plugin", "Implementation", "K8s-native gateway")
+}
+
+Rel(gatewayCapability, nginxPlugin, "implements", "")
+Rel(gatewayCapability, envoyPlugin, "implements", "")
+Rel(gatewayCapability, kongPlugin, "implements", "")
+Rel(gatewayCapability, istioPlugin, "implements", "")
+
+@enduml
+....
+
+
+=== Implementation Guidelines
+
+==== Kubernetes-Native Capabilities
+
+The Agentic Layer leverages **Kubernetes Custom Resource Definitions (CRDs)** as the interface definition mechanism for capabilities. Each capability is defined as a CRD that establishes the contract and configuration schema.
+
+==== Plugin Definition through Custom Resources
+
+Plugins are defined and configured using **Custom Resources (CRs)** that correspond to their capability CRDs. This approach provides:
+
+* **Declarative Configuration**: Plugin instances are declared through Kubernetes manifests
+* **Kubernetes-Native Management**: Leverage kubectl, operators, and existing K8s tooling
+* **Version Control**: Plugin configurations are stored as code alongside infrastructure definitions
+
+==== Standard Transport APIs
+
+At the transport layer, the system uses **standard APIs** to ensure broad compatibility and interoperability.

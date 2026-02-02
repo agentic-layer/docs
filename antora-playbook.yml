@@ -9,12 +9,11 @@ site:
 content:
   edit_url: false # Disable "Edit this page" links
   sources:
-    - url: https://github.com/agentic-layer/documentation.git
-      branches: [main]
-      start_path: home/docs
-    - url: https://github.com/agentic-layer/documentation.git
-      branches: [main]
-      start_path: architecture/docs
+    - url: ./
+      branches: HEAD
+      start_paths:
+        - home/docs
+        - architecture/docs
     - url: https://github.com/agentic-layer/agent-runtime-operator.git
       branches: [main]
       start_path: docs

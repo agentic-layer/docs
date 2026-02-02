@@ -1,0 +1,89 @@
+= Glossary
+
+This glossary defines the key terms and concepts used throughout the Agentic Layer architecture documentation.
+
+== A
+
+**Agent Catalog**::
+Centralized registry and management system for discovering, versioning, and managing the lifecycle of AI agents within the platform. Provides metadata, documentation, and operational status for all registered agents.
+
+**Agent Gateway**::
+Entry point and routing component that handles incoming requests and distributes them to appropriate AI agents based on capabilities, availability, and load balancing policies.
+
+**Agent Runtime / Agent Orchestration**::
+Kubernetes-native execution environment that manages the lifecycle, scaling, and resource allocation of AI agents. Provides automated deployment, scaling, and monitoring of agent instances.
+
+**Agentic Layer**::
+Core platform layer containing the foundational components for AI agent orchestration, including AI Gateway, Agent Runtime, Connectors & Tools, and governance components. Built on Kubernetes infrastructure.
+
+**Agentic Workforce Management**::
+Component responsible for coordinating and orchestrating complex AI workflows across multiple agents and organizational boundaries. Manages task distribution, workflow execution, and inter-agent communication.
+
+**Agentic Workforces**::
+Application-level implementations of AI agent systems designed for specific enterprise use cases, such as Insurance Claims Processing, Healthcare Operations, or Procurement workflows.
+
+**AI Gateway / Model Router**::
+Unified interface component that abstracts interactions with multiple Large Language Model (LLM) providers. Provides intelligent routing, failover capabilities, and consistent API interfaces across different AI service providers.
+
+**AI Guardrails**::
+Security and safety component that implements content filtering, safety checks, access controls, and policy enforcement for AI interactions to ensure compliant and secure operations.
+
+**Audit Trail**::
+Comprehensive logging and tracking system that records all AI operations, decisions, and interactions for regulatory compliance, security monitoring, and operational transparency.
+
+== B
+
+**BYOC (Bring Your Own Cloud)**::
+Deployment model that allows organizations to run the Agentic Layer components within their own cloud infrastructure, maintaining full control over data, security, and compliance requirements.
+
+== C
+
+**Cloud-Native Architecture**::
+Design approach leveraging cloud computing principles, including containerization, microservices, dynamic orchestration, and declarative APIs. Built specifically for cloud environments with Kubernetes as the foundation.
+
+**Compliance Dashboard**::
+Management interface providing real-time monitoring and reporting for regulatory compliance requirements including EU AI Act, GDPR, and industry-specific standards.
+
+**Connectors & Tools**::
+Integration components that enable seamless connectivity between the Agentic Layer and external systems, databases, APIs, and third-party services.
+
+**Control Plane for Intelligent Workloads**::
+The Agentic Layer's primary function as a management and orchestration system for AI-driven processes and autonomous agents within enterprise environments.
+
+== D
+
+**Data Sovereignty**::
+The concept of maintaining complete control and governance over data location, processing, and access within defined jurisdictional and organizational boundaries.
+
+== K
+
+**Kubernetes Platform**::
+The foundational infrastructure layer providing container orchestration, scaling, resource management, and service discovery for all Agentic Layer components.
+
+**Kubernetes-Native**::
+Architecture and components designed specifically to leverage Kubernetes primitives, APIs, and operational patterns for deployment, scaling, and management.
+
+== L
+
+**LLM (Large Language Model)**::
+AI models trained on vast amounts of text data to understand and generate human-like text. Examples include GPT, Gemini, Claude, and other foundation models accessed through the AI Gateway.
+
+== M
+
+**Multi-Framework Runtime**::
+Execution environment that supports agents built with different AI frameworks and technologies while providing consistent operational characteristics and management interfaces.
+
+== O
+
+**Observability Dashboard**::
+Operational interface providing comprehensive monitoring, metrics visualization, distributed tracing, and system health information for the entire Agentic Layer platform.
+
+== T
+
+**Testbench**::
+Integrated testing framework providing automated validation, performance testing, and quality assurance capabilities for AI agents before production deployment.
+
+== V
+
+**Vendor Lock-in**::
+Dependency on a specific vendor's proprietary technologies that makes switching to alternatives difficult or costly. The Agentic Layer's open-source and agnostic design prevents vendor lock-in.
