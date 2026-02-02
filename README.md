@@ -22,6 +22,13 @@ Generate the documentation site:
 npm run build
 ```
 
+Remote repositories are cached and not always fetched fresh.
+To force fetching the latest content from all repositories, run:
+
+```shell
+npm run fetch
+```
+
 After successful completion, the generated documentation site will be available in the `build/site` directory.
 
 Troubleshooting tips:
