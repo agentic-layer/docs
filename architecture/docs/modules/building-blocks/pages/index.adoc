@@ -1,0 +1,169 @@
+= Building Block View
+
+== Overview
+
+The Agentic Layer architecture currently consists of three building blocks that work together to provide AI orchestration capabilities:
+
+* **Agent Runtime**: The execution environment for AI agents, including the Agent Gateway for request routing and the Agent Runtime Operator for lifecycle management
+* **AI Gateway**: The abstraction layer for LLM provider interactions, providing unified access, security, and intelligent routing
+* **Observability Dashboard**: A simple dashboard that visualizes the interaction between agents and tools in real time
+
+Over time, more and more building blocks are going to be added.
+
+== Overall Request Flow
+
+The following diagram shows how these building blocks interact during typical request processing:
+
+[plantuml, core-request-flow, format="svg", link="self", window="_blank"]
+....
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+left to right direction
+
+System_Ext(extFrontends, "External Frontends", "User interfaces")
+System_Ext(extAgents, "External Agents", "Third-party AI agents")
+
+Container_Boundary(k8sCluster, "Kubernetes Cluster") {
+    Container(agentGateway, "Agent Gateway", "API Gateway", "Routes requests to appropriate agents")
+    Container(agents, "AI Agents", "Agent Runtime", "Business logic and AI orchestration")
+    Container(aiGateway, "AI Gateway", "LLM Proxy", "Manages LLM provider interactions")
+    Container(obsDashboard, "Observability Dashboard", "Monitoring", "Real time visualization of agent interactions")
+}
+
+System_Ext(llmProviders, "LLM Providers", "External AI services")
+
+' Request flow
+Rel(extFrontends, agentGateway, "Sends requests", "HTTPS/API")
+Rel(extAgents, agentGateway, "Agent requests", "HTTPS/API")
+Rel(agentGateway, agents, "Routes to agent", "Internal")
+Rel(agents, aiGateway, "LLM requests", "Internal")
+Rel(aiGateway, llmProviders, "API calls", "HTTPS")
+Rel(agentGateway, obsDashboard, "Send Traces", "HTTPS")
+Rel(aiGateway, obsDashboard, "Send Traces", "HTTPS")
+Rel(agents, obsDashboard, "Send Traces", "HTTPS")
+
+LAYOUT_WITH_LEGEND()
+@enduml
+....
+
+This flow demonstrates the request processing pipeline:
+
+1. **External systems** (Frontends and Agents) send requests via HTTPS/API
+2. **Agent Gateway** receives and routes requests to appropriate agents
+3. **AI Agents** process business logic and make LLM requests
+4. **AI Gateway** handles LLM provider interactions with security and routing
+5. **Observability Dashboard** collects telemetry and provides real-time visualization
+6. **LLM Providers** process AI requests and return results
+
+== Agent Runtime
+
+The Agent Runtime building block provides the execution environment and management infrastructure for AI agents within the Kubernetes cluster.
+
+=== Components
+
+* **Agent Runtime Operator**: Kubernetes operator that manages agent lifecycles, configurations, and deployments
+* **Agent Gateway**: API gateway that routes incoming requests to agents and maps external APIs to internal agent interfaces
+* **AI Agents**: Individual agent instances that execute business logic and orchestrate AI operations
+
+=== Agent Runtime Architecture
+[plantuml, agent-runtime-view, format="svg", link="self", window="_blank"]
+....
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+left to right direction
+
+Container_Boundary(k8sCluster, "Kubernetes Cluster") {
+    Container(agentOperator, "Agent Runtime Operator", "K8s Operator", "Manages agent gateway lifecycle")
+    Container(agentGateway, "Agent Gateway", "API Gateway", "Routes requests to appropriate agents, maps APIs")
+    Container(agents, "AI Agents", "Agent Runtime", "Business logic and AI orchestration")
+}
+
+' Management relationships
+Rel(agentOperator, agentGateway, "Registers agents", "K8s API")
+Rel(agentOperator, agents, "Configure agents", "K8s API")
+Rel(agentGateway, agents, "Routes to agent", "Internal")
+
+LAYOUT_WITH_LEGEND()
+@enduml
+....
+
+=== Agent Runtime Responsibilities
+
+**Agent Runtime Operator** serves as the control plane for agent management:
+
+- Registers and configures agents with the Agent Gateway
+- Manages agent lifecycles, scaling, and resource allocation
+- Provides Kubernetes-native deployment and operational patterns
+
+**Agent Gateway** acts as the request entry point:
+
+- Routes requests to appropriate agents based on capabilities and load
+- Maps external APIs to internal agent interfaces
+- Provides load balancing and health checking for agent instances
+
+**AI Agents** execute the core business logic:
+
+- Process domain-specific workflows and business rules
+- Orchestrate interactions with external systems and services
+- Make intelligent decisions about when and how to use LLM capabilities
+
+== AI Gateway
+
+The AI Gateway building block abstracts interactions with multiple LLM providers, providing a unified interface with built-in security, monitoring, and intelligent routing capabilities.
+
+=== AI Gateway Architecture
+[plantuml, ai-gateway-view, format="svg", link="self", window="_blank"]
+....
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+left to right direction
+
+Container(agents, "AI Agents", "Agent Runtime", "Business logic and AI orchestration")
+
+Container_Boundary(aiGateway, "AI Gateway") {
+    Component(modelRouter, "Model Router", "Router", "Routes requests to appropriate LLM providers")
+    Component(guardrails, "Guardrails", "Security Layer", "Content filtering and safety checks")
+    Component(metrics, "Metrics", "Telemetry", "Collects and exports usage metrics")
+    Component(tokenMgmt, "Access Token Management", "Auth", "Manages API keys and authentication")
+}
+
+System_Ext(llmProviders, "LLM Providers", "External AI services")
+
+' AI Gateway flow
+Rel(agents, aiGateway, "LLM requests", "HTTPS/API")
+Rel(aiGateway, tokenMgmt, "Authenticates request", "Internal")
+Rel(tokenMgmt, guardrails, "Authenticated request", "Internal")
+Rel(guardrails, metrics, "Validated request", "Internal")
+Rel(metrics, modelRouter, "Tracked request", "Internal")
+Rel(modelRouter, llmProviders, "API calls", "HTTPS")
+
+LAYOUT_WITH_LEGEND()
+@enduml
+....
+
+=== AI Gateway Components and Flow
+
+The AI Gateway processes requests through a secure, monitored pipeline:
+
+**Access Token Management** handles authentication:
+
+- Manages API keys and authentication tokens for different LLM providers
+- Provides secure credential storage and rotation capabilities
+- Ensures proper authentication for all external AI service calls
+
+**AI Guardrails** provides security and safety controls:
+
+- Content filtering and safety checks for both input and output
+- Policy enforcement based on organizational security requirements
+- Prevents malicious or inappropriate content from reaching LLM providers
+
+**Metrics** component enables comprehensive monitoring:
+
+- Collects usage statistics, performance metrics, and cost tracking
+- Exports telemetry data to observability infrastructure
+- Provides insights into AI usage patterns and provider performance
+
+**Model Router** manages intelligent LLM routing:
+
+- Routes requests to appropriate LLM providers based on capabilities, cost, and availability
+- Provides failover and load balancing across multiple providers

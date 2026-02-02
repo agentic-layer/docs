@@ -1,0 +1,37 @@
+= Solution Strategy
+
+////
+Key Questions to Answer:
+
+== 1. Architectural Approach
+- Why choose a component-based architecture instead of a monolithic AI platform?
+- What drove the layered design (Kubernetes → Agentic Layer → Workforces → Management)?
+- How does this architecture achieve the 4 key advantages (sovereignty, agnosticity, compliance, extensibility)?
+
+== 2. Technology Decisions
+- Why Kubernetes as the foundational platform? (vs. other orchestration platforms)
+- Why the AI Gateway/Model Router pattern for LLM abstraction?
+- What drove the multi-framework runtime approach?
+- Why open-source over proprietary solutions?
+
+== 3. Quality Goal Achievement
+- How does the architecture deliver data sovereignty and compliance?
+- What patterns enable vendor agnosticism and prevent lock-in?
+- How does the design support enterprise-scale orchestration?
+- What makes it audit-ready and governance-friendly?
+
+== 4. Integration Strategy
+- How do components integrate into existing enterprise platforms?
+- What are the key deployment patterns (BYOC, on-premise, hybrid)?
+- How does the Agent Catalog and governance model work?
+
+== Information Needed:
+1. Design Philosophy: Core principles driving architectural decisions
+2. Technology Rationale: Why Kubernetes specifically? Other platforms considered?
+3. Component Evolution: How did you arrive at these specific components?
+4. Enterprise Integration: Typical integration scenarios being targeted
+5. Open Source Strategy: What drove the open source decision?
+6. Quality Tradeoffs: Architectural tradeoffs made to achieve key advantages?
+
+TBD - Content to be developed based on above questions
+////

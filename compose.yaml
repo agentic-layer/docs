@@ -1,0 +1,11 @@
+services:
+  mermaid:
+    image: yuzutech/kroki-mermaid:latest
+  kroki:
+    image: yuzutech/kroki:latest
+    environment:
+      KROKI_MERMAID_HOST: mermaid
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8000/health", "||", "exit", "1" ]
