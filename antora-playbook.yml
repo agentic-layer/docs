@@ -11,8 +11,7 @@ content:
     - url: ./
       branches: HEAD
       start_paths:
-        - home/docs
-        - architecture/docs
+        - home
     - url: https://github.com/agentic-layer/agent-runtime-operator.git
       branches: [main]
       start_path: docs

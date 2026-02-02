@@ -1,3 +1,0 @@
-= Agentic Layer Architecture
-
-include::architecture:ROOT:partial$architecture-contents.adoc[]

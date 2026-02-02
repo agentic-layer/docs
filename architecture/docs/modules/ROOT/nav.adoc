@@ -1,1 +1,0 @@
-include::architecture:ROOT:partial$architecture-contents.adoc[]

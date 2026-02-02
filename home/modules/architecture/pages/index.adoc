@@ -1,0 +1,3 @@
+= Architecture
+
+include::architecture:partial$nav.adoc[]

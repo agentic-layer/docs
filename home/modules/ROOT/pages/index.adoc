@@ -52,6 +52,6 @@ High-level discussions on the "why" behind our project.
 Here you'll find articles on our architecture, key concepts, and design decisions.
 ****
 
-=== xref:architecture::index.adoc[]
+=== xref:architecture:index.adoc[Architecture]
 
 This section provides an in-depth look at the architecture of the Agentic Layer platform, including its components, interactions, and deployment models.
