@@ -1,0 +1,6 @@
+** xref:how-to-guides:agent-runtime.adoc[Agent Runtime]
+** xref:how-to-guides:agents.adoc[Agents]
+** xref:how-to-guides:agent-gateways.adoc[Agent Gateways]
+** xref:how-to-guides:ai-gateways.adoc[AI Gateways]
+** xref:how-to-guides:agent-gateway-krakend-operator.adoc[Agent Gateway KrakenD Operator]
+** xref:how-to-guides:ai-gateway-litellm-operator.adoc[AI Gateway LiteLLM Operator]

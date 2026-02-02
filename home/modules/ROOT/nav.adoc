@@ -2,19 +2,11 @@
 * xref:tutorials:showcase-news.adoc[]
 
 .How-to guides
-* xref:agent-runtime-operator:agent-runtime:how-to-guide.adoc[]
-* xref:agent-runtime-operator:agents:how-to-guide.adoc[]
-
-* xref:agent-runtime-operator:agent-gateways:how-to-guide.adoc[]
-* xref:agent-runtime-operator:ai-gateways:how-to-guide.adoc[]
-
-* xref:agent-gateway-krakend-operator:operator:how-to-guide.adoc[]
-* xref:ai-gateway-litellm-operator:operator:how-to-guide.adoc[]
+include::how-to-guides:partial$nav.adoc[]
 
 .Reference
-* xref:agent-runtime-operator:agent-runtime:reference.adoc[]
+include::reference:partial$nav.adoc[]
 
 .Explanation
 * xref:architecture:index.adoc[Architecture]
 include::architecture:partial$nav.adoc[]
-

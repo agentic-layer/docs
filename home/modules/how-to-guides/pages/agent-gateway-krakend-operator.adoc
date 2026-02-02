@@ -1,0 +1,1 @@
+include::agent-gateway-krakend-operator:operator:partial$how-to-guide.adoc[]
