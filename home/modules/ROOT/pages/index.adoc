@@ -1,7 +1,13 @@
-= Agentic Layer Documentation
+= Agentic Layer
 
-Welcome to the Agentic Layer documentation hub.
-This platform provides a comprehensive suite of tools and services for building, deploying, and monitoring agentic systems at scale.
+Welcome to the Agentic Layer documentation.
+This site describes the Agentic Layer, an open-source, Kubernetes-native collection of building blocks for orchestrating multi-agent AI systems in a flexible, secure and maintainable way.
+
+This is the high level overview of the building blocks and architecture of the Agentic Layer:
+
+image::architecture:architecture.svg[Agentic Layer High Level Overview,align=center]
+
+The documentation is organized using https://diataxis.fr[Diátaxis].
 
 == Tutorials
 
