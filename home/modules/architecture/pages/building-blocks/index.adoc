@@ -87,6 +87,12 @@ LAYOUT_WITH_LEGEND()
 @enduml
 ....
 
+=== Agent Runtime CRDs
+
+The Agent Runtime Operator defines several Custom Resource Definitions (CRDs) to manage agents and their configurations within the Kubernetes cluster:
+
+image::crds.svg[Agentic Layer CRDs,align=center]
+
 === Agent Runtime Responsibilities
 
 **Agent Runtime Operator** serves as the control plane for agent management:
