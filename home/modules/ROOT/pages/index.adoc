@@ -5,7 +5,7 @@ This site describes the Agentic Layer, an open-source, Kubernetes-native collect
 
 This is the high level overview of the building blocks and architecture of the Agentic Layer:
 
-image::architecture:architecture.svg[Agentic Layer High Level Overview,align=center]
+image::architecture:architecture.svg[Agentic Layer High Level Overview,align=center,link=self,window=_blank]
 
 The documentation is organized using https://diataxis.fr[Diátaxis].
 

@@ -91,7 +91,7 @@ LAYOUT_WITH_LEGEND()
 
 The Agent Runtime Operator defines several Custom Resource Definitions (CRDs) to manage agents and their configurations within the Kubernetes cluster:
 
-image::crds.svg[Agentic Layer CRDs,align=center]
+image::crds.svg[Agentic Layer CRDs,align=center,link=self,window=_blank]
 
 === Agent Runtime Responsibilities
 
