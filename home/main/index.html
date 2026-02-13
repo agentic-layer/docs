@@ -132,10 +132,44 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Welcome to the Agentic Layer documentation.
-This site describes the Agentic Layer, an open-source, Kubernetes-native collection of building blocks for orchestrating multi-agent AI systems in a flexible, secure and maintainable way.</p>
+This site describes the Agentic Layer, an open-source, Kubernetes-native collection of building blocks for orchestrating multi-agent AI systems in a flexible, secure, and maintainable way.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Agentic Layer is composed of a set of spacers and controls to form an enterprise-grade platform with interchangeable components that adapt to the individual requirements.
+The following picture visualizes how the Agentic Layer integrates between the frontends and applications on the top, the Kubernetes-based platform at the bottom, and your individual Agentic Workforces and Connectors that run your business.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<a class="image" href="architecture/_images/agentic-layer-stack.png" target="_blank" rel="noopener"><img src="architecture/_images/agentic-layer-stack.png" alt="Agentic Layer High Level Overview"></a>
+</div>
 </div>
 <div class="paragraph">
-<p>This is the high level overview of the building blocks and architecture of the Agentic Layer:</p>
+<p>There are two types of keys spacers: The Agent Runtime and the different Gateways.
+The <strong>Agent Runtime</strong> takes care of running your agents and connecting them to other agents and tools / connectors.
+It allows for custom agent implementations and ready-to-use implementation templates, both with the option to use different frameworks, as long as they support the A2A protocol.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>Testbench</strong> connects to the Agent Runtime and makes use of Kubernetes to not only run your AI evaluations in the cluster, but also trigger the tests when the infrastructure (like agents and models) change.</p>
+</div>
+<div class="paragraph">
+<p>The gateways control the traffic from and to the agents.
+They all are basically classical API gateways, but with a focus on the AI protocols.
+The <strong>Agent Gateway</strong> exposes Agents to the outside world, allowing for additional supported APIs, like making an agent compatible to a frontend that only supports OpenAIs Chat Completion or supports growing protocols like AG-UI or A2UI.
+Making an agent available through MCP is also an interesting solution until specific agent protocols gain more adoption.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>AI Gateway</strong>, sometimes referred to as model facade or model router, abstracts the call to the LLMs and allows switching providers quickly or hosting LLM models locally for certain use cases.
+It also allows for fine-grained control.
+Like adding guardrails that check for personal data, tracking LLM costs, or centrally log all interactions for compliance and auditing.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>Tool Gateway</strong> is the facade towards all the internal and external (MCP) tools.
+Besides beforementioned aspects, the authentication and authorization become especially important here, as this is where data is read and modified.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -143,100 +177,13 @@ This site describes the Agentic Layer, an open-source, Kubernetes-native collect
 </div>
 </div>
 <div class="paragraph">
+<p>The Agentic Layer is designed to switch individual components easily and contributing new implementations independently.
+For each type of gateways, a lot of solutions, many of them open source, are popping up right now and are waiting for adoption.
+We highly appreciate contributions to support additional implementations.</p>
+</div>
+<hr>
+<div class="paragraph">
 <p>The documentation is organized using <a href="https://diataxis.fr">Diátaxis</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tutorials"><a class="anchor" href="#_tutorials"></a>Tutorials</h2>
-<div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph">
-<p>Guided, step-by-step lessons.
-Each tutorial will walk you through building a small, complete project from scratch to give you hands-on experience.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_agentic_ai_news_showcase"><a class="anchor" href="#_agentic_ai_news_showcase"></a><a href="tutorials/showcase-news.html" class="xref page">Agentic AI News Showcase</a></h3>
-<div class="paragraph">
-<p>This tutorial will guide you through setting up the Agentic AI News Showcase in a local Kubernetes cluster.
-The showcase demonstrates multi-agent AI communication using the Agentic Layer platform.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how_to_guides"><a class="anchor" href="#_how_to_guides"></a>How-to guides</h2>
-<div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph">
-<p>Collection of practical recipes to solve specific, common problems.
-Each guide is a focused checklist of steps to accomplish a single task.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_install_the_agent_runtime_operator"><a class="anchor" href="#_install_the_agent_runtime_operator"></a><a href="../../agent-runtime-operator/agent-runtime/how-to-guide.html" class="xref page">Install the Agent Runtime Operator</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_create_an_ai_agent"><a class="anchor" href="#_create_an_ai_agent"></a><a href="../../agent-runtime-operator/agents/how-to-guide.html" class="xref page">Create an AI Agent</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_install_the_ai_gateway_operator_for_litellm"><a class="anchor" href="#_install_the_ai_gateway_operator_for_litellm"></a><a href="../../ai-gateway-litellm-operator/operator/how-to-guide.html" class="xref page">Install the AI Gateway Operator for LiteLLM</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_create_an_ai_gateway"><a class="anchor" href="#_create_an_ai_gateway"></a><a href="../../agent-runtime-operator/ai-gateways/how-to-guide.html" class="xref page">Create an AI Gateway</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_install_the_agent_gateway_operator_for_krakend"><a class="anchor" href="#_install_the_agent_gateway_operator_for_krakend"></a><a href="../../agent-gateway-krakend-operator/operator/how-to-guide.html" class="xref page">Install the Agent Gateway Operator for KrakenD</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_create_an_agent_gateway"><a class="anchor" href="#_create_an_agent_gateway"></a><a href="../../agent-runtime-operator/agent-gateways/how-to-guide.html" class="xref page">Create an Agent Gateway</a></h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_reference"><a class="anchor" href="#_reference"></a>Reference</h2>
-<div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph">
-<p>Technical encyclopedia.
-It contains detailed, factual information about the inner workings of our system, including APIs, configuration options, and message schemas.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_agent_runtime_reference"><a class="anchor" href="#_agent_runtime_reference"></a><a href="../../agent-runtime-operator/agent-runtime/reference.html" class="xref page">Agent Runtime Reference</a></h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_explanation"><a class="anchor" href="#_explanation"></a>Explanation</h2>
-<div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph">
-<p>High-level discussions on the "why" behind our project.
-Here you&#8217;ll find articles on our architecture, key concepts, and design decisions.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_architecture"><a class="anchor" href="#_architecture"></a><a href="architecture/index.html" class="xref page">Architecture</a></h3>
-<div class="paragraph">
-<p>This section provides an in-depth look at the architecture of the Agentic Layer platform, including its components, interactions, and deployment models.</p>
-</div>
 </div>
 </div>
 </div>
