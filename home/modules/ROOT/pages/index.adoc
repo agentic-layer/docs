@@ -1,13 +1,38 @@
 = Agentic Layer
 
 Welcome to the Agentic Layer documentation.
-This site describes the Agentic Layer, an open-source, Kubernetes-native collection of building blocks for orchestrating multi-agent AI systems in a flexible, secure and maintainable way.
+This site describes the Agentic Layer, an open-source, Kubernetes-native collection of building blocks for orchestrating multi-agent AI systems in a flexible, secure, and maintainable way.
 
-This is the high level overview of the building blocks and architecture of the Agentic Layer:
+== Introduction
+
+The Agentic Layer is composed of a set of spacers and controls to form an enterprise-grade platform with interchangeable components that adapt to the individual requirements.
+The following picture visualizes how the Agentic Layer integrates between the frontends and applications on the top, the Kubernetes-based platform at the bottom, and your individual Agentic Workforces and Connectors that run your business.
+
+image::architecture:agentic-layer-stack.png[Agentic Layer High Level Overview,align=center,link=self,window=_blank]
+
+There are two types of keys spacers: The Agent Runtime and the different Gateways.
+The *Agent Runtime* takes care of running your agents and connecting them to other agents and tools / connectors.
+It allows for custom agent implementations and ready-to-use implementation templates, both with the option to use different frameworks, as long as they support the A2A protocol.
+
+The *Testbench* connects to the Agent Runtime and makes use of Kubernetes to not only run your AI evaluations in the cluster, but also trigger the tests when the infrastructure (like agents and models) change.
+
+The gateways control the traffic from and to the agents.
+They all are basically classical API gateways, but with a focus on the AI protocols.
+The *Agent Gateway* exposes Agents to the outside world, allowing for additional supported APIs, like making an agent compatible to a frontend that only supports OpenAIs Chat Completion or supports growing protocols like AG-UI or A2UI.
+Making an agent available through MCP is also an interesting solution until specific agent protocols gain more adoption.
+
+The *AI Gateway*, sometimes referred to as model facade or model router, abstracts the call to the LLMs and allows switching providers quickly or hosting LLM models locally for certain use cases.
+It also allows for fine-grained control.
+Like adding guardrails that check for personal data, tracking LLM costs, or centrally log all interactions for compliance and auditing.
+
+The *Tool Gateway* is the facade towards all the internal and external (MCP) tools.
+Besides beforementioned aspects, the authentication and authorization become especially important here, as this is where data is read and modified.
 
 image::architecture:architecture.svg[Agentic Layer High Level Overview,align=center,link=self,window=_blank]
 
-The documentation is organized using https://diataxis.fr[Diátaxis].
+The Agentic Layer is designed to switch individual components easily and contributing new implementations independently.
+For each type of gateways, a lot of solutions, many of them open source, are popping up right now and are waiting for adoption.
+We highly appreciate contributions to support additional implementations.
 
 == Tutorials
 
@@ -61,3 +86,7 @@ Here you'll find articles on our architecture, key concepts, and design decision
 === xref:architecture:index.adoc[Architecture]
 
 This section provides an in-depth look at the architecture of the Agentic Layer platform, including its components, interactions, and deployment models.
+
+'''
+
+The documentation is organized using https://diataxis.fr[Diátaxis].
