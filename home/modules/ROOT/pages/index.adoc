@@ -34,59 +34,6 @@ The Agentic Layer is designed to switch individual components easily and contrib
 For each type of gateways, a lot of solutions, many of them open source, are popping up right now and are waiting for adoption.
 We highly appreciate contributions to support additional implementations.
 
-== Tutorials
-
-****
-Guided, step-by-step lessons.
-Each tutorial will walk you through building a small, complete project from scratch to give you hands-on experience.
-****
-
-=== xref:tutorials:showcase-news.adoc[]
-
-This tutorial will guide you through setting up the Agentic AI News Showcase in a local Kubernetes cluster.
-The showcase demonstrates multi-agent AI communication using the Agentic Layer platform.
-
-== How-to guides
-
-****
-Collection of practical recipes to solve specific, common problems.
-Each guide is a focused checklist of steps to accomplish a single task.
-****
-// Agent Runtime
-=== xref:agent-runtime-operator:agent-runtime:how-to-guide.adoc[]
-
-=== xref:agent-runtime-operator:agents:how-to-guide.adoc[]
-
-// AI Gateways
-=== xref:ai-gateway-litellm-operator:operator:how-to-guide.adoc[]
-
-=== xref:agent-runtime-operator:ai-gateways:how-to-guide.adoc[]
-
-// Agent Gateways
-=== xref:agent-gateway-krakend-operator:operator:how-to-guide.adoc[]
-
-=== xref:agent-runtime-operator:agent-gateways:how-to-guide.adoc[]
-
-== Reference
-
-****
-Technical encyclopedia.
-It contains detailed, factual information about the inner workings of our system, including APIs, configuration options, and message schemas.
-****
-
-=== xref:agent-runtime-operator:agent-runtime:reference.adoc[]
-
-== Explanation
-
-****
-High-level discussions on the "why" behind our project.
-Here you'll find articles on our architecture, key concepts, and design decisions.
-****
-
-=== xref:architecture:index.adoc[Architecture]
-
-This section provides an in-depth look at the architecture of the Agentic Layer platform, including its components, interactions, and deployment models.
-
 '''
 
 The documentation is organized using https://diataxis.fr[Diátaxis].
