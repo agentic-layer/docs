@@ -8,5 +8,4 @@ include::how-to-guides:partial$nav.adoc[]
 include::reference:partial$nav.adoc[]
 
 .Explanation
-* xref:architecture:index.adoc[Architecture]
-include::architecture:partial$nav.adoc[]
+include::explanation:partial$nav.adoc[]

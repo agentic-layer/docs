@@ -27,6 +27,9 @@ content:
     - url: https://github.com/agentic-layer/ai-gateway-litellm-operator.git
       branches: [main]
       start_path: docs
+    - url: https://github.com/agentic-layer/testbench.git
+      branches: [ main ]
+      start_path: docs
 
 ui:
   bundle:
