@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Agent Runtime Reference :: Agentic Layer</title>
-    <link rel="canonical" href="https://docs.agentic-layer.ai/home/main/reference/agent-runtime.html">
+    <title>Architecture :: Agentic Layer</title>
+    <link rel="canonical" href="https://docs.agentic-layer.ai/home/main/testbench/index.html">
     <meta name="generator" content="Antora 3.1.14">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -73,8 +73,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Reference</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="agent-runtime.html">Agent Runtime</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../reference/agent-runtime.html">Agent Runtime</a>
   </li>
 </ul>
   </li>
@@ -103,27 +103,27 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../testbench/index.html">Testbench Architecture</a>
+    <a class="nav-link" href="index.html">Testbench Architecture</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../testbench/introduction/index.html">Introduction and Goals</a>
+    <a class="nav-link" href="introduction/index.html">Introduction and Goals</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../testbench/context/index.html">System Scope and Context</a>
+    <a class="nav-link" href="context/index.html">System Scope and Context</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../testbench/building-blocks/index.html">Building Block View</a>
+    <a class="nav-link" href="building-blocks/index.html">Building Block View</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../testbench/deployment-view/index.html">Deployment View</a>
+    <a class="nav-link" href="deployment-view/index.html">Deployment View</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../testbench/crosscutting/index.html">Cross-cutting Concepts</a>
+    <a class="nav-link" href="crosscutting/index.html">Cross-cutting Concepts</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../testbench/glossary/index.html">Glossary</a>
+    <a class="nav-link" href="glossary/index.html">Glossary</a>
   </li>
 </ul>
   </li>
@@ -142,58 +142,39 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Agentic Layer</a></li>
-    <li>Reference</li>
-    <li><a href="agent-runtime.html">Agent Runtime</a></li>
+    <li>Explanation</li>
+    <li><a href="index.html">Testbench Architecture</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/agentic-layer/docs/edit/main/home/modules/reference/pages/agent-runtime.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/testbench/edit/main/docs/modules/testbench/pages/index.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Agent Runtime Reference</h1>
-<div class="sect1">
-<h2 id="_full_api_reference"><a class="anchor" href="#_full_api_reference"></a>Full API Reference</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://pkg.go.dev/github.com/agentic-layer/agent-runtime-operator/api/v1alpha1" class="bare">https://pkg.go.dev/github.com/agentic-layer/agent-runtime-operator/api/v1alpha1</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_crds"><a class="anchor" href="#_crds"></a>CRDs</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The following Custom Resource Definitions (CRDs) are provided by the Agent Runtime Operator:</p>
-</div>
+<h1 class="page">Architecture</h1>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Agent</strong>: <a href="https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_agents.yaml" class="bare">https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_agents.yaml</a></p>
+<p><a href="introduction/index.html" class="xref page">Introduction and Goals</a></p>
 </li>
 <li>
-<p><strong>AgenticWorkforce</strong>: <a href="https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_agenticworkforces.yaml" class="bare">https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_agenticworkforces.yaml</a></p>
+<p><a href="context/index.html" class="xref page">System Scope and Context</a></p>
 </li>
 <li>
-<p><strong>AgentGateway</strong>: <a href="https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_agentgateways.yaml" class="bare">https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_agentgateways.yaml</a></p>
+<p><a href="building-blocks/index.html" class="xref page">Building Block View</a></p>
 </li>
 <li>
-<p><strong>AgentGatewayClass</strong>: <a href="https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_agentgatewayclasses.yaml" class="bare">https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_agentgatewayclasses.yaml</a></p>
+<p><a href="deployment-view/index.html" class="xref page">Deployment View</a></p>
 </li>
 <li>
-<p><strong>AIGateway</strong>: <a href="https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_agentgateways.yaml" class="bare">https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_agentgateways.yaml</a></p>
+<p><a href="crosscutting/index.html" class="xref page">Cross-cutting Concepts</a></p>
 </li>
 <li>
-<p><strong>AIGatewayClass</strong>: <a href="https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_aigatewayclasses.yaml" class="bare">https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_aigatewayclasses.yaml</a></p>
-</li>
-<li>
-<p><strong>ToolServer</strong>: <a href="https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_toolservers.yaml" class="bare">https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_toolservers.yaml</a></p>
+<p><a href="glossary/index.html" class="xref page">Glossary</a></p>
 </li>
 </ul>
-</div>
-</div>
 </div>
 </article>
   </div>

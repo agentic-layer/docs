@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Cross-cutting Concepts :: Agentic Layer</title>
+    <link rel="canonical" href="https://docs.agentic-layer.ai/home/main/testbench/crosscutting/index.html">
+    <meta name="generator" content="Antora 3.1.14">
+    <link rel="stylesheet" href="../../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.agentic-layer.ai">Agentic Layer</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../../../../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="home" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../../index.html">Agentic Layer</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../tutorials/showcase-news.html">Agentic AI News Showcase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../how-to-guides/agent-runtime.html">Agent Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../how-to-guides/agents.html">Agents</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../how-to-guides/agent-gateways.html">Agent Gateways</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../how-to-guides/ai-gateways.html">AI Gateways</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../how-to-guides/agent-gateway-krakend-operator.html">Agent Gateway KrakenD Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../how-to-guides/ai-gateway-litellm-operator.html">AI Gateway LiteLLM Operator</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../reference/agent-runtime.html">Agent Runtime</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanation</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../architecture/index.html">Agentic Layer Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../architecture/introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../architecture/context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../architecture/building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../architecture/crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../architecture/glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../index.html">Testbench Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../deployment-view/index.html">Deployment View</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">Agentic Layer</a></li>
+    <li>Explanation</li>
+    <li><a href="../index.html">Testbench Architecture</a></li>
+    <li><a href="index.html">Cross-cutting Concepts</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/testbench/edit/main/docs/modules/testbench/pages/crosscutting/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Cross-cutting Concepts</h1>
+<div class="sect1">
+<h2 id="_observability"><a class="anchor" href="#_observability"></a>Observability</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Testbench integrates OpenTelemetry for both tracing and metrics.</p>
+</div>
+<div class="sect2">
+<h3 id="_tracing_run_phase"><a class="anchor" href="#_tracing_run_phase"></a>Tracing (Run Phase)</h3>
+<div class="paragraph">
+<p>The Run phase creates OpenTelemetry spans for each agent query:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Tracer provider</strong> with a service name resource and span processor</p>
+</li>
+<li>
+<p><strong>Span exporter</strong> using OTLP over HTTP/protobuf</p>
+</li>
+<li>
+<p><strong>HTTP auto-instrumentation</strong> for distributed trace context propagation (W3C Trace Context)</p>
+</li>
+<li>
+<p><strong>Per-query spans</strong> with attributes for user input, reference, agent URL, and workflow name</p>
+</li>
+<li>
+<p><strong>Multi-turn parent spans</strong> with child spans per conversation turn, tracking context ID and message count</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The trace ID from each span is stored in the experiment output and propagated through evaluation to publishing, linking the full pipeline to the original agent interaction.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_metrics_publish_phase"><a class="anchor" href="#_metrics_publish_phase"></a>Metrics (Publish Phase)</h3>
+<div class="paragraph">
+<p>The Publish phase exports per-sample evaluation gauges:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Gauge</strong>: <code>testbench_evaluation_metric</code>&#8201;&#8212;&#8201;one observation per sample per metric</p>
+</li>
+<li>
+<p><strong>Attributes</strong>: metric name, workflow name, execution ID, execution number, trace ID, sample hash, truncated user input</p>
+</li>
+<li>
+<p><strong>Resource</strong>: service name and workflow name</p>
+</li>
+<li>
+<p><strong>Exporter</strong>: OTLP over HTTP/protobuf</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a2a_protocol_integration"><a class="anchor" href="#_a2a_protocol_integration"></a>A2A Protocol Integration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Testbench communicates with agents under test using the A2A (Agent-to-Agent) JSON-RPC protocol.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Client initialization</strong>&#8201;&#8212;&#8201;creates a minimal agent card from the agent URL</p>
+</li>
+<li>
+<p><strong>Message sending</strong>&#8201;&#8212;&#8201;sends messages asynchronously and collects responses</p>
+</li>
+<li>
+<p><strong>Context management</strong>&#8201;&#8212;&#8201;A2A context ID maintains conversation state across multiple turns in multi-turn evaluations</p>
+</li>
+<li>
+<p><strong>Response extraction</strong>&#8201;&#8212;&#8201;agent responses are extracted from A2A task artifacts and stored in the experiment output</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_evaluation_framework"><a class="anchor" href="#_evaluation_framework"></a>Evaluation Framework</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Testbench uses a framework-agnostic adapter pattern for LLM-as-a-judge evaluation.</p>
+</div>
+<div class="sect2">
+<h3 id="_adapter_pattern"><a class="anchor" href="#_adapter_pattern"></a>Adapter Pattern</h3>
+<div class="paragraph">
+<p>The evaluation system is built around three core abstractions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Metrics Registry</strong>&#8201;&#8212;&#8201;central registry that manages framework adapters and provides a unified interface for metric creation</p>
+</li>
+<li>
+<p><strong>Framework Adapter</strong>&#8201;&#8212;&#8201;defines the contract for plugging in evaluation frameworks (discovery, instantiation, wrapping)</p>
+</li>
+<li>
+<p><strong>Metric Callable</strong>&#8201;&#8212;&#8201;unified interface for metric execution: accepts a sample and returns a score with an optional reason</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each framework adapter wraps its native metric instances in a callable that handles parameter filtering, data format translation, and result extraction. This decouples the evaluation pipeline from any specific framework.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_llm_as_judge"><a class="anchor" href="#_llm_as_judge"></a>LLM-as-Judge</h3>
+<div class="paragraph">
+<p>Metrics are evaluated using an LLM accessed through the AI Gateway. The LLM is injected into metric callables at creation time. Each callable handles framework-specific invocation internally and returns numeric scores (typically 0.0 to 1.0) with optional explanations.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_containerization"><a class="anchor" href="#_containerization"></a>Containerization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All pipeline phases share a single Docker image:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Dependency management</strong>&#8201;&#8212;&#8201;uses <code>uv</code> for fast, reproducible installs</p>
+</li>
+<li>
+<p><strong>Single entrypoint</strong>&#8201;&#8212;&#8201;each phase is selected by passing the appropriate command argument</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
+<script async src="../../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
