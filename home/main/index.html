@@ -87,19 +87,19 @@
     <a class="nav-link" href="architecture/index.html">Agentic Layer Architecture</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="architecture/introduction/index.html">Introduction and Goals</a>
+    <a class="nav-link" href="architecture/01-introduction/index.html">Introduction and Goals</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="architecture/context/index.html">System Scope and Context</a>
+    <a class="nav-link" href="architecture/03-context/index.html">System Scope and Context</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="architecture/building-blocks/index.html">Building Block View</a>
+    <a class="nav-link" href="architecture/05-building-blocks/index.html">Building Block View</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="architecture/crosscutting/index.html">Cross-cutting Concepts</a>
+    <a class="nav-link" href="architecture/08-crosscutting/index.html">Cross-cutting Concepts</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="architecture/glossary/index.html">Glossary</a>
+    <a class="nav-link" href="architecture/12-glossary/index.html">Glossary</a>
   </li>
 </ul>
   </li>
@@ -263,9 +263,45 @@ Besides beforementioned aspects, the authentication and authorization become esp
 For each type of gateways, a lot of solutions, many of them open source, are popping up right now and are waiting for adoption.
 We highly appreciate contributions to support additional implementations.</p>
 </div>
+<div class="sect2">
+<h3 id="_pluggable_implementations"><a class="anchor" href="#_pluggable_implementations"></a>Pluggable Implementations</h3>
+<div class="paragraph">
+<p>A core design principle of the Agentic Layer is that every gateway and agent runtime is replaceable.
+Rather than prescribing a single technology, the platform defines Kubernetes Custom Resource Definitions (CRDs) that act as contracts between the platform and the concrete implementations.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<a class="image" href="architecture/_images/crds.svg" target="_blank" rel="noopener"><img src="architecture/_images/crds.svg" alt="Agentic Layer CRDs"></a>
+</div>
+</div>
+<div class="paragraph">
+<p>Each CRD-backed resource represents a point of extensibility:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Agent implementations</strong> can be built with any framework — LangChain, LlamaIndex, custom code — as long as they expose an A2A-compatible interface.
+The Agent Runtime Operator manages their lifecycle uniformly, regardless of the underlying technology.</p>
+</li>
+<li>
+<p><strong>Agent Gateway implementations</strong> can be swapped or extended to support additional protocols and APIs.
+You can use an existing solution or contribute a new one without touching the rest of the platform.</p>
+</li>
+<li>
+<p><strong>AI Gateway implementations</strong> can point to any combination of LLM providers — cloud-hosted, self-hosted, or local — making it straightforward to change models or add new providers as the landscape evolves.</p>
+</li>
+<li>
+<p><strong>Tool Gateway implementations</strong> give teams the flexibility to integrate with different MCP-compatible tool servers and internal APIs, each with their own authentication and authorization strategy.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This structure ensures that adopting the Agentic Layer is not a commitment to a fixed set of technologies, but rather a commitment to a well-defined operating model that accommodates change.</p>
+</div>
 <hr>
 <div class="paragraph">
 <p>The documentation is organized using <a href="https://diataxis.fr">Diátaxis</a>.</p>
+</div>
 </div>
 </div>
 </div>
