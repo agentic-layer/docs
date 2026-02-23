@@ -71,6 +71,24 @@ The Agentic Layer is designed to switch individual components easily and contrib
 For each type of gateways, a lot of solutions, many of them open source, are popping up right now and are waiting for adoption.
 We highly appreciate contributions to support additional implementations.
 
+=== Pluggable Implementations
+
+A core design principle of the Agentic Layer is that every gateway and agent runtime is replaceable.
+Rather than prescribing a single technology, the platform defines Kubernetes Custom Resource Definitions (CRDs) that act as contracts between the platform and the concrete implementations.
+
+image::architecture:crds.svg[Agentic Layer CRDs,align=center,link=self,window=_blank]
+
+Each CRD-backed resource represents a point of extensibility:
+
+* **Agent implementations** can be built with any framework — LangChain, LlamaIndex, custom code — as long as they expose an A2A-compatible interface.
+  The Agent Runtime Operator manages their lifecycle uniformly, regardless of the underlying technology.
+* **Agent Gateway implementations** can be swapped or extended to support additional protocols and APIs.
+  You can use an existing solution or contribute a new one without touching the rest of the platform.
+* **AI Gateway implementations** can point to any combination of LLM providers — cloud-hosted, self-hosted, or local — making it straightforward to change models or add new providers as the landscape evolves.
+* **Tool Gateway implementations** give teams the flexibility to integrate with different MCP-compatible tool servers and internal APIs, each with their own authentication and authorization strategy.
+
+This structure ensures that adopting the Agentic Layer is not a commitment to a fixed set of technologies, but rather a commitment to a well-defined operating model that accommodates change.
+
 '''
 
 The documentation is organized using https://diataxis.fr[Diátaxis].
