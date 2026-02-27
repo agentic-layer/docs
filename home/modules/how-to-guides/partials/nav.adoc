@@ -4,3 +4,5 @@
 ** xref:how-to-guides:ai-gateways.adoc[Create an AI Gateway]
 ** xref:how-to-guides:agent-gateway-krakend-operator.adoc[Install the Agent Gateway Operator for KrakenD]
 ** xref:how-to-guides:ai-gateway-litellm-operator.adoc[Install the Agent Gateway Operator for KrakenD]
+** xref:how-to-guides:testbench-install.adoc[Install the Testbench]
+** xref:how-to-guides:testbench-testworkflow.adoc[Create Your First TestWorkflow]

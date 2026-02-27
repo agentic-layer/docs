@@ -1,0 +1,1 @@
+include::testbench:partial$how-to/install.adoc[]
