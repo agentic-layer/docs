@@ -1,1 +1,0 @@
-include::showcase-news:ROOT:partial$tutorial.adoc[]

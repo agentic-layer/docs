@@ -1,0 +1,14 @@
+<script id="site-script" src="{{{uiRootPath}}}/js/site.js" data-ui-root-path="{{{uiRootPath}}}"></script>
+<script async src="{{{uiRootPath}}}/js/vendor/highlight.js"></script>
+{{#if env.SITE_SEARCH_PROVIDER}}
+{{> search-scripts}}
+{{/if}}
+<script>
+;(function () {
+  document.querySelectorAll('.nav-item').forEach(function (item) {
+    item.classList.add('is-active')
+  })
+  var toggle = document.querySelector('.nav-menu-toggle')
+  if (toggle) toggle.classList.add('is-active')
+})()
+</script>

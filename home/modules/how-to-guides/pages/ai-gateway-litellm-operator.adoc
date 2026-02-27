@@ -1,1 +1,0 @@
-include::ai-gateway-litellm-operator:operator:partial$how-to-guide.adoc[]

@@ -1,1 +1,1 @@
-** xref:reference:agent-runtime.adoc[Agent Runtime]
+** xref:agent-runtime-operator:agent-runtime:reference.adoc[Agent Runtime Reference]

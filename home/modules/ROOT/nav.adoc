@@ -1,5 +1,5 @@
 .Tutorials
-* xref:tutorials:showcase-news.adoc[]
+include::tutorials:partial$nav.adoc[]
 
 .How-to guides
 include::how-to-guides:partial$nav.adoc[]
