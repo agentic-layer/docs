@@ -1,4 +1,4 @@
-*** xref:architecture:index.adoc[Agentic Layer Architecture]
+*** xref:architecture:index.adoc[]
 include::architecture:partial$nav.adoc[]
 
 *** xref:testbench:index.adoc[Testbench Architecture]

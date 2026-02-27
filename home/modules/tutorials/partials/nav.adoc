@@ -1,1 +1,1 @@
-** xref:showcase-news:ROOT:index.adoc[Agentic AI News Showcase]
+** xref:showcase-news:ROOT:index.adoc[]
