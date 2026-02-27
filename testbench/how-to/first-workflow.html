@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Create Your First TestWorkflow :: Agentic Layer</title>
+    <link rel="canonical" href="https://docs.agentic-layer.ai/testbench/how-to/first-workflow.html">
+    <meta name="generator" content="Antora 3.1.14">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.agentic-layer.ai">Agentic Layer</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="testbench" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../../home/main/index.html">Agentic Layer</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../showcase-news/index.html">Agentic AI News Showcase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agent-runtime/how-to-guide.html">Install the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-gateway-krakend-operator/operator/how-to-guide.html">Install the Agent Gateway Operator for KrakenD</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/operator/how-to-guide.html">Install the AI Gateway Operator for LiteLLM</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../tool-gateway-agentgateway/operator/how-to-guide.html">Install the Tool Gateway Operator for Agentgateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agents/how-to-guide.html">Create an AI Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/ai-gateways/how-to-guide.html">Create an AI Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-servers/how-to-guide.html">Create a Tool Server</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-gateways/how-to-guide.html">Create a Tool Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="install.html">Install the Testbench</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="first-workflow.html">Create Your First TestWorkflow</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agent-runtime/reference.html">Agent Runtime Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../tool-gateway-agentgateway/operator/reference.html">Agentgateway-based Tool Gateway Reference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanation</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../home/main/architecture/index.html">Agentic Layer Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/01-introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/03-context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/05-building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/08-crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/12-glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../architecture/index.html">Testbench Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/deployment-view/index.html">Deployment View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Testbench</a></li>
+    <li><a href="first-workflow.html">Create Your First TestWorkflow</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/testbench/edit/main/docs/modules/how-to/pages/first-workflow.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Create Your First TestWorkflow</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide walks you through defining an experiment, creating a TestWorkflow, and running it against an agent deployed in your cluster.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Testbench installed (see <a href="install.html" class="xref page">Install the Testbench</a>)</p>
+</li>
+<li>
+<p>An agent with an A2A protocol endpoint deployed in the cluster</p>
+</li>
+<li>
+<p>An AI Gateway deployed in your cluster</p>
+</li>
+<li>
+<p>An OTLP collector endpoint reachable from the <code>testkube</code> namespace</p>
+</li>
+<li>
+<p><a href="https://docs.testkube.io/articles/install/install-with-cli">Testkube CLI</a> installed</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_understand_the_pipeline"><a class="anchor" href="#_understand_the_pipeline"></a>Understand the pipeline</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Testbench evaluates agents through a pipeline. Each phase is a reusable <code>TestWorkflowTemplate</code>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Run</strong>&#8201;&#8212;&#8201;sends queries to the agent via the A2A protocol and records responses</p>
+</li>
+<li>
+<p><strong>Evaluate</strong>&#8201;&#8212;&#8201;scores responses using LLM-as-a-judge metrics</p>
+</li>
+<li>
+<p><strong>Publish</strong>&#8201;&#8212;&#8201;sends evaluation scores to an OTLP-compatible observability backend</p>
+</li>
+<li>
+<p><strong>Visualize</strong>&#8201;&#8212;&#8201;generates a self-contained HTML report as a workflow artifact</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This guide uses a ConfigMap-based experiment, which is the simplest way to get started. For loading datasets from external sources, see <a href="#load-dataset-from-s3-minio">Load a dataset from S3/MinIO (alternative to Step 1)</a> below.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_1_define_your_experiment"><a class="anchor" href="#_step_1_define_your_experiment"></a>Step 1: Define your experiment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An experiment is a JSON document that describes what to test. It follows a three-level hierarchy:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Experiment</strong>&#8201;&#8212;&#8201;top-level configuration (LLM model, default threshold)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Scenario</strong>&#8201;&#8212;&#8201;a named group of steps (e.g., "Weather in New York")</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Step</strong>&#8201;&#8212;&#8201;a single query with expected reference data and metrics to evaluate</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Create a ConfigMap containing your experiment:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: experiment
+  namespace: testkube
+data:
+  experiment.json: |
+    {
+      "llm_as_a_judge_model": "gemini-2.5-flash-lite",
+      "default_threshold": 0.9,
+      "scenarios": [
+        {
+          "name": "Weather in New York",
+          "steps": [
+            {
+              "input": "What is the weather like in New York right now?",
+              "reference": {
+                "tool_calls": [
+                  {
+                    "name": "get_weather",
+                    "args": {
+                      "city": "New York"
+                    }
+                  }
+                ],
+                "topics": ["weather"]
+              },
+              "metrics": [
+                {
+                  "metric_name": "AgentGoalAccuracyWithoutReference"
+                },
+                {
+                  "metric_name": "ToolCallAccuracy"
+                },
+                {
+                  "metric_name": "TopicAdherence",
+                  "parameters": {
+                    "mode": "precision"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Apply it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl apply -f experiment.yaml</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_available_metrics"><a class="anchor" href="#_available_metrics"></a>Available metrics</h3>
+<div class="paragraph">
+<p>The following table lists commonly used metrics provided by RAGAS, the default framework adapter. All metrics are resolved through the <code>GenericMetricsRegistry</code>, which supports pluggable adapters&#8201;&#8212;&#8201;you can extend the system with custom metrics by implementing your own <code>FrameworkAdapter</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 40%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Metric</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required reference fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AgentGoalAccuracyWithoutReference</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether the agent achieved its goal, judged without a reference answer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>None</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ToolCallAccuracy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether the agent called the correct tools with the correct arguments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reference.tool_calls</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>TopicAdherence</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether the response stays on the specified topics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reference.topics</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_2_configure_the_otlp_endpoint"><a class="anchor" href="#_step_2_configure_the_otlp_endpoint"></a>Step 2: Configure the OTLP endpoint</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Create a ConfigMap that tells the pipeline where to send metrics:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-config
+  namespace: testkube
+data:
+  OTEL_EXPORTER_OTLP_ENDPOINT: "http://lgtm.monitoring.svc.cluster.local:4318"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Apply it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl apply -f otel-config.yaml</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_3_create_the_testworkflow"><a class="anchor" href="#_step_3_create_the_testworkflow"></a>Step 3: Create the TestWorkflow</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The TestWorkflow ties everything together. It mounts the experiment ConfigMap, injects the OTLP endpoint, and chains the pipeline templates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: testworkflows.testkube.io/v1
+kind: TestWorkflow
+metadata:
+  name: example-workflow <i class="conum" data-value="1"></i><b>(1)</b>
+  namespace: testkube
+  labels:
+    testkube.io/test-category: ragas-evaluation
+    app: testworkflows
+
+spec:
+  content:
+    files:
+      - path: /data/datasets/experiment.json <i class="conum" data-value="2"></i><b>(2)</b>
+        contentFrom:
+          configMapKeyRef:
+            name: experiment
+            key: experiment.json
+
+  container:
+    env:
+      - name: OTEL_EXPORTER_OTLP_ENDPOINT <i class="conum" data-value="3"></i><b>(3)</b>
+        valueFrom:
+          configMapKeyRef:
+            name: otel-config
+            key: OTEL_EXPORTER_OTLP_ENDPOINT
+
+  use:
+  - name: run-template <i class="conum" data-value="4"></i><b>(4)</b>
+    config:
+      agentUrl: "http://weather-agent.sample-agents:8000" <i class="conum" data-value="5"></i><b>(5)</b>
+  - name: evaluate-template
+  - name: publish-template
+  - name: visualize-template</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>A unique name for your workflow</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Mounts the experiment JSON from the ConfigMap into the shared data volume</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Injects the OTLP endpoint as an environment variable for the publish phase</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Templates are executed in order: run &#8594; evaluate &#8594; publish &#8594; visualize</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>The A2A endpoint of the agent you want to evaluate</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Apply it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl apply -f example-workflow.yaml</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_4_run_and_monitor_the_workflow"><a class="anchor" href="#_step_4_run_and_monitor_the_workflow"></a>Step 4: Run and monitor the workflow</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Start the workflow:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl testkube run testworkflow example-workflow --watch</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>View logs after completion:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl testkube get testworkflow example-workflow-1</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_5_view_results"><a class="anchor" href="#_step_5_view_results"></a>Step 5: View results</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_grafana_dashboards"><a class="anchor" href="#_grafana_dashboards"></a>Grafana dashboards</h3>
+<div class="paragraph">
+<p>If you installed the Grafana dashboard ConfigMap (see <a href="install.html" class="xref page">Install the Testbench</a>), open Grafana and look for the <strong>Testkube Evaluation</strong> dashboard. It displays per-metric scores filtered by workflow name.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_html_report_artifact"><a class="anchor" href="#_html_report_artifact"></a>HTML report artifact</h3>
+<div class="paragraph">
+<p>The visualize phase produces a self-contained HTML report as a workflow artifact. Download it with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl testkube download artifacts example-workflow-1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The report includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Summary cards with total samples and metrics count</p>
+</li>
+<li>
+<p>Horizontal bar charts showing mean score per metric</p>
+</li>
+<li>
+<p>Metric distribution histograms with statistics</p>
+</li>
+<li>
+<p>A searchable, sortable results table with all evaluations</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="load-dataset-from-s3-minio"><a class="anchor" href="#load-dataset-from-s3-minio"></a>Load a dataset from S3/MinIO (alternative to Step 1)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Instead of embedding the experiment in a ConfigMap, you can load a dataset from an S3-compatible store using the <code>setup-template</code>. Replace the <code>content.files</code> and prepend <code>setup-template</code> to the <code>use</code> list:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: testworkflows.testkube.io/v1
+kind: TestWorkflow
+metadata:
+  name: s3-workflow
+  namespace: testkube
+spec:
+  container:
+    env:
+      - name: OTEL_EXPORTER_OTLP_ENDPOINT
+        valueFrom:
+          configMapKeyRef:
+            name: otel-config
+            key: OTEL_EXPORTER_OTLP_ENDPOINT
+      - name: MINIO_ENDPOINT
+        value: "http://minio.storage:9000"
+      - name: MINIO_ROOT_USER
+        value: "minioadmin"
+      - name: MINIO_ROOT_PASSWORD
+        value: "minioadmin"
+
+  use:
+  - name: setup-template
+    config:
+      datasetUrl: "http://data-server.data-server:8000/dataset.csv"
+  - name: run-template
+    config:
+      agentUrl: "http://weather-agent.sample-agents:8000"
+  - name: evaluate-template
+  - name: publish-template
+  - name: visualize-template</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>setup-template</code> downloads the dataset.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_auto_trigger_on_agent_deployment_optional"><a class="anchor" href="#_auto_trigger_on_agent_deployment_optional"></a>Auto-trigger on agent deployment (optional)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can automatically run the evaluation workflow whenever the agent under test is redeployed. Create a <code>TestTrigger</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: tests.testkube.io/v1
+kind: TestTrigger
+metadata:
+  name: example-workflow-trigger
+  namespace: testkube
+spec:
+  resource: deployment
+  resourceSelector:
+    name: weather-agent
+    namespace: sample-agents
+  event: modified
+  action: run
+  execution: testworkflow
+  concurrencyPolicy: allow
+  testSelector:
+    name: example-workflow
+    namespace: testkube
+  disabled: false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This trigger watches the <code>weather-agent</code> Deployment in the <code>sample-agents</code> namespace and runs the workflow on every modification.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_multi_turn_conversation_scenarios"><a class="anchor" href="#_multi_turn_conversation_scenarios"></a>Multi-turn conversation scenarios</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To test multi-turn conversations, add multiple steps to a single scenario. The A2A protocol maintains conversation context across steps via a <code>context_id</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "llm_as_a_judge_model": "gemini-2.5-flash-lite",
+  "default_threshold": 0.9,
+  "scenarios": [
+    {
+      "name": "Weather then time in New York",
+      "steps": [
+        {
+          "input": "What is the weather like in New York right now?",
+          "reference": {
+            "tool_calls": [
+              { "name": "get_weather", "args": { "city": "New York" } }
+            ]
+          },
+          "metrics": [
+            { "metric_name": "AgentGoalAccuracyWithoutReference" },
+            { "metric_name": "ToolCallAccuracy" }
+          ]
+        },
+        {
+          "input": "What time is it in New York?",
+          "reference": {
+            "tool_calls": [
+              { "name": "get_current_time", "args": { "city": "New York" } }
+            ]
+          },
+          "metrics": [
+            { "metric_name": "AgentGoalAccuracyWithoutReference" },
+            { "metric_name": "ToolCallAccuracy" }
+          ]
+        }
+      ]
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each step within the scenario is sent sequentially to the agent. The agent receives the same <code>context_id</code> for all steps, allowing it to maintain conversation state.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_next_steps"><a class="anchor" href="#_next_steps"></a>Next steps</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Learn about the internal data flow and evaluation architecture in <a href="../architecture/building-blocks/index.html" class="xref page">Building Block View</a></p>
+</li>
+<li>
+<p>Explore cross-cutting concerns like tracing and observability in <a href="../architecture/crosscutting/index.html" class="xref page">Cross-cutting Concepts</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script>
+;(function () {
+  document.querySelectorAll('.nav-item').forEach(function (item) {
+    item.classList.add('is-active')
+  })
+  var toggle = document.querySelector('.nav-menu-toggle')
+  if (toggle) toggle.classList.add('is-active')
+})()
+</script>
+  </body>
+</html>

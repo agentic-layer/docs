@@ -16,6 +16,9 @@
 <loc>https://docs.agentic-layer.ai/sitemap-showcase-news.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://docs.agentic-layer.ai/sitemap-testbench.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://docs.agentic-layer.ai/sitemap-tool-gateway-agentgateway.xml</loc>
 </sitemap>
 </sitemapindex>
