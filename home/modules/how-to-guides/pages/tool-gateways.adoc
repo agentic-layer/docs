@@ -1,0 +1,1 @@
+include::agent-runtime-operator:tool-gateways:partial$how-to-guide.adoc[]
