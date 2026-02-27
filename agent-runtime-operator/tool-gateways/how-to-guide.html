@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Create a Tool Gateway :: Agentic Layer</title>
+    <link rel="canonical" href="https://docs.agentic-layer.ai/agent-runtime-operator/tool-gateways/how-to-guide.html">
+    <meta name="generator" content="Antora 3.1.14">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.agentic-layer.ai">Agentic Layer</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="agent-runtime-operator" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Agent Runtime Operator</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-To Guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime/how-to-guide.html">Install the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agents/how-to-guide.html">Create an AI Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-servers/how-to-guide.html">Create a Tool Server</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="how-to-guide.html">Create a Tool Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateways/how-to-guide.html">Create an AI Gateway</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime/reference.html">Agent Runtime Reference</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Agent Runtime Operator</a></li>
+    <li>How-To Guides</li>
+    <li><a href="how-to-guide.html">Create a Tool Gateway</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/agent-runtime-operator/edit/main/docs/modules/tool-gateways/pages/how-to-guide.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Create a Tool Gateway</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide walks you through deploying an instance of the <code>ToolGateway</code> custom resource.</p>
+</div>
+<div class="paragraph">
+<p>A <code>ToolGateway</code> is like a Kubernetes <a href="https://kubernetes.io/docs/concepts/services-networking/gateway/#api-kind-gateway">Gateway</a> in that there might be many different implementations (also known as "classes"). Example implementations of the Kubernetes Gateway specification include Envoy Gateway, Cilium, or <code>amazon-vpc-lattice</code>).</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Before following this guide, make sure you have some kind of Tool Gateway Operator installed.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_tool_gateways_work"><a class="anchor" href="#_how_tool_gateways_work"></a>How Tool Gateways Work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <code>ToolGateway</code> acts as a unified entry point for accessing tool servers. Instead of agents connecting directly to individual tool servers, they connect through the gateway, which handles routing, authentication, and other cross-cutting concerns.</p>
+</div>
+<div class="paragraph">
+<p>Tool servers are automatically attached to a <code>ToolGateway</code> through a resolution strategy:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If the <code>ToolServer</code> has an explicit <code>toolGatewayRef</code>, that specific <code>ToolGateway</code> is used</p>
+</li>
+<li>
+<p>If no explicit reference is set, the operator looks for a default <code>ToolGateway</code> in the <code>tool-gateway</code> namespace</p>
+</li>
+<li>
+<p>If no <code>ToolGateway</code> is found, the tool server runs without a gateway (direct access only)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When a tool server is attached to a gateway, its <code>status.gatewayUrl</code> is populated with the URL to access it through the gateway.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_a_toolgateway_resource"><a class="anchor" href="#_create_a_toolgateway_resource"></a>Create a ToolGateway Resource</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a ToolGateway resource file:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: ToolGateway
+metadata:
+  name: tool-gateway
+  namespace: tool-gateway
+spec:
+  toolGatewayClassName: my-gateway-class</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note: The <code>toolGatewayClassName</code> is optional and only needed if multiple gateway classes are defined in the cluster.</p>
+</div>
+</li>
+<li>
+<p>Apply the configuration:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f my-toolgateway.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_verify_the_deployment"><a class="anchor" href="#_verify_the_deployment"></a>Verify the Deployment</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check the ToolGateway status:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get toolgateways tool-gateway -n tool-gateway</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the created resources:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check the deployment created by the operator
+kubectl get deployments -l app=tool-gateway -A
+
+# Check the service
+kubectl get services -l app=tool-gateway -A</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the pod logs:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -l app=tool-gateway -n tool-gateway</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_connect_tool_servers_to_the_gateway"><a class="anchor" href="#_connect_tool_servers_to_the_gateway"></a>Connect Tool Servers to the Gateway</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_automatic_default_resolution"><a class="anchor" href="#_automatic_default_resolution"></a>Automatic (Default) Resolution</h3>
+<div class="paragraph">
+<p>If your <code>ToolGateway</code> is deployed in the <code>tool-gateway</code> namespace, tool servers will automatically discover and attach to it without any additional configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: ToolServer
+metadata:
+  name: my-toolserver
+spec:
+  protocol: mcp
+  transportType: http
+  image: ghcr.io/agentic-layer/echo-mcp-server:0.3.0
+  port: 8000
+  # No toolGatewayRef needed - automatically resolves to the default gateway</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_explicit_reference"><a class="anchor" href="#_explicit_reference"></a>Explicit Reference</h3>
+<div class="paragraph">
+<p>To connect a tool server to a specific <code>ToolGateway</code>, use the <code>toolGatewayRef</code> field:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: ToolServer
+metadata:
+  name: my-toolserver
+spec:
+  protocol: mcp
+  transportType: http
+  image: ghcr.io/agentic-layer/echo-mcp-server:0.3.0
+  port: 8000
+  toolGatewayRef:
+    name: tool-gateway
+    namespace: tool-gateway  # Optional: defaults to the ToolServer's namespace</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_verify_the_connection"><a class="anchor" href="#_verify_the_connection"></a>Verify the Connection</h3>
+<div class="paragraph">
+<p>Once a tool server is attached to a gateway, you can verify the connection:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check the tool server status - look for the gatewayUrl and toolGatewayRef fields
+kubectl get toolserver my-toolserver -o yaml
+
+# The "Tool Gateway" column shows the attached gateway name
+kubectl get toolservers</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The tool server&#8217;s <code>status.gatewayUrl</code> will contain the URL to access the tool server through the gateway. When present, agents should prefer this URL over the direct <code>status.url</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configure_environment_variables"><a class="anchor" href="#_configure_environment_variables"></a>Configure Environment Variables</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can pass environment variables and load them from ConfigMaps or Secrets:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: ToolGateway
+metadata:
+  name: tool-gateway
+  namespace: tool-gateway
+spec:
+  env:
+    - name: LOG_LEVEL
+      value: "INFO"
+  envFrom:
+    - secretRef:
+        name: gateway-credentials
+    - configMapRef:
+        name: gateway-config</code></pre>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
