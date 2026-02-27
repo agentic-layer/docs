@@ -41,7 +41,7 @@
     <span class="nav-text">Tutorials</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../tutorials/showcase-news.html">Agentic AI News Showcase</a>
+    <a class="nav-link" href="../../../showcase-news/index.html">Agentic AI News Showcase</a>
   </li>
 </ul>
   </li>
@@ -50,22 +50,31 @@
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-to-guides/agent-runtime.html">Install the Agent Runtime Operator</a>
+    <a class="nav-link" href="../../../agent-runtime-operator/agent-runtime/how-to-guide.html">Install the Agent Runtime Operator</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-to-guides/agents.html">Create an AI Agent</a>
+    <a class="nav-link" href="../../../agent-gateway-krakend-operator/operator/how-to-guide.html">Install the Agent Gateway Operator for KrakenD</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-to-guides/agent-gateways.html">Create an Agent Gateway</a>
+    <a class="nav-link" href="../../../ai-gateway-litellm-operator/operator/how-to-guide.html">Install the AI Gateway Operator for LiteLLM</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-to-guides/ai-gateways.html">Create an AI Gateway</a>
+    <a class="nav-link" href="../../../tool-gateway-agentgateway/operator/how-to-guide.html">Install the Tool Gateway Operator for Agentgateway</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-to-guides/agent-gateway-krakend-operator.html">Install the Agent Gateway Operator for KrakenD</a>
+    <a class="nav-link" href="../../../agent-runtime-operator/agents/how-to-guide.html">Create an AI Agent</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-to-guides/ai-gateway-litellm-operator.html">Install the Agent Gateway Operator for KrakenD</a>
+    <a class="nav-link" href="../../../agent-runtime-operator/ai-gateways/how-to-guide.html">Create an AI Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../agent-runtime-operator/agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../agent-runtime-operator/tool-servers/how-to-guide.html">Create a Tool Server</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../agent-runtime-operator/tool-gateways/how-to-guide.html">Create a Tool Gateway</a>
   </li>
 </ul>
   </li>
@@ -74,7 +83,7 @@
     <span class="nav-text">Reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../reference/agent-runtime.html">Agent Runtime</a>
+    <a class="nav-link" href="../../../agent-runtime-operator/agent-runtime/reference.html">Agent Runtime Reference</a>
   </li>
 </ul>
   </li>
@@ -186,5 +195,14 @@
 </footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+;(function () {
+  document.querySelectorAll('.nav-item').forEach(function (item) {
+    item.classList.add('is-active')
+  })
+  var toggle = document.querySelector('.nav-menu-toggle')
+  if (toggle) toggle.classList.add('is-active')
+})()
+</script>
   </body>
 </html>

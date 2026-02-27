@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://docs.agentic-layer.ai/agent-gateway-krakend-operator/index.html</loc>
+<loc>https://docs.agentic-layer.ai/tool-gateway-agentgateway/index.html</loc>
 <lastmod>2026-02-27T09:03:59.818Z</lastmod>
 </url>
 <url>
-<loc>https://docs.agentic-layer.ai/agent-gateway-krakend-operator/operator/how-to-guide.html</loc>
+<loc>https://docs.agentic-layer.ai/tool-gateway-agentgateway/operator/how-to-guide.html</loc>
 <lastmod>2026-02-27T09:03:59.818Z</lastmod>
 </url>
 <url>
-<loc>https://docs.agentic-layer.ai/agent-gateway-krakend-operator/operator/reference.html</loc>
+<loc>https://docs.agentic-layer.ai/tool-gateway-agentgateway/operator/reference.html</loc>
 <lastmod>2026-02-27T09:03:59.818Z</lastmod>
 </url>
 </urlset>

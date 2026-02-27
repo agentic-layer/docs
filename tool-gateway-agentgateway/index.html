@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Agent Runtime Operator Documentation :: Agentic Layer</title>
-    <link rel="canonical" href="https://docs.agentic-layer.ai/agent-runtime-operator/index.html">
+    <title>Agentgateway based Tool Gateway :: Agentic Layer</title>
+    <link rel="canonical" href="https://docs.agentic-layer.ai/tool-gateway-agentgateway/index.html">
     <meta name="generator" content="Antora 3.1.14">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -28,7 +28,7 @@
     </div>
   </nav>
 </header><div class="body">
-<div class="nav-container" data-component="agent-runtime-operator" data-version="">
+<div class="nav-container" data-component="tool-gateway-agentgateway" data-version="">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -50,7 +50,7 @@
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="agent-runtime/how-to-guide.html">Install the Agent Runtime Operator</a>
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/how-to-guide.html">Install the Agent Runtime Operator</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../agent-gateway-krakend-operator/operator/how-to-guide.html">Install the Agent Gateway Operator for KrakenD</a>
@@ -59,22 +59,22 @@
     <a class="nav-link" href="../ai-gateway-litellm-operator/operator/how-to-guide.html">Install the AI Gateway Operator for LiteLLM</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../tool-gateway-agentgateway/operator/how-to-guide.html">Install the Tool Gateway Operator for Agentgateway</a>
+    <a class="nav-link" href="operator/how-to-guide.html">Install the Tool Gateway Operator for Agentgateway</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="agents/how-to-guide.html">Create an AI Agent</a>
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guide.html">Create an AI Agent</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="ai-gateways/how-to-guide.html">Create an AI Gateway</a>
+    <a class="nav-link" href="../agent-runtime-operator/ai-gateways/how-to-guide.html">Create an AI Gateway</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+    <a class="nav-link" href="../agent-runtime-operator/agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="tool-servers/how-to-guide.html">Create a Tool Server</a>
+    <a class="nav-link" href="../agent-runtime-operator/tool-servers/how-to-guide.html">Create a Tool Server</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="tool-gateways/how-to-guide.html">Create a Tool Gateway</a>
+    <a class="nav-link" href="../agent-runtime-operator/tool-gateways/how-to-guide.html">Create a Tool Gateway</a>
   </li>
 </ul>
   </li>
@@ -83,7 +83,7 @@
     <span class="nav-text">Reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="agent-runtime/reference.html">Agent Runtime Reference</a>
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/reference.html">Agent Runtime Reference</a>
   </li>
 </ul>
   </li>
@@ -150,114 +150,43 @@
   <a href="../home/main/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="index.html">Agent Runtime Operator</a></li>
-    <li><a href="index.html">Agent Runtime Operator Documentation</a></li>
+    <li><a href="index.html">Tool Gateway agentgateway Operator</a></li>
+    <li><a href="index.html">Agentgateway based Tool Gateway</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/agentic-layer/agent-runtime-operator/edit/main/docs/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/tool-gateway-agentgateway/edit/main/docs/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Agent Runtime Operator Documentation</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Agentgateway based Tool Gateway</h1>
 <div class="paragraph">
-<p>The Agent Runtime Operator provides a unified, framework-agnostic way to deploy and manage agentic workloads on Kubernetes. It uses Custom Resource Definitions (CRDs) to abstract away framework-specific configurations, simplifying the management of AI agent deployments.</p>
+<p>This is an agentgateway based implementation of the Agentic Layer Tool Gateway.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how_to_guides"><a class="anchor" href="#_how_to_guides"></a>How-To Guides</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Step-by-step guides to get you up and running:</p>
+<p>The Tool Gateway Agentgateway Operator is a specialized Kubernetes operator that provides an agentgateway-based Tool gateway implementation for the Agent Runtime Operator ecosystem.
+It manages <code>ToolGateway</code> resources and automatically generates agentgateway configurations to expose Tool workloads through a unified gateway interface.</p>
 </div>
 <div class="ulist">
+<div class="title">How-To Guides</div>
 <ul>
 <li>
-<p><a href="agent-runtime/how-to-guide.html" class="xref page">Install the Agent Runtime Operator</a> - Complete installation guide with prerequisites, setup steps, and verification</p>
+<p><a href="operator/how-to-guide.html" class="xref page">Install the Tool Gateway Operator for Agentgateway</a></p>
 </li>
 <li>
-<p><a href="agents/how-to-guide.html" class="xref page">Create an AI Agent</a> - Learn how to deploy template-based and custom agents with step-by-step examples</p>
+<p><a href="../agent-runtime-operator/tool-gateways/how-to-guide.html" class="xref page">Create a Tool Gateway</a></p>
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_advanced_topics"><a class="anchor" href="#_advanced_topics"></a>Advanced Topics</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>For advanced routing and gateway patterns:</p>
-</div>
 <div class="ulist">
+<div class="title">Reference</div>
 <ul>
 <li>
-<p><a href="agent-gateways/how-to-guide.html" class="xref page">Create an Agent Gateway</a> - Set up agent gateways to manage routing to agents</p>
-</li>
-<li>
-<p><a href="ai-gateways/how-to-guide.html" class="xref page">Create an AI Gateway</a> - Set up AI gateways to manage routing from agents to LLMs</p>
-</li>
-<li>
-<p><a href="tool-gateways/how-to-guide.html" class="xref page">Create a Tool Gateway</a> - Set up tool gateways to manage routing from agents to tools</p>
+<p><a href="operator/reference.html" class="xref page">Tool Gateway Reference</a></p>
 </li>
 </ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_reference"><a class="anchor" href="#_reference"></a>Reference</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Detailed reference information for all components:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="agent-runtime/reference.html" class="xref page">Agent Runtime Reference</a> - Complete API reference for all custom resources</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_external_resources"><a class="anchor" href="#_external_resources"></a>External Resources</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/agentic-layer/agent-samples">Agent Samples</a> - Example implementations and starter templates</p>
-</li>
-<li>
-<p><a href="https://github.com/agentic-layer/sdk-python">Python SDK</a> - SDK for building ADK-based agents</p>
-</li>
-<li>
-<p><a href="https://github.com/agentic-layer/agent-runtime-operator">Source Code</a> - Main repository and issue tracking</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_support"><a class="anchor" href="#_support"></a>Support</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>For questions, issues, and contributions:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/agentic-layer/agent-runtime-operator/issues">Report Issues</a></p>
-</li>
-<li>
-<p><a href="https://github.com/agentic-layer/agent-runtime-operator">Contribute</a></p>
-</li>
-</ul>
-</div>
-</div>
 </div>
 </article>
   </div>

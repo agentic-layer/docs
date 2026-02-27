@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Install the AI Gateway Operator for LiteLLM :: Agentic Layer</title>
-    <link rel="canonical" href="https://docs.agentic-layer.ai/ai-gateway-litellm-operator/operator/how-to-guide.html">
+    <title>Install the Tool Gateway Operator for Agentgateway :: Agentic Layer</title>
+    <link rel="canonical" href="https://docs.agentic-layer.ai/tool-gateway-agentgateway/operator/how-to-guide.html">
     <meta name="generator" content="Antora 3.1.14">
     <link rel="stylesheet" href="../../_/css/site.css">
   </head>
@@ -28,7 +28,7 @@
     </div>
   </nav>
 </header><div class="body">
-<div class="nav-container" data-component="ai-gateway-litellm-operator" data-version="">
+<div class="nav-container" data-component="tool-gateway-agentgateway" data-version="">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -55,11 +55,11 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../agent-gateway-krakend-operator/operator/how-to-guide.html">Install the Agent Gateway Operator for KrakenD</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="how-to-guide.html">Install the AI Gateway Operator for LiteLLM</a>
-  </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../tool-gateway-agentgateway/operator/how-to-guide.html">Install the Tool Gateway Operator for Agentgateway</a>
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/operator/how-to-guide.html">Install the AI Gateway Operator for LiteLLM</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="how-to-guide.html">Install the Tool Gateway Operator for Agentgateway</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../agent-runtime-operator/agents/how-to-guide.html">Create an AI Agent</a>
@@ -150,62 +150,145 @@
   <a href="../../home/main/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">AI Gateway LiteLLM Operator</a></li>
-    <li>How-To Guides</li>
-    <li><a href="how-to-guide.html">Install the AI Gateway Operator for LiteLLM</a></li>
+    <li><a href="../index.html">Tool Gateway agentgateway Operator</a></li>
+    <li><a href="how-to-guide.html">Install the Tool Gateway Operator for Agentgateway</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/agentic-layer/ai-gateway-litellm-operator/edit/main/docs/modules/operator/pages/how-to-guide.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/tool-gateway-agentgateway/edit/main/docs/modules/operator/pages/how-to-guide.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Install the AI Gateway Operator for LiteLLM</h1>
+<h1 class="page">Install the Tool Gateway Operator for Agentgateway</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide walks you through installing the LiteLLM AI Gateway Operator on your Kubernetes cluster.</p>
+<p>This guide walks you through installing the Agentgateway Tool Gateway Operator on your Kubernetes cluster.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The LiteLLM AI Gateway requires the following dependencies:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Kubernetes</strong>: A running Kubernetes cluster</p>
+<p><strong>Kubernetes</strong>: A running Kubernetes cluster (version 1.26.0 or higher)</p>
 </li>
 <li>
-<p><strong>Agent Runtime Operator</strong>: Includes the required CRDs for AI Gateways. See <a href="../../agent-runtime-operator/agent-runtime/how-to-guide.html" class="xref page">Install the Agent Runtime Operator</a> for installation instructions.</p>
+<p><strong>kubectl</strong>: Kubernetes command-line tool</p>
+</li>
+<li>
+<p><strong>helm</strong>: Helm 3+ for installing dependencies</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_installation"><a class="anchor" href="#_installation"></a>Installation</h2>
+<h2 id="_install_dependencies"><a class="anchor" href="#_install_dependencies"></a>Install Dependencies</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The operator requires the following infrastructure components to be installed first:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><a href="https://cert-manager.io/">cert-manager</a></strong>: For certificate management (required for operator webhooks)</p>
+</li>
+<li>
+<p><strong><a href="https://gateway-api.sigs.k8s.io/">Gateway API CRDs</a></strong>: Standard Kubernetes Gateway API (required by agentgateway)</p>
+</li>
+<li>
+<p><strong><a href="https://agentgateway.dev/">agentgateway</a></strong>: Gateway implementation</p>
+</li>
+<li>
+<p><strong><a href="../../agent-runtime-operator/agent-runtime/how-to-guide.html" class="xref page">Agent Runtime Operator</a></strong>: Provides ToolGateway, ToolGatewayClass, and ToolServer CRDs</p>
+</li>
+</ul>
+</div>
 <div class="sect2">
-<h3 id="_install_with_kubernetes_yaml"><a class="anchor" href="#_install_with_kubernetes_yaml"></a>Install with Kubernetes YAML</h3>
-<div class="sect3">
-<h4 id="_install_the_litellm_ai_gateway"><a class="anchor" href="#_install_the_litellm_ai_gateway"></a>Install the LiteLLM AI Gateway</h4>
+<h3 id="_install_cert_manager"><a class="anchor" href="#_install_cert_manager"></a>Install cert-manager</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Install the operator
-kubectl apply -f https://github.com/agentic-layer/ai-gateway-litellm-operator/releases/download/v0.2.0/install.yaml
-# Wait for the operator to be ready
-kubectl wait --for=condition=Available --timeout=60s -n ai-gateway-litellm-system deployment/ai-gateway-litellm-controller-manager</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">helm upgrade -i cert-manager oci://quay.io/jetstack/charts/cert-manager \
+  --version v1.19.3 \
+  --namespace cert-manager \
+  --create-namespace \
+  --set crds.enabled=true \
+  --wait
+
+kubectl wait validatingwebhookconfiguration/cert-manager-webhook \
+  --for "jsonpath={.webhooks[0].clientConfig.caBundle}" \
+  --timeout 5m</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_install_gateway_api_crds"><a class="anchor" href="#_install_gateway_api_crds"></a>Install Gateway API CRDs</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.1/standard-install.yaml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_install_agentgateway"><a class="anchor" href="#_install_agentgateway"></a>Install agentgateway</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Install agentgateway CRDs
+helm upgrade -i agentgateway-crds \
+  oci://ghcr.io/kgateway-dev/charts/agentgateway-crds \
+  --namespace agentgateway-system \
+  --version v2.2.0 \
+  --create-namespace \
+  --wait
+
+# Install agentgateway controller
+helm upgrade -i agentgateway \
+  oci://ghcr.io/kgateway-dev/charts/agentgateway \
+  --namespace agentgateway-system \
+  --version v2.2.0 \
+  --wait</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_install_agent_runtime_operator"><a class="anchor" href="#_install_agent_runtime_operator"></a>Install Agent Runtime Operator</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f https://github.com/agentic-layer/agent-runtime-operator/releases/latest/download/install.yaml
+
+kubectl wait deployment.apps/agent-runtime-operator-controller-manager \
+  --for condition=Available \
+  --namespace agent-runtime-operator-system \
+  --timeout 5m</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_install_the_operator"><a class="anchor" href="#_install_the_operator"></a>Install the Operator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once all dependencies are installed, you can install the Tool Gateway operator.</p>
+</div>
+<div class="sect2">
+<h3 id="_install_with_kubernetes_yaml"><a class="anchor" href="#_install_with_kubernetes_yaml"></a>Install with Kubernetes YAML</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f https://github.com/agentic-layer/tool-gateway-agentgateway/releases/latest/download/install.yaml
+
+kubectl wait --for=condition=Available --timeout=60s \
+  -n tool-gateway-agentgateway-system \
+  deployment/tool-gateway-agentgateway-controller-manager</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Find the latest version at <a href="https://github.com/agentic-layer/ai-gateway-litellm-operator/releases" class="bare">https://github.com/agentic-layer/ai-gateway-litellm-operator/releases</a></p>
-</div>
+<p>Find the latest version at <a href="https://github.com/agentic-layer/tool-gateway-agentgateway/releases/" class="bare">https://github.com/agentic-layer/tool-gateway-agentgateway/releases/</a></p>
 </div>
 </div>
 <div class="sect2">
@@ -218,30 +301,32 @@ kubectl wait --for=condition=Available --timeout=60s -n ai-gateway-litellm-syste
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: ai-gateway-litellm-operator
+  name: tool-gateway-agentgateway
   namespace: flux-system
 spec:
   interval: 5m
-  url: oci://ghcr.io/agentic-layer/manifests/ai-gateway-litellm-operator
+  url: oci://ghcr.io/agentic-layer/manifests/tool-gateway-agentgateway
   ref:
     semver: "&gt;= 0, &lt; 1"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: ai-gateway-litellm-operator
+  name: tool-gateway-agentgateway
   namespace: flux-system
 spec:
   sourceRef:
     kind: OCIRepository
-    name: ai-gateway-litellm-operator
+    name: tool-gateway-agentgateway
   interval: 10m
   path: ./default
   prune: true
   wait: true
   dependsOn:
     # Ensure cert-manager is installed first (if you install it with Flux as well)
-    - name: cert-manager</code></pre>
+    - name: cert-manager
+    # Ensure Agent Runtime Operator is installed
+    - name: agent-runtime-operator</code></pre>
 </div>
 </div>
 </div>
@@ -253,11 +338,44 @@ spec:
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check that the operator is running
-kubectl get pods -n ai-gateway-litellm-operator-system</code></pre>
+kubectl get pods -n tool-gateway-agentgateway-system</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>You should see the operator pod running.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_uninstallation"><a class="anchor" href="#_uninstallation"></a>Uninstallation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To remove the operator:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -f https://github.com/agentic-layer/tool-gateway-agentgateway/releases/latest/download/install.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To remove all dependencies (optional):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Uninstall Agent Runtime Operator
+kubectl delete -f https://github.com/agentic-layer/agent-runtime-operator/releases/latest/download/install.yaml
+
+# Uninstall agentgateway
+helm uninstall agentgateway --namespace agentgateway-system
+helm uninstall agentgateway-crds --namespace agentgateway-system
+
+# Uninstall Gateway API CRDs
+kubectl delete -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.1/standard-install.yaml
+
+# Uninstall cert-manager
+helm uninstall cert-manager --namespace cert-manager
+kubectl delete namespace cert-manager</code></pre>
+</div>
 </div>
 </div>
 </div>
