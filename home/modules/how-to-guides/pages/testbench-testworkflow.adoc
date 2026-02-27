@@ -1,1 +1,1 @@
-include::testbench:partial$how-to/first-workflow.adoc[]
+include::testbench:partial$first-workflow.adoc[]
