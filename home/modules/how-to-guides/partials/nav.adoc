@@ -8,6 +8,3 @@
 ** xref:agent-runtime-operator:agent-gateways:how-to-guide.adoc[]
 ** xref:agent-runtime-operator:tool-servers:how-to-guide.adoc[]
 ** xref:agent-runtime-operator:tool-gateways:how-to-guide.adoc[]
-
-** xref:how-to-guides:testbench-install.adoc[Install the Testbench]
-** xref:how-to-guides:testbench-testworkflow.adoc[Create Your First TestWorkflow]
