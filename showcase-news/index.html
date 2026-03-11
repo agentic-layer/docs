@@ -378,6 +378,9 @@ kubectl cluster-info</code></pre>
 <p>Build and deploy the news-fetcher MCP server</p>
 </li>
 <li>
+<p>Install the Testbench and deploy the test workflow with automatic trigger</p>
+</li>
+<li>
 <p>Set up port forwarding for easy access</p>
 </li>
 </ul>
@@ -758,6 +761,110 @@ The <code>&amp;</code> runs each command in the background. Keep the terminal op
     }
   }' | jq</code></pre>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_5_automated_agent_evaluation"><a class="anchor" href="#_step_5_automated_agent_evaluation"></a>Step 5: Automated Agent Evaluation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The showcase includes an automated evaluation pipeline powered by the <a href="https://github.com/agentic-layer/testbench" target="_blank" rel="noopener">Testbench</a> — a Kubernetes-native evaluation system from the Agentic Layer platform. It executes test scenarios against the news-agent via the A2A protocol and scores responses using an LLM-as-a-judge approach with <a href="https://docs.ragas.io/" target="_blank" rel="noopener">RAGAS</a> metrics. The pipeline is orchestrated by <a href="https://testkube.io/" target="_blank" rel="noopener">Testkube</a> and runs automatically whenever the agent is redeployed.</p>
+</div>
+<div class="sect2">
+<h3 id="_experiment_configuration"><a class="anchor" href="#_experiment_configuration"></a>Experiment Configuration</h3>
+<div class="paragraph">
+<p>The file <code>deploy/experiment.yaml</code> defines the test scenarios as a ConfigMap. An experiment follows a three-level hierarchy:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Experiment</strong> — top-level configuration (LLM judge model, default threshold)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Scenario</strong> — a named group of steps (e.g., "Weather in New York")</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Step</strong> — a single user query with expected reference data and metrics to evaluate</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The experiment specifies:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>LLM Judge Model</strong>: <code>gemini-2.5-flash-lite</code> — a fast, cost-effective model used to evaluate agent responses via the AI Gateway.</p>
+</li>
+<li>
+<p><strong>Default Threshold</strong>: <code>0.9</code> — the minimum score a metric must archive to pass the test.</p>
+</li>
+<li>
+<p><strong>Evaluation Metrics</strong> (per step):</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>AgentGoalAccuracyWithoutReference</code> — Did the agent fulfill the user&#8217;s goal?</p>
+</li>
+<li>
+<p><code>ToolCallAccuracy</code> — Did the agent call the correct tools with the right arguments?</p>
+</li>
+<li>
+<p><code>TopicAdherence</code> — Did the agent&#8217;s response stay on topic?</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Scenarios can be single-step or multi-step conversations (the A2A protocol maintains conversation context across steps via a shared context ID). The showcase includes deliberately incorrect references to test negative cases.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_test_workflow"><a class="anchor" href="#_test_workflow"></a>Test Workflow</h3>
+<div class="paragraph">
+<p>The file <code>deploy/news-agent-test-workflow.yaml</code> defines a Testkube <code>TestWorkflow</code> resource in the <code>testkube</code> namespace. It mounts the experiment ConfigMap and chains four <code>TestWorkflowTemplate</code> phases from the Testbench:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Run</strong> — Sends each scenario&#8217;s queries to the news-agent via the A2A protocol (<code><a href="http://news-agent.showcase-news:8000" class="bare">http://news-agent.showcase-news:8000</a></code>) and records responses along with OpenTelemetry trace IDs.</p>
+</li>
+<li>
+<p><strong>Evaluate</strong> — Scores the agent&#8217;s responses using RAGAS metrics with the configured LLM judge (via the AI Gateway).</p>
+</li>
+<li>
+<p><strong>Publish</strong> — Exports per-sample evaluation metrics as OpenTelemetry gauges to the OTLP collector, where they can be visualized in Grafana.</p>
+</li>
+<li>
+<p><strong>Visualize</strong> — Generates a self-contained HTML dashboard with summary cards, score charts, metric distribution histograms, and a searchable results table.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_automatic_test_trigger"><a class="anchor" href="#_automatic_test_trigger"></a>Automatic Test Trigger</h3>
+<div class="paragraph">
+<p>The file <code>deploy/news-agent-test-workflow-trigger.yaml</code> defines a Testkube <code>TestTrigger</code> that watches the <code>news-agent</code> Deployment in the <code>showcase-news</code> namespace. Whenever the deployment is <strong>modified</strong> (e.g., after a new image rollout), the trigger automatically runs the test workflow. This provides continuous quality assurance without manual intervention.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_running_tests"><a class="anchor" href="#_running_tests"></a>Running Tests</h3>
+<div class="paragraph">
+<p>For <strong>Tilt users</strong>, the Testbench and Testkube are installed automatically and the test workflow + trigger are deployed as part of <code>tilt up</code>. Tests run automatically on every deployment change.</p>
+</div>
+<div class="paragraph">
+<p>For <strong>manual installation (Option B)</strong>, the test workflow resources are already included in the kustomization (<code>deploy/kustomization.yaml</code>) and will be applied with <code>kubectl apply -k deploy/</code>. However, you must install <a href="https://testkube.io/" target="_blank" rel="noopener">Testkube</a> and the <a href="https://github.com/agentic-layer/testbench" target="_blank" rel="noopener">Testbench Helm chart</a> separately for the workflow to execute.</p>
 </div>
 </div>
 </div>
