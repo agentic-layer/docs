@@ -290,6 +290,94 @@ kubectl get crd agents.runtime.agentic-layer.ai</code></pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_configure_the_operator"><a class="anchor" href="#_configure_the_operator"></a>Configure the Operator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After installation, you can customize operator-wide defaults using the <code>AgentRuntimeConfiguration</code> resource. This is optional — the operator works with built-in defaults if no configuration is provided.</p>
+</div>
+<div class="paragraph">
+<p><code>AgentRuntimeConfiguration</code> is a namespace-scoped resource that must be created in the operator&#8217;s namespace (<code>agent-runtime-operator-system</code>). Only one instance is allowed per operator namespace.</p>
+</div>
+<div class="sect2">
+<h3 id="_when_to_use_agentruntimeconfiguration"><a class="anchor" href="#_when_to_use_agentruntimeconfiguration"></a>When to use AgentRuntimeConfiguration</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>You want to change the default agent framework used when an <code>Agent</code> resource does not specify one</p>
+</li>
+<li>
+<p>You want to pin specific versions of the template images used for template-based agents</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_an_agentruntimeconfiguration"><a class="anchor" href="#_create_an_agentruntimeconfiguration"></a>Create an AgentRuntimeConfiguration</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: AgentRuntimeConfiguration
+metadata:
+  name: default
+  namespace: agent-runtime-operator-system
+spec:
+  defaultFramework: "google-adk"
+  agentTemplateImages:
+    googleAdk: "ghcr.io/agentic-layer/agent-template-adk:0.8.0"
+    msaf: "ghcr.io/agentic-layer/agent-template-msaf:0.1.0"
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration_fields"><a class="anchor" href="#_configuration_fields"></a>Configuration fields</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>defaultFramework</code></dt>
+<dd>
+<p>The framework used when an <code>Agent</code> resource does not specify one. Supported values: <code>google-adk</code>, <code>msaf</code>. When this field changes, all agents without an explicit framework are automatically re-reconciled.</p>
+</dd>
+<dt class="hdlist1"><code>agentTemplateImages</code></dt>
+<dd>
+<p>Custom container images for template-based agents, keyed by framework. If a framework entry is omitted, the operator falls back to its built-in default image for that framework.</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>googleAdk</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image used for template-based agents with the <code>google-adk</code> framework</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>msaf</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image used for template-based agents with the <code>msaf</code> framework</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_verify_the_configuration"><a class="anchor" href="#_verify_the_configuration"></a>Verify the configuration</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get agentruntimeconfiguration default -n agent-runtime-operator-system</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_next_steps"><a class="anchor" href="#_next_steps"></a>Next Steps</h2>
 <div class="sectionbody">
 <div class="paragraph">
