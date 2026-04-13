@@ -177,7 +177,7 @@
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Agentic Layer architecture currently consists of three building blocks that work together to provide AI orchestration capabilities:</p>
+<p>The Agentic Layer architecture consists of the following building blocks that work together to provide AI orchestration capabilities:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -188,12 +188,18 @@
 <p><strong>AI Gateway</strong>: The abstraction layer for LLM provider interactions, providing unified access, security, and intelligent routing</p>
 </li>
 <li>
-<p><strong>Observability Dashboard</strong>: A simple dashboard that visualizes the interaction between agents and tools in real time</p>
+<p><strong>Tool Gateway</strong>: The proxy layer for tool access, routing agent tool requests to internal and external tool servers via MCP</p>
+</li>
+<li>
+<p><strong>Observability</strong>: Real-time visualization and monitoring of agent interactions and system telemetry</p>
+</li>
+<li>
+<p><strong>Compliance / Audit</strong>: Audit records and compliance monitoring for governance requirements (planned)</p>
+</li>
+<li>
+<p><strong>Testbench</strong>: A testing and debugging environment for validating agent behavior</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>Over time, more and more building blocks are going to be added.</p>
 </div>
 </div>
 </div>
@@ -205,7 +211,7 @@
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<a class="image" href="../_images/core-request-flow-4a296484ed9500eee9d1bbc06844fa5f31902905.svg" target="_blank" rel="noopener"><img src="../_images/core-request-flow-4a296484ed9500eee9d1bbc06844fa5f31902905.svg" alt="core-request-flow"></a>
+<a class="image" href="../_images/core-request-flow-17bc0b455c80906275488caf0d5c356ddd6cc87a.svg" target="_blank" rel="noopener"><img src="../_images/core-request-flow-17bc0b455c80906275488caf0d5c356ddd6cc87a.svg" alt="core-request-flow"></a>
 </div>
 </div>
 <div class="paragraph">
@@ -214,19 +220,25 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>External systems</strong> (Frontends and Agents) send requests via HTTPS/API</p>
+<p><strong>External systems</strong> (Frontends, Agents, and Apps) send requests via protocol-specific entry points (OpenAI Chat Completion API, A2A, AG-UI)</p>
 </li>
 <li>
 <p><strong>Agent Gateway</strong> receives and routes requests to appropriate agents</p>
 </li>
 <li>
-<p><strong>AI Agents</strong> process business logic and make LLM requests</p>
+<p><strong>AI Agents</strong> process business logic, make LLM requests, and invoke tools</p>
 </li>
 <li>
 <p><strong>AI Gateway</strong> handles LLM provider interactions with security and routing</p>
 </li>
 <li>
-<p><strong>Observability Dashboard</strong> collects telemetry and provides real-time visualization</p>
+<p><strong>Tool Gateway</strong> routes agent tool requests to internal tool servers and external tool servers via MCP</p>
+</li>
+<li>
+<p><strong>Observability</strong> collects telemetry and provides real-time visualization</p>
+</li>
+<li>
+<p><strong>Testbench</strong> provides a testing environment that connects to the Agent Gateway</p>
 </li>
 <li>
 <p><strong>LLM Providers</strong> process AI requests and return results</p>
@@ -261,7 +273,7 @@
 <h3 id="_agent_runtime_architecture"><a class="anchor" href="#_agent_runtime_architecture"></a>Agent Runtime Architecture</h3>
 <div class="imageblock kroki">
 <div class="content">
-<a class="image" href="../_images/agent-runtime-view-86e6a3da318347567686574780ffc875095e74d3.svg" target="_blank" rel="noopener"><img src="../_images/agent-runtime-view-86e6a3da318347567686574780ffc875095e74d3.svg" alt="agent-runtime-view"></a>
+<a class="image" href="../_images/agent-runtime-view-d2828e4143fdcd34d2070250e5d4ec1cffcbd8c2.svg" target="_blank" rel="noopener"><img src="../_images/agent-runtime-view-d2828e4143fdcd34d2070250e5d4ec1cffcbd8c2.svg" alt="agent-runtime-view"></a>
 </div>
 </div>
 </div>
@@ -292,7 +304,7 @@
 <p>Routes requests to appropriate agents based on capabilities and load</p>
 </li>
 <li>
-<p>Maps external APIs to internal agent interfaces</p>
+<p>Maps external APIs to internal agent interfaces via protocol-specific entry points (OpenAI Chat Completion API, A2A, AG-UI)</p>
 </li>
 <li>
 <p>Provides load balancing and health checking for agent instances</p>
@@ -300,18 +312,21 @@
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>AI Agents</strong> execute the core business logic:</p>
+<p><strong>Agentic Workforce</strong> groups the individual AI agent instances:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Process domain-specific workflows and business rules</p>
+<p>Agents process domain-specific workflows and business rules</p>
 </li>
 <li>
-<p>Orchestrate interactions with external systems and services</p>
+<p>Agents communicate with each other via the <strong>A2A (Agent-to-Agent)</strong> protocol for collaborative task execution</p>
 </li>
 <li>
-<p>Make intelligent decisions about when and how to use LLM capabilities</p>
+<p>Each agent orchestrates interactions with external systems and services</p>
+</li>
+<li>
+<p>Agents make intelligent decisions about when and how to use LLM capabilities and tools</p>
 </li>
 </ul>
 </div>
@@ -328,7 +343,7 @@
 <h3 id="_ai_gateway_architecture"><a class="anchor" href="#_ai_gateway_architecture"></a>AI Gateway Architecture</h3>
 <div class="imageblock kroki">
 <div class="content">
-<a class="image" href="../_images/ai-gateway-view-a2f2054bab61720677f81d5da174cfa6d5cb30dc.svg" target="_blank" rel="noopener"><img src="../_images/ai-gateway-view-a2f2054bab61720677f81d5da174cfa6d5cb30dc.svg" alt="ai-gateway-view"></a>
+<a class="image" href="../_images/ai-gateway-view-c156b6c7e95b947357a9dc8fe60733e63d0d4480.svg" target="_blank" rel="noopener"><img src="../_images/ai-gateway-view-c156b6c7e95b947357a9dc8fe60733e63d0d4480.svg" alt="ai-gateway-view"></a>
 </div>
 </div>
 </div>
@@ -396,8 +411,86 @@
 <li>
 <p>Provides failover and load balancing across multiple providers</p>
 </li>
+<li>
+<p>Supports cloud-based LLM providers as well as locally deployed language models</p>
+</li>
 </ul>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tool_gateway"><a class="anchor" href="#_tool_gateway"></a>Tool Gateway</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Tool Gateway building block acts as a proxy layer that routes agent tool requests to internal and external tool servers via the <strong>MCP (Model Context Protocol)</strong>.</p>
+</div>
+<div class="sect2">
+<h3 id="_tool_gateway_architecture"><a class="anchor" href="#_tool_gateway_architecture"></a>Tool Gateway Architecture</h3>
+<div class="imageblock kroki">
+<div class="content">
+<a class="image" href="../_images/tool-gateway-view-eced4c7efca0f950eda9714e33335549098f6c17.svg" target="_blank" rel="noopener"><img src="../_images/tool-gateway-view-eced4c7efca0f950eda9714e33335549098f6c17.svg" alt="tool-gateway-view"></a>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tool_gateway_responsibilities"><a class="anchor" href="#_tool_gateway_responsibilities"></a>Tool Gateway Responsibilities</h3>
+<div class="paragraph">
+<p><strong>Tool Router</strong> manages tool request routing:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Routes agent tool requests to the appropriate internal or external tool servers</p>
+</li>
+<li>
+<p>Provides a unified interface for agents to access diverse tool capabilities</p>
+</li>
+<li>
+<p>Manages connections to tool servers via the MCP protocol</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Tool Servers</strong> provide capabilities that agents can invoke:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Internal tool servers run within the Kubernetes cluster and provide platform-managed tools</p>
+</li>
+<li>
+<p>External tool servers run outside the platform and provide third-party tool integrations</p>
+</li>
+<li>
+<p>All tool servers communicate via the standardized MCP protocol</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_observability"><a class="anchor" href="#_observability"></a>Observability</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Observability building block provides real-time visualization and monitoring of agent interactions and system telemetry. It collects traces and metrics from all major components including the Agent Gateway, AI Gateway, and individual agents.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_compliance_audit"><a class="anchor" href="#_compliance_audit"></a>Compliance / Audit</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Compliance / Audit building block provides audit records and compliance monitoring for governance requirements. It captures records of AI operations, decisions, and access patterns for regulatory compliance and security monitoring. This building block is planned.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_testbench"><a class="anchor" href="#_testbench"></a>Testbench</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Testbench building block provides a testing and debugging environment for validating agent behavior. It connects to the Agent Gateway to send test requests and leverages the Observability and Compliance / Audit components to verify agent interactions and outputs.</p>
 </div>
 </div>
 </div>

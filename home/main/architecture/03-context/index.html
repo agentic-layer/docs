@@ -192,7 +192,7 @@
 <div class="sectionbody">
 <div class="imageblock kroki">
 <div class="content">
-<a class="image" href="../_images/system-context-114e8d20f14bd7a9b9b6ab6371bc7fd6142f0894.svg" target="_blank" rel="noopener"><img src="../_images/system-context-114e8d20f14bd7a9b9b6ab6371bc7fd6142f0894.svg" alt="system-context"></a>
+<a class="image" href="../_images/system-context-18716db1167bd9c1ff4e2f687ac6b77c18027cc9.svg" target="_blank" rel="noopener"><img src="../_images/system-context-18716db1167bd9c1ff4e2f687ac6b77c18027cc9.svg" alt="system-context"></a>
 </div>
 </div>
 </div>
@@ -201,27 +201,33 @@
 <h2 id="_external_actors_and_systems"><a class="anchor" href="#_external_actors_and_systems"></a>External Actors and Systems</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_users"><a class="anchor" href="#_users"></a>Users</h3>
-<div class="paragraph">
-<p><strong>End users</strong> who interact with AI-powered applications and services. These users may access AI capabilities through various interfaces including web applications, mobile apps, or direct API integrations.</p>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_external_frontends"><a class="anchor" href="#_external_frontends"></a>External Frontends</h3>
 <div class="paragraph">
-<p><strong>Web, mobile, and other user interfaces</strong> that provide user-facing applications leveraging AI capabilities. These frontends connect to the Agentic Layer to access coordinated AI services while maintaining their own user experience and business logic.</p>
+<p><strong>Web, mobile, and other user interfaces</strong> that provide user-facing applications leveraging AI capabilities. These frontends connect to the Agentic Layer via the <strong>OpenAI Chat Completion API</strong> to access coordinated AI services while maintaining their own user experience and business logic.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_external_agents"><a class="anchor" href="#_external_agents"></a>External Agents</h3>
 <div class="paragraph">
-<p><strong>AI agents running outside the platform</strong> that need to integrate with or leverage the centralized AI orchestration capabilities. These may include existing AI systems, specialized agents, or third-party AI services that benefit from the governance and routing provided by the Agentic Layer.</p>
+<p><strong>AI agents running outside the platform</strong> that need to integrate with or leverage the centralized AI orchestration capabilities. These agents connect to the Agentic Layer via the <strong>A2A (Agent-to-Agent)</strong> protocol, enabling standardized inter-agent communication. They may include existing AI systems, specialized agents, or third-party AI services that benefit from the governance and routing provided by the Agentic Layer.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_apps"><a class="anchor" href="#_apps"></a>Apps</h3>
+<div class="paragraph">
+<p><strong>Applications</strong> that leverage AI capabilities through the <strong>AG-UI</strong> protocol. This protocol provides a standardized interface for applications to interact with AI agents and services managed by the Agentic Layer.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_external_tool_servers"><a class="anchor" href="#_external_tool_servers"></a>External Tool Servers</h3>
+<div class="paragraph">
+<p><strong>External tools and services</strong> that AI agents can access through the <strong>MCP (Model Context Protocol)</strong>. These tool servers provide capabilities such as database access, file operations, API integrations, and other services that agents can invoke during task execution. The Agentic Layer&#8217;s Tool Gateway manages these connections.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_llm_providers"><a class="anchor" href="#_llm_providers"></a>LLM Providers</h3>
 <div class="paragraph">
-<p><strong>External Large Language Model providers</strong> such as OpenAI, Google Gemini, Anthropic Claude, and other AI service providers. The Agentic Layer abstracts differences between these providers through the AI Gateway/Model Router component.</p>
+<p><strong>External Large Language Model providers</strong> such as OpenAI, Google Gemini, Anthropic Claude, and other AI service providers. The Agentic Layer abstracts differences between these providers through the AI Gateway component. Additionally, locally deployed language models can be used as an alternative to cloud-based providers.</p>
 </div>
 </div>
 <div class="sect2">
@@ -230,29 +236,29 @@
 <p><strong>External monitoring and logging infrastructure</strong> that receives telemetry data from the Agentic Layer. This typically includes enterprise monitoring solutions, log aggregation systems, and performance monitoring tools.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_audit_trail"><a class="anchor" href="#_audit_trail"></a>Audit Trail</h3>
-<div class="paragraph">
-<p><strong>External audit and compliance systems</strong> that store audit records for regulatory compliance, security monitoring, and governance requirements. This ensures audit data is preserved independently of the operational platform.</p>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_system_interactions"><a class="anchor" href="#_system_interactions"></a>System Interactions</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_user_interactions"><a class="anchor" href="#_user_interactions"></a>User Interactions</h3>
+<h3 id="_external_system_connectivity"><a class="anchor" href="#_external_system_connectivity"></a>External System Connectivity</h3>
 <div class="paragraph">
-<p>Users interact with the system through two primary paths:</p>
+<p>External systems interact with the Agentic Layer through protocol-specific entry points:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Via External Frontends</strong>: Users access AI capabilities through web applications, mobile apps, or other user interfaces that connect to the Agentic Layer</p>
+<p><strong>Via OpenAI Chat Completion API</strong>: External Frontends send requests using the widely adopted OpenAI Chat Completion API standard</p>
 </li>
 <li>
-<p><strong>Via External Agents</strong>: Users may work with external AI agents that leverage the Agentic Layer&#8217;s orchestration capabilities</p>
+<p><strong>Via A2A</strong>: External Agents communicate using the Agent-to-Agent protocol for standardized agent interoperability</p>
+</li>
+<li>
+<p><strong>Via AG-UI</strong>: Apps connect through the AG-UI protocol for application-level AI integration</p>
+</li>
+<li>
+<p><strong>Via MCP</strong>: The Agentic Layer connects to External Tool Servers via the Model Context Protocol for tool access</p>
 </li>
 </ul>
 </div>
@@ -265,29 +271,16 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Sending prompts and receiving results from LLM providers through the AI Gateway/Model Router</p>
+<p>Sending prompts and receiving results from LLM providers through the AI Gateway</p>
 </li>
 <li>
 <p>Providing unified access to multiple AI service providers with intelligent routing and failover</p>
 </li>
 <li>
+<p>Supporting both cloud-based and locally deployed language models</p>
+</li>
+<li>
 <p>Managing authentication, rate limiting, and usage tracking across providers</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_operational_data_flows"><a class="anchor" href="#_operational_data_flows"></a>Operational Data Flows</h3>
-<div class="paragraph">
-<p>The system maintains operational transparency through:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Telemetry Data</strong>: Comprehensive metrics, performance data, and system health information sent to observability infrastructure</p>
-</li>
-<li>
-<p><strong>Audit Events</strong>: Complete records of AI operations, decisions, and access patterns sent to audit systems for compliance and security monitoring</p>
 </li>
 </ul>
 </div>
@@ -306,7 +299,7 @@
 <p><strong>Stateless Operations</strong>: The platform focuses on coordination and routing rather than data storage</p>
 </li>
 <li>
-<p><strong>API-First Integration</strong>: All interactions occur through well-defined APIs and standard protocols</p>
+<p><strong>API-First Integration</strong>: All interactions occur through well-defined APIs and standard protocols (A2A, MCP, AG-UI, OpenAI Chat Completion API)</p>
 </li>
 <li>
 <p><strong>Kubernetes-Native Deployment</strong>: All components leverage Kubernetes primitives for scaling, service discovery, and operational management</p>
