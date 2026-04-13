@@ -2,13 +2,14 @@
 
 == Overview
 
-The Agentic Layer architecture currently consists of three building blocks that work together to provide AI orchestration capabilities:
+The Agentic Layer architecture consists of the following building blocks that work together to provide AI orchestration capabilities:
 
 * **Agent Runtime**: The execution environment for AI agents, including the Agent Gateway for request routing and the Agent Runtime Operator for lifecycle management
 * **AI Gateway**: The abstraction layer for LLM provider interactions, providing unified access, security, and intelligent routing
-* **Observability Dashboard**: A simple dashboard that visualizes the interaction between agents and tools in real time
-
-Over time, more and more building blocks are going to be added.
+* **Tool Gateway**: The proxy layer for tool access, routing agent tool requests to internal and external tool servers via MCP
+* **Observability**: Real-time visualization and monitoring of agent interactions and system telemetry
+* **Compliance / Audit**: Audit records and compliance monitoring for governance requirements (planned)
+* **Testbench**: A testing and debugging environment for validating agent behavior
 
 == Overall Request Flow
 
@@ -22,25 +23,36 @@ left to right direction
 
 System_Ext(extFrontends, "External Frontends", "User interfaces")
 System_Ext(extAgents, "External Agents", "Third-party AI agents")
+System_Ext(apps, "Apps", "Applications")
+System_Ext(extToolServers, "External Tool Servers", "External tools and services")
 
 Container_Boundary(k8sCluster, "Kubernetes Cluster") {
     Container(agentGateway, "Agent Gateway", "API Gateway", "Routes requests to appropriate agents")
     Container(agents, "AI Agents", "Agent Runtime", "Business logic and AI orchestration")
+    Container(toolGateway, "Tool Gateway", "Tool Proxy", "Routes agent tool requests to tool servers via MCP")
+    Container(toolServers, "Tool Servers", "MCP Servers", "Provide tool capabilities to agents")
     Container(aiGateway, "AI Gateway", "LLM Proxy", "Manages LLM provider interactions")
-    Container(obsDashboard, "Observability Dashboard", "Monitoring", "Real time visualization of agent interactions")
+    Container(obs, "Observability", "Monitoring", "Real-time visualization of agent interactions")
+    Container(audit, "Compliance / Audit", "Governance", "Audit records and compliance monitoring (planned)")
+    Container(testbench, "Testbench", "Testing", "Testing and debugging environment")
 }
 
-System_Ext(llmProviders, "LLM Providers", "External AI services")
+System_Ext(llmProviders, "LLM Providers", "External AI services or locally deployed models")
 
 ' Request flow
-Rel(extFrontends, agentGateway, "Sends requests", "HTTPS/API")
-Rel(extAgents, agentGateway, "Agent requests", "HTTPS/API")
+Rel(extFrontends, agentGateway, "Sends requests", "OpenAI Chat Completion API")
+Rel(extAgents, agentGateway, "Agent requests", "A2A")
+Rel(apps, agentGateway, "Connects to", "AG-UI")
 Rel(agentGateway, agents, "Routes to agent", "Internal")
 Rel(agents, aiGateway, "LLM requests", "Internal")
+Rel(agents, toolGateway, "Tool requests", "Internal")
+Rel(toolGateway, toolServers, "Connects to tools", "MCP")
+Rel(toolGateway, extToolServers, "Connects to tools", "MCP")
 Rel(aiGateway, llmProviders, "API calls", "HTTPS")
-Rel(agentGateway, obsDashboard, "Send Traces", "HTTPS")
-Rel(aiGateway, obsDashboard, "Send Traces", "HTTPS")
-Rel(agents, obsDashboard, "Send Traces", "HTTPS")
+Rel(testbench, agentGateway, "Test requests", "HTTPS")
+Rel(audit, obs, "Retrieves audit data", "Internal")
+
+note bottom of obs : Receives traces, metrics,\nand logs from all\ninternal components
 
 LAYOUT_WITH_LEGEND()
 @enduml
@@ -48,12 +60,14 @@ LAYOUT_WITH_LEGEND()
 
 This flow demonstrates the request processing pipeline:
 
-1. **External systems** (Frontends and Agents) send requests via HTTPS/API
+1. **External systems** (Frontends, Agents, and Apps) send requests via protocol-specific entry points (OpenAI Chat Completion API, A2A, AG-UI)
 2. **Agent Gateway** receives and routes requests to appropriate agents
-3. **AI Agents** process business logic and make LLM requests
+3. **AI Agents** process business logic, make LLM requests, and invoke tools
 4. **AI Gateway** handles LLM provider interactions with security and routing
-5. **Observability Dashboard** collects telemetry and provides real-time visualization
-6. **LLM Providers** process AI requests and return results
+5. **Tool Gateway** routes agent tool requests to internal tool servers and external tool servers via MCP
+6. **Observability** collects telemetry and provides real-time visualization
+7. **Testbench** provides a testing environment that connects to the Agent Gateway
+8. **LLM Providers** process AI requests and return results
 
 == Agent Runtime
 
@@ -73,15 +87,23 @@ The Agent Runtime building block provides the execution environment and manageme
 left to right direction
 
 Container_Boundary(k8sCluster, "Kubernetes Cluster") {
-    Container(agentOperator, "Agent Runtime Operator", "K8s Operator", "Manages agent gateway lifecycle")
+    Container(agentOperator, "Agent Runtime Operator", "K8s Operator", "Manages agent lifecycle and configuration")
     Container(agentGateway, "Agent Gateway", "API Gateway", "Routes requests to appropriate agents, maps APIs")
-    Container(agents, "AI Agents", "Agent Runtime", "Business logic and AI orchestration")
+
+    Container_Boundary(agenticWorkforce, "Agentic Workforce") {
+        Container(agentA, "Agent A", "AI Agent", "Business logic and AI orchestration")
+        Container(agentB, "Agent B", "AI Agent", "Business logic and AI orchestration")
+        Container(agentC, "Agent C", "AI Agent", "Business logic and AI orchestration")
+    }
 }
 
 ' Management relationships
 Rel(agentOperator, agentGateway, "Registers agents", "K8s API")
-Rel(agentOperator, agents, "Configure agents", "K8s API")
-Rel(agentGateway, agents, "Routes to agent", "Internal")
+Rel(agentOperator, agentA, "Configure agents", "K8s API")
+Rel(agentGateway, agentA, "Routes to agent", "Internal")
+Rel(agentGateway, agentB, "Routes to agent", "Internal")
+Rel(agentGateway, agentC, "Routes to agent", "Internal")
+Rel(agentA, agentB, "Agent communication", "A2A")
 
 LAYOUT_WITH_LEGEND()
 @enduml
@@ -98,14 +120,15 @@ LAYOUT_WITH_LEGEND()
 **Agent Gateway** acts as the request entry point:
 
 - Routes requests to appropriate agents based on capabilities and load
-- Maps external APIs to internal agent interfaces
+- Maps external APIs to internal agent interfaces via protocol-specific entry points (OpenAI Chat Completion API, A2A, AG-UI)
 - Provides load balancing and health checking for agent instances
 
-**AI Agents** execute the core business logic:
+**Agentic Workforce** groups the individual AI agent instances:
 
-- Process domain-specific workflows and business rules
-- Orchestrate interactions with external systems and services
-- Make intelligent decisions about when and how to use LLM capabilities
+- Agents process domain-specific workflows and business rules
+- Agents communicate with each other via the **A2A (Agent-to-Agent)** protocol for collaborative task execution
+- Each agent orchestrates interactions with external systems and services
+- Agents make intelligent decisions about when and how to use LLM capabilities and tools
 
 == AI Gateway
 
@@ -127,7 +150,7 @@ Container_Boundary(aiGateway, "AI Gateway") {
     Component(tokenMgmt, "Access Token Management", "Auth", "Manages API keys and authentication")
 }
 
-System_Ext(llmProviders, "LLM Providers", "External AI services")
+System_Ext(llmProviders, "LLM Providers", "External AI services or locally deployed models")
 
 ' AI Gateway flow
 Rel(agents, aiGateway, "LLM requests", "HTTPS/API")
@@ -167,3 +190,59 @@ The AI Gateway processes requests through a secure, monitored pipeline:
 
 - Routes requests to appropriate LLM providers based on capabilities, cost, and availability
 - Provides failover and load balancing across multiple providers
+- Supports cloud-based LLM providers as well as locally deployed language models
+
+== Tool Gateway
+
+The Tool Gateway building block acts as a proxy layer that routes agent tool requests to internal and external tool servers via the **MCP (Model Context Protocol)**.
+
+=== Tool Gateway Architecture
+[plantuml, tool-gateway-view, format="svg", link="self", window="_blank"]
+....
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+left to right direction
+
+Container(agents, "AI Agents", "Agent Runtime", "Business logic and AI orchestration")
+
+Container_Boundary(toolGatewayBoundary, "Tool Gateway") {
+    Container(toolRouter, "Tool Router", "Router", "Routes tool requests to appropriate tool servers")
+}
+
+Container(toolServers, "Tool Servers", "MCP Servers", "Provide tool capabilities to agents")
+System_Ext(extToolServer, "External Tool Server", "External tools and services")
+
+' Tool Gateway flow
+Rel(agents, toolRouter, "Tool requests", "Internal")
+Rel(toolRouter, toolServers, "Connects to tools", "MCP")
+Rel(toolRouter, extToolServer, "Connects to tools", "MCP")
+
+LAYOUT_WITH_LEGEND()
+@enduml
+....
+
+=== Tool Gateway Responsibilities
+
+**Tool Router** manages tool request routing:
+
+- Routes agent tool requests to the appropriate internal or external tool servers
+- Provides a unified interface for agents to access diverse tool capabilities
+- Manages connections to tool servers via the MCP protocol
+
+**Tool Servers** provide capabilities that agents can invoke:
+
+- Internal tool servers run within the Kubernetes cluster and provide platform-managed tools
+- External tool servers run outside the platform and provide third-party tool integrations
+- All tool servers communicate via the standardized MCP protocol
+
+== Observability
+
+The Observability building block provides real-time visualization and monitoring of agent interactions and system telemetry. It collects traces and metrics from all major components including the Agent Gateway, AI Gateway, and individual agents.
+
+== Compliance / Audit
+
+The Compliance / Audit building block provides audit records and compliance monitoring for governance requirements. It captures records of AI operations, decisions, and access patterns for regulatory compliance and security monitoring. This building block is planned.
+
+== Testbench
+
+The Testbench building block provides a testing and debugging environment for validating agent behavior. It connects to the Agent Gateway to send test requests and leverages the Observability and Compliance / Audit components to verify agent interactions and outputs.
