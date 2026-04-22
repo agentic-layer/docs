@@ -1,2 +1,3 @@
 ** xref:agent-runtime-operator:agent-runtime:reference.adoc[]
+** xref:agent-runtime-operator:guardrails:reference.adoc[]
 ** xref:tool-gateway-agentgateway:operator:reference.adoc[]
