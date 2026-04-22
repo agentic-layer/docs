@@ -77,6 +77,9 @@
     <a class="nav-link" href="../tool-gateways/how-to-guide.html">Create a Tool Gateway</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrails/how-to-guide.html">Create and Use Guardrails in Gateways</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../testbench/how-to/install.html">Install the Testbench</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -90,6 +93,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../agent-runtime/reference.html">Agent Runtime Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrails/reference.html">Guardrails Reference</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../tool-gateway-agentgateway/operator/reference.html">Agentgateway-based Tool Gateway Reference</a>
@@ -347,6 +353,25 @@ spec:
 </div>
 <div class="paragraph">
 <p>For more information on LiteLLM-specific OpenTelemetry configuration, see the <a href="https://docs.litellm.ai/docs/proxy/logging#opentelemetry">LiteLLM OpenTelemetry documentation</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_apply_guardrails_optional"><a class="anchor" href="#_apply_guardrails_optional"></a>Apply Guardrails (Optional)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Attach <code>Guard</code> resources to the gateway to run content inspection (for example PII masking) on every request. The <code>AiGateway</code> CRD exposes <code>spec.guardrails</code>&#8201;&#8212;&#8201;an ordered list of references to <code>Guard</code> resources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  guardrails:
+    - name: pii-guard
+      namespace: guards</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See <a href="../guardrails/how-to-guide.html" class="xref page">Create and Use Guardrails in Gateways</a> for a full walkthrough and the <a href="../guardrails/reference.html" class="xref page">Guardrails Reference</a> for the Guard and GuardrailProvider schema.</p>
 </div>
 </div>
 </div>
