@@ -200,6 +200,9 @@
 <p><strong>ToolGatewayClass</strong>: <a href="https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_toolgatewayclasses.yaml" class="bare">https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_toolgatewayclasses.yaml</a></p>
 </li>
 <li>
+<p><strong>ToolRoute</strong>: <a href="https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_toolroutes.yaml" class="bare">https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_toolroutes.yaml</a></p>
+</li>
+<li>
 <p><strong>ToolServer</strong>: <a href="https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_toolservers.yaml" class="bare">https://github.com/agentic-layer/agent-runtime-operator/blob/main/config/crd/bases/runtime.agentic-layer.ai_toolservers.yaml</a></p>
 </li>
 </ul>
@@ -326,7 +329,7 @@ spec:
 <div class="sect2">
 <h3 id="_toolserver"><a class="anchor" href="#_toolserver"></a>ToolServer</h3>
 <div class="paragraph">
-<p>A <code>ToolServer</code> resource defines a tool server that the gateway will route to:</p>
+<p>A <code>ToolServer</code> resource describes an MCP server deployment. A <code>ToolServer</code> only defines <strong>what runs</strong>; to actually expose it through a <code>ToolGateway</code> you must create a <code>ToolRoute</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -338,7 +341,7 @@ metadata:
 spec:
   protocol: mcp                        # Protocol type (mcp)
   transportType: http                  # Transport type (http)
-  image: my-tool-server:latest        # Container image
+  image: my-tool-server:latest         # Container image
   port: 8000                           # Container port
   path: /mcp                           # Optional: path (default: /mcp)
   replicas: 1                          # Number of replicas
@@ -347,10 +350,98 @@ spec:
       value: "value"
   args:                                # Optional: container arguments
     - "--host"
-    - "0.0.0.0"
+    - "0.0.0.0"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_toolroute"><a class="anchor" href="#_toolroute"></a>ToolRoute</h3>
+<div class="paragraph">
+<p>A <code>ToolRoute</code> exposes a single upstream (either a cluster <code>ToolServer</code> or an external URL) through a <code>ToolGateway</code>. Create one <code>ToolRoute</code> per exposure.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: ToolRoute
+metadata:
+  name: my-tool-route
+  namespace: my-namespace
+spec:
   toolGatewayRef:                      # Reference to the ToolGateway
     name: my-tool-gateway
-    namespace: tool-gateway</code></pre>
+    namespace: tool-gateway            # Optional: defaults to the ToolRoute's namespace
+  upstream:                            # Exactly one of toolServerRef or external must be set
+    toolServerRef:
+      name: my-tool-server
+    # OR:
+    # external:
+    #   url: https://github-mcp.example.com/mcp
+  toolFilter:                          # Optional: restrict which tools are visible
+    allow: ["get_*", "list_*"]
+    deny: ["*delete*"]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For each <code>ToolRoute</code>, the operator creates:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An <strong>AgentgatewayBackend</strong> configured with the resolved upstream (ToolServer service or external URL).</p>
+</li>
+<li>
+<p>An <strong>HTTPRoute</strong> matching <code>/&lt;route-namespace&gt;/&lt;route-name&gt;/mcp</code> on the referenced <code>ToolGateway</code>.</p>
+</li>
+<li>
+<p>An <strong>AgentgatewayPolicy</strong> attached to the route with MCP <code>authorization</code> CEL rules — only when <code>spec.toolFilter</code> is set.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The reachable URL is published to <code>ToolRoute.status.url</code> and is the value consumers should read.</p>
+</div>
+<div class="sect3">
+<h4 id="_upstream_resolution"><a class="anchor" href="#_upstream_resolution"></a>Upstream Resolution</h4>
+<div class="paragraph">
+<p>The <code>spec.upstream</code> field must specify exactly one of:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>toolServerRef</code> — references a <code>ToolServer</code> by <code>name</code> (and optional <code>namespace</code>) in the cluster. The operator resolves the service URL from the `ToolServer&#8217;s port and path.</p>
+</li>
+<li>
+<p><code>external.url</code> — a fully qualified URL to an MCP server outside the cluster. The URL scheme must be <code>http</code> or <code>https</code>, and must include a valid hostname and (if present) a port in the range 1–65535.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_tool_filtering"><a class="anchor" href="#_tool_filtering"></a>Tool Filtering</h4>
+<div class="paragraph">
+<p>When <code>spec.toolFilter</code> is set, the operator translates the glob allow/deny patterns into CEL rules on an <code>AgentgatewayPolicy</code> attached to the route&#8217;s <code>HTTPRoute</code>. The rules are written to the policy&#8217;s <code>spec.backend.mcp.authorization.policy.matchExpressions</code> field.</p>
+</div>
+<div class="paragraph">
+<p>Semantics:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <code>toolFilter</code> is <code>nil</code>, <strong>all tools pass through unfiltered</strong> (no policy is created).</p>
+</li>
+<li>
+<p>If only <code>allow</code> is set, only matching tools are exposed.</p>
+</li>
+<li>
+<p>If only <code>deny</code> is set, all tools are exposed except those matching.</p>
+</li>
+<li>
+<p>If both are set, <strong>deny wins on conflict</strong> — a tool matching any <code>deny</code> pattern is always blocked, even if it also matches an <code>allow</code> pattern.</p>
+</li>
+<li>
+<p>Patterns use standard glob syntax (<code>*</code> matches any substring, <code>?</code> matches a single character).</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -360,18 +451,18 @@ spec:
 <h2 id="_multiplex_routes"><a class="anchor" href="#_multiplex_routes"></a>Multiplex Routes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The operator automatically creates multiplex MCP routes for aggregating multiple tool servers:</p>
+<p>In addition to per-<code>ToolRoute</code> paths, the operator creates multiplex MCP routes on each <code>ToolGateway</code> that aggregate every <code>ToolServer</code> exposed via a <code>ToolRoute</code>:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>/mcp</code> - Aggregates all ToolServers across all namespaces</p>
+<p><code>/mcp</code> — aggregates all <code>ToolServer`s (across all namespaces) that are exposed through this gateway via a `ToolRoute</code>.</p>
 </li>
 <li>
-<p><code>/&lt;namespace&gt;/mcp</code> - Aggregates all ToolServers in a specific namespace</p>
+<p><code>/&lt;namespace&gt;/mcp</code> — aggregates all exposed `ToolServer`s in a specific namespace.</p>
 </li>
 <li>
-<p><code>/&lt;namespace&gt;/&lt;toolserver&gt;/mcp</code> - Routes to an individual ToolServer</p>
+<p><code>/&lt;route-namespace&gt;/&lt;route-name&gt;/mcp</code> — the per-<code>ToolRoute</code> path that routes to a single upstream.</p>
 </li>
 </ul>
 </div>
@@ -381,28 +472,34 @@ spec:
 <h2 id="_how_it_works"><a class="anchor" href="#_how_it_works"></a>How it Works</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Tool Gateway agentgateway Operator creates and manages Gateway API resources based on ToolGateway and ToolServer custom resources:</p>
+<p>The Tool Gateway agentgateway Operator creates and manages Gateway API resources based on <code>ToolGateway</code>, <code>ToolRoute</code>, and <code>ToolServer</code> custom resources:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Gateway Creation</strong>: When a ToolGateway is created, the operator creates a dedicated Gateway with the same name in the same namespace as the ToolGateway with HTTP listener on port 80. Each ToolGateway has its own Gateway instance.</p>
+<p><strong>Gateway creation</strong>: When a <code>ToolGateway</code> is created, the operator creates a dedicated <code>Gateway</code> with the same name in the same namespace as the <code>ToolGateway</code>, with an HTTP listener on port 80. Each <code>ToolGateway</code> has its own <code>Gateway</code> instance. The operator also owns the <code>AgentgatewayParameters</code> (env/envFrom/telemetry translation) and the multiplex <code>HTTPRoute`s (</code>/mcp` and <code>/&lt;ns&gt;/mcp</code>).</p>
 </li>
 <li>
-<p><strong>ToolServer Integration</strong>: For each ToolServer resource, the operator creates:</p>
+<p><strong>ToolRoute integration</strong>: For each <code>ToolRoute</code> resource, the operator creates:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>AgentgatewayBackend</strong>: Configures the MCP backend connection to the ToolServer</p>
+<p><strong>AgentgatewayBackend</strong> — configures the MCP backend connection to the route&#8217;s upstream (a cluster <code>ToolServer</code> service or an external URL).</p>
 </li>
 <li>
-<p><strong>HTTPRoute</strong>: Routes traffic from the gateway to the AgentgatewayBackend using path-based matching</p>
+<p><strong>HTTPRoute</strong> — routes traffic from the referenced <code>ToolGateway</code> to the <code>AgentgatewayBackend</code> at the path <code>/&lt;toolroute-namespace&gt;/&lt;toolroute-name&gt;/mcp</code>. The reachable URL is surfaced as <code>ToolRoute.status.url</code>.</p>
+</li>
+<li>
+<p><strong>AgentgatewayPolicy</strong> (optional) — when <code>spec.toolFilter</code> is set, an <code>AgentgatewayPolicy</code> is attached to the route&#8217;s <code>HTTPRoute</code> carrying MCP authorization CEL rules translated from the glob allow/deny patterns.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Automatic Updates</strong>: The operator watches for changes to ToolGateway and ToolServer resources and updates the corresponding Gateway API resources automatically.</p>
+<p><strong>ToolServer</strong>: Describes how an MCP server is deployed. It is consumed by <code>ToolRoute.spec.upstream.toolServerRef</code>; exposure through a gateway is always driven by a <code>ToolRoute</code>.</p>
+</li>
+<li>
+<p><strong>Automatic updates</strong>: The operator watches <code>ToolGateway</code>, <code>ToolRoute</code>, and <code>ToolServer</code> resources and updates the corresponding Gateway API resources automatically. Changes to a <code>ToolServer&#8217;s port or path propagate to the backends of any `ToolRoute</code> that references it, and to the multiplex routes of the owning <code>ToolGateway</code>.</p>
 </li>
 </ol>
 </div>
@@ -413,8 +510,12 @@ spec:
 <pre>ToolGateway (CRD)
     |
 Gateway (same name and namespace)
+
+ToolRoute (CRD)
     |
-HTTPRoute (Gateway API) -&gt; AgentgatewayBackend -&gt; ToolServer</pre>
+HTTPRoute (Gateway API) --&gt; AgentgatewayBackend --&gt; upstream (ToolServer or external URL)
+    |
+AgentgatewayPolicy (optional, when toolFilter is set)</pre>
 </div>
 </div>
 </div>
@@ -429,7 +530,7 @@ HTTPRoute (Gateway API) -&gt; AgentgatewayBackend -&gt; ToolServer</pre>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/agentic-layer/tool-gateway-agentgateway/blob/main/config/samples/toolgateway_v1alpha1_toolgateway_with_toolserver.yaml">Basic ToolGateway with ToolServers</a></p>
+<p><a href="https://github.com/agentic-layer/tool-gateway-agentgateway/blob/main/config/samples/toolgateway_v1alpha1_toolgateway_with_toolserver.yaml">Basic ToolGateway with ToolServers and ToolRoutes</a></p>
 </li>
 <li>
 <p><a href="https://github.com/agentic-layer/tool-gateway-agentgateway/blob/main/config/samples/toolgateway_v1alpha1_otel_example.yaml">ToolGateway with OpenTelemetry configuration</a></p>

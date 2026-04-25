@@ -258,35 +258,32 @@ kubectl logs -l app=context7-toolserver</code></pre>
 <h2 id="_using_tool_servers_with_agents"><a class="anchor" href="#_using_tool_servers_with_agents"></a>Using Tool Servers with Agents</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To connect a tool server to your agent, reference it using <code>toolServerRef</code>:</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Replace <code>your-gemini-api-key-here</code> with your actual Gemini API key before deploying.
-</td>
-</tr>
-</table>
+<p>Tool servers are exposed to agents through a ToolRoute. Define a ToolRoute to expose a
+ToolServer via a ToolGateway, then reference the route from the agent:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: ToolRoute
+metadata:
+  name: context7-route
+spec:
+  toolGatewayRef:
+    name: tool-gateway
+  upstream:
+    toolServerRef:
+      name: context7-toolserver
+---
+apiVersion: runtime.agentic-layer.ai/v1alpha1
 kind: Agent
 metadata:
   name: coding-assistant
 spec:
   framework: google-adk
-  description: "A coding assistant with access to up-to-date documentation"
-  instruction: "You are a helpful coding assistant. Use the context7 tool to fetch up-to-date documentation for libraries and frameworks to help answer coding questions accurately."
-  model: "gemini/gemini-2.5-flash"
   tools:
     - name: context7_tools
-      toolServerRef:
-        name: context7-toolserver
+      toolRouteRef:
+        name: context7-route
   protocols:
     - type: A2A
   replicas: 1
@@ -294,12 +291,6 @@ spec:
     - name: GEMINI_API_KEY
       value: "your-gemini-api-key-here"</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>The operator automatically wires the agent to the tool server using the ToolServer&#8217;s name.</p>
-</div>
-<div class="paragraph">
-<p>For more details on creating and configuring agents, see <a href="../agents/how-to-guide.html" class="xref page">Create an AI Agent</a>.</p>
 </div>
 <div class="paragraph">
 <p>Happy tool server building! 🔧</p>
