@@ -367,7 +367,7 @@ metadata:
   name: my-tool-route
   namespace: my-namespace
 spec:
-  toolGatewayRef:                      # Reference to the ToolGateway
+  toolGatewayRef:                      # Optional: see "Default ToolGateway resolution" below
     name: my-tool-gateway
     namespace: tool-gateway            # Optional: defaults to the ToolRoute's namespace
   upstream:                            # Exactly one of toolServerRef or external must be set
@@ -399,6 +399,22 @@ spec:
 </div>
 <div class="paragraph">
 <p>The reachable URL is published to <code>ToolRoute.status.url</code> and is the value consumers should read.</p>
+</div>
+<div class="sect3">
+<h4 id="_default_toolgateway_resolution"><a class="anchor" href="#_default_toolgateway_resolution"></a>Default ToolGateway Resolution</h4>
+<div class="paragraph">
+<p><code>spec.toolGatewayRef</code> is optional. The operator resolves the target <code>ToolGateway</code> as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <code>toolGatewayRef</code> is set, the explicit reference is used. The <code>namespace</code> field defaults to the `ToolRoute&#8217;s own namespace when omitted.</p>
+</li>
+<li>
+<p>If <code>toolGatewayRef</code> is omitted, the operator selects a <code>ToolGateway</code> from the well-known <code>tool-gateway</code> namespace. If multiple <code>ToolGateway`s exist there, the first one listed wins (and a warning is logged). If none exists, the route&#8217;s status is set to `NotReady</code> with reason <code>ToolRouteGatewayNotFound</code>; reconciliation retriggers automatically once a default <code>ToolGateway</code> is created in that namespace.</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_upstream_resolution"><a class="anchor" href="#_upstream_resolution"></a>Upstream Resolution</h4>
