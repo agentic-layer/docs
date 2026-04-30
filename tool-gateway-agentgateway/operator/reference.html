@@ -464,27 +464,6 @@ spec:
 </div>
 </div>
 <div class="sect1">
-<h2 id="_multiplex_routes"><a class="anchor" href="#_multiplex_routes"></a>Multiplex Routes</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In addition to per-<code>ToolRoute</code> paths, the operator creates multiplex MCP routes on each <code>ToolGateway</code> that aggregate every <code>ToolServer</code> exposed via a <code>ToolRoute</code>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>/mcp</code> — aggregates all <code>ToolServer`s (across all namespaces) that are exposed through this gateway via a `ToolRoute</code>.</p>
-</li>
-<li>
-<p><code>/&lt;namespace&gt;/mcp</code> — aggregates all exposed `ToolServer`s in a specific namespace.</p>
-</li>
-<li>
-<p><code>/&lt;route-namespace&gt;/&lt;route-name&gt;/mcp</code> — the per-<code>ToolRoute</code> path that routes to a single upstream.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_how_it_works"><a class="anchor" href="#_how_it_works"></a>How it Works</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -493,7 +472,7 @@ spec:
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Gateway creation</strong>: When a <code>ToolGateway</code> is created, the operator creates a dedicated <code>Gateway</code> with the same name in the same namespace as the <code>ToolGateway</code>, with an HTTP listener on port 80. Each <code>ToolGateway</code> has its own <code>Gateway</code> instance. The operator also owns the <code>AgentgatewayParameters</code> (env/envFrom/telemetry translation) and the multiplex <code>HTTPRoute`s (</code>/mcp` and <code>/&lt;ns&gt;/mcp</code>).</p>
+<p><strong>Gateway creation</strong>: When a <code>ToolGateway</code> is created, the operator creates a dedicated <code>Gateway</code> with the same name in the same namespace as the <code>ToolGateway</code>, with an HTTP listener on port 80. Each <code>ToolGateway</code> has its own <code>Gateway</code> instance. The operator also owns the <code>AgentgatewayParameters</code> (env/envFrom/telemetry translation).</p>
 </li>
 <li>
 <p><strong>ToolRoute integration</strong>: For each <code>ToolRoute</code> resource, the operator creates:</p>
@@ -515,7 +494,7 @@ spec:
 <p><strong>ToolServer</strong>: Describes how an MCP server is deployed. It is consumed by <code>ToolRoute.spec.upstream.toolServerRef</code>; exposure through a gateway is always driven by a <code>ToolRoute</code>.</p>
 </li>
 <li>
-<p><strong>Automatic updates</strong>: The operator watches <code>ToolGateway</code>, <code>ToolRoute</code>, and <code>ToolServer</code> resources and updates the corresponding Gateway API resources automatically. Changes to a <code>ToolServer&#8217;s port or path propagate to the backends of any `ToolRoute</code> that references it, and to the multiplex routes of the owning <code>ToolGateway</code>.</p>
+<p><strong>Automatic updates</strong>: The operator watches <code>ToolGateway</code>, <code>ToolRoute</code>, and <code>ToolServer</code> resources and updates the corresponding Gateway API resources automatically. Changes to a <code>ToolServer&#8217;s port or path propagate to the backends of any `ToolRoute</code> that references it.</p>
 </li>
 </ol>
 </div>
