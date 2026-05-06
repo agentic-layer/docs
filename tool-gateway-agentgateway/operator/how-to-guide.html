@@ -348,6 +348,37 @@ spec:
 </div>
 </div>
 <div class="sect1">
+<h2 id="_optional_enable_guardrails"><a class="anchor" href="#_optional_enable_guardrails"></a>Optional: Enable Guardrails</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The operator can attach guardrails to a <code>ToolGateway</code> by deploying a <code>guardrail-adapter</code> instance per <code>Guard</code>. To enable this, the controller must be started with the <code>--guardrail-adapter-image=&lt;image&gt;:&lt;tag&gt;</code> flag. The shipped <code>install.yaml</code> already pins a known-compatible adapter version; if you build your own kustomize overlay, set the image via:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">patches:
+  - target: { kind: Deployment, name: controller-manager, namespace: tool-gateway-agentgateway-system }
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: controller-manager
+      spec:
+        template:
+          spec:
+            containers:
+              - name: manager
+                args:
+                  - --leader-elect
+                  - --health-probe-bind-address=:8081
+                  - --guardrail-adapter-image=ghcr.io/agentic-layer/guardrail-adapter:0.2.1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You also need a <code>GuardrailProvider</code> backing service (e.g. Presidio) reachable from the cluster. See <a href="../../agent-runtime-operator/guardrails/how-to-guide.html" class="xref page">Create and Use Guardrails in Gateways</a> for the cross-gateway concepts and the <a href="reference.html#guardrails" class="xref page">Guardrails section in the reference</a> for ToolGateway-specific configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_verify_the_installation"><a class="anchor" href="#_verify_the_installation"></a>Verify the installation</h2>
 <div class="sectionbody">
 <div class="listingblock">

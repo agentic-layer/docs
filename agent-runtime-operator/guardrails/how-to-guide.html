@@ -208,7 +208,7 @@ The gateway&#8217;s operator resolves those references and configures its underl
 </td>
 <td class="content">
 Before following this guide, make sure you have the <a href="../agent-runtime/how-to-guide.html" class="xref page">Agent Runtime Operator</a> and a gateway operator that supports guardrails installed.
-The only gateway operator that currently implements guardrails is the <a href="../../ai-gateway-litellm-operator/operator/how-to-guide.html" class="xref page">AI Gateway LiteLLM Operator</a>, which supports Presidio-based PII guardrails on an <code>AiGateway</code>.
+Today, guardrails are implemented by the <a href="../../ai-gateway-litellm-operator/operator/how-to-guide.html" class="xref page">AI Gateway LiteLLM Operator</a> (Presidio-based PII guardrails on an <code>AiGateway</code>) and the <a href="../../tool-gateway-agentgateway/operator/how-to-guide.html" class="xref page">Tool Gateway Agentgateway Operator</a> (Presidio-based PII guardrails on a <code>ToolGateway</code>).
 </td>
 </tr>
 </table>
@@ -251,10 +251,10 @@ The Guard and GuardrailProvider CRDs are stable and gateway-agnostic, but runtim
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>guardrails</code> field exists on the CRD but is not yet honored by the operator.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ToolGateway</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Not yet</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#8201;&#8212;&#8201;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>guardrails</code> field exists on the CRD; support is planned via a dedicated Envoy-based operator.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ToolGateway</code> (agentgateway)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>presidio-api</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented by the <a href="../../tool-gateway-agentgateway/operator/how-to-guide.html" class="xref page">Tool Gateway Agentgateway Operator</a>. The operator deploys a per-Guard <code>guardrail-adapter</code> instance and wires it into the gateway&#8217;s <code>AgentgatewayPolicy</code> via <code>ext_proc</code>. Today, only one Guard per <code>ToolGateway</code> is supported.</p></td>
 </tr>
 </tbody>
 </table>

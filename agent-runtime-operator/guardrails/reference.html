@@ -198,6 +198,87 @@
 </div>
 </div>
 <div class="sect1">
+<h2 id="_how_guardrails_work"><a class="anchor" href="#_how_guardrails_work"></a>How Guardrails Work</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_two_tier_model"><a class="anchor" href="#_two_tier_model"></a>Two-tier model</h3>
+<div class="paragraph">
+<p><code>GuardrailProvider</code> and <code>Guard</code> separate transport from policy:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GuardrailProvider</code> declares <strong>where</strong> and <strong>how</strong> to reach a backend service that implements a guardrail contract (Presidio, OpenAI Moderation, AWS Bedrock). One provider can back many guards.</p>
+</li>
+<li>
+<p><code>Guard</code> binds a provider to a concrete <strong>policy</strong>: when it runs (<code>mode</code>), and what configuration to apply (entity actions, score thresholds, language, &#8230;&#8203;). Each guard targets exactly one provider.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This split lets a platform team operate one set of provider deployments while application teams own the per-gateway policies that reference them.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_runtime_model"><a class="anchor" href="#_runtime_model"></a>Runtime model</h3>
+<div class="paragraph">
+<p>Gateway CRDs expose a uniform <code>guardrails</code> field&#8201;&#8212;&#8201;an ordered list of references to <code>Guard</code> resources. The owning gateway operator turns each reference into runtime configuration in two steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Resolution</strong>&#8201;&#8212;&#8201;the operator reads the referenced <code>Guard</code> and its <code>providerRef</code>, then validates that the provider type is one it supports for that gateway. Missing references, unsupported provider types, and invalid configuration surface as <code>Ready=False</code> conditions on the <code>Guard</code> and/or the gateway. Operators reconcile gateways when referenced <code>Guard</code> and <code>GuardrailProvider</code> resources change, so policy updates roll out automatically.</p>
+</li>
+<li>
+<p><strong>Translation</strong>&#8201;&#8212;&#8201;the operator translates the resolved Guard plus provider into the gateway implementation&#8217;s native guardrail mechanism. The translation is implementation-specific:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="../../ai-gateway-litellm-operator/operator/how-to-guide.html" class="xref page">AI Gateway LiteLLM Operator</a> writes a <code>guardrails:</code> block into the LiteLLM <code>ConfigMap</code>, with each entry carrying the resolved provider URL, score thresholds, and entity actions.</p>
+</li>
+<li>
+<p>The <a href="../../tool-gateway-agentgateway/operator/how-to-guide.html" class="xref page">Tool Gateway Agentgateway Operator</a> deploys a dedicated <code>guardrail-adapter</code> workload per Guard and wires the gateway&#8217;s <code>AgentgatewayPolicy</code> <code>extProc.backendRef</code> at it.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>At request time, the gateway invokes the configured guardrail at the points selected by <code>Guard.spec.mode</code> (<code>pre_call</code>, <code>post_call</code>, <code>during_call</code>&#8201;&#8212;&#8201;see <a href="#_guard_modes">Guard modes</a>). The provider returns the inspected payload with sensitive entities replaced (action <code>MASK</code>) or signals that the call should be rejected (<code>BLOCK</code>); the gateway applies the decision before forwarding traffic.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cross_namespace_references"><a class="anchor" href="#_cross_namespace_references"></a>Cross-namespace references</h3>
+<div class="paragraph">
+<p><code>Guard.spec.providerRef</code> and the <code>ObjectReference</code> entries in <code>&lt;Gateway&gt;.spec.guardrails</code> both accept explicit <code>namespace</code> fields, defaulting to the referencing resource&#8217;s own namespace. This supports a layered layout:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Shared <code>GuardrailProvider</code> resources in a <code>guardrail-providers</code> namespace.</p>
+</li>
+<li>
+<p>Reusable <code>Guard</code> resources in a <code>guards</code> namespace.</p>
+</li>
+<li>
+<p>Application gateways in their own namespaces, referencing both.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Gateway operators are granted RBAC to read <code>Guard</code> and <code>GuardrailProvider</code> resources cluster-wide.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_specific_behaviour"><a class="anchor" href="#_operator_specific_behaviour"></a>Operator-specific behaviour</h3>
+<div class="paragraph">
+<p>Translation, status conditions, and per-provider support vary by gateway operator. The <a href="#_gateway_support_matrix">Gateway Support Matrix</a> below summarises what each operator implements today; for the full per-gateway behaviour see the operator&#8217;s own reference page.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_full_api_reference"><a class="anchor" href="#_full_api_reference"></a>Full API Reference</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -599,9 +680,9 @@ Common examples: <code>PERSON</code>, <code>EMAIL_ADDRESS</code>, <code>PHONE_NU
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ToolGateway</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">agent-runtime-operator + downstream operator</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#8201;&#8212;&#8201;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Not yet implemented. A future Envoy-based tool gateway operator is planned and will use a shared ext_proc guardrail adapter service.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../../tool-gateway-agentgateway/operator/how-to-guide.html" class="xref page">Tool Gateway Agentgateway Operator</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>presidio-api</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For each referenced <code>Guard</code>, the operator deploys a dedicated <code>guardrail-adapter</code> instance (<code>Deployment</code> + <code>ConfigMap</code> + <code>Service</code>) pre-configured from the <code>Guard</code> and its <code>GuardrailProvider</code>, and wires the gateway&#8217;s <code>AgentgatewayPolicy</code> <code>extProc.backendRef</code> at it. Single Guard per <code>ToolGateway</code> is supported today.</p></td>
 </tr>
 </tbody>
 </table>

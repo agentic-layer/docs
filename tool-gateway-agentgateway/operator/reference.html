@@ -464,6 +464,162 @@ spec:
 </div>
 </div>
 <div class="sect1">
+<h2 id="guardrails"><a class="anchor" href="#guardrails"></a>Guardrails</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The operator can attach guardrails to a <code>ToolGateway</code> to filter sensitive content (PII, harmful content) from tool traffic. Guardrails are expressed with the gateway-agnostic <code>Guard</code> and <code>GuardrailProvider</code> CRDs documented in <a href="../../agent-runtime-operator/guardrails/reference.html" class="xref page">Guardrails Reference</a>; this section covers the agentgateway-specific behaviour.</p>
+</div>
+<div class="paragraph">
+<p>For each <code>Guard</code> referenced from <code>ToolGateway.spec.guardrails</code>, the operator automatically creates a dedicated <code>guardrail-adapter</code> workload (<code>Deployment</code> + <code>ConfigMap</code> + <code>Service</code>) pre-configured from the <code>Guard</code> and its <code>GuardrailProvider</code>&#8201;&#8212;&#8201;no manual adapter deployment required. The gateway&#8217;s <code>AgentgatewayPolicy</code> <code>extProc.backendRef</code> is wired at the adapter&#8217;s service.</p>
+</div>
+<div class="sect2">
+<h3 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The operator must be started with <code>--guardrail-adapter-image=&lt;image&gt;:&lt;tag&gt;</code> (see <a href="how-to-guide.html#_optional_enable_guardrails" class="xref page">Enable Guardrails in the install guide</a>).</p>
+</li>
+<li>
+<p>A <code>GuardrailProvider</code> backing service (e.g. Presidio) must be reachable from the cluster.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_pii_detection_with_presidio"><a class="anchor" href="#_example_pii_detection_with_presidio"></a>Example: PII detection with Presidio</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: GuardrailProvider
+metadata:
+  name: presidio-analyzer
+  namespace: default
+spec:
+  type: presidio-api
+  presidio:
+    baseUrl: http://presidio-analyzer.default.svc:8080
+---
+apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: Guard
+metadata:
+  name: pii-guard
+  namespace: default
+spec:
+  mode:
+    - pre_call
+    - post_call
+  description: "Detects and masks PII in tool traffic"
+  providerRef:
+    name: presidio-analyzer
+  presidio:
+    language: "en"
+    scoreThresholds:
+      ALL: "0.5"
+      PERSON: "0.8"
+      EMAIL_ADDRESS: "0.7"
+    entityActions:
+      PERSON: "MASK"
+      EMAIL_ADDRESS: "MASK"
+      CREDIT_CARD: "BLOCK"
+      PHONE_NUMBER: "MASK"
+---
+apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: ToolGateway
+metadata:
+  name: my-tool-gateway
+  namespace: default
+spec:
+  toolGatewayClassName: agentgateway
+  guardrails:
+    - name: pii-guard</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The operator creates <code>pii-guard-adapter</code> (<code>Deployment</code> + <code>ConfigMap</code> + <code>Service</code>) in the Guard&#8217;s namespace and wires the <code>ToolGateway&#8217;s `AgentgatewayPolicy</code> <code>extProc.backendRef</code> at it.</p>
+</div>
+<div class="paragraph">
+<p>A complete sample (Presidio + Guard + ToolGateway + ToolServer + ToolRoute) lives at <a href="https://github.com/agentic-layer/tool-gateway-agentgateway/tree/main/config/samples/guardrails" class="bare">https://github.com/agentic-layer/tool-gateway-agentgateway/tree/main/config/samples/guardrails</a>. Apply it with <code>kubectl apply -k config/samples/guardrails</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_limitations"><a class="anchor" href="#_limitations"></a>Limitations</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Single Guard per ToolGateway</strong>: agentgateway currently supports only one <code>ext_proc</code> slot per target. If you reference multiple guards, the operator sets a <code>GuardrailsUnsupported</code> status condition on the <code>ToolGateway</code>.</p>
+</li>
+<li>
+<p><strong>Provider type</strong>: Only <code>presidio-api</code> providers are supported today. Guards backed by <code>openai-moderation-api</code> or <code>bedrock-api</code> providers report <code>Ready=False</code> with reason <code>UnsupportedProviderType</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_status_conditions"><a class="anchor" href="#_status_conditions"></a>Status conditions</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Resource</th>
+<th class="tableblock halign-left valign-top">Condition</th>
+<th class="tableblock halign-left valign-top">Reason</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Guard</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Ready=False</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AdapterNotConfigured</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operator was started without <code>--guardrail-adapter-image</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Guard</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Ready=False</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ProviderNotFound</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>providerRef</code> does not resolve.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Guard</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Ready=False</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>UnsupportedProviderType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only <code>presidio-api</code> is supported today.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Guard</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Ready=False</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>InvalidConfig</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validation failed (missing endpoint, empty modes, &#8230;&#8203;).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ToolGateway</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Ready=False</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GuardNotFound</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A referenced Guard does not exist.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ToolGateway</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Ready=False</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GuardNotReady</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A referenced Guard exists but its <code>Ready</code> condition is <code>False</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ToolGateway</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Ready=False</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GuardrailsUnsupported</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">More than one Guard was referenced.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_how_it_works"><a class="anchor" href="#_how_it_works"></a>How it Works</h2>
 <div class="sectionbody">
 <div class="paragraph">
