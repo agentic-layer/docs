@@ -6,6 +6,9 @@
 # the working tree). Then runs Antora against the local playbook.
 #
 # Run from anywhere; the script locates the docs repo root via its own path.
+#
+# Antora is invoked with --log-failure-level error (not warn, as in `npm run build`)
+# so kroki connection warnings do not fail the build when docker/kroki is offline.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
