@@ -33,7 +33,7 @@ The Agent Runtime Operator owns the layer's CRDs (Agent, AgentGateway, AIGateway
 ToolGateway, ToolServer, ToolRoute, Guard, GuardrailProvider, …) used by every other
 component. Install it before the gateway operators.
 
-xref:agent-runtime-operator:agent-runtime:how-to-guide.adoc[Install the Agent Runtime Operator]
+xref:agent-runtime-operator:agent-runtime:how-to-guides/install.adoc[Install the Agent Runtime Operator]
 
 == Step 3: Install gateway operators
 

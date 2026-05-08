@@ -1,6 +1,7 @@
 ** xref:how-to-guides:install-the-layer.adoc[]
 
-** xref:agent-runtime-operator:agent-runtime:how-to-guide.adoc[]
+** xref:agent-runtime-operator:agent-runtime:how-to-guides/install.adoc[]
+** xref:agent-runtime-operator:agent-runtime:how-to-guides/configure.adoc[]
 ** xref:agent-gateway-krakend-operator:operator:how-to-guide.adoc[]
 ** xref:ai-gateway-litellm-operator:operator:how-to-guide.adoc[]
 ** xref:tool-gateway-agentgateway:operator:how-to-guide.adoc[]
