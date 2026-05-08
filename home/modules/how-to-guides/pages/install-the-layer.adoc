@@ -2,6 +2,9 @@
 // This page answers a goal-shaped question: "how do I do X?"
 // DO: assume context; give concrete steps; link to reference for fields.
 // DON'T: teach concepts; duplicate reference content; include long explanations.
+// If a section drifts into "what is this and why" → move to explanation.adoc.
+// If a section drifts into "exhaustive list of fields/values" → move to reference.adoc.
+// If a section turns into a from-zero walkthrough → move to a tutorial in a showcase repo.
 
 = Install the Agentic Layer
 
@@ -57,6 +60,11 @@ The https://github.com/agentic-layer/observability-dashboard[observability-dashb
 component ships an OpenTelemetry-backed dashboard for tracing agent and tool traffic.
 A how-to guide will be wired in once the documentation revision lands the dashboard's
 phase.
+
+== Verify
+
+Each component's install how-to includes its own verification step. Once every step
+above is complete and each component's verification passes, the layer is ready to use.
 
 == What's next
 

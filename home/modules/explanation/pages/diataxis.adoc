@@ -1,5 +1,9 @@
 // EXPLANATION — Diátaxis
 // This page is understanding-shaped: "what is this, why, how does it fit?"
+// DO: discuss design choices, alternatives, trade-offs; cross-link to how-to and reference.
+// DON'T: give step-by-step instructions; provide exhaustive field listings.
+// If a section drifts into "how do I do X" → move to how-to-guide.adoc.
+// If a section drifts into "list of all fields" → move to reference.adoc.
 
 = How This Site Is Organized
 
