@@ -1,0 +1,64 @@
+// HOW-TO GUIDE — Diátaxis
+// This page answers a goal-shaped question: "how do I do X?"
+// DO: assume context; give concrete steps; link to reference for fields.
+// DON'T: teach concepts; duplicate reference content; include long explanations.
+
+= Install the Agentic Layer
+
+This guide walks you through installing the Agentic Layer's components in dependency
+order. Each step links to the component's own install how-to.
+
+== Prerequisites
+
+* A running Kubernetes cluster with `kubectl` configured.
+* https://helm.sh/[Helm] 3+ for components that ship as Helm charts.
+
+== Step 1: Install cert-manager
+
+Several operators in the layer require https://cert-manager.io/[cert-manager] for
+webhook TLS. Install it first:
+
+[source,bash]
+----
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.19.1/cert-manager.yaml
+kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=cert-manager -n cert-manager --timeout=60s
+----
+
+== Step 2: Install the Agent Runtime Operator
+
+The Agent Runtime Operator owns the layer's CRDs (Agent, AgentGateway, AIGateway,
+ToolGateway, ToolServer, ToolRoute, Guard, GuardrailProvider, …) used by every other
+component. Install it before the gateway operators.
+
+xref:agent-runtime-operator:agent-runtime:how-to-guide.adoc[Install the Agent Runtime Operator]
+
+== Step 3: Install gateway operators
+
+Pick one implementation per gateway type. You only need to install the operators for
+the gateway types you use.
+
+[cols="1,3"]
+|===
+| Gateway type | Implementation install guide
+
+| Agent Gateway
+| xref:agent-gateway-krakend-operator:operator:how-to-guide.adoc[KrakenD operator]
+
+| AI Gateway
+| xref:ai-gateway-litellm-operator:operator:how-to-guide.adoc[LiteLLM operator]
+
+| Tool Gateway
+| xref:tool-gateway-agentgateway:operator:how-to-guide.adoc[agentgateway operator]
+|===
+
+== Step 4: Install observability (optional)
+
+The https://github.com/agentic-layer/observability-dashboard[observability-dashboard]
+component ships an OpenTelemetry-backed dashboard for tracing agent and tool traffic.
+A how-to guide will be wired in once the documentation revision lands the dashboard's
+phase.
+
+== What's next
+
+* Build your first agent with the xref:showcase-news::index.adoc[News Showcase tutorial].
+* Read the xref:architecture:index.adoc[layer architecture] to understand how the components fit together.
