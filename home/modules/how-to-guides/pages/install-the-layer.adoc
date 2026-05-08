@@ -59,10 +59,8 @@ a|
 
 == Step 4: Install observability (optional)
 
-The https://github.com/agentic-layer/observability-dashboard[observability-dashboard]
-component ships an OpenTelemetry-backed dashboard for tracing agent and tool traffic.
-A how-to guide will be wired in once the documentation revision lands the dashboard's
-phase.
+The Agentic Layer ships an OpenTelemetry-backed dashboard for tracing agent and tool
+traffic. See xref:observability-dashboard::how-to-guide.adoc[Deploy and View the Observability Dashboard].
 
 == Verify
 

@@ -18,5 +18,7 @@
 ** xref:agent-runtime-operator:tool-gateways:how-to-guide.adoc[]
 ** xref:agent-runtime-operator:guardrails:how-to-guide.adoc[]
 
+** xref:observability-dashboard::how-to-guide.adoc[]
+
 ** xref:testbench:how-to:install.adoc[Install the Testbench]
 ** xref:testbench:how-to:first-workflow.adoc[Create Your First TestWorkflow]

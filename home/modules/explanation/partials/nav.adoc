@@ -11,6 +11,7 @@
 *** xref:agent-runtime-operator:tool-gateways:explanation.adoc[]
 *** xref:agent-runtime-operator:guardrails:explanation.adoc[]
 *** xref:tool-gateway-agentgateway::explanation.adoc[]
+*** xref:observability-dashboard::explanation.adoc[]
 
 *** xref:architecture:index.adoc[]
 include::architecture:partial$nav.adoc[]
