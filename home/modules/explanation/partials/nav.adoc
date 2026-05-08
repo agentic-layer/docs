@@ -6,6 +6,7 @@
 *** xref:agent-runtime-operator:tool-routes:explanation.adoc[]
 *** xref:agent-runtime-operator:agent-gateways:explanation.adoc[]
 *** xref:agent-runtime-operator:ai-gateways:explanation.adoc[]
+*** xref:agent-runtime-operator:tool-gateways:explanation.adoc[]
 
 *** xref:architecture:index.adoc[]
 include::architecture:partial$nav.adoc[]
