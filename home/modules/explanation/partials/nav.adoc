@@ -16,5 +16,6 @@
 *** xref:architecture:index.adoc[]
 include::architecture:partial$nav.adoc[]
 
+*** xref:testbench::explanation.adoc[]
 *** xref:testbench:architecture:index.adoc[Testbench Architecture]
 include::testbench:architecture:partial$nav.adoc[]

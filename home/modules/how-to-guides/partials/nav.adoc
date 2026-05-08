@@ -20,5 +20,5 @@
 
 ** xref:observability-dashboard::how-to-guide.adoc[]
 
-** xref:testbench:how-to:install.adoc[Install the Testbench]
-** xref:testbench:how-to:first-workflow.adoc[Create Your First TestWorkflow]
+** xref:testbench::how-to-guides/install.adoc[Install the Testbench]
+** xref:testbench::how-to-guides/first-workflow.adoc[Create Your First TestWorkflow]
