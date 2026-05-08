@@ -7,8 +7,8 @@
 #
 # Run from anywhere; the script locates the docs repo root via its own path.
 #
-# Antora is invoked with --log-failure-level error (not warn, as in `npm run build`)
-# so kroki connection warnings do not fail the build when docker/kroki is offline.
+# Requires kroki to be running locally for diagram rendering. Start it from the
+# docs repo root with `docker compose up -d` before running this script.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -33,4 +33,4 @@ sed -E \
 echo "Generated $LOCAL_PLAYBOOK"
 echo
 
-npx antora --log-failure-level error "$LOCAL_PLAYBOOK"
+npx antora --log-failure-level warn "$LOCAL_PLAYBOOK"
