@@ -14,6 +14,7 @@
 ** xref:agent-runtime-operator:ai-gateways:how-to-guide.adoc[]
 ** xref:agent-runtime-operator:agent-gateways:how-to-guide.adoc[]
 ** xref:agent-runtime-operator:tool-servers:how-to-guide.adoc[]
+** xref:agent-runtime-operator:tool-routes:how-to-guide.adoc[]
 ** xref:agent-runtime-operator:tool-gateways:how-to-guide.adoc[]
 ** xref:agent-runtime-operator:guardrails:how-to-guide.adoc[]
 
