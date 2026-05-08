@@ -9,5 +9,6 @@
 ** xref:agent-runtime-operator:tool-gateways:reference.adoc[]
 ** xref:agent-runtime-operator:guardrails:reference.adoc[]
 ** xref:tool-gateway-agentgateway::reference.adoc[]
+** xref:guardrail-adapter::reference.adoc[]
 ** xref:observability-dashboard::reference.adoc[]
 ** xref:testbench::reference.adoc[]

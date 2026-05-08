@@ -18,6 +18,7 @@
 ** xref:agent-runtime-operator:tool-gateways:how-to-guide.adoc[]
 ** xref:agent-runtime-operator:guardrails:how-to-guide.adoc[]
 
+** xref:guardrail-adapter::how-to-guide.adoc[]
 ** xref:observability-dashboard::how-to-guide.adoc[]
 
 ** xref:testbench::how-to-guides/install.adoc[Install the Testbench]
