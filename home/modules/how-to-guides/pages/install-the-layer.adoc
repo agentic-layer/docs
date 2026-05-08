@@ -49,11 +49,11 @@ the gateway types you use. The LiteLLM operator reconciles both `AiGateway` and
 | xref:agent-gateway-krakend-operator::how-to-guides/install.adoc[KrakenD operator]
 
 | AI Gateway
-| xref:ai-gateway-litellm-operator:operator:how-to-guide.adoc[LiteLLM operator]
+| xref:ai-gateway-litellm-operator::how-to-guides/install.adoc[LiteLLM operator]
 
 | Tool Gateway
 a|
-* xref:ai-gateway-litellm-operator:operator:how-to-guide.adoc[LiteLLM operator]
+* xref:ai-gateway-litellm-operator::how-to-guides/install.adoc[LiteLLM operator]
 * xref:tool-gateway-agentgateway:operator:how-to-guide.adoc[agentgateway operator]
 |===
 

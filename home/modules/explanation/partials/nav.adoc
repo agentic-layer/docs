@@ -7,6 +7,7 @@
 *** xref:agent-runtime-operator:agent-gateways:explanation.adoc[]
 *** xref:agent-gateway-krakend-operator::explanation.adoc[]
 *** xref:agent-runtime-operator:ai-gateways:explanation.adoc[]
+*** xref:ai-gateway-litellm-operator::explanation.adoc[]
 *** xref:agent-runtime-operator:tool-gateways:explanation.adoc[]
 *** xref:agent-runtime-operator:guardrails:explanation.adoc[]
 
