@@ -1,0 +1,58 @@
+// EXPLANATION — Diátaxis
+// This page is understanding-shaped: "what is this, why, how does it fit?"
+
+= How This Site Is Organized
+
+The Agentic Layer documentation follows the https://diataxis.fr[Diátaxis] framework.
+Every page falls into one of four categories. Knowing the category helps you find
+what you need and helps contributors put new content in the right place.
+
+== The four categories
+
+=== Tutorials
+
+A tutorial is lesson-shaped. It walks you from zero to a concrete working result on
+a single linear path. Tutorials live in the layer's *showcase* repos — for example,
+the xref:showcase-news::index.adoc[News Showcase] is a tutorial for building your
+first multi-agent system on the layer.
+
+If you are new to the Agentic Layer, start with a tutorial.
+
+=== How-to guides
+
+A how-to guide is goal-shaped. It answers "how do I accomplish X?" and assumes you
+already know what you want. The
+xref:how-to-guides:install-the-layer.adoc[layer install meta-guide] is one example;
+each component repo also contributes its own install and configuration guides.
+
+=== Reference
+
+Reference pages are information-shaped: tables, field lists, full API surface.
+They are authoritative and exhaustive within their scope, optimized for ctrl-F lookup.
+CRD schemas, configuration field tables, and CLI flags live here.
+
+=== Explanation
+
+Explanation pages discuss what a component is, why it exists, how it fits into the
+rest of the layer, and what trade-offs the design makes. They are understanding-shaped,
+not goal-shaped. The xref:architecture:index.adoc[layer architecture documentation]
+is the largest body of explanation content on this site.
+
+== Where to start
+
+[cols="1,3"]
+|===
+| If you are… | Start here
+
+| Installing the layer
+| xref:how-to-guides:install-the-layer.adoc[Install the Agentic Layer]
+
+| Building agents
+| xref:showcase-news::index.adoc[News Showcase tutorial]
+
+| Evaluating the layer
+| xref:architecture:01-introduction/index.adoc[Architecture introduction]
+
+| Contributing
+| https://github.com/agentic-layer[github.com/agentic-layer]
+|===

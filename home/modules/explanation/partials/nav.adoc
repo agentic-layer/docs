@@ -1,3 +1,5 @@
+*** xref:explanation:diataxis.adoc[]
+
 *** xref:architecture:index.adoc[]
 include::architecture:partial$nav.adoc[]
 
