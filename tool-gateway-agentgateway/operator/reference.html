@@ -56,7 +56,7 @@
     <a class="nav-link" href="../../agent-gateway-krakend-operator/operator/how-to-guide.html">Install the Agent Gateway Operator for KrakenD</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../ai-gateway-litellm-operator/operator/how-to-guide.html">Install the AI Gateway Operator for LiteLLM</a>
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/operator/how-to-guide.html">Install the LiteLLM Gateway Operator</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="how-to-guide.html">Install the Tool Gateway Operator for Agentgateway</a>
@@ -225,7 +225,7 @@ metadata:
   name: my-tool-gateway
   namespace: my-namespace
 spec:
-  toolGatewayClassName: agentgateway  # Optional: uses default if not specified
+  toolGatewayClassName: agentgateway  # Optional; required unless a ToolGatewayClass is marked default
   env:                                 # Optional: environment variables
     - name: LOG_LEVEL
       value: "info"
@@ -318,11 +318,38 @@ Currently, only <strong>tracing</strong> (traces) is supported. Metrics and logs
 kind: ToolGatewayClass
 metadata:
   name: agentgateway
-  namespace: tool-gateway
-  annotations:
-    toolgatewayclass.kubernetes.io/is-default-class: "true"
 spec:
   controller: runtime.agentic-layer.ai/tool-gateway-agentgateway-controller</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_marking_a_toolgatewayclass_as_default"><a class="anchor" href="#_marking_a_toolgatewayclass_as_default"></a>Marking a ToolGatewayClass as default</h4>
+<div class="paragraph">
+<p>The shipped <code>agentgateway</code> <code>ToolGatewayClass</code> is <strong>not</strong> marked as the cluster
+default. To claim <code>ToolGateway</code> resources that omit <code>spec.toolGatewayClassName</code>,
+either set the field explicitly on every <code>ToolGateway</code>, or add the
+<code>toolgatewayclass.kubernetes.io/is-default-class: "true"</code> annotation via a
+Kustomize overlay:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># kustomization.yaml
+resources:
+  - https://github.com/agentic-layer/tool-gateway-agentgateway/releases/latest/download/install.yaml
+patches:
+  - patch: |-
+      apiVersion: runtime.agentic-layer.ai/v1alpha1
+      kind: ToolGatewayClass
+      metadata:
+        name: agentgateway
+        annotations:
+          toolgatewayclass.kubernetes.io/is-default-class: "true"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use this only when this operator is the single Tool Gateway implementation in
+the cluster — multiple defaults across operators produce non-deterministic
+ownership of unlabeled <code>ToolGateway</code> resources.</p>
 </div>
 </div>
 </div>

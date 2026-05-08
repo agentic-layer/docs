@@ -56,7 +56,7 @@
     <a class="nav-link" href="../../agent-gateway-krakend-operator/operator/how-to-guide.html">Install the Agent Gateway Operator for KrakenD</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../ai-gateway-litellm-operator/operator/how-to-guide.html">Install the AI Gateway Operator for LiteLLM</a>
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/operator/how-to-guide.html">Install the LiteLLM Gateway Operator</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../tool-gateway-agentgateway/operator/how-to-guide.html">Install the Tool Gateway Operator for Agentgateway</a>
@@ -180,7 +180,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide walks you through installing the Testbench Helm chart into an existing Kubernetes cluster with Testkube.</p>
+<p>This guide walks you through installing the Testbench into an existing Kubernetes cluster with Testkube.</p>
 </div>
 </div>
 </div>
@@ -193,31 +193,47 @@
 <p>A running Kubernetes cluster with <code>kubectl</code> configured</p>
 </li>
 <li>
-<p><a href="https://helm.sh/docs/intro/install/">Helm</a> installed</p>
+<p><a href="https://testkube.io/">Testkube</a> installed in the <code>testkube</code> namespace</p>
 </li>
 <li>
-<p><a href="https://testkube.io/">Testkube</a> installed in the <code>testkube</code> namespace</p>
+<p>(Optional) Grafana with the dashboard sidecar watching the <code>monitoring</code> namespace, if you want the bundled dashboards</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_1_install_the_helm_chart"><a class="anchor" href="#_step_1_install_the_helm_chart"></a>Step 1: Install the Helm chart</h2>
+<h2 id="_step_1_apply_the_installer"><a class="anchor" href="#_step_1_apply_the_installer"></a>Step 1: Apply the installer</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Install the Testbench chart from the OCI registry:</p>
+<p>Install everything (operator + TestWorkflowTemplates + Grafana dashboard ConfigMap) with one command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">helm upgrade --install testbench \
-  oci://ghcr.io/agentic-layer/charts/testbench \
-  --namespace testkube \
-  --version &lt;version&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl apply -f https://github.com/agentic-layer/testbench/releases/download/&lt;version&gt;/install.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This installs the <code>TestWorkflowTemplate</code> CRs and an optional Grafana dashboard ConfigMap into the <code>testkube</code> namespace.</p>
+<p>Replace <code>&lt;version&gt;</code> with the release tag you want, for example <code>v0.1.0</code>.</p>
+</div>
+<div class="paragraph">
+<p>The installer creates:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>testbench-operator-system</code> namespace and the operator controller manager.</p>
+</li>
+<li>
+<p>The <code>Experiment</code> Custom Resource Definition.</p>
+</li>
+<li>
+<p>Five <code>TestWorkflowTemplate</code> resources in the <code>testkube</code> namespace.</p>
+</li>
+<li>
+<p>A <code>grafana-testkube-dashboard</code> ConfigMap in the <code>monitoring</code> namespace.</p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -226,7 +242,7 @@
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-The Testbench must be installed into the <code>testkube</code> namespace because the <code>TestWorkflowTemplate</code> resources need to be co-located with the Testkube controller that orchestrates them.
+The <code>testkube</code> and <code>monitoring</code> namespaces must already exist. The installer assumes they are owned by your Testkube and Grafana installs.
 </td>
 </tr>
 </table>
@@ -234,61 +250,49 @@ The Testbench must be installed into the <code>testkube</code> namespace because
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_2_override_default_values_optional"><a class="anchor" href="#_step_2_override_default_values_optional"></a>Step 2: Override default values (optional)</h2>
+<h2 id="_step_2_customise_the_installation_optional"><a class="anchor" href="#_step_2_customise_the_installation_optional"></a>Step 2: Customise the installation (optional)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can customise the installation by passing <code>--set</code> flags or a values file. The following table lists all available values:</p>
+<p>Customisation happens via Kustomize overlays. Two examples are committed in the repository under <code>operator/config/samples/overlays/</code>:</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 30%;">
-<col style="width: 20%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Value</th>
-<th class="tableblock halign-left valign-top">Default</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.repository</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ghcr.io/agentic-layer/testbench/testworkflows</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Container image used by all pipeline phases</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.tag</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Chart <code>appVersion</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Image tag override</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.pullPolicy</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>IfNotPresent</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes image pull policy</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grafana.dashboardConfigMapName</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grafana-testkube-dashboard</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the ConfigMap containing the Grafana dashboard JSON</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grafana.dashboardNamespace</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>monitoring</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace where the Grafana dashboard ConfigMap is created</p></td>
-</tr>
-</tbody>
-</table>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/agentic-layer/testbench/tree/main/operator/config/samples/overlays/custom-image-tag">custom-image-tag</a> — override the testworkflows image tag.</p>
+</li>
+<li>
+<p><a href="https://github.com/agentic-layer/testbench/tree/main/operator/config/samples/overlays/custom-dashboard-namespace">custom-dashboard-namespace</a> — move the dashboard ConfigMap to a different namespace.</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
-<p>Example with overrides:</p>
+<p>The pattern: download the released <code>install.yaml</code> into an overlay directory, then write a small <code>kustomization.yaml</code> that references it and adds patches:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">helm install testbench oci://ghcr.io/agentic-layer/testbench/chart \
-  -n testkube \
-  --set image.tag=v1.2.0 \
-  --set grafana.dashboardNamespace=observability</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -o install.yaml \
+  https://github.com/agentic-layer/testbench/releases/download/&lt;version&gt;/install.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - install.yaml
+
+images:
+  - name: ghcr.io/agentic-layer/testbench/testworkflows
+    newTag: my-custom-tag</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Apply with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl apply -k &lt;overlay-directory&gt;</code></pre>
 </div>
 </div>
 </div>
@@ -297,7 +301,15 @@ The Testbench must be installed into the <code>testkube</code> namespace because
 <h2 id="_step_3_verify_the_installation"><a class="anchor" href="#_step_3_verify_the_installation"></a>Step 3: Verify the installation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Confirm that all five <code>TestWorkflowTemplate</code> resources are present:</p>
+<p>Confirm the operator is running:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl get deployment -n testbench-operator-system</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Confirm all five <code>TestWorkflowTemplate</code> resources are present:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -310,10 +322,10 @@ The Testbench must be installed into the <code>testkube</code> namespace because
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">NAME                 AGE
-setup-template       10s
-run-template         10s
 evaluate-template    10s
 publish-template     10s
+run-template         10s
+setup-template       10s
 visualize-template   10s</code></pre>
 </div>
 </div>
@@ -323,7 +335,7 @@ visualize-template   10s</code></pre>
 <h2 id="_step_4_verify_grafana_dashboards_optional"><a class="anchor" href="#_step_4_verify_grafana_dashboards_optional"></a>Step 4: Verify Grafana dashboards (optional)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If you use Grafana with a sidecar that watches for dashboard ConfigMaps, verify the dashboard was created:</p>
+<p>If your Grafana install watches <code>monitoring</code> for dashboard ConfigMaps:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -337,10 +349,27 @@ visualize-template   10s</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The Grafana sidecar must be configured to watch ConfigMaps with the label <code>grafana_dashboard: "1"</code> in the target namespace. Refer to your Grafana deployment documentation for sidecar configuration details.
+The Grafana sidecar must be configured to watch ConfigMaps with the label <code>grafana_dashboard: "1"</code> in the target namespace.
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_migrating_from_the_helm_chart"><a class="anchor" href="#_migrating_from_the_helm_chart"></a>Migrating from the Helm chart</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Helm chart at <code>oci://ghcr.io/agentic-layer/charts/testbench</code> is no longer published. To migrate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">helm uninstall testbench -n testkube
+kubectl apply -f https://github.com/agentic-layer/testbench/releases/download/&lt;version&gt;/install.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In-flight TestWorkflows are interrupted by the uninstall. Run the migration during a maintenance window if that matters.</p>
 </div>
 </div>
 </div>

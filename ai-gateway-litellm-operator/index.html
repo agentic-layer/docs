@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>LiteLLM based AI Gateway :: Agentic Layer</title>
+    <title>LiteLLM Gateway Operator :: Agentic Layer</title>
     <link rel="canonical" href="https://docs.agentic-layer.ai/ai-gateway-litellm-operator/index.html">
     <meta name="generator" content="Antora 3.1.14">
     <link rel="stylesheet" href="../_/css/site.css">
@@ -56,7 +56,7 @@
     <a class="nav-link" href="../agent-gateway-krakend-operator/operator/how-to-guide.html">Install the Agent Gateway Operator for KrakenD</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="operator/how-to-guide.html">Install the AI Gateway Operator for LiteLLM</a>
+    <a class="nav-link" href="operator/how-to-guide.html">Install the LiteLLM Gateway Operator</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../tool-gateway-agentgateway/operator/how-to-guide.html">Install the Tool Gateway Operator for Agentgateway</a>
@@ -165,8 +165,7 @@
   <a href="../home/main/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="index.html">AI Gateway LiteLLM Operator</a></li>
-    <li><a href="index.html">LiteLLM based AI Gateway</a></li>
+    <li><a href="index.html">LiteLLM Gateway Operator</a></li>
   </ul>
 </nav>
 <div class="edit-this-page"><a href="https://github.com/agentic-layer/ai-gateway-litellm-operator/edit/main/docs/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
@@ -176,15 +175,19 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">LiteLLM based AI Gateway</h1>
+<h1 class="page">LiteLLM Gateway Operator</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is a LiteLLM based implementation of the Agentic Layer AI Gateway.</p>
+<p>This operator provides LiteLLM-based implementations of the Agentic Layer AI Gateway and Tool Gateway.</p>
 </div>
 <div class="paragraph">
 <p>The AI Gateway is a component that sits between an AI Agent and a Large Language Model (LLM).
 It can handle tasks such as routing requests to different models, managing authentication, logging, and other middleware functions.</p>
+</div>
+<div class="paragraph">
+<p>The Tool Gateway is a component that sits between an AI Agent and one or more Model Context Protocol (MCP) tool servers.
+It aggregates upstream tool servers — referenced via <code>ToolRoute</code> resources — into a single MCP endpoint and applies guardrails to tool traffic.</p>
 </div>
 </div>
 </div>
@@ -197,7 +200,7 @@ It can handle tasks such as routing requests to different models, managing authe
 <div class="ulist">
 <ul>
 <li>
-<p><a href="operator/how-to-guide.html" class="xref page">Install the AI Gateway Operator for LiteLLM</a></p>
+<p><a href="operator/how-to-guide.html" class="xref page">Install the LiteLLM Gateway Operator</a></p>
 </li>
 <li>
 <p><a href="../agent-runtime-operator/ai-gateways/how-to-guide.html" class="xref page">Create an AI Gateway</a></p>
