@@ -1,0 +1,51 @@
+// TUTORIAL — Diátaxis
+// This page is lesson-shaped: it walks the reader from zero to a concrete result.
+// DO: linear path; concrete commands and expected output; one outcome.
+// DON'T: branch ("you can also..."); reference tables; concept explanations.
+// If a section drifts into "how would you accomplish X" → move to how-to-guide.adoc.
+// If a section drifts into "what is this and why" → move to explanation.adoc.
+// If a section drifts into "list of fields/values" → move to reference.adoc.
+// Tutorials live only in showcase repos. Component repos do not get tutorials.
+
+= [Tutorial Title]
+
+[1–2 sentences: what the reader will build by the end of this tutorial.]
+
+== Prerequisites
+
+* [Required tools, accounts, prior knowledge.]
+* [Be specific — versions, accounts, env vars.]
+
+== What you'll build
+
+[A few sentences describing the end state. Optional architecture diagram.]
+
+Estimated time: [N minutes].
+
+== Step 1: [Action]
+
+[Concrete instructions. Avoid alternatives — pick one path.]
+
+[source,bash]
+----
+[command]
+----
+
+Expected output:
+
+[source]
+----
+[output]
+----
+
+== Step 2: [Action]
+
+[…]
+
+== Verify
+
+[How the reader confirms the result is working.]
+
+== What's next
+
+* xref:[next-page].adoc[]

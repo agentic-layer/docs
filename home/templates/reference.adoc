@@ -1,0 +1,35 @@
+// REFERENCE — Diátaxis
+// This page is information-shaped: tables, field lists, full API surface.
+// DO: be exhaustive within scope; use stable, ctrl-F-able structure;
+//     one heading per resource/CRD/command/field group.
+// DON'T: include tutorials, decision trees, or "why" explanations.
+// If a section drifts into "how would you do X" → move to how-to-guide.adoc.
+// If a section drifts into "why this exists" → move to explanation.adoc.
+
+= [Reference title — name of the thing being documented]
+
+[1-sentence scope statement: what this reference covers and what it does not.]
+
+== [Resource / CRD / Section A]
+
+[1-sentence description.]
+
+[cols="1,3"]
+|===
+| Field | Description
+
+| `field1`
+| [Type, allowed values, default, behavior.]
+
+| `field2`
+| [Type, allowed values, default, behavior.]
+|===
+
+== [Resource / CRD / Section B]
+
+[…]
+
+== Related
+
+* xref:[explanation-page].adoc[]
+* xref:[how-to-page].adoc[]

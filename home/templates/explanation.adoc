@@ -1,0 +1,30 @@
+// EXPLANATION — Diátaxis
+// This page is understanding-shaped: "what is this, why, how does it fit?"
+// DO: discuss design choices, alternatives, trade-offs; cross-link to how-to and reference.
+// DON'T: give step-by-step instructions; provide exhaustive field listings.
+// If a section drifts into "how do I do X" → move to how-to-guide.adoc.
+// If a section drifts into "list of all fields" → move to reference.adoc.
+
+= [Explanation title — typically "What is X" or "X concept"]
+
+== What it is
+
+[Definition and scope. One paragraph.]
+
+== Why it exists
+
+[The problem this component solves; the constraints that shaped the design.]
+
+== How it fits
+
+[Relationship to other components in the layer. Reference the architecture pages
+where appropriate.]
+
+== Trade-offs and alternatives
+
+[What was considered, what was chosen, why. Be specific about the rejected options.]
+
+== Related
+
+* xref:[how-to-page].adoc[]
+* xref:[reference-page].adoc[]

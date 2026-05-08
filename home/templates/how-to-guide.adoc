@@ -1,0 +1,33 @@
+// HOW-TO GUIDE — Diátaxis
+// This page answers a goal-shaped question: "how do I do X?"
+// DO: assume context; give concrete steps; link to reference for fields.
+// DON'T: teach concepts; duplicate reference content; include long explanations.
+// If a section drifts into "what is this and why" → move to explanation.adoc.
+// If a section drifts into "exhaustive list of fields/values" → move to reference.adoc.
+// If a section turns into a from-zero walkthrough → move to a tutorial in a showcase repo.
+
+= [Verb-led title — e.g. "Install the X Operator", "Configure Y"]
+
+[1–2 sentences stating the goal.]
+
+== Prerequisites
+
+* [What must already be true. Link to install how-to or reference if needed.]
+
+== [Main action or first step]
+
+[Concrete instructions. Branch only when a hard environment difference forces it
+(e.g. kubectl vs. Flux); do not branch on reader preference.]
+
+[source,bash]
+----
+[command]
+----
+
+== [Next step]
+
+[…]
+
+== Verify
+
+[How the reader confirms the goal is achieved.]
