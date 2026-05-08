@@ -8,4 +8,4 @@
 ** xref:ai-gateway-litellm-operator::reference.adoc[]
 ** xref:agent-runtime-operator:tool-gateways:reference.adoc[]
 ** xref:agent-runtime-operator:guardrails:reference.adoc[]
-** xref:tool-gateway-agentgateway:operator:reference.adoc[]
+** xref:tool-gateway-agentgateway::reference.adoc[]

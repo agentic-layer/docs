@@ -4,7 +4,7 @@
 ** xref:agent-runtime-operator:agent-runtime:how-to-guides/configure.adoc[]
 ** xref:agent-gateway-krakend-operator::how-to-guides/install.adoc[]
 ** xref:ai-gateway-litellm-operator::how-to-guides/install.adoc[]
-** xref:tool-gateway-agentgateway:operator:how-to-guide.adoc[]
+** xref:tool-gateway-agentgateway::how-to-guides/install.adoc[]
 
 ** xref:agent-runtime-operator:agents:how-to-guides/create-template-agent.adoc[]
 ** xref:agent-runtime-operator:agents:how-to-guides/create-custom-image-agent.adoc[]

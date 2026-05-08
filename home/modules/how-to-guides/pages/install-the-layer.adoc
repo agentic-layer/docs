@@ -54,7 +54,7 @@ the gateway types you use. The LiteLLM operator reconciles both `AiGateway` and
 | Tool Gateway
 a|
 * xref:ai-gateway-litellm-operator::how-to-guides/install.adoc[LiteLLM operator]
-* xref:tool-gateway-agentgateway:operator:how-to-guide.adoc[agentgateway operator]
+* xref:tool-gateway-agentgateway::how-to-guides/install.adoc[agentgateway operator]
 |===
 
 == Step 4: Install observability (optional)
