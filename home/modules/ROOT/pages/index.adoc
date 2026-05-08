@@ -22,7 +22,7 @@ from there.
 
 Walk through the xref:showcase-news::index.adoc[News Showcase tutorial] to deploy your
 first multi-agent system, then explore the
-xref:agent-runtime-operator:agents:how-to-guide.adoc[agent how-tos] for goal-shaped
+xref:agent-runtime-operator:agents:how-to-guides/create-template-agent.adoc[agent how-tos] for goal-shaped
 guidance on templates, custom images, sub-agents, and workforces.
 
 === I'm evaluating the layer

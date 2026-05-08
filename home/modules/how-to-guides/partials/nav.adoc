@@ -6,7 +6,11 @@
 ** xref:ai-gateway-litellm-operator:operator:how-to-guide.adoc[]
 ** xref:tool-gateway-agentgateway:operator:how-to-guide.adoc[]
 
-** xref:agent-runtime-operator:agents:how-to-guide.adoc[]
+** xref:agent-runtime-operator:agents:how-to-guides/create-template-agent.adoc[]
+** xref:agent-runtime-operator:agents:how-to-guides/create-custom-image-agent.adoc[]
+** xref:agent-runtime-operator:agents:how-to-guides/propagate-headers.adoc[]
+** xref:agent-runtime-operator:agents:how-to-guides/delegate-to-subagent.adoc[]
+** xref:agent-runtime-operator:agents:how-to-guides/create-workforce.adoc[]
 ** xref:agent-runtime-operator:ai-gateways:how-to-guide.adoc[]
 ** xref:agent-runtime-operator:agent-gateways:how-to-guide.adoc[]
 ** xref:agent-runtime-operator:tool-servers:how-to-guide.adoc[]
