@@ -296,41 +296,61 @@
 <div class="sectionbody">
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><strong>Agent Catalog</strong></dt>
+<dt class="hdlist1"><strong>A2A</strong></dt>
 <dd>
-<p>Centralized registry and management system for discovering, versioning, and managing the lifecycle of AI agents within the platform. Provides metadata, documentation, and operational status for all registered agents.</p>
+<p>Agent-to-Agent protocol. Used on the wire between agents within the Agent Runtime, and between external systems and the Agent Gateway.</p>
+</dd>
+<dt class="hdlist1"><strong>AG-UI</strong></dt>
+<dd>
+<p>Application-to-agent UI protocol. Used by Apps to reach the Agent Gateway.</p>
+</dd>
+<dt class="hdlist1"><strong>Agent (CRD)</strong></dt>
+<dd>
+<p>Kubernetes custom resource that declares a single agent workload. Reconciled by the Agent Runtime Operator into a <code>Deployment</code> and <code>Service</code>.</p>
 </dd>
 <dt class="hdlist1"><strong>Agent Gateway</strong></dt>
 <dd>
-<p>Entry point and routing component that handles incoming requests and distributes them to appropriate AI agents based on capabilities, availability, and load balancing policies.</p>
+<p>Separate building block in front of the Agent Runtime. Translates external protocols (OpenAI Chat Completion API, A2A, AG-UI) into the internal A2A surface used by agents and routes requests to the appropriate agent. Defined by the <code>AgentGateway</code> and <code>AgentGatewayClass</code> CRDs.</p>
 </dd>
 <dt class="hdlist1"><strong>Agent Runtime / Agent Orchestration</strong></dt>
 <dd>
-<p>Kubernetes-native execution environment that manages the lifecycle, scaling, and resource allocation of AI agents. Provides automated deployment, scaling, and monitoring of agent instances.</p>
+<p>Kubernetes-native execution environment that hosts agents and manages their lifecycle. Reconciled by the Agent Runtime Operator, which groups the <code>Agent</code>, <code>AgenticWorkforce</code>, and <code>AgentRuntimeConfiguration</code> CRDs and supports both template-based and custom-image agents on any framework that speaks A2A.</p>
+</dd>
+<dt class="hdlist1"><strong>AgentGateway / AgentGatewayClass (CRDs)</strong></dt>
+<dd>
+<p>The agent-gateway resource (an instance) and its pluggable class (selects an implementation). Together they define an Agent Gateway deployment.</p>
+</dd>
+<dt class="hdlist1"><strong>AgentRuntimeConfiguration (CRD)</strong></dt>
+<dd>
+<p>Namespace-scoped, operator-wide runtime configuration for the Agent Runtime. One instance per operator namespace; carries defaults such as the default framework and template images.</p>
 </dd>
 <dt class="hdlist1"><strong>Agentic Layer</strong></dt>
 <dd>
-<p>Core platform layer containing the foundational components for AI agent orchestration, including AI Gateway, Agent Runtime, Connectors &amp; Tools, and governance components. Built on Kubernetes infrastructure.</p>
-</dd>
-<dt class="hdlist1"><strong>Agentic Workforce Management</strong></dt>
-<dd>
-<p>Component responsible for coordinating and orchestrating complex AI workflows across multiple agents and organizational boundaries. Manages task distribution, workflow execution, and inter-agent communication.</p>
+<p>Platform layer containing the building blocks for AI agent orchestration: Agent Runtime, Agent Gateway, AI Gateway, Tool Gateway, Tool Servers, Guardrails, and Observability. Built on Kubernetes.</p>
 </dd>
 <dt class="hdlist1"><strong>Agentic Workforces</strong></dt>
 <dd>
-<p>Application-level implementations of AI agent systems designed for specific enterprise use cases, such as Insurance Claims Processing, Healthcare Operations, or Procurement workflows.</p>
+<p>Application-level implementations of AI agent systems for specific enterprise use cases, such as Insurance Claims Processing, Healthcare Operations, or Procurement workflows.</p>
+</dd>
+<dt class="hdlist1"><strong>AgenticWorkforce (CRD)</strong></dt>
+<dd>
+<p>Kubernetes custom resource that declares a named group of entry-point agents that collaborate to handle a workflow. The operator crawls each entry point&#8217;s sub-agent graph and records the transitive agents and tools in <code>status</code>.</p>
 </dd>
 <dt class="hdlist1"><strong>AI Gateway / Model Router</strong></dt>
 <dd>
-<p>Unified interface component that abstracts interactions with multiple Large Language Model (LLM) providers. Provides intelligent routing, failover capabilities, and consistent API interfaces across different AI service providers.</p>
+<p>Model facade and provider abstraction in front of Large Language Model providers. Routes LLM requests, manages credentials, and exposes telemetry. Defined by the <code>AiGateway</code> and <code>AiGatewayClass</code> CRDs.</p>
 </dd>
 <dt class="hdlist1"><strong>AI Guardrails</strong></dt>
 <dd>
-<p>Security and safety component that implements content filtering, safety checks, access controls, and policy enforcement for AI interactions to ensure compliant and secure operations.</p>
+<p>Content inspection and policy enforcement for traffic flowing through gateways. Defined by the <code>Guard</code> and <code>GuardrailProvider</code> CRDs. Two implementation modes are supported: an adapter mode that delegates enforcement to an external service, and a native mode where the gateway implementation enforces the policy directly.</p>
 </dd>
-<dt class="hdlist1"><strong>Audit Trail</strong></dt>
+<dt class="hdlist1"><strong>AiGateway / AiGatewayClass (CRDs)</strong></dt>
 <dd>
-<p>Comprehensive logging and tracking system that records all AI operations, decisions, and interactions for regulatory compliance, security monitoring, and operational transparency.</p>
+<p>The AI gateway resource (an instance) and its pluggable class (selects an implementation). Note the lowercase <code>i</code> — the Go type is <code>AiGateway</code>.</p>
+</dd>
+<dt class="hdlist1"><strong>Audit Trail (planned)</strong></dt>
+<dd>
+<p>Logging and tracking of AI operations, decisions, and interactions for regulatory compliance, security monitoring, and operational transparency.</p>
 </dd>
 </dl>
 </div>
@@ -343,7 +363,7 @@
 <dl>
 <dt class="hdlist1"><strong>BYOC (Bring Your Own Cloud)</strong></dt>
 <dd>
-<p>Deployment model that allows organizations to run the Agentic Layer components within their own cloud infrastructure, maintaining full control over data, security, and compliance requirements.</p>
+<p>Deployment model that lets organizations run the Agentic Layer within their own cloud infrastructure, retaining control over data, security, and compliance.</p>
 </dd>
 </dl>
 </div>
@@ -356,19 +376,23 @@
 <dl>
 <dt class="hdlist1"><strong>Cloud-Native Architecture</strong></dt>
 <dd>
-<p>Design approach leveraging cloud computing principles, including containerization, microservices, dynamic orchestration, and declarative APIs. Built specifically for cloud environments with Kubernetes as the foundation.</p>
+<p>Design approach based on containerization, microservices, dynamic orchestration, and declarative APIs. Built for cloud environments with Kubernetes as the foundation.</p>
 </dd>
-<dt class="hdlist1"><strong>Compliance Dashboard</strong></dt>
+<dt class="hdlist1"><strong>Compliance Dashboard (planned)</strong></dt>
 <dd>
-<p>Management interface providing real-time monitoring and reporting for regulatory compliance requirements including EU AI Act, GDPR, and industry-specific standards.</p>
+<p>Management interface for real-time monitoring and reporting against regulatory requirements such as the EU AI Act and GDPR.</p>
 </dd>
 <dt class="hdlist1"><strong>Connectors &amp; Tools</strong></dt>
 <dd>
-<p>Integration components that enable seamless connectivity between the Agentic Layer and external systems, databases, APIs, and third-party services.</p>
+<p>Integration components that connect the Agentic Layer to external systems, databases, APIs, and third-party services.</p>
 </dd>
 <dt class="hdlist1"><strong>Control Plane for Intelligent Workloads</strong></dt>
 <dd>
 <p>The Agentic Layer&#8217;s primary function as a management and orchestration system for AI-driven processes and autonomous agents within enterprise environments.</p>
+</dd>
+<dt class="hdlist1"><strong>CRD-class pattern</strong></dt>
+<dd>
+<p>The <code>*Class</code> pluggability mechanism shared by <code>AgentGatewayClass</code>, <code>AiGatewayClass</code>, <code>ToolGatewayClass</code>, and <code>GuardrailProvider</code>. The class CRD names an implementation; the instance CRD references a class. This lets the contract live in the Agent Runtime Operator while implementations live in separate operator repositories.</p>
 </dd>
 </dl>
 </div>
@@ -381,7 +405,24 @@
 <dl>
 <dt class="hdlist1"><strong>Data Sovereignty</strong></dt>
 <dd>
-<p>The concept of maintaining complete control and governance over data location, processing, and access within defined jurisdictional and organizational boundaries.</p>
+<p>Maintaining control and governance over data location, processing, and access within defined jurisdictional and organizational boundaries.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_g"><a class="anchor" href="#_g"></a>G</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Guard (CRD)</strong></dt>
+<dd>
+<p>Kubernetes custom resource that binds a guardrail policy to a target — a gateway, an agent, or a tool server.</p>
+</dd>
+<dt class="hdlist1"><strong>GuardrailProvider (CRD)</strong></dt>
+<dd>
+<p>Kubernetes custom resource that names the implementation enforcing a `Guard&#8217;s policy.</p>
 </dd>
 </dl>
 </div>
@@ -394,11 +435,11 @@
 <dl>
 <dt class="hdlist1"><strong>Kubernetes Platform</strong></dt>
 <dd>
-<p>The foundational infrastructure layer providing container orchestration, scaling, resource management, and service discovery for all Agentic Layer components.</p>
+<p>Infrastructure layer providing container orchestration, scaling, resource management, and service discovery for all Agentic Layer components.</p>
 </dd>
 <dt class="hdlist1"><strong>Kubernetes-Native</strong></dt>
 <dd>
-<p>Architecture and components designed specifically to leverage Kubernetes primitives, APIs, and operational patterns for deployment, scaling, and management.</p>
+<p>Architecture and components designed to use Kubernetes primitives, APIs, and operational patterns for deployment, scaling, and management.</p>
 </dd>
 </dl>
 </div>
@@ -411,7 +452,7 @@
 <dl>
 <dt class="hdlist1"><strong>LLM (Large Language Model)</strong></dt>
 <dd>
-<p>AI models trained on vast amounts of text data to understand and generate human-like text. Examples include GPT, Gemini, Claude, and other foundation models accessed through the AI Gateway.</p>
+<p>AI models trained on text to understand and generate human-like text. Examples include GPT, Gemini, and Claude, accessed through the AI Gateway.</p>
 </dd>
 </dl>
 </div>
@@ -422,9 +463,13 @@
 <div class="sectionbody">
 <div class="dlist">
 <dl>
+<dt class="hdlist1"><strong>MCP</strong></dt>
+<dd>
+<p>Model Context Protocol. Used between the Tool Gateway and Tool Servers, both internal and external.</p>
+</dd>
 <dt class="hdlist1"><strong>Multi-Framework Runtime</strong></dt>
 <dd>
-<p>Execution environment that supports agents built with different AI frameworks and technologies while providing consistent operational characteristics and management interfaces.</p>
+<p>Execution environment that supports agents built with different AI frameworks while providing consistent operational characteristics and management interfaces.</p>
 </dd>
 </dl>
 </div>
@@ -437,7 +482,11 @@
 <dl>
 <dt class="hdlist1"><strong>Observability Dashboard</strong></dt>
 <dd>
-<p>Operational interface providing comprehensive monitoring, metrics visualization, distributed tracing, and system health information for the entire Agentic Layer platform.</p>
+<p>Operational interface for monitoring, metrics, distributed tracing, and system health information across the Agentic Layer.</p>
+</dd>
+<dt class="hdlist1"><strong>OpenAI Chat Completion API</strong></dt>
+<dd>
+<p>Protocol used by External Frontends to reach the Agent Gateway.</p>
 </dd>
 </dl>
 </div>
@@ -450,7 +499,19 @@
 <dl>
 <dt class="hdlist1"><strong>Testbench</strong></dt>
 <dd>
-<p>Integrated testing framework providing automated validation, performance testing, and quality assurance capabilities for AI agents before production deployment.</p>
+<p>Agent validation and evaluation environment. Connects through the Agent Gateway like any other client.</p>
+</dd>
+<dt class="hdlist1"><strong>ToolGateway / ToolGatewayClass (CRDs)</strong></dt>
+<dd>
+<p>The tool gateway resource (an instance) and its pluggable class (selects an implementation). Together they define a Tool Gateway deployment.</p>
+</dd>
+<dt class="hdlist1"><strong>ToolRoute (CRD)</strong></dt>
+<dd>
+<p>Per-consumer routing for tool calls. Governs which tool servers a given consumer can reach through a Tool Gateway.</p>
+</dd>
+<dt class="hdlist1"><strong>ToolServer (CRD)</strong></dt>
+<dd>
+<p>Registers an MCP server — in-cluster or external — as a tool source.</p>
 </dd>
 </dl>
 </div>
@@ -463,7 +524,7 @@
 <dl>
 <dt class="hdlist1"><strong>Vendor Lock-in</strong></dt>
 <dd>
-<p>Dependency on a specific vendor&#8217;s proprietary technologies that makes switching to alternatives difficult or costly. The Agentic Layer&#8217;s open-source and agnostic design prevents vendor lock-in.</p>
+<p>Dependency on a specific vendor&#8217;s proprietary technologies that makes switching to alternatives difficult or costly. The Agentic Layer&#8217;s open-source and agnostic design is intended to prevent vendor lock-in.</p>
 </dd>
 </dl>
 </div>

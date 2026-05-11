@@ -288,27 +288,36 @@
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Agentic Layer architecture consists of the following building blocks that work together to provide AI orchestration capabilities:</p>
+<p>The Agentic Layer architecture is composed of the following top-level building blocks. Each block is a contract — usually one or more Custom Resource Definitions (CRDs) — that may have one or more implementations. The CRDs are defined by the Agent Runtime Operator; concrete implementations live in separate operator repositories.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Agent Runtime</strong>: The execution environment for AI agents, including the Agent Gateway for request routing and the Agent Runtime Operator for lifecycle management</p>
+<p><strong>Agent Runtime</strong> — hosts agents and manages their lifecycle. CRDs: <code>Agent</code>, <code>AgenticWorkforce</code>, <code>AgentRuntimeConfiguration</code>. The Agent Runtime Operator reconciles these resources, supporting both template-based agents (operator-managed images) and custom-image agents, on top of any framework that speaks the A2A protocol.</p>
 </li>
 <li>
-<p><strong>AI Gateway</strong>: The abstraction layer for LLM provider interactions, providing unified access, security, and intelligent routing</p>
+<p><strong>Agent Gateway</strong> — sits in front of the Agent Runtime. CRDs: <code>AgentGateway</code>, <code>AgentGatewayClass</code>. Translates external protocols (OpenAI Chat Completion API, A2A, AG-UI) into the internal A2A surface used by agents, and routes requests to the appropriate agent. Current implementation: KrakenD, via <code>agent-gateway-krakend-operator</code>.</p>
 </li>
 <li>
-<p><strong>Tool Gateway</strong>: The proxy layer for tool access, routing agent tool requests to internal and external tool servers via MCP</p>
+<p><strong>AI Gateway</strong> — model facade and provider abstraction. CRDs: <code>AiGateway</code>, <code>AiGatewayClass</code>. Routes LLM requests to providers, manages credentials, and exposes telemetry. Current implementation: LiteLLM, via <code>ai-gateway-litellm-operator</code>.</p>
 </li>
 <li>
-<p><strong>Observability</strong>: Real-time visualization and monitoring of agent interactions and system telemetry</p>
+<p><strong>Tool Gateway</strong> — MCP traffic facade. CRDs: <code>ToolGateway</code>, <code>ToolGatewayClass</code>, plus <code>ToolRoute</code> for per-consumer routing of tool calls. Current implementation: agentgateway, via <code>tool-gateway-agentgateway</code>.</p>
 </li>
 <li>
-<p><strong>Compliance / Audit</strong>: Audit records and compliance monitoring for governance requirements (planned)</p>
+<p><strong>Tool Servers</strong> — MCP-speaking servers that expose tool capabilities. CRD: <code>ToolServer</code>. Can be in-cluster Deployments managed by the Agent Runtime Operator, or external MCP servers registered as <code>ToolServer</code> resources.</p>
 </li>
 <li>
-<p><strong>Testbench</strong>: A testing and debugging environment for validating agent behavior</p>
+<p><strong>Guardrails</strong> — content inspection and policy enforcement for traffic flowing through gateways. CRDs: <code>Guard</code>, <code>GuardrailProvider</code>. The CRDs are the architectural contract; each gateway implementation chooses how to enforce them (either by delegating to an external adapter, or by configuring native gateway enforcement).</p>
+</li>
+<li>
+<p><strong>Observability</strong> — ingests traces, metrics, and logs from the other building blocks and surfaces them through the Observability Dashboard.</p>
+</li>
+<li>
+<p><strong>Testbench</strong> — agent validation and evaluation environment. Connects through the Agent Gateway like any other client.</p>
+</li>
+<li>
+<p><strong>Compliance / Audit</strong> — captures audit records for governance and regulatory requirements. Planned.</p>
 </li>
 </ul>
 </div>
@@ -322,37 +331,34 @@
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<a class="image" href="../_images/core-request-flow-5cd3cd0d51a269e0fbd06009450a8fc64888ed6a.svg" target="_blank" rel="noopener"><img src="../_images/core-request-flow-5cd3cd0d51a269e0fbd06009450a8fc64888ed6a.svg" alt="core-request-flow"></a>
+<a class="image" href="../_images/core-request-flow-73565000cb97392bee890931c41f6691e23e1f30.svg" target="_blank" rel="noopener"><img src="../_images/core-request-flow-73565000cb97392bee890931c41f6691e23e1f30.svg" alt="core-request-flow"></a>
 </div>
 </div>
 <div class="paragraph">
-<p>This flow demonstrates the request processing pipeline:</p>
+<p>The flow:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>External systems</strong> (Frontends, Agents, and Apps) send requests via protocol-specific entry points (OpenAI Chat Completion API, A2A, AG-UI)</p>
+<p>External systems (Frontends, Agents, Apps) send requests via protocol-specific entry points (OpenAI Chat Completion API, A2A, AG-UI).</p>
 </li>
 <li>
-<p><strong>Agent Gateway</strong> receives and routes requests to appropriate agents</p>
+<p>The <strong>Agent Gateway</strong> translates the incoming protocol into A2A and routes the request to the appropriate agent in the Agent Runtime.</p>
 </li>
 <li>
-<p><strong>AI Agents</strong> process business logic, make LLM requests, and invoke tools</p>
+<p><strong>Agents</strong> in the Agentic Workforce process the request, calling the AI Gateway for LLM access and the Tool Gateway for tool access.</p>
 </li>
 <li>
-<p><strong>AI Gateway</strong> handles LLM provider interactions with security and routing</p>
+<p>The <strong>AI Gateway</strong> routes LLM calls to the configured provider; the <strong>Tool Gateway</strong> uses <code>ToolRoute</code> resources to expose a per-consumer subset of the available <strong>Tool Servers</strong>.</p>
 </li>
 <li>
-<p><strong>Tool Gateway</strong> routes agent tool requests to internal tool servers and external tool servers via MCP</p>
+<p><strong>Guardrails</strong> are applied by each gateway according to the <code>Guard</code> resources attached to it; how the gateway enforces those policies is an implementation concern.</p>
 </li>
 <li>
-<p><strong>Observability</strong> collects telemetry and provides real-time visualization</p>
+<p><strong>Observability</strong> collects telemetry from every component; <strong>Compliance / Audit</strong> (planned) will consume it for governance reporting.</p>
 </li>
 <li>
-<p><strong>Testbench</strong> provides a testing environment that connects to the Agent Gateway</p>
-</li>
-<li>
-<p><strong>LLM Providers</strong> process AI requests and return results</p>
+<p>The <strong>Testbench</strong> connects through the Agent Gateway like any other client.</p>
 </li>
 </ol>
 </div>
@@ -362,20 +368,23 @@
 <h2 id="_agent_runtime"><a class="anchor" href="#_agent_runtime"></a>Agent Runtime</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Agent Runtime building block provides the execution environment and management infrastructure for AI agents within the Kubernetes cluster.</p>
+<p>The Agent Runtime building block provides the execution environment and management infrastructure for AI agents within the Kubernetes cluster. It is reconciled by the Agent Runtime Operator and groups three CRDs.</p>
 </div>
 <div class="sect2">
 <h3 id="_components"><a class="anchor" href="#_components"></a>Components</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Agent Runtime Operator</strong>: Kubernetes operator that manages agent lifecycles, configurations, and deployments</p>
+<p><strong>Agent Runtime Operator</strong> — Kubernetes operator that reconciles <code>Agent</code>, <code>AgenticWorkforce</code>, and <code>AgentRuntimeConfiguration</code> resources, and owns the gateway CRDs that other operators implement.</p>
 </li>
 <li>
-<p><strong>Agent Gateway</strong>: API gateway that routes incoming requests to agents and maps external APIs to internal agent interfaces</p>
+<p><strong>Agent (CRD)</strong> — declares a single agent workload. The operator creates a <code>Deployment</code> and <code>Service</code> per agent.</p>
 </li>
 <li>
-<p><strong>AI Agents</strong>: Individual agent instances that execute business logic and orchestrate AI operations</p>
+<p><strong>AgenticWorkforce (CRD)</strong> — declares a named group of entry-point agents. The operator crawls each entry point&#8217;s sub-agent graph and records all transitive agents and tools in <code>status</code>.</p>
+</li>
+<li>
+<p><strong>AgentRuntimeConfiguration (CRD)</strong> — namespace-scoped, operator-wide defaults (default framework, template images). One instance is allowed per operator namespace.</p>
 </li>
 </ul>
 </div>
@@ -384,62 +393,108 @@
 <h3 id="_agent_runtime_architecture"><a class="anchor" href="#_agent_runtime_architecture"></a>Agent Runtime Architecture</h3>
 <div class="imageblock kroki">
 <div class="content">
-<a class="image" href="../_images/agent-runtime-view-33a984d35f683ef9bbf07b9ff0a4bc8b672b91a4.svg" target="_blank" rel="noopener"><img src="../_images/agent-runtime-view-33a984d35f683ef9bbf07b9ff0a4bc8b672b91a4.svg" alt="agent-runtime-view"></a>
+<a class="image" href="../_images/agent-runtime-view-4b49ef05dfed3e024e5e90a4e85009af3183d07d.svg" target="_blank" rel="noopener"><img src="../_images/agent-runtime-view-4b49ef05dfed3e024e5e90a4e85009af3183d07d.svg" alt="agent-runtime-view"></a>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_agent_runtime_responsibilities"><a class="anchor" href="#_agent_runtime_responsibilities"></a>Agent Runtime Responsibilities</h3>
+<h3 id="_multi_framework_support"><a class="anchor" href="#_multi_framework_support"></a>Multi-framework support</h3>
 <div class="paragraph">
-<p><strong>Agent Runtime Operator</strong> serves as the control plane for agent management:</p>
+<p>The Agent Runtime is framework-pluggable. Two deployment styles are supported:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Registers and configures agents with the Agent Gateway</p>
+<p><strong>Template-based agents</strong> declare <code>spec.framework</code> (for example <code>google-adk</code> or <code>msaf</code>) and let the operator inject a framework-specific container image, system prompt, model, tool list, and sub-agent list via environment variables. Agents start as configuration, not as code.</p>
 </li>
 <li>
-<p>Manages agent lifecycles, scaling, and resource allocation</p>
-</li>
-<li>
-<p>Provides Kubernetes-native deployment and operational patterns</p>
+<p><strong>Custom-image agents</strong> set <code>spec.image</code> explicitly. The operator deploys the supplied image and skips template injection. The container is responsible for implementing the A2A protocol on its declared port.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Agent Gateway</strong> acts as the request entry point:</p>
+<p>Both styles produce workloads that speak A2A, which is what the rest of the platform — Agent Gateway, sub-agents, Testbench — assumes on the wire.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_responsibilities"><a class="anchor" href="#_responsibilities"></a>Responsibilities</h3>
+<div class="paragraph">
+<p><strong>Agent Runtime Operator</strong> is the control plane for agent workloads:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Routes requests to appropriate agents based on capabilities and load</p>
+<p>Reconciles <code>Agent</code> and <code>AgenticWorkforce</code> resources into Kubernetes <code>Deployments</code> and <code>Services</code>.</p>
 </li>
 <li>
-<p>Maps external APIs to internal agent interfaces via protocol-specific entry points (OpenAI Chat Completion API, A2A, AG-UI)</p>
+<p>Resolves cross-references (<code>subAgents</code>, <code>tools</code>, <code>aiGatewayRef</code>) and injects the resolved URLs into agent containers.</p>
 </li>
 <li>
-<p>Provides load balancing and health checking for agent instances</p>
+<p>Discovers transitive agents and tools in <code>AgenticWorkforce.status</code> so that other components (Testbench, dashboards) can inspect the workforce composition.</p>
+</li>
+<li>
+<p>Owns the CRDs (<code>AgentGateway</code>, <code>AiGateway</code>, <code>ToolGateway</code>, <code>ToolRoute</code>, <code>Guard</code>, <code>GuardrailProvider</code>) that other operators reconcile; ships them as a stable, versioned API.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Agentic Workforce</strong> groups the individual AI agent instances:</p>
+<p><strong>Agents</strong> are domain workloads:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Agents process domain-specific workflows and business rules</p>
+<p>Each agent runs as a Kubernetes <code>Deployment</code> and exposes A2A on a port declared in <code>spec.protocols</code>.</p>
 </li>
 <li>
-<p>Agents communicate with each other via the <strong>A2A (Agent-to-Agent)</strong> protocol for collaborative task execution</p>
+<p>Agents call the AI Gateway for LLM access and the Tool Gateway (or referenced Tool Servers / Tool Routes) for tool calls.</p>
 </li>
 <li>
-<p>Each agent orchestrates interactions with external systems and services</p>
-</li>
-<li>
-<p>Agents make intelligent decisions about when and how to use LLM capabilities and tools</p>
+<p>Agents communicate with each other via A2A; <code>subAgents</code> declare delegation targets either as in-cluster <code>Agent</code> references or remote agent-card URLs.</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent_gateway"><a class="anchor" href="#_agent_gateway"></a>Agent Gateway</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Agent Gateway building block is the protocol-translating entry point for external traffic into the Agent Runtime. It is a separate building block — it does not run inside the Agent Runtime and is not part of any agent workload.</p>
+</div>
+<div class="sect2">
+<h3 id="_crds"><a class="anchor" href="#_crds"></a>CRDs</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>AgentGateway</code> (namespace-scoped) — declares a desired gateway instance: replicas, timeout, attached guardrails.</p>
+</li>
+<li>
+<p><code>AgentGatewayClass</code> (cluster-scoped) — registers a named implementation controller. An <code>AgentGateway</code> selects its implementation via <code>spec.agentGatewayClassName</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_purpose"><a class="anchor" href="#_purpose"></a>Purpose</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Protocol translation</strong> — accepts requests on external surfaces (OpenAI Chat Completion API, A2A, AG-UI) and converts them to the internal A2A protocol that agents implement.</p>
+</li>
+<li>
+<p><strong>Routing</strong> — dispatches each request to the appropriate agent within an <code>AgenticWorkforce</code>.</p>
+</li>
+<li>
+<p><strong>Cross-cutting concerns</strong> — applies any <code>Guard</code> resources listed in <code>spec.guardrails</code>, providing a uniform place to enforce content policies on inbound traffic.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pluggability"><a class="anchor" href="#_pluggability"></a>Pluggability</h3>
+<div class="paragraph">
+<p>The <code>AgentGateway</code> / <code>AgentGatewayClass</code> pair mirrors the Kubernetes Gateway API. The CRDs are framework-agnostic; the underlying proxy is selected per resource. Current implementation: KrakenD, via <code>agent-gateway-krakend-operator</code>. Additional implementations can be added by registering a new <code>AgentGatewayClass</code> and deploying a controller that watches <code>AgentGateway</code> resources claiming that class.</p>
 </div>
 </div>
 </div>
@@ -448,84 +503,48 @@
 <h2 id="_ai_gateway"><a class="anchor" href="#_ai_gateway"></a>AI Gateway</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The AI Gateway building block abstracts interactions with multiple LLM providers, providing a unified interface with built-in security, monitoring, and intelligent routing capabilities.</p>
+<p>The AI Gateway building block is the model facade for the platform. It centralises LLM provider access so that agents call a stable cluster-local endpoint instead of carrying provider credentials and routing logic of their own.</p>
+</div>
+<div class="sect2">
+<h3 id="_crds_2"><a class="anchor" href="#_crds_2"></a>CRDs</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>AiGateway</code> (namespace-scoped) — declares the gateway instance: the list of available models (<code>spec.aiModels</code>), attached guardrails, port, environment.</p>
+</li>
+<li>
+<p><code>AiGatewayClass</code> (cluster-scoped) — selects the implementation operator for this gateway.</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_ai_gateway_architecture"><a class="anchor" href="#_ai_gateway_architecture"></a>AI Gateway Architecture</h3>
 <div class="imageblock kroki">
 <div class="content">
-<a class="image" href="../_images/ai-gateway-view-bae330fdc0bb547c391e40e9998745d9be92495d.svg" target="_blank" rel="noopener"><img src="../_images/ai-gateway-view-bae330fdc0bb547c391e40e9998745d9be92495d.svg" alt="ai-gateway-view"></a>
+<a class="image" href="../_images/ai-gateway-view-bf2ce82d6a6ce96b281ce53ccf2cfa93be744025.svg" target="_blank" rel="noopener"><img src="../_images/ai-gateway-view-bf2ce82d6a6ce96b281ce53ccf2cfa93be744025.svg" alt="ai-gateway-view"></a>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_ai_gateway_components_and_flow"><a class="anchor" href="#_ai_gateway_components_and_flow"></a>AI Gateway Components and Flow</h3>
+<h3 id="_components_2"><a class="anchor" href="#_components_2"></a>Components</h3>
 <div class="paragraph">
-<p>The AI Gateway processes requests through a secure, monitored pipeline:</p>
-</div>
-<div class="paragraph">
-<p><strong>Access Token Management</strong> handles authentication:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Manages API keys and authentication tokens for different LLM providers</p>
-</li>
-<li>
-<p>Provides secure credential storage and rotation capabilities</p>
-</li>
-<li>
-<p>Ensures proper authentication for all external AI service calls</p>
-</li>
-</ul>
+<p><strong>Access Token Management</strong> holds provider credentials in a single <code>Secret</code> and injects them at request time, so individual agent pods do not carry LLM provider keys.</p>
 </div>
 <div class="paragraph">
-<p><strong>AI Guardrails</strong> provides security and safety controls:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Content filtering and safety checks for both input and output</p>
-</li>
-<li>
-<p>Policy enforcement based on organizational security requirements</p>
-</li>
-<li>
-<p>Prevents malicious or inappropriate content from reaching LLM providers</p>
-</li>
-</ul>
+<p><strong>Metrics</strong> collects usage and performance data per model and per caller, and exports it to the Observability building block.</p>
 </div>
 <div class="paragraph">
-<p><strong>Metrics</strong> component enables comprehensive monitoring:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Collects usage statistics, performance metrics, and cost tracking</p>
-</li>
-<li>
-<p>Exports telemetry data to observability infrastructure</p>
-</li>
-<li>
-<p>Provides insights into AI usage patterns and provider performance</p>
-</li>
-</ul>
+<p><strong>Model Router</strong> dispatches each request to the appropriate provider based on the model name and the <code>spec.aiModels</code> list. It supports both cloud-hosted providers (OpenAI, Anthropic, Gemini, Azure) and locally deployed models reachable from the cluster.</p>
 </div>
 <div class="paragraph">
-<p><strong>Model Router</strong> manages intelligent LLM routing:</p>
+<p>Guardrails are not part of the AI Gateway building block itself — they are an independent contract attached via <code>spec.guardrails</code>. See the <strong>Guardrails</strong> subsection below for how a gateway implementation enforces them.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Routes requests to appropriate LLM providers based on capabilities, cost, and availability</p>
-</li>
-<li>
-<p>Provides failover and load balancing across multiple providers</p>
-</li>
-<li>
-<p>Supports cloud-based LLM providers as well as locally deployed language models</p>
-</li>
-</ul>
+</div>
+<div class="sect2">
+<h3 id="_implementation"><a class="anchor" href="#_implementation"></a>Implementation</h3>
+<div class="paragraph">
+<p>Current implementation: LiteLLM, via <code>ai-gateway-litellm-operator</code>. The operator reconciles <code>AiGateway</code> resources whose <code>spec.aiGatewayClassName</code> is <code>litellm</code>, deploys a LiteLLM proxy, and generates LiteLLM configuration from the declared model list. The same operator also reconciles <code>ToolGateway</code> resources.</p>
 </div>
 </div>
 </div>
@@ -534,49 +553,132 @@
 <h2 id="_tool_gateway"><a class="anchor" href="#_tool_gateway"></a>Tool Gateway</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Tool Gateway building block acts as a proxy layer that routes agent tool requests to internal and external tool servers via the <strong>MCP (Model Context Protocol)</strong>.</p>
+<p>The Tool Gateway building block is the MCP traffic facade. It gives agents a consistent endpoint for tool calls and is the place where per-consumer routing and centralised observability are applied to MCP traffic.</p>
+</div>
+<div class="sect2">
+<h3 id="_crds_3"><a class="anchor" href="#_crds_3"></a>CRDs</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ToolGateway</code> (namespace-scoped) — declares a gateway instance.</p>
+</li>
+<li>
+<p><code>ToolGatewayClass</code> (cluster-scoped) — selects the implementation operator.</p>
+</li>
+<li>
+<p><code>ToolRoute</code> (namespace-scoped) — declares a per-consumer route from a gateway to one upstream MCP server (cluster-local <code>ToolServer</code> or external URL). <code>spec.toolFilter</code> can restrict the exposed tool set via allow / deny globs. The CRD is owned by the Agent Runtime Operator; the route is reconciled by the tool-gateway implementation operator that owns the referenced gateway.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>ToolRoute</code> is what makes the same physical tool catalog appear differently to different consumers: an agent that needs only read-only tools can be routed via a <code>ToolRoute</code> whose <code>toolFilter</code> denies destructive operations, while another agent in the same cluster can use a different <code>ToolRoute</code> to the same underlying <code>ToolServer</code> with broader access.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_tool_gateway_architecture"><a class="anchor" href="#_tool_gateway_architecture"></a>Tool Gateway Architecture</h3>
 <div class="imageblock kroki">
 <div class="content">
-<a class="image" href="../_images/tool-gateway-view-91c308738c46afad58892cdcfaa77723548ca684.svg" target="_blank" rel="noopener"><img src="../_images/tool-gateway-view-91c308738c46afad58892cdcfaa77723548ca684.svg" alt="tool-gateway-view"></a>
+<a class="image" href="../_images/tool-gateway-view-429b96e19428c2166fa0f6d66ca7d4cb9480c97b.svg" target="_blank" rel="noopener"><img src="../_images/tool-gateway-view-429b96e19428c2166fa0f6d66ca7d4cb9480c97b.svg" alt="tool-gateway-view"></a>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_tool_gateway_responsibilities"><a class="anchor" href="#_tool_gateway_responsibilities"></a>Tool Gateway Responsibilities</h3>
-<div class="paragraph">
-<p><strong>Tool Router</strong> manages tool request routing:</p>
-</div>
+<h3 id="_responsibilities_2"><a class="anchor" href="#_responsibilities_2"></a>Responsibilities</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>Routes agent tool requests to the appropriate internal or external tool servers</p>
+<p><strong>Routing per ToolRoute</strong> — each <code>ToolRoute</code> resource produces one addressable URL (populated on <code>status.url</code>) that an <code>Agent</code> can reference via <code>spec.tools[].upstream.toolRouteRef</code>. The route can target either an in-cluster <code>ToolServer</code> or an external MCP URL.</p>
 </li>
 <li>
-<p>Provides a unified interface for agents to access diverse tool capabilities</p>
+<p><strong>Tool filtering</strong> — <code>spec.toolFilter</code> on a <code>ToolRoute</code> narrows the exposed tool set without changing the upstream server.</p>
 </li>
 <li>
-<p>Manages connections to tool servers via the MCP protocol</p>
+<p><strong>Cross-cutting concerns</strong> — <code>spec.guardrails</code> on the <code>ToolGateway</code> lets the platform attach <code>Guard</code> resources to all traffic flowing through the gateway.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_implementation_2"><a class="anchor" href="#_implementation_2"></a>Implementation</h3>
+<div class="paragraph">
+<p>Current implementation: agentgateway, via <code>tool-gateway-agentgateway</code>. The LiteLLM operator also bundles a <code>ToolGateway</code> implementation, so clusters that install it for LLM routing get tool-gateway support without an additional operator.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tool_servers"><a class="anchor" href="#_tool_servers"></a>Tool Servers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Tool Servers building block holds the actual MCP servers that provide tool capabilities. It is separate from the Tool Gateway, which only routes to them.</p>
+</div>
+<div class="sect2">
+<h3 id="_crd"><a class="anchor" href="#_crd"></a>CRD</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ToolServer</code> (namespace-scoped) — declares an MCP server. The operator creates a <code>Deployment</code> and <code>Service</code> per <code>ToolServer</code> and populates <code>status.url</code> with the cluster-local URL once the server is ready.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_internal_and_external_tool_servers"><a class="anchor" href="#_internal_and_external_tool_servers"></a>Internal and external tool servers</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Internal</strong> — an in-cluster <code>Deployment</code> reconciled by the Agent Runtime Operator from a <code>ToolServer</code> CR. The platform owns the workload, its image, replicas, and configuration.</p>
+</li>
+<li>
+<p><strong>External</strong> — an existing MCP server outside the cluster, exposed to agents either via a <code>ToolRoute</code> pointing at the external URL, or directly via an <code>Agent.spec.tools[].upstream.external</code> reference. Agents do not see the distinction at call time; both styles look the same on the wire.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Tool Servers</strong> provide capabilities that agents can invoke:</p>
+<p><code>ToolServer</code> complements <code>ToolRoute</code>: a <code>ToolServer</code> declares <strong>what an MCP server is and where it runs</strong>; a <code>ToolRoute</code> declares <strong>which consumers can see which subset of it through a given gateway</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_guardrails"><a class="anchor" href="#_guardrails"></a>Guardrails</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Guardrails building block is a content-inspection and policy-enforcement contract used by all three gateway CRDs. It is an independent building block, not a sub-component of any single gateway.</p>
+</div>
+<div class="sect2">
+<h3 id="_crds_4"><a class="anchor" href="#_crds_4"></a>CRDs</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GuardrailProvider</code> (namespace-scoped) — declares <strong>where</strong> a guardrail backend lives and how to reach it. Supported provider types: <code>presidio-api</code>, <code>openai-moderation-api</code>, <code>bedrock-api</code>.</p>
+</li>
+<li>
+<p><code>Guard</code> (namespace-scoped) — binds a provider to a concrete policy: <strong>when</strong> it runs (<code>pre_call</code>, <code>post_call</code>, <code>during_call</code>), which entities to check, what action to take (<code>MASK</code> or <code>BLOCK</code>), and at what confidence thresholds.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Every gateway CRD (<code>AgentGateway</code>, <code>AiGateway</code>, <code>ToolGateway</code>) exposes a uniform <code>spec.guardrails</code> field — an ordered list of <code>Guard</code> references. This is the architectural contract.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_implementation_modes"><a class="anchor" href="#_implementation_modes"></a>Implementation modes</h3>
+<div class="paragraph">
+<p>The contract leaves room for two implementation styles, both of which the platform supports today:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Internal tool servers run within the Kubernetes cluster and provide platform-managed tools</p>
+<p><strong>Adapter mode</strong> — the gateway implementation delegates inspection to an external adapter. For example, the agentgateway-based tool-gateway operator deploys a <code>guardrail-adapter</code> instance per attached <code>Guard</code> and wires it into the gateway via Envoy&#8217;s external processing mechanism. The adapter is the bridge between the <code>Guard</code> / <code>GuardrailProvider</code> contract and the guardrail backend.</p>
 </li>
 <li>
-<p>External tool servers run outside the platform and provide third-party tool integrations</p>
-</li>
-<li>
-<p>All tool servers communicate via the standardized MCP protocol</p>
+<p><strong>Native mode</strong> — the gateway implementation enforces the checks itself, and the gateway operator translates <code>Guard</code> and <code>GuardrailProvider</code> resources into the gateway&#8217;s native configuration format. For example, the LiteLLM-based AI gateway operator generates a LiteLLM <code>guardrails:</code> configuration block from the resolved CRs.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Which mode applies is a per-gateway concern documented on each gateway&#8217;s own explanation page. From the architecture&#8217;s point of view, both modes implement the same contract; agents, tool servers, and the platform never see the difference.</p>
 </div>
 </div>
 </div>
@@ -585,7 +687,7 @@
 <h2 id="_observability"><a class="anchor" href="#_observability"></a>Observability</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Observability building block provides real-time visualization and monitoring of agent interactions and system telemetry. It collects traces and metrics from all major components including the Agent Gateway, AI Gateway, and individual agents.</p>
+<p>The Observability building block ingests traces, metrics, and logs from the other building blocks and surfaces them through the Observability Dashboard. The Agent Gateway, AI Gateway, Tool Gateway, agents, and tool servers all export telemetry to it; the Compliance / Audit building block consumes data from it once available.</p>
 </div>
 </div>
 </div>
@@ -593,7 +695,7 @@
 <h2 id="_compliance_audit"><a class="anchor" href="#_compliance_audit"></a>Compliance / Audit</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Compliance / Audit building block provides audit records and compliance monitoring for governance requirements. It captures records of AI operations, decisions, and access patterns for regulatory compliance and security monitoring. This building block is planned.</p>
+<p>The Compliance / Audit building block captures audit records of AI operations, decisions, and access patterns for regulatory and governance requirements. It is planned and not yet implemented; the label matches the <strong>Compliance / Audit</strong> block in the platform overview diagram.</p>
 </div>
 </div>
 </div>
@@ -601,7 +703,7 @@
 <h2 id="_testbench"><a class="anchor" href="#_testbench"></a>Testbench</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Testbench building block provides a testing and debugging environment for validating agent behavior. It connects to the Agent Gateway to send test requests and leverages the Observability and Compliance / Audit components to verify agent interactions and outputs.</p>
+<p>The Testbench building block provides a validation and evaluation environment for agents and workforces. It connects through the Agent Gateway like any other client and leverages the Observability data to verify agent behaviour against expectations.</p>
 </div>
 </div>
 </div>

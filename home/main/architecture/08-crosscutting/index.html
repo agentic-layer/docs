@@ -288,12 +288,12 @@
 <h2 id="_capabilities_and_plugins_principle"><a class="anchor" href="#_capabilities_and_plugins_principle"></a>Capabilities and Plugins Principle</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Agentic Layer architecture embraces a fundamental design principle of <strong>capabilities and plugins</strong> that enables flexible switching of implementations for various system aspects. This approach promotes modularity, extensibility, and vendor independence across all major components.</p>
+<p>The Agentic Layer architecture follows a design principle of <strong>capabilities and plugins</strong> that allows implementations to be swapped for various system aspects. This approach supports modularity, extensibility, and vendor independence across major components.</p>
 </div>
 <div class="sect2">
 <h3 id="_core_principle"><a class="anchor" href="#_core_principle"></a>Core Principle</h3>
 <div class="paragraph">
-<p>The capabilities and plugins pattern allows the system to define stable interfaces while supporting multiple implementations. Each capability represents a well-defined set of functionality that can be fulfilled by different plugins, enabling runtime or deployment-time selection of the most appropriate implementation.</p>
+<p>The capabilities and plugins pattern lets the system define stable interfaces while supporting multiple implementations. Each capability represents a defined set of functionality that can be fulfilled by different plugins, enabling runtime or deployment-time selection of an implementation.</p>
 </div>
 <div class="imageblock kroki">
 <div class="content">
@@ -322,29 +322,29 @@
 <div class="sect2">
 <h3 id="_application_areas"><a class="anchor" href="#_application_areas"></a>Application Areas</h3>
 <div class="sect3">
-<h4 id="_exemplary_agent_gateway_implementations"><a class="anchor" href="#_exemplary_agent_gateway_implementations"></a>Exemplary Agent Gateway Implementations</h4>
+<h4 id="_capability_implementations_today"><a class="anchor" href="#_capability_implementations_today"></a>Capability Implementations Today</h4>
 <div class="paragraph">
-<p>The Agent or AI Gateway capability could support multiple reverse proxy and API gateway implementations:</p>
+<p>The Agentic Layer ships the following capability implementations:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Nginx</strong>: Traditional reverse proxy for high-performance routing</p>
+<p><strong>AgentGatewayClass</strong>: KrakenD, via the <code>agent-gateway-krakend-operator</code>.</p>
 </li>
 <li>
-<p><strong>Envoy</strong>: Modern service mesh proxy with advanced traffic management</p>
+<p><strong>AiGatewayClass</strong>: LiteLLM, via the <code>ai-gateway-litellm-operator</code>.</p>
 </li>
 <li>
-<p><strong>Kong</strong>: API gateway with rich plugin ecosystem</p>
+<p><strong>ToolGatewayClass</strong>: agentgateway, via the <code>tool-gateway-agentgateway</code> operator.</p>
 </li>
 <li>
-<p><strong>Istio Gateway</strong>: Kubernetes-native gateway with service mesh integration</p>
+<p><strong>GuardrailProvider</strong>: <code>guardrail-adapter</code>, the reference adapter for guardrail integrations.</p>
 </li>
 </ul>
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<a class="image" href="../_images/agent-gateway-plugins-08feddf4d0d8afd26ea2a7e8ed28b6649e38602a.svg" target="_blank" rel="noopener"><img src="../_images/agent-gateway-plugins-08feddf4d0d8afd26ea2a7e8ed28b6649e38602a.svg" alt="agent-gateway-plugins"></a>
+<a class="image" href="../_images/agent-gateway-plugins-6efeb4b6d010b534dce014d647685fbfe494a963.svg" target="_blank" rel="noopener"><img src="../_images/agent-gateway-plugins-6efeb4b6d010b534dce014d647685fbfe494a963.svg" alt="agent-gateway-plugins"></a>
 </div>
 </div>
 </div>
@@ -354,7 +354,10 @@
 <div class="sect3">
 <h4 id="_kubernetes_native_capabilities"><a class="anchor" href="#_kubernetes_native_capabilities"></a>Kubernetes-Native Capabilities</h4>
 <div class="paragraph">
-<p>The Agentic Layer leverages <strong>Kubernetes Custom Resource Definitions (CRDs)</strong> as the interface definition mechanism for capabilities. Each capability is defined as a CRD that establishes the contract and configuration schema.</p>
+<p>The Agentic Layer uses <strong>Kubernetes Custom Resource Definitions (CRDs)</strong> as the interface definition mechanism for capabilities. Each capability is defined as a CRD that establishes the contract and configuration schema.</p>
+</div>
+<div class="paragraph">
+<p>The <code>*Class</code> CRD pattern&#8201;&#8212;&#8201;<code>AgentGatewayClass</code>, <code>AiGatewayClass</code>, <code>ToolGatewayClass</code>, and the <code>GuardrailProvider</code> resource&#8201;&#8212;&#8201;is the concrete realization of the capability-plus-plugin principle on the cluster. Each <code>*Class</code> resource names an implementation; workload resources (<code>AgentGateway</code>, <code>AiGateway</code>, <code>ToolGateway</code>, <code>Guard</code>) reference a class to select that implementation. See <a href="../../../../agent-runtime-operator/agent-gateways/explanation.html" class="xref page">Agent Gateways</a>, <a href="../../../../agent-runtime-operator/ai-gateways/explanation.html" class="xref page">AI Gateways</a>, <a href="../../../../agent-runtime-operator/tool-gateways/explanation.html" class="xref page">Tool Gateways</a>, and <a href="../../../../agent-runtime-operator/guardrails/explanation.html" class="xref page">Guardrails</a> for the per-component CRD references.</p>
 </div>
 </div>
 <div class="sect3">
@@ -368,7 +371,7 @@
 <p><strong>Declarative Configuration</strong>: Plugin instances are declared through Kubernetes manifests</p>
 </li>
 <li>
-<p><strong>Kubernetes-Native Management</strong>: Leverage kubectl, operators, and existing K8s tooling</p>
+<p><strong>Kubernetes-Native Management</strong>: kubectl, operators, and existing K8s tooling apply</p>
 </li>
 <li>
 <p><strong>Version Control</strong>: Plugin configurations are stored as code alongside infrastructure definitions</p>
@@ -379,7 +382,7 @@
 <div class="sect3">
 <h4 id="_standard_transport_apis"><a class="anchor" href="#_standard_transport_apis"></a>Standard Transport APIs</h4>
 <div class="paragraph">
-<p>At the transport layer, the system uses <strong>standard APIs</strong> to ensure broad compatibility and interoperability.</p>
+<p>At the transport layer, the system uses <strong>standard APIs</strong> for compatibility and interoperability.</p>
 </div>
 </div>
 </div>

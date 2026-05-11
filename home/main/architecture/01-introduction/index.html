@@ -288,49 +288,52 @@
 <h2 id="_purpose_and_scope"><a class="anchor" href="#_purpose_and_scope"></a>Purpose and Scope</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Agentic Layer serves as a control plane for intelligent workloads, providing a suite of components that coordinate and orchestrate AI agents within enterprise environments. The system is architected as modular, reusable components built on a <strong>Kubernetes Platform</strong> foundation, enabling integration into existing enterprise infrastructure while maintaining operational sovereignty and compliance requirements.</p>
+<p>The Agentic Layer is a Kubernetes-based control plane that runs and coordinates AI agents inside an enterprise. It exposes the agents to external consumers through gateways, routes their traffic to LLM providers and tool servers, and provides cross-cutting governance and observability.</p>
 </div>
 <div class="paragraph">
-<p>The architecture is structured in multiple layers built on Kubernetes:</p>
+<p>The diagram below shows the top-level building blocks and how external consumers, agents, models, and tools connect through the layer:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Kubernetes Platform</strong>: The foundational infrastructure layer providing container orchestration, scaling, and resource management</p>
+<p>External Frontends, External Agents, and Apps reach the layer through the Agent Gateway, using protocol-specific entry points: the OpenAI Chat Completion API, A2A, and AG-UI respectively.</p>
 </li>
 <li>
-<p><strong>Agentic Layer</strong>: Core platform components including AI Gateway/Model Router, Agent Runtime Agent Orchestration, Tool Gateway, Agentic Workforce Management, AI Guardrails, Testbench, Audit Trail, and Compliance Dashboard</p>
+<p>Inside the layer, the Agent Runtime hosts Agentic Workforces — groups of agents that collaborate via A2A.</p>
 </li>
 <li>
-<p><strong>Agentic Workforces</strong>: Application-level agent implementations for specific use cases (e.g., Insurance Claims Processing, Healthcare Operations, Procurement)</p>
+<p>Agents reach LLM providers (for example OpenAI and Gemini, or a local LLM) through the AI Gateway, which acts as model facade and router.</p>
 </li>
 <li>
-<p><strong>Management Interface</strong>: Operational components including Agent Gateway, Agent Catalog, and Observability Dashboard for system administration</p>
+<p>Agents reach internal and external tool servers through the Tool Gateway over MCP.</p>
+</li>
+<li>
+<p>Guardrails enforce content filtering and safety policies on traffic through the gateways.</p>
+</li>
+<li>
+<p>Observability collects traces, metrics, and logs across the layer. Testbench drives the layer for validation. Compliance / Audit is planned.</p>
 </li>
 </ul>
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="../_images/agentic-layer-components.svg" alt="Agentic Layer Component Overview">
+<a class="image" href="../_images/architecture.svg" target="_blank" rel="noopener"><img src="../_images/architecture.svg" alt="Agentic Layer Architecture"></a>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_implementation_status"><a class="anchor" href="#_implementation_status"></a>Implementation Status</h3>
 <div class="paragraph">
-<p>In the architecture overview diagram above:</p>
+<p>The diagram marks blocks that are not yet implemented with the literal label <strong>Planned</strong>. As of today, this label applies to:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Green boxes</strong> represent existing components, implemented in an initial version</p>
-</li>
-<li>
-<p><strong>Yellow boxes</strong> represent planned components that are not yet implemented</p>
+<p>Compliance / Audit</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>This color coding provides visibility into the current development status and planned roadmap for the Agentic Layer platform.</p>
+<p>All other blocks shown in the diagram exist in an initial version.</p>
 </div>
 </div>
 </div>
@@ -338,193 +341,74 @@
 <div class="sect1">
 <h2 id="_key_advantages"><a class="anchor" href="#_key_advantages"></a>Key Advantages</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The Agentic Layer provides several architectural advantages for enterprise AI deployments:</p>
-</div>
-<div class="sect2">
-<h3 id="_data_sovereignty_and_infrastructure_control"><a class="anchor" href="#_data_sovereignty_and_infrastructure_control"></a>Data Sovereignty and Infrastructure Control</h3>
-<div class="paragraph">
-<p><strong>Operational Independence and Regulatory Compliance</strong></p>
-</div>
-<div class="paragraph">
-<p>The system enables complete sovereignty over data, models, and infrastructure through support for both cloud and on-premise deployments. This design ensures sensitive data and AI processing remain within defined infrastructure boundaries while meeting data residency and regulatory requirements across multiple jurisdictions.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_orchestrated_workflow_integration"><a class="anchor" href="#_orchestrated_workflow_integration"></a>Orchestrated Workflow Integration</h3>
-<div class="paragraph">
-<p><strong>Enterprise-Scale Process Coordination</strong></p>
-</div>
-<div class="paragraph">
-<p>The architecture transforms isolated AI agent invocations into coordinated, enterprise-wide processes. The platform handles distribution, control, and monitoring of agent workforces, enabling complex AI workflow orchestration across organizational boundaries.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_technology_agnosticism_and_open_standards"><a class="anchor" href="#_technology_agnosticism_and_open_standards"></a>Technology Agnosticism and Open Standards</h3>
-<div class="paragraph">
-<p><strong>Vendor Independence and Architectural Flexibility</strong></p>
-</div>
-<div class="paragraph">
-<p>Built on open-source principles and agnostic design patterns, the system prevents vendor lock-in while providing transparency into system operations. The architecture supports free choice of cloud providers, AI models, and integration tools, ensuring adaptability to evolving technology landscapes.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_regulatory_compliance_and_governance"><a class="anchor" href="#_regulatory_compliance_and_governance"></a>Regulatory Compliance and Governance</h3>
-<div class="paragraph">
-<p><strong>Built-in Audit and Security Framework</strong></p>
-</div>
-<div class="paragraph">
-<p>The system incorporates comprehensive governance, transparency, and audit capabilities from the architectural foundation. Built-in compliance with regulations including EU AI Act and GDPR through comprehensive logging, security controls with integrated guardrails, and adherence to industry security standards.</p>
-</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Data sovereignty: deployable on-premise or as bring-your-own-cloud, keeping data and models inside defined infrastructure boundaries.</p>
+</li>
+<li>
+<p>Workflow orchestration: coordinates multiple agents and tools into end-to-end processes rather than isolated calls.</p>
+</li>
+<li>
+<p>Open standards: built on A2A, MCP, OpenTelemetry, and Kubernetes, which reduces vendor lock-in.</p>
+</li>
+<li>
+<p>Governance and audit hooks: provides the integration points needed for regulatory frameworks such as the EU AI Act and GDPR.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_technical_features_properties"><a class="anchor" href="#_technical_features_properties"></a>Technical Features &amp; Properties</h2>
+<h2 id="_pluggable_gateway_implementations"><a class="anchor" href="#_pluggable_gateway_implementations"></a>Pluggable Gateway Implementations</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The system architecture incorporates the following technical characteristics to support enterprise-grade AI operations:</p>
-</div>
-<div class="sect2">
-<h3 id="_kubernetes_native_deployment_flexibility"><a class="anchor" href="#_kubernetes_native_deployment_flexibility"></a>Kubernetes-Native Deployment Flexibility</h3>
-<div class="paragraph">
-<p><strong>Cloud-Native Architecture with BYOC and On-Premise Support</strong></p>
+<p>The Agentic Layer keeps its gateway capabilities — Agent Gateway, AI Gateway, Tool Gateway, and Guardrails — interchangeable on purpose. Each capability is split into two CRDs: an instance CRD that describes a deployed gateway (<code>AgentGateway</code>, <code>AiGateway</code>, <code>ToolGateway</code>, <code>Guard</code>) and a class CRD that names the implementation behind it (<code>AgentGatewayClass</code>, <code>AiGatewayClass</code>, <code>ToolGatewayClass</code>, <code>GuardrailProvider</code>).</p>
 </div>
 <div class="paragraph">
-<p>Built as a Kubernetes-native platform, the architecture supports flexible deployment models including public cloud, private cloud, and on-premise environments. The Kubernetes foundation provides container orchestration, scaling, and resource management while enabling organizations to maintain infrastructure control and meet data residency and regulatory compliance requirements.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_centralized_governance_framework"><a class="anchor" href="#_centralized_governance_framework"></a>Centralized Governance Framework</h3>
-<div class="paragraph">
-<p><strong>Agent Catalog and Lifecycle Management</strong></p>
+<p>Switching implementations is a class change, not a code change: the operator reconciles each gateway against the implementation its class points at. The same <code>AgentGateway</code> resource can run against a different implementation without touching the agents behind it, and new implementations can be contributed against the stable class contract.</p>
 </div>
 <div class="paragraph">
-<p>A comprehensive governance framework provides centralized agent catalog functionality for discovery, versioning, and lifecycle management. This enables organizational visibility and control across the entire agent ecosystem with standardized management interfaces.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_model_abstraction_layer"><a class="anchor" href="#_model_abstraction_layer"></a>Model Abstraction Layer</h3>
-<div class="paragraph">
-<p><strong>LLM Provider Independence</strong></p>
-</div>
-<div class="paragraph">
-<p>An agnostic model router abstracts differences between Large Language Model providers, providing intelligent routing and failover capabilities. This design enables seamless provider switching while maintaining consistent interfaces and operational behavior.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_observability_and_audit_infrastructure"><a class="anchor" href="#_observability_and_audit_infrastructure"></a>Observability and Audit Infrastructure</h3>
-<div class="paragraph">
-<p><strong>Comprehensive Monitoring and Compliance Logging</strong></p>
-</div>
-<div class="paragraph">
-<p>Built-in observability infrastructure provides comprehensive metrics collection, distributed tracing, and audit logging capabilities. This supports both operational monitoring requirements and regulatory compliance through complete audit trail maintenance.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_multi_framework_runtime_support"><a class="anchor" href="#_multi_framework_runtime_support"></a>Multi-Framework Runtime Support</h3>
-<div class="paragraph">
-<p><strong>Heterogeneous Agent Execution Environment</strong></p>
-</div>
-<div class="paragraph">
-<p>The runtime environment supports multiple agent frameworks and execution patterns within a unified operational model. This enables deployment of agents built with different frameworks while maintaining consistent operational characteristics and management interfaces.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_integrated_testing_framework"><a class="anchor" href="#_integrated_testing_framework"></a>Integrated Testing Framework</h3>
-<div class="paragraph">
-<p><strong>Agent Validation and Quality Assurance</strong></p>
-</div>
-<div class="paragraph">
-<p>A comprehensive testing framework provides agent validation, performance testing, and quality assurance capabilities. This ensures agent reliability and performance characteristics before production deployment through automated testing pipelines.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_standards_based_architecture"><a class="anchor" href="#_standards_based_architecture"></a>Standards-Based Architecture</h3>
-<div class="paragraph">
-<p><strong>Interoperability and Forward Compatibility</strong></p>
-</div>
-<div class="paragraph">
-<p>The architecture is built on open standards and protocols to ensure long-term interoperability and prevent vendor lock-in. This standards-based approach maintains architectural flexibility as AI technologies evolve.</p>
-</div>
+<p>For the general capability-and-plugin model see <a href="../08-crosscutting/index.html" class="xref page">Cross-cutting Concepts</a>; for the CRDs and how the operator reconciles them see <a href="../../../../agent-runtime-operator/agent-runtime/explanation.html" class="xref page">Agent Runtime Operator</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_requirements_overview"><a class="anchor" href="#_requirements_overview"></a>Requirements Overview</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_agent_management_and_orchestration"><a class="anchor" href="#_agent_management_and_orchestration"></a>Agent Management and Orchestration</h3>
+<div class="paragraph">
+<p>The Agentic Layer is composed of a small set of top-level building blocks, each backed by one or more Kubernetes Custom Resource Definitions. See <a href="../05-building-blocks/index.html" class="xref page">Building Blocks</a> for the detailed view.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Agent Runtime / Agent Orchestration</strong>: Kubernetes-native execution of agents with automated scaling and resource management</p>
+<p><strong>Agent Runtime</strong> — runs individual agents and groups of agents. CRDs: <code>Agent</code>, <code>AgenticWorkforce</code>.</p>
 </li>
 <li>
-<p><strong>Agent Catalog</strong>: Centralized discovery, versioning, and lifecycle management of agent instances</p>
+<p><strong>Agent Gateway</strong> — north-south entry point for external frontends, agents, and apps. CRDs: <code>AgentGateway</code>, <code>AgentGatewayClass</code>.</p>
 </li>
 <li>
-<p><strong>Agentic Workforce Management</strong>: Coordinate complex AI workflows across organizational boundaries</p>
+<p><strong>AI Gateway</strong> — model facade and router in front of LLM providers. CRDs: <code>AiGateway</code>, <code>AiGatewayClass</code>.</p>
 </li>
 <li>
-<p><strong>Agent Gateway</strong>: Handle routing and load distribution for concurrent agent requests</p>
+<p><strong>Tool Gateway</strong> — egress to tool servers over MCP. CRDs: <code>ToolGateway</code>, <code>ToolGatewayClass</code>, <code>ToolRoute</code>.</p>
+</li>
+<li>
+<p><strong>Tool Servers</strong> — internal and external MCP servers exposing tools to agents. CRD: <code>ToolServer</code>.</p>
+</li>
+<li>
+<p><strong>Guardrails</strong> — content filtering and safety policy enforcement on gateway traffic. CRDs: <code>Guard</code>, <code>GuardrailProvider</code>.</p>
+</li>
+<li>
+<p><strong>Observability</strong> — traces, metrics, and logs across the layer.</p>
+</li>
+<li>
+<p><strong>Testbench</strong> — drives the layer for validation and regression.</p>
+</li>
+<li>
+<p><strong>Compliance / Audit</strong> — planned.</p>
 </li>
 </ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_model_and_provider_integration"><a class="anchor" href="#_model_and_provider_integration"></a>Model and Provider Integration</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>AI Gateway / Model Router</strong>: Unified interface with intelligent routing across multiple LLM providers</p>
-</li>
-<li>
-<p><strong>Tool Gateway</strong>: Seamless integration with external systems and AI service providers</p>
-</li>
-<li>
-<p><strong>Provider Agnostic Operations</strong>: Abstract differences between AI service providers while maintaining operational consistency</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_governance_and_compliance"><a class="anchor" href="#_governance_and_compliance"></a>Governance and Compliance</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Audit Trail</strong>: Generate complete audit trails for regulatory compliance and operational monitoring</p>
-</li>
-<li>
-<p><strong>AI Guardrails</strong>: Integrated content filtering, safety checks, and access management systems</p>
-</li>
-<li>
-<p><strong>Compliance Dashboard</strong>: Built-in monitoring for EU AI Act, GDPR, and industry-specific standards</p>
-</li>
-<li>
-<p><strong>Testbench</strong>: Agent validation, performance testing, and reliability verification capabilities</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_deployment_and_operations"><a class="anchor" href="#_deployment_and_operations"></a>Deployment and Operations</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Kubernetes-Native Deployment</strong>: Cloud-native support for BYOC, public cloud, private cloud, and on-premise environments</p>
-</li>
-<li>
-<p><strong>Observability Dashboard</strong>: Comprehensive metrics collection, distributed tracing, and operational monitoring</p>
-</li>
-<li>
-<p><strong>Dynamic Configuration</strong>: Environment-specific configuration management with Kubernetes-native runtime updates</p>
-</li>
-<li>
-<p><strong>Standards-Based Integration</strong>: Open standards and protocols for enterprise system interoperability</p>
-</li>
-</ul>
-</div>
 </div>
 </div>
 </div>
