@@ -2,11 +2,11 @@
 
 == Business Context
 
-The Agentic Layer operates within a broader enterprise ecosystem, serving as a control plane that coordinates AI agents and manages their interactions with external systems. The system is designed to integrate into existing enterprise infrastructure rather than to replace it, providing AI orchestration capabilities while maintaining organizational sovereignty over data and operations.
+The Agentic Layer operates within a broader enterprise ecosystem as a control plane that coordinates AI agents and their interactions with external systems. It is designed to integrate into existing enterprise infrastructure rather than replace it, providing AI orchestration while keeping organizational control over data and operations.
 
 === System Boundary
 
-The Agentic Layer Platform Boundary defines the scope of components under direct control of the AI orchestration system. This includes all Kubernetes-native components for agent management, AI gateway services, governance tools, and operational interfaces. External systems maintain their independence while benefiting from standardized AI integration patterns.
+The Agentic Layer Platform Boundary defines the scope of components under direct control of the orchestration system. This includes the Kubernetes-native components for agent management, AI gateway services, governance tools, and operational interfaces. External systems remain independent and integrate through standardized protocols.
 
 == System Context Overview
 
@@ -37,45 +37,45 @@ LAYOUT_WITH_LEGEND()
 == External Actors and Systems
 
 === External Frontends
-**Web, mobile, and other user interfaces** that provide user-facing applications leveraging AI capabilities. These frontends connect to the Agentic Layer via the **OpenAI Chat Completion API** to access coordinated AI services while maintaining their own user experience and business logic.
+Web, mobile, and other user-facing interfaces that connect to the Agentic Layer via the OpenAI Chat Completion API. They retain their own user experience and business logic and use the platform for AI interactions.
 
 === External Agents
-**AI agents running outside the platform** that need to integrate with or leverage the centralized AI orchestration capabilities. These agents connect to the Agentic Layer via the **A2A (Agent-to-Agent)** protocol, enabling standardized inter-agent communication. They may include existing AI systems, specialized agents, or third-party AI services that benefit from the governance and routing provided by the Agentic Layer.
+AI agents running outside the platform that integrate with the Agentic Layer over the A2A (Agent-to-Agent) protocol. These can be existing AI systems, specialized agents, or third-party services that interact with platform-managed agents through a standardized protocol.
 
 === Apps
-**Applications** that leverage AI capabilities through the **AG-UI** protocol. This protocol provides a standardized interface for applications to interact with AI agents and services managed by the Agentic Layer.
+Applications that interact with the Agentic Layer via the AG-UI protocol. AG-UI provides a standardized interface for applications to communicate with agents and services managed by the Agentic Layer.
 
 === External Tool Servers
-**External tools and services** that AI agents can access through the **MCP (Model Context Protocol)**. These tool servers provide capabilities such as database access, file operations, API integrations, and other services that agents can invoke during task execution. The Agentic Layer's Tool Gateway manages these connections.
+Tools and services exposed to agents through the MCP (Model Context Protocol). Examples include database access, file operations, and API integrations. The Agentic Layer's Tool Gateway brokers these connections.
 
 === LLM Providers
-**External Large Language Model providers** such as OpenAI, Google Gemini, Anthropic Claude, and other AI service providers. The Agentic Layer abstracts differences between these providers through the AI Gateway component. Additionally, locally deployed language models can be used as an alternative to cloud-based providers.
+External Large Language Model providers such as OpenAI, Google Gemini, and Anthropic Claude. The AI Gateway component routes requests to these providers. Locally deployed language models can be used as an alternative to cloud-based providers.
 
 === Observability Stack
-**External monitoring and logging infrastructure** that receives telemetry data from the Agentic Layer. This typically includes enterprise monitoring solutions, log aggregation systems, and performance monitoring tools.
+External monitoring and logging infrastructure that receives telemetry from the Agentic Layer. Typical targets include enterprise monitoring solutions, log aggregation systems, and performance monitoring tools.
 
 == System Interactions
 
 === External System Connectivity
 External systems interact with the Agentic Layer through protocol-specific entry points:
 
-- **Via OpenAI Chat Completion API**: External Frontends send requests using the widely adopted OpenAI Chat Completion API standard
-- **Via A2A**: External Agents communicate using the Agent-to-Agent protocol for standardized agent interoperability
-- **Via AG-UI**: Apps connect through the AG-UI protocol for application-level AI integration
-- **Via MCP**: The Agentic Layer connects to External Tool Servers via the Model Context Protocol for tool access
+- Via OpenAI Chat Completion API: External Frontends send requests using the OpenAI Chat Completion API
+- Via A2A: External Agents communicate over the Agent-to-Agent protocol
+- Via AG-UI: Apps connect over the AG-UI protocol
+- Via MCP: The Agentic Layer reaches External Tool Servers through the Model Context Protocol
 
 === AI Service Integration
-The **Agentic Layer orchestrates AI interactions** by:
+The Agentic Layer mediates interactions with LLM providers through the AI Gateway, which:
 
-- Sending prompts and receiving results from LLM providers through the AI Gateway
-- Providing unified access to multiple AI service providers with intelligent routing and failover
-- Supporting both cloud-based and locally deployed language models
-- Managing authentication, rate limiting, and usage tracking across providers
+- Routes requests from agents to one or more LLM providers
+- Handles provider authentication and credential management
+- Supports both cloud-based and locally deployed language models
+- Collects usage telemetry for the requests it handles
 
 == Technical Context
 
-The Agentic Layer serves as an **integration hub** rather than a data repository. It orchestrates interactions between various systems while maintaining clear separation of concerns:
+The Agentic Layer acts as an integration hub rather than a data store. It orchestrates interactions between systems while maintaining a clear separation of concerns:
 
-- **Stateless Operations**: The platform focuses on coordination and routing rather than data storage
-- **API-First Integration**: All interactions occur through well-defined APIs and standard protocols (A2A, MCP, AG-UI, OpenAI Chat Completion API)
-- **Kubernetes-Native Deployment**: All components leverage Kubernetes primitives for scaling, service discovery, and operational management
+- Stateless coordination: the platform focuses on coordination and routing rather than data storage
+- API-first integration: all interactions occur through defined APIs and standard protocols (A2A, MCP, AG-UI, OpenAI Chat Completion API)
+- Kubernetes-native deployment: components run as Kubernetes workloads and use Kubernetes primitives for scaling, service discovery, and operations
