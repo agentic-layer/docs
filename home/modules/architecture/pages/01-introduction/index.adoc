@@ -11,7 +11,7 @@ The diagram below shows the top-level building blocks and how external consumers
 * Agents reach LLM providers (for example OpenAI and Gemini, or a local LLM) through the AI Gateway, which acts as model facade and router.
 * Agents reach internal and external tool servers through the Tool Gateway over MCP.
 * Guardrails enforce content filtering and safety policies on traffic through the gateways.
-* Observability collects traces, metrics, and logs across the layer. Testbench drives the layer for validation. Audit / Compliance is planned.
+* Observability collects traces, metrics, and logs across the layer. Testbench drives the layer for validation. Compliance / Audit is planned.
 
 image::architecture.svg[Agentic Layer Architecture,align=center,link=self,window=_blank]
 
@@ -19,7 +19,7 @@ image::architecture.svg[Agentic Layer Architecture,align=center,link=self,window
 
 The diagram marks blocks that are not yet implemented with the literal label *Planned*. As of today, this label applies to:
 
-* Audit / Compliance
+* Compliance / Audit
 
 All other blocks shown in the diagram exist in an initial version.
 
@@ -42,4 +42,4 @@ The Agentic Layer is composed of a small set of top-level building blocks, each 
 * *Guardrails* — content filtering and safety policy enforcement on gateway traffic. CRDs: `Guard`, `GuardrailProvider`.
 * *Observability* — traces, metrics, and logs across the layer.
 * *Testbench* — drives the layer for validation and regression.
-* *Audit / Compliance* — planned.
+* *Compliance / Audit* — planned.
