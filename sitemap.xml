@@ -10,7 +10,13 @@
 <loc>https://docs.agentic-layer.ai/sitemap-ai-gateway-litellm-operator.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://docs.agentic-layer.ai/sitemap-guardrail-adapter.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://docs.agentic-layer.ai/sitemap-home.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://docs.agentic-layer.ai/sitemap-observability-dashboard.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://docs.agentic-layer.ai/sitemap-showcase-news.xml</loc>

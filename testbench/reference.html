@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Testbench Reference :: Agentic Layer</title>
+    <link rel="canonical" href="https://docs.agentic-layer.ai/testbench/reference.html">
+    <meta name="generator" content="Antora 3.1.14">
+    <link rel="stylesheet" href="../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.agentic-layer.ai">Agentic Layer</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="testbench" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../home/main/index.html">Agentic Layer</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../showcase-news/index.html">Agentic AI News Showcase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../home/main/how-to-guides/install-the-layer.html">Install the Agentic Layer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/how-to-guides/install.html">Install the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/how-to-guides/configure.html">Configure the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateway-krakend-operator/how-to-guides/install.html">Install the Agent Gateway KrakenD Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateway-litellm-operator/how-to-guides/install.html">Install the LiteLLM Gateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateway-agentgateway/how-to-guides/install.html">Install the Tool Gateway agentgateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/create-template-agent.html">Deploy a Template-Based Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/create-custom-image-agent.html">Deploy a Custom-Image Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/propagate-headers.html">Propagate Headers to Tool Servers</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/delegate-to-subagent.html">Delegate to a Sub-Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/create-workforce.html">Create an Agentic Workforce</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/ai-gateways/how-to-guide.html">Create an AI Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-servers/how-to-guide.html">Deploy a ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-routes/how-to-guide.html">Define a ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-gateways/how-to-guide.html">Create a Tool Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/guardrails/how-to-guide.html">Create and Use Guardrails in Gateways</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrail-adapter/how-to-guide.html">Deploy the Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../observability-dashboard/how-to-guide.html">Deploy and View the Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-to-guides/install.html">Install the Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-to-guides/first-workflow.html">Create Your First TestWorkflow</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/reference.html">AgentRuntimeConfiguration Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/reference.html">Agent and AgenticWorkforce Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-servers/reference.html">ToolServer Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-routes/reference.html">ToolRoute Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-gateways/reference.html">AgentGateway and AgentGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateway-krakend-operator/reference.html">Agent Gateway KrakenD Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/ai-gateways/reference.html">AiGateway and AiGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateway-litellm-operator/reference.html">LiteLLM Gateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-gateways/reference.html">ToolGateway and ToolGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/guardrails/reference.html">Guardrails Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateway-agentgateway/reference.html">Tool Gateway agentgateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrail-adapter/reference.html">Guardrail Adapter Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../observability-dashboard/reference.html">Observability Dashboard Reference</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="reference.html">Testbench Reference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanation</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../home/main/explanation/diataxis.html">How This Site Is Organized</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/explanation.html">The Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/explanation.html">Agents and Workforces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-servers/explanation.html">ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-routes/explanation.html">ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-gateways/explanation.html">AgentGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateway-krakend-operator/explanation.html">KrakenD as the Agent Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/ai-gateways/explanation.html">AiGateway and the AI Model Routing Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateway-litellm-operator/explanation.html">LiteLLM as the AI Gateway and Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-gateways/explanation.html">ToolGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/guardrails/explanation.html">Guardrails: Guard and GuardrailProvider</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateway-agentgateway/explanation.html">agentgateway as the Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrail-adapter/explanation.html">The Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../observability-dashboard/explanation.html">The Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../home/main/architecture/index.html">Agentic Layer Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/01-introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/03-context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/05-building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/08-crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/12-glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="explanation.html">What is Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="architecture/index.html">Testbench Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="architecture/introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="architecture/context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="architecture/building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="architecture/deployment-view/index.html">Deployment View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="architecture/crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="architecture/glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Testbench</a></li>
+    <li><a href="reference.html">Testbench Reference</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/testbench/edit/main/docs/modules/ROOT/pages/reference.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Testbench Reference</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This reference covers the Helm chart values and the five <code>TestWorkflowTemplate</code> CRDs that the chart installs into the <code>testkube</code> namespace.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_helm_chart_values"><a class="anchor" href="#_helm_chart_values"></a>Helm chart values</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>namespace.create</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When <code>true</code>, the chart creates the target namespace if it does not exist.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>namespace.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testkube</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace into which the chart resources are deployed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.repository</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ghcr.io/agentic-layer/testbench/testworkflows</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Container image used by all pipeline phase containers.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.tag</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>""</code> (chart <code>appVersion</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image tag override. Empty string uses the chart&#8217;s <code>appVersion</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.pullPolicy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>IfNotPresent</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes image pull policy.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grafana.dashboardConfigMapName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grafana-testkube-dashboard</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the ConfigMap containing the Grafana dashboard JSON.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grafana.dashboardNamespace</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>monitoring</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace where the Grafana dashboard ConfigMap is created. Must be watched by your Grafana sidecar.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_testworkflowtemplates"><a class="anchor" href="#_testworkflowtemplates"></a>TestWorkflowTemplates</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The chart installs five <code>TestWorkflowTemplate</code> CRDs. Workflows reference them via the <code>use</code> list. All templates share a common <code>/app/data</code> volume provided by the calling <code>TestWorkflow</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_setup_template"><a class="anchor" href="#_setup_template"></a>setup-template</h3>
+<div class="paragraph">
+<p>Downloads a dataset from an S3-compatible store and writes it to the shared volume as an Experiment JSON file.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 14.2857%;">
+<col style="width: 57.1429%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Config parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bucket</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3/MinIO bucket name containing the dataset.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>key</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3/MinIO object key (path to dataset file). Supported formats: <code>.csv</code>, <code>.json</code>, <code>.parquet</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Input</strong>: S3/MinIO object referenced by <code>bucket</code> / <code>key</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong>: <code>data/datasets/experiment.json</code> — an <code>Experiment</code> model serialized as JSON.</p>
+</div>
+<div class="paragraph">
+<p><strong>Use this template</strong> when your dataset lives in object storage. For ConfigMap-based datasets, omit this template and mount the file directly via <code>spec.content.files</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_run_template"><a class="anchor" href="#_run_template"></a>run-template</h3>
+<div class="paragraph">
+<p>Sends every step in the experiment to the target agent via the A2A protocol and records responses.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 14.2857%;">
+<col style="width: 57.1429%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Config parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>agentUrl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP URL of the agent&#8217;s A2A endpoint (e.g. <code>http://weather-agent.sample-agents:8000</code>).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Input</strong>: <code>data/datasets/experiment.json</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong>: <code>data/experiments/executed_experiment.json</code> — an <code>ExecutedExperiment</code> model.</p>
+</div>
+<div class="paragraph">
+<p><strong>Implicit inputs</strong>: <code>workflow.name</code> (injected automatically by Testkube).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_evaluate_template"><a class="anchor" href="#_evaluate_template"></a>evaluate-template</h3>
+<div class="paragraph">
+<p>Scores agent responses using LLM-as-a-judge metrics via the configured metrics framework (RAGAS by default).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 14.2857%;">
+<col style="width: 57.1429%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Config parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openApiBasePath</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base URL for the OpenAI-compatible API used by the LLM judge (e.g. the in-cluster AI Gateway). Defaults to empty string, which uses the <code>OPENAI_BASE_URL</code> environment variable if set.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Input</strong>: <code>data/experiments/executed_experiment.json</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong>: <code>data/experiments/evaluated_experiment.json</code> — an <code>EvaluatedExperiment</code> model.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_publish_template"><a class="anchor" href="#_publish_template"></a>publish-template</h3>
+<div class="paragraph">
+<p>Publishes per-step evaluation scores to the OTLP endpoint configured via the <code>OTEL_EXPORTER_OTLP_ENDPOINT</code> environment variable.</p>
+</div>
+<div class="paragraph">
+<p><strong>Config parameters</strong>: none.</p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong>: <code>data/experiments/evaluated_experiment.json</code> plus <code>OTEL_EXPORTER_OTLP_ENDPOINT</code> environment variable.</p>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong>: Gauge metrics emitted to the OTLP collector. Each metric is labeled with <code>workflow_name</code>, <code>scenario</code>, and <code>step</code> attributes.</p>
+</div>
+<div class="paragraph">
+<p><strong>Implicit inputs</strong>: <code>workflow.name</code>, <code>execution.id</code>, <code>execution.number</code> (injected automatically by Testkube).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_visualize_template"><a class="anchor" href="#_visualize_template"></a>visualize-template</h3>
+<div class="paragraph">
+<p>Generates a self-contained HTML evaluation report and saves it as a workflow artifact.</p>
+</div>
+<div class="paragraph">
+<p><strong>Config parameters</strong>: none.</p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong>: <code>data/experiments/evaluated_experiment.json</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong>: <code>data/results/evaluation_report.html</code> — a single-file HTML dashboard with Chart.js visualizations (summary cards, score bar charts, metric distribution histograms, sortable results table).</p>
+</div>
+<div class="paragraph">
+<p><strong>Implicit inputs</strong>: <code>workflow.name</code>, <code>execution.id</code>, <code>execution.number</code> (injected automatically by Testkube).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_otlp_metrics_contract"><a class="anchor" href="#_otlp_metrics_contract"></a>OTLP metrics contract</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>publish-template</code> exports OpenTelemetry gauge metrics over HTTP/protobuf to port <code>4318</code>. Each evaluation step produces one gauge observation per metric:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Metric name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>metric_name</code> string from the experiment JSON (e.g. <code>AgentGoalAccuracyWithoutReference</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gauge value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Float in <code>[0.0, 1.0]</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>workflow_name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Testkube workflow name.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scenario</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The scenario name from the experiment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>step</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zero-based step index within the scenario.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The OTLP endpoint is read from the <code>OTEL_EXPORTER_OTLP_ENDPOINT</code> environment variable at runtime. Inject it via a ConfigMap or a <code>container.env</code> entry in the calling <code>TestWorkflow</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_related"><a class="anchor" href="#_related"></a>Related</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="explanation.html" class="xref page">What is Testbench</a></p>
+</li>
+<li>
+<p><a href="how-to-guides/install.html" class="xref page">Install the Testbench</a></p>
+</li>
+<li>
+<p><a href="how-to-guides/first-workflow.html" class="xref page">Create Your First TestWorkflow</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script>
+;(function () {
+  document.querySelectorAll('.nav-item').forEach(function (item) {
+    item.classList.add('is-active')
+  })
+  var toggle = document.querySelector('.nav-menu-toggle')
+  if (toggle) toggle.classList.add('is-active')
+})()
+</script>
+  </body>
+</html>

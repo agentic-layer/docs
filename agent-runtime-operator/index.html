@@ -50,19 +50,37 @@
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="agent-runtime/how-to-guide.html">Install the Agent Runtime Operator</a>
+    <a class="nav-link" href="../home/main/how-to-guides/install-the-layer.html">Install the Agentic Layer</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../agent-gateway-krakend-operator/operator/how-to-guide.html">Install the Agent Gateway Operator for KrakenD</a>
+    <a class="nav-link" href="agent-runtime/how-to-guides/install.html">Install the Agent Runtime Operator</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../ai-gateway-litellm-operator/operator/how-to-guide.html">Install the LiteLLM Gateway Operator</a>
+    <a class="nav-link" href="agent-runtime/how-to-guides/configure.html">Configure the Agent Runtime Operator</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../tool-gateway-agentgateway/operator/how-to-guide.html">Install the Tool Gateway Operator for Agentgateway</a>
+    <a class="nav-link" href="../agent-gateway-krakend-operator/how-to-guides/install.html">Install the Agent Gateway KrakenD Operator</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="agents/how-to-guide.html">Create an AI Agent</a>
+    <a class="nav-link" href="../ai-gateway-litellm-operator/how-to-guides/install.html">Install the LiteLLM Gateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateway-agentgateway/how-to-guides/install.html">Install the Tool Gateway agentgateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="agents/how-to-guides/create-template-agent.html">Deploy a Template-Based Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="agents/how-to-guides/create-custom-image-agent.html">Deploy a Custom-Image Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="agents/how-to-guides/propagate-headers.html">Propagate Headers to Tool Servers</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="agents/how-to-guides/delegate-to-subagent.html">Delegate to a Sub-Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="agents/how-to-guides/create-workforce.html">Create an Agentic Workforce</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="ai-gateways/how-to-guide.html">Create an AI Gateway</a>
@@ -71,7 +89,10 @@
     <a class="nav-link" href="agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="tool-servers/how-to-guide.html">Create a Tool Server</a>
+    <a class="nav-link" href="tool-servers/how-to-guide.html">Deploy a ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="tool-routes/how-to-guide.html">Define a ToolRoute</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="tool-gateways/how-to-guide.html">Create a Tool Gateway</a>
@@ -80,10 +101,16 @@
     <a class="nav-link" href="guardrails/how-to-guide.html">Create and Use Guardrails in Gateways</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../testbench/how-to/install.html">Install the Testbench</a>
+    <a class="nav-link" href="../guardrail-adapter/how-to-guide.html">Deploy the Guardrail Adapter</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../testbench/how-to/first-workflow.html">Create Your First TestWorkflow</a>
+    <a class="nav-link" href="../observability-dashboard/how-to-guide.html">Deploy and View the Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/how-to-guides/install.html">Install the Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/how-to-guides/first-workflow.html">Create Your First TestWorkflow</a>
   </li>
 </ul>
   </li>
@@ -92,13 +119,46 @@
     <span class="nav-text">Reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="agent-runtime/reference.html">Agent Runtime Reference</a>
+    <a class="nav-link" href="agent-runtime/reference.html">AgentRuntimeConfiguration Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="agents/reference.html">Agent and AgenticWorkforce Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="tool-servers/reference.html">ToolServer Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="tool-routes/reference.html">ToolRoute Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="agent-gateways/reference.html">AgentGateway and AgentGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateway-krakend-operator/reference.html">Agent Gateway KrakenD Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="ai-gateways/reference.html">AiGateway and AiGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateway-litellm-operator/reference.html">LiteLLM Gateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="tool-gateways/reference.html">ToolGateway and ToolGatewayClass Reference</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="guardrails/reference.html">Guardrails Reference</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../tool-gateway-agentgateway/operator/reference.html">Agentgateway-based Tool Gateway Reference</a>
+    <a class="nav-link" href="../tool-gateway-agentgateway/reference.html">Tool Gateway agentgateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrail-adapter/reference.html">Guardrail Adapter Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../observability-dashboard/reference.html">Observability Dashboard Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/reference.html">Testbench Reference</a>
   </li>
 </ul>
   </li>
@@ -106,6 +166,48 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Explanation</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../home/main/explanation/diataxis.html">How This Site Is Organized</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="agent-runtime/explanation.html">The Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="agents/explanation.html">Agents and Workforces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="tool-servers/explanation.html">ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="tool-routes/explanation.html">ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="agent-gateways/explanation.html">AgentGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateway-krakend-operator/explanation.html">KrakenD as the Agent Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="ai-gateways/explanation.html">AiGateway and the AI Model Routing Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateway-litellm-operator/explanation.html">LiteLLM as the AI Gateway and Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="tool-gateways/explanation.html">ToolGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="guardrails/explanation.html">Guardrails: Guard and GuardrailProvider</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateway-agentgateway/explanation.html">agentgateway as the Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrail-adapter/explanation.html">The Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../observability-dashboard/explanation.html">The Observability Dashboard</a>
+  </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../home/main/architecture/index.html">Agentic Layer Architecture</a>
@@ -126,6 +228,9 @@
     <a class="nav-link" href="../home/main/architecture/12-glossary/index.html">Glossary</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/explanation.html">What is Testbench</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -181,60 +286,6 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Agent Runtime Operator provides a unified, framework-agnostic way to deploy and manage agentic workloads on Kubernetes. It uses Custom Resource Definitions (CRDs) to abstract away framework-specific configurations, simplifying the management of AI agent deployments.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how_to_guides"><a class="anchor" href="#_how_to_guides"></a>How-To Guides</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Step-by-step guides to get you up and running:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="agent-runtime/how-to-guide.html" class="xref page">Install the Agent Runtime Operator</a> - Complete installation guide with prerequisites, setup steps, and verification</p>
-</li>
-<li>
-<p><a href="agents/how-to-guide.html" class="xref page">Create an AI Agent</a> - Learn how to deploy template-based and custom agents with step-by-step examples</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_advanced_topics"><a class="anchor" href="#_advanced_topics"></a>Advanced Topics</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>For advanced routing and gateway patterns:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="agent-gateways/how-to-guide.html" class="xref page">Create an Agent Gateway</a> - Set up agent gateways to manage routing to agents</p>
-</li>
-<li>
-<p><a href="ai-gateways/how-to-guide.html" class="xref page">Create an AI Gateway</a> - Set up AI gateways to manage routing from agents to LLMs</p>
-</li>
-<li>
-<p><a href="tool-gateways/how-to-guide.html" class="xref page">Create a Tool Gateway</a> - Set up tool gateways to manage routing from agents to tools</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_reference"><a class="anchor" href="#_reference"></a>Reference</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Detailed reference information for all components:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="agent-runtime/reference.html" class="xref page">Agent Runtime Reference</a> - Complete API reference for all custom resources</p>
-</li>
-</ul>
 </div>
 </div>
 </div>

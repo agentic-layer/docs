@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Tool Gateway agentgateway Operator Reference :: Agentic Layer</title>
+    <link rel="canonical" href="https://docs.agentic-layer.ai/tool-gateway-agentgateway/reference.html">
+    <meta name="generator" content="Antora 3.1.14">
+    <link rel="stylesheet" href="../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.agentic-layer.ai">Agentic Layer</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="tool-gateway-agentgateway" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../home/main/index.html">Agentic Layer</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../showcase-news/index.html">Agentic AI News Showcase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../home/main/how-to-guides/install-the-layer.html">Install the Agentic Layer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/how-to-guides/install.html">Install the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/how-to-guides/configure.html">Configure the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateway-krakend-operator/how-to-guides/install.html">Install the Agent Gateway KrakenD Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateway-litellm-operator/how-to-guides/install.html">Install the LiteLLM Gateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-to-guides/install.html">Install the Tool Gateway agentgateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/create-template-agent.html">Deploy a Template-Based Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/create-custom-image-agent.html">Deploy a Custom-Image Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/propagate-headers.html">Propagate Headers to Tool Servers</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/delegate-to-subagent.html">Delegate to a Sub-Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/create-workforce.html">Create an Agentic Workforce</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/ai-gateways/how-to-guide.html">Create an AI Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-servers/how-to-guide.html">Deploy a ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-routes/how-to-guide.html">Define a ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-gateways/how-to-guide.html">Create a Tool Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/guardrails/how-to-guide.html">Create and Use Guardrails in Gateways</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrail-adapter/how-to-guide.html">Deploy the Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../observability-dashboard/how-to-guide.html">Deploy and View the Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/how-to-guides/install.html">Install the Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/how-to-guides/first-workflow.html">Create Your First TestWorkflow</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/reference.html">AgentRuntimeConfiguration Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/reference.html">Agent and AgenticWorkforce Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-servers/reference.html">ToolServer Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-routes/reference.html">ToolRoute Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-gateways/reference.html">AgentGateway and AgentGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateway-krakend-operator/reference.html">Agent Gateway KrakenD Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/ai-gateways/reference.html">AiGateway and AiGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateway-litellm-operator/reference.html">LiteLLM Gateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-gateways/reference.html">ToolGateway and ToolGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/guardrails/reference.html">Guardrails Reference</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="reference.html">Tool Gateway agentgateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrail-adapter/reference.html">Guardrail Adapter Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../observability-dashboard/reference.html">Observability Dashboard Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/reference.html">Testbench Reference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanation</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../home/main/explanation/diataxis.html">How This Site Is Organized</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/explanation.html">The Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/explanation.html">Agents and Workforces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-servers/explanation.html">ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-routes/explanation.html">ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-gateways/explanation.html">AgentGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateway-krakend-operator/explanation.html">KrakenD as the Agent Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/ai-gateways/explanation.html">AiGateway and the AI Model Routing Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateway-litellm-operator/explanation.html">LiteLLM as the AI Gateway and Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-gateways/explanation.html">ToolGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/guardrails/explanation.html">Guardrails: Guard and GuardrailProvider</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="explanation.html">agentgateway as the Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrail-adapter/explanation.html">The Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../observability-dashboard/explanation.html">The Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../home/main/architecture/index.html">Agentic Layer Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/01-introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/03-context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/05-building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/08-crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/12-glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/explanation.html">What is Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../testbench/architecture/index.html">Testbench Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/deployment-view/index.html">Deployment View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Tool Gateway agentgateway Operator</a></li>
+    <li><a href="reference.html">Tool Gateway agentgateway Operator Reference</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/tool-gateway-agentgateway/edit/main/docs/modules/ROOT/pages/reference.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Tool Gateway agentgateway Operator Reference</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This reference covers agentgateway-specific implementation details of the Tool Gateway agentgateway Operator. For the <code>ToolGateway</code>, <code>ToolGatewayClass</code>, <code>ToolRoute</code>, and <code>ToolServer</code> CRD field tables, see <a href="../agent-runtime-operator/tool-gateways/reference.html" class="xref page">ToolGateway and ToolGatewayClass Reference</a> and <a href="../agent-runtime-operator/tool-routes/reference.html" class="xref page">ToolRoute Reference</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_toolgatewayclass_controller_name"><a class="anchor" href="#_toolgatewayclass_controller_name"></a>ToolGatewayClass controller name</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The operator registers one <code>ToolGatewayClass</code> with the following controller name:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Item</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ToolGatewayClass</code> name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>agentgateway</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spec.controller</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>runtime.agentic-layer.ai/tool-gateway-agentgateway-controller</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>A <code>ToolGateway</code> resource with <code>spec.toolGatewayClassName: agentgateway</code> is claimed and reconciled by this operator.</p>
+</div>
+<div class="sect2">
+<h3 id="_marking_the_toolgatewayclass_as_default"><a class="anchor" href="#_marking_the_toolgatewayclass_as_default"></a>Marking the ToolGatewayClass as default</h3>
+<div class="paragraph">
+<p>The shipped <code>agentgateway</code> <code>ToolGatewayClass</code> is <strong>not</strong> marked as the cluster default. To claim <code>ToolGateway</code> resources that omit <code>spec.toolGatewayClassName</code>, add the <code>toolgatewayclass.kubernetes.io/is-default-class: "true"</code> annotation via a Kustomize overlay:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># kustomization.yaml
+resources:
+  - https://github.com/agentic-layer/tool-gateway-agentgateway/releases/latest/download/install.yaml
+patches:
+  - patch: |-
+      apiVersion: runtime.agentic-layer.ai/v1alpha1
+      kind: ToolGatewayClass
+      metadata:
+        name: agentgateway
+        annotations:
+          toolgatewayclass.kubernetes.io/is-default-class: "true"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use this only when this operator is the single Tool Gateway implementation in the cluster.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_generated_gateway_api_resources"><a class="anchor" href="#_generated_gateway_api_resources"></a>Generated Gateway API resources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For each reconciled <code>ToolGateway</code>, the operator creates and owns the following Gateway API resources in the same namespace:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Resource</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Gateway</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A Gateway API <code>Gateway</code> with the same name as the <code>ToolGateway</code>. Configured with an HTTP listener on port 80 that accepts routes from all namespaces. The <code>spec.infrastructure.parametersRef</code> points at the operator-owned <code>AgentgatewayParameters</code> resource.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AgentgatewayParameters</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Holds agentgateway-specific configuration generated from <code>ToolGateway.spec.env</code> and <code>ToolGateway.spec.envFrom</code>, including translated OTEL telemetry settings.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For each reconciled <code>ToolRoute</code>, the operator creates:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Resource</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AgentgatewayBackend</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configures the MCP backend connection to the route&#8217;s upstream (a cluster <code>ToolServer</code> service or external URL).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HTTPRoute</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Routes traffic from the referenced <code>ToolGateway&#8217;s `Gateway</code> to the <code>AgentgatewayBackend</code> at the path <code>/&lt;toolroute-namespace&gt;/&lt;toolroute-name&gt;/mcp</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AgentgatewayPolicy</code> (optional)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Created only when <code>spec.toolFilter</code> is set. Carries MCP authorization CEL rules translated from the glob allow/deny patterns and is attached to the route&#8217;s <code>HTTPRoute</code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_toolgateway_status_url"><a class="anchor" href="#_toolgateway_status_url"></a>ToolGateway status URL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When the operator successfully reconciles a <code>ToolGateway</code>, it sets:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>ToolGateway.status.url = http://&lt;name&gt;.&lt;namespace&gt;.svc.cluster.local</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is the cluster-local base URL for the agentgateway instance. Individual tool routes are reachable at <code>&lt;status.url&gt;/&lt;route-namespace&gt;/&lt;route-name&gt;/mcp</code>. The <code>ToolRoute.status.url</code> field is populated by the operator with this per-route URL once the route is accepted.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_otel_environment_variables"><a class="anchor" href="#_otel_environment_variables"></a>OTEL environment variables</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The operator automatically translates standard OpenTelemetry environment variables from <code>ToolGateway.spec.env</code> to agentgateway&#8217;s <code>rawConfig.config.tracing</code> section. These variables are <strong>not</strong> passed as environment variables to the agentgateway container.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Variable</th>
+<th class="tableblock halign-left valign-top">Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OTEL_EXPORTER_OTLP_ENDPOINT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OTLP exporter endpoint URL.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OTEL_EXPORTER_OTLP_PROTOCOL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Protocol to use: <code>http/protobuf</code>, <code>grpc</code>, or <code>http/json</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OTEL_EXPORTER_OTLP_HEADERS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Headers to send with telemetry data (e.g. <code>api-key=secret123</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OTEL_EXPORTER_OTLP_TRACES_ENDPOINT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Per-signal override for the traces endpoint.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OTEL_EXPORTER_OTLP_TRACES_PROTOCOL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Per-signal override for the traces protocol.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OTEL_EXPORTER_OTLP_TRACES_HEADERS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Per-signal override for the traces headers.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Currently only <strong>tracing</strong> is supported. Metrics and logs configuration is not yet implemented.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For the full agentgateway configuration schema, see the <a href="https://raw.githubusercontent.com/agentgateway/agentgateway/refs/heads/main/schema/config.json">agentgateway config schema</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tool_filtering_glob_to_cel_translation"><a class="anchor" href="#_tool_filtering_glob_to_cel_translation"></a>Tool filtering: glob to CEL translation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When <code>ToolRoute.spec.toolFilter</code> is set, the operator translates the glob allow/deny patterns into CEL rules written to <code>AgentgatewayPolicy.spec.backend.mcp.authorization.policy.matchExpressions</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_semantics"><a class="anchor" href="#_semantics"></a>Semantics</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Condition</th>
+<th class="tableblock halign-left valign-top">Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>toolFilter</code> is <code>nil</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All tools pass through unfiltered; no <code>AgentgatewayPolicy</code> is created.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only <code>allow</code> is set</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only tools matching an allow pattern are exposed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only <code>deny</code> is set</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All tools are exposed except those matching a deny pattern.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both <code>allow</code> and <code>deny</code> are set</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deny wins on conflict — a tool matching any deny pattern is always blocked, even if it also matches an allow pattern. The generated CEL expression is <code>(&lt;allow-predicates&gt;) &amp;&amp; !(&lt;deny-predicates&gt;)</code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_pattern_syntax"><a class="anchor" href="#_pattern_syntax"></a>Pattern syntax</h3>
+<div class="paragraph">
+<p>Glob patterns use standard syntax: <code>*</code> matches any run of characters; <code>?</code> matches exactly one character. Plain names (no wildcard characters) compile to a CEL equality check; patterns with wildcards compile to a <code>mcp.tool.name.matches(regex)</code> call against an anchored regular expression.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Pattern</th>
+<th class="tableblock halign-left valign-top">Generated CEL predicate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_issue</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mcp.tool.name == "get_issue"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mcp.tool.name.matches("^get_.*$")</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>delete</strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mcp.tool.name.matches("^.*delete.*$")</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>list_?</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mcp.tool.name.matches("^list_.$")</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="guardrails"><a class="anchor" href="#guardrails"></a>Guardrails</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The operator can attach guardrails to a <code>ToolGateway</code> to filter sensitive content (PII, harmful content) from tool traffic. Guardrails are expressed with the gateway-agnostic <code>Guard</code> and <code>GuardrailProvider</code> CRDs documented in <a href="../agent-runtime-operator/guardrails/reference.html" class="xref page">Guardrails Reference</a>; this section covers the agentgateway-specific behaviour.</p>
+</div>
+<div class="paragraph">
+<p>For each <code>Guard</code> referenced from <code>ToolGateway.spec.guardrails</code>, the operator automatically creates a dedicated <code>guardrail-adapter</code> workload (<code>Deployment</code> + <code>ConfigMap</code> + <code>Service</code>) pre-configured from the <code>Guard</code> and its <code>GuardrailProvider</code>. No manual adapter deployment is required. The gateway&#8217;s <code>AgentgatewayPolicy</code> <code>extProc.backendRef</code> is wired at the adapter&#8217;s service automatically.</p>
+</div>
+<div class="sect2">
+<h3 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The operator must be started with <code>--guardrail-adapter-image=&lt;image&gt;:&lt;tag&gt;</code>. See <a href="how-to-guides/install.html#_enable_guardrails_optional" class="xref page">Enable Guardrails</a> in the install guide.</p>
+</li>
+<li>
+<p>A <code>GuardrailProvider</code> backing service (e.g. Presidio) must be reachable from the cluster.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_pii_detection_with_presidio"><a class="anchor" href="#_example_pii_detection_with_presidio"></a>Example: PII detection with Presidio</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: GuardrailProvider
+metadata:
+  name: presidio-analyzer
+  namespace: default
+spec:
+  type: presidio-api
+  presidio:
+    baseUrl: http://presidio-analyzer.default.svc:8080
+---
+apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: Guard
+metadata:
+  name: pii-guard
+  namespace: default
+spec:
+  mode:
+    - pre_call
+    - post_call
+  description: "Detects and masks PII in tool traffic"
+  providerRef:
+    name: presidio-analyzer
+  presidio:
+    language: "en"
+    scoreThresholds:
+      ALL: "0.5"
+      PERSON: "0.8"
+      EMAIL_ADDRESS: "0.7"
+    entityActions:
+      PERSON: "MASK"
+      EMAIL_ADDRESS: "MASK"
+      CREDIT_CARD: "BLOCK"
+      PHONE_NUMBER: "MASK"
+---
+apiVersion: runtime.agentic-layer.ai/v1alpha1
+kind: ToolGateway
+metadata:
+  name: my-tool-gateway
+  namespace: default
+spec:
+  toolGatewayClassName: agentgateway
+  guardrails:
+    - name: pii-guard</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The operator creates <code>pii-guard-adapter</code> (<code>Deployment</code> + <code>ConfigMap</code> + <code>Service</code>) in the Guard&#8217;s namespace and wires the <code>ToolGateway&#8217;s `AgentgatewayPolicy</code> <code>extProc.backendRef</code> at it.</p>
+</div>
+<div class="paragraph">
+<p>A complete sample (Presidio + Guard + ToolGateway + ToolServer + ToolRoute) is available at <a href="https://github.com/agentic-layer/tool-gateway-agentgateway/tree/main/config/samples/guardrails" class="bare">https://github.com/agentic-layer/tool-gateway-agentgateway/tree/main/config/samples/guardrails</a>. Apply it with <code>kubectl apply -k config/samples/guardrails</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_limitations"><a class="anchor" href="#_limitations"></a>Limitations</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Single Guard per ToolGateway</strong>: agentgateway currently supports only one <code>ext_proc</code> slot per target. If you reference multiple guards, the operator sets a <code>GuardrailsUnsupported</code> status condition on the <code>ToolGateway</code>.</p>
+</li>
+<li>
+<p><strong>Provider type</strong>: Only <code>presidio-api</code> providers are supported today. Guards backed by <code>openai-moderation-api</code> or <code>bedrock-api</code> providers report <code>Ready=False</code> with reason <code>UnsupportedProviderType</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_status_conditions"><a class="anchor" href="#_status_conditions"></a>Status conditions</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Resource</th>
+<th class="tableblock halign-left valign-top">Condition</th>
+<th class="tableblock halign-left valign-top">Reason</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Guard</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Ready=False</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AdapterNotConfigured</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operator was started without <code>--guardrail-adapter-image</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Guard</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Ready=False</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ProviderNotFound</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>providerRef</code> does not resolve.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Guard</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Ready=False</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>UnsupportedProviderType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only <code>presidio-api</code> is supported today.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Guard</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Ready=False</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>InvalidConfig</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validation failed (missing endpoint, empty modes, &#8230;&#8203;).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ToolGateway</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Ready=False</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GuardNotFound</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A referenced Guard does not exist.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ToolGateway</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Ready=False</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GuardNotReady</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A referenced Guard exists but its <code>Ready</code> condition is <code>False</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ToolGateway</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Ready=False</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GuardrailsUnsupported</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">More than one Guard was referenced.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_related"><a class="anchor" href="#_related"></a>Related</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="how-to-guides/install.html" class="xref page">Install the Tool Gateway agentgateway Operator</a></p>
+</li>
+<li>
+<p><a href="how-to-guides/create-gateway.html" class="xref page">Create an agentgateway ToolGateway</a></p>
+</li>
+<li>
+<p><a href="explanation.html" class="xref page">agentgateway as the Tool Gateway Implementation</a></p>
+</li>
+<li>
+<p><a href="../agent-runtime-operator/tool-gateways/reference.html" class="xref page">ToolGateway and ToolGatewayClass Reference</a></p>
+</li>
+<li>
+<p><a href="../agent-runtime-operator/tool-routes/reference.html" class="xref page">ToolRoute Reference</a></p>
+</li>
+<li>
+<p><a href="../agent-runtime-operator/guardrails/reference.html" class="xref page">Guardrails Reference</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script>
+;(function () {
+  document.querySelectorAll('.nav-item').forEach(function (item) {
+    item.classList.add('is-active')
+  })
+  var toggle = document.querySelector('.nav-menu-toggle')
+  if (toggle) toggle.classList.add('is-active')
+})()
+</script>
+  </body>
+</html>

@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Agent and AgenticWorkforce Reference :: Agentic Layer</title>
+    <link rel="canonical" href="https://docs.agentic-layer.ai/agent-runtime-operator/agents/reference.html">
+    <meta name="generator" content="Antora 3.1.14">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.agentic-layer.ai">Agentic Layer</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="agent-runtime-operator" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../../home/main/index.html">Agentic Layer</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../showcase-news/index.html">Agentic AI News Showcase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../home/main/how-to-guides/install-the-layer.html">Install the Agentic Layer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime/how-to-guides/install.html">Install the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime/how-to-guides/configure.html">Configure the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-gateway-krakend-operator/how-to-guides/install.html">Install the Agent Gateway KrakenD Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/how-to-guides/install.html">Install the LiteLLM Gateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../tool-gateway-agentgateway/how-to-guides/install.html">Install the Tool Gateway agentgateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-to-guides/create-template-agent.html">Deploy a Template-Based Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-to-guides/create-custom-image-agent.html">Deploy a Custom-Image Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-to-guides/propagate-headers.html">Propagate Headers to Tool Servers</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-to-guides/delegate-to-subagent.html">Delegate to a Sub-Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-to-guides/create-workforce.html">Create an Agentic Workforce</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateways/how-to-guide.html">Create an AI Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-servers/how-to-guide.html">Deploy a ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-routes/how-to-guide.html">Define a ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateways/how-to-guide.html">Create a Tool Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrails/how-to-guide.html">Create and Use Guardrails in Gateways</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../guardrail-adapter/how-to-guide.html">Deploy the Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../observability-dashboard/how-to-guide.html">Deploy and View the Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../testbench/how-to-guides/install.html">Install the Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../testbench/how-to-guides/first-workflow.html">Create Your First TestWorkflow</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime/reference.html">AgentRuntimeConfiguration Reference</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="reference.html">Agent and AgenticWorkforce Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-servers/reference.html">ToolServer Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-routes/reference.html">ToolRoute Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateways/reference.html">AgentGateway and AgentGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-gateway-krakend-operator/reference.html">Agent Gateway KrakenD Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateways/reference.html">AiGateway and AiGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/reference.html">LiteLLM Gateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateways/reference.html">ToolGateway and ToolGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrails/reference.html">Guardrails Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../tool-gateway-agentgateway/reference.html">Tool Gateway agentgateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../guardrail-adapter/reference.html">Guardrail Adapter Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../observability-dashboard/reference.html">Observability Dashboard Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../testbench/reference.html">Testbench Reference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanation</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../home/main/explanation/diataxis.html">How This Site Is Organized</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime/explanation.html">The Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="explanation.html">Agents and Workforces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-servers/explanation.html">ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-routes/explanation.html">ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateways/explanation.html">AgentGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-gateway-krakend-operator/explanation.html">KrakenD as the Agent Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateways/explanation.html">AiGateway and the AI Model Routing Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/explanation.html">LiteLLM as the AI Gateway and Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateways/explanation.html">ToolGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrails/explanation.html">Guardrails: Guard and GuardrailProvider</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../tool-gateway-agentgateway/explanation.html">agentgateway as the Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../guardrail-adapter/explanation.html">The Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../observability-dashboard/explanation.html">The Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../home/main/architecture/index.html">Agentic Layer Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/01-introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/03-context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/05-building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/08-crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/12-glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../testbench/explanation.html">What is Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../testbench/architecture/index.html">Testbench Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../testbench/architecture/introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../testbench/architecture/context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../testbench/architecture/building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../testbench/architecture/deployment-view/index.html">Deployment View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../testbench/architecture/crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../testbench/architecture/glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Agent Runtime Operator</a></li>
+    <li><a href="reference.html">Agent and AgenticWorkforce Reference</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/agent-runtime-operator/edit/main/docs/modules/agents/pages/reference.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Agent and AgenticWorkforce Reference</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This reference covers all fields of the <code>Agent</code> and <code>AgenticWorkforce</code> custom resources in the <code>runtime.agentic-layer.ai</code> API group. For operator-wide defaults, see <a href="../agent-runtime/reference.html" class="xref page">AgentRuntimeConfiguration Reference</a>.</p>
+</div>
+<div class="paragraph">
+<p>Full Go API: <a href="https://pkg.go.dev/github.com/agentic-layer/agent-runtime-operator/api/v1alpha1" class="bare">https://pkg.go.dev/github.com/agentic-layer/agent-runtime-operator/api/v1alpha1</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent"><a class="anchor" href="#_agent"></a>Agent</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>Agent</code> declares a single AI agent workload. The operator creates a Kubernetes <code>Deployment</code> and <code>Service</code> for each <code>Agent</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_spec_framework"><a class="anchor" href="#_spec_framework"></a>spec.framework</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>framework</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — Agent framework. Allowed values: <code>google-adk</code>, <code>msaf</code>, <code>custom</code>. When omitted, the operator applies the <code>defaultFramework</code> from <code>AgentRuntimeConfiguration</code>. Setting <code>custom</code> requires <code>spec.image</code> to be set.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_spec_image"><a class="anchor" href="#_spec_image"></a>spec.image</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — Container image for the agent. When omitted, the operator selects a template image based on <code>spec.framework</code>. When set, the operator uses this image directly (custom-image mode).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_spec_protocols"><a class="anchor" href="#_spec_protocols"></a>spec.protocols</h3>
+<div class="paragraph">
+<p><code>spec.protocols</code> lists the communication protocols the agent exposes. Each entry maps to a port on the resulting <code>Service</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>protocols[].type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — Protocol type. Currently only <code>A2A</code> is supported.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>protocols[].port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>integer (1–65535)</code> — Port number. Defaults to the framework&#8217;s default port when omitted.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>protocols[].path</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — HTTP path prefix. Must match <code>^/[a-zA-Z0-9/_-]*$</code>. Defaults to <code>/</code> when omitted.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>protocols[].name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — Optional name for the port entry. Defaults to empty string.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_spec_tools"><a class="anchor" href="#_spec_tools"></a>spec.tools</h3>
+<div class="paragraph">
+<p><code>spec.tools</code> defines MCP tool servers the agent can call. Each entry is serialised to JSON and passed as the <code>AGENT_TOOLS</code> environment variable.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tools[].name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — Unique identifier for this tool within the agent. Minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tools[].upstream</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>object</code> — How to reach the MCP server. Exactly one of <code>toolRouteRef</code>, <code>toolServerRef</code>, or <code>external</code> must be set.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tools[].upstream.toolRouteRef</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ObjectReference</code> — References a <code>ToolRoute</code> resource. <code>namespace</code> defaults to the agent&#8217;s namespace if omitted.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tools[].upstream.toolServerRef</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ObjectReference</code> — References a cluster-local <code>ToolServer</code> directly, bypassing any gateway. <code>namespace</code> defaults to the agent&#8217;s namespace if omitted.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tools[].upstream.external</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>object</code> — Describes a remote MCP server by URL, bypassing any gateway.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tools[].upstream.external.url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string (URI)</code> — HTTP/HTTPS URL of the remote MCP server.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tools[].propagatedHeaders</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]string</code> — HTTP header names to forward from incoming A2A requests to this MCP server. Header matching is case-insensitive. When omitted or empty, no headers are forwarded.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_spec_subagents"><a class="anchor" href="#_spec_subagents"></a>spec.subAgents</h3>
+<div class="paragraph">
+<p><code>spec.subAgents</code> configures agents that this agent can delegate to. The list is serialised to JSON and passed as the <code>SUB_AGENTS</code> environment variable.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subAgents[].name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — Descriptive identifier for this sub-agent connection. Minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subAgents[].agentRef</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ObjectReference</code> — References an in-cluster <code>Agent</code> resource. <code>namespace</code> defaults to the current agent&#8217;s namespace if omitted. Mutually exclusive with <code>url</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subAgents[].url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string (URI)</code> — Well-known agent card URL of a remote agent (e.g. <code><a href="https://agent.example.com/.well-known/agent-card.json" class="bare">https://agent.example.com/.well-known/agent-card.json</a></code>). Mutually exclusive with <code>agentRef</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subAgents[].interactionType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — How the agent interacts with this sub-agent. Allowed values: <code>tool_call</code> (default), <code>transfer</code>. <code>tool_call</code> keeps the parent in control; <code>transfer</code> hands the conversation to the sub-agent.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_spec_replicas"><a class="anchor" href="#_spec_replicas"></a>spec.replicas</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>replicas</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>integer (≥0)</code> — Number of pod replicas. Defaults to the Kubernetes deployment default (1) when omitted.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_spec_env"><a class="anchor" href="#_spec_env"></a>spec.env</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]corev1.EnvVar</code> — Additional environment variables injected into the agent container. These take precedence over operator-managed variables.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>envFrom</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]corev1.EnvFromSource</code> — Sources (ConfigMaps, Secrets) to populate environment variables from.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_spec_template_only_fields"><a class="anchor" href="#_spec_template_only_fields"></a>spec (template-only fields)</h3>
+<div class="paragraph">
+<p>The following fields are only meaningful for template-based agents (no <code>spec.image</code>). They are passed as environment variables to the template container.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — Brief description of the agent&#8217;s purpose. Passed as <code>AGENT_DESCRIPTION</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>instruction</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — System prompt defining the agent&#8217;s behaviour. Passed as <code>AGENT_INSTRUCTION</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>model</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — Language model identifier (e.g. <code>gemini/gemini-2.5-flash</code>). Passed as <code>AGENT_MODEL</code>. Defaults to the framework&#8217;s default model if omitted.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_spec_advanced_fields"><a class="anchor" href="#_spec_advanced_fields"></a>spec (advanced fields)</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposed</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>boolean</code> — Whether this agent should be exposed via the <code>AgentGateway</code>. Default: <code>false</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>aiGatewayRef</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ObjectReference</code> — References an <code>AiGateway</code> resource for model routing. Defaults to the cluster&#8217;s default AiGateway if omitted. <code>namespace</code> defaults to the agent&#8217;s namespace if omitted.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>volumeMounts</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]corev1.VolumeMount</code> — Volume mounts added to the agent container.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>volumes</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]corev1.Volume</code> — Volumes added to the agent pod. Names starting with <code>agent-operator-</code> are reserved and will be rejected by the webhook.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>resources</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>corev1.ResourceRequirements</code> — Compute resource requests and limits for the agent container.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>commonMetadata</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>EmbeddedMetadata</code> — Labels and annotations applied to both the <code>Deployment</code> and <code>Service</code>, as well as the pod template.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>podMetadata</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>EmbeddedMetadata</code> — Labels and annotations applied only to the pod template of the <code>Deployment</code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_status_conditions"><a class="anchor" href="#_status_conditions"></a>status.conditions</h3>
+<div class="paragraph">
+<p><code>Agent</code> uses standard Kubernetes <code>metav1.Condition</code> entries.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>conditions</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]metav1.Condition</code> — Latest observations of the agent&#8217;s state. Inspect <code>type</code>, <code>status</code>, <code>reason</code>, and <code>message</code> fields for troubleshooting.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — Cluster-local URL populated automatically when the agent has an A2A protocol configured. Format: <code><a href="http://{name}.{namespace}.svc.cluster.local:{port}/.well-known/agent-card.json" class="bare">http://{name}.{namespace}.svc.cluster.local:{port}/.well-known/agent-card.json</a></code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>aiGatewayRef</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ObjectReference</code> — Automatically populated with the <code>AiGateway</code> this agent is connected to. <code>nil</code> if no AI Gateway is in use.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agenticworkforce"><a class="anchor" href="#_agenticworkforce"></a>AgenticWorkforce</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>AgenticWorkforce</code> declares a named group of entry-point agents. The operator crawls each entry point&#8217;s sub-agent graph and records all discovered agents and tools in <code>status</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_spec_entrypointagents"><a class="anchor" href="#_spec_entrypointagents"></a>spec.entryPointAgents</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>entryPointAgents</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]ObjectReference</code> — Required. Minimum one entry. Each reference points to an <code>Agent</code> in the cluster. <code>namespace</code> defaults to the workforce&#8217;s namespace if omitted. The operator resolves these agents and discovers all transitive sub-agents automatically.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_spec_metadata_fields"><a class="anchor" href="#_spec_metadata_fields"></a>spec metadata fields</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — Required. Human-readable display name for the workforce.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — Required. Description of the workforce&#8217;s purpose and capabilities.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>owner</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — Required. Email address or identifier of the workforce owner.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]string</code> — Optional labels for categorising and organising workforces.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_status_transitiveagents"><a class="anchor" href="#_status_transitiveagents"></a>status.transitiveAgents</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>transitiveAgents</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]TransitiveAgent</code> — All agents discovered from the entry-point agents, both in-cluster and remote.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>transitiveAgents[].name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — Descriptive identifier for this transitive agent.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>transitiveAgents[].namespace</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code> — Kubernetes namespace of the agent. Only set for in-cluster agents.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>transitiveAgents[].url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string (URI)</code> — Well-known agent card URL. Only set for remote agents.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_status_transitivetools"><a class="anchor" href="#_status_transitivetools"></a>status.transitiveTools</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>transitiveTools</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]string</code> — All tool names available across the entire workforce, discovered from all transitive agents.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>conditions</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]metav1.Condition</code> — Latest observations of the workforce&#8217;s state.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_related"><a class="anchor" href="#_related"></a>Related</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="explanation.html" class="xref page">Agents and Workforces</a></p>
+</li>
+<li>
+<p><a href="how-to-guides/create-template-agent.html" class="xref page">Deploy a Template-Based Agent</a></p>
+</li>
+<li>
+<p><a href="how-to-guides/create-custom-image-agent.html" class="xref page">Deploy a Custom-Image Agent</a></p>
+</li>
+<li>
+<p><a href="how-to-guides/propagate-headers.html" class="xref page">Propagate Headers to Tool Servers</a></p>
+</li>
+<li>
+<p><a href="how-to-guides/delegate-to-subagent.html" class="xref page">Delegate to a Sub-Agent</a></p>
+</li>
+<li>
+<p><a href="how-to-guides/create-workforce.html" class="xref page">Create an Agentic Workforce</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script>
+;(function () {
+  document.querySelectorAll('.nav-item').forEach(function (item) {
+    item.classList.add('is-active')
+  })
+  var toggle = document.querySelector('.nav-menu-toggle')
+  if (toggle) toggle.classList.add('is-active')
+})()
+</script>
+  </body>
+</html>

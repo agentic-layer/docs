@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Guardrail Adapter Reference :: Agentic Layer</title>
+    <link rel="canonical" href="https://docs.agentic-layer.ai/guardrail-adapter/reference.html">
+    <meta name="generator" content="Antora 3.1.14">
+    <link rel="stylesheet" href="../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.agentic-layer.ai">Agentic Layer</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="guardrail-adapter" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../home/main/index.html">Agentic Layer</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../showcase-news/index.html">Agentic AI News Showcase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../home/main/how-to-guides/install-the-layer.html">Install the Agentic Layer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/how-to-guides/install.html">Install the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/how-to-guides/configure.html">Configure the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateway-krakend-operator/how-to-guides/install.html">Install the Agent Gateway KrakenD Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateway-litellm-operator/how-to-guides/install.html">Install the LiteLLM Gateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateway-agentgateway/how-to-guides/install.html">Install the Tool Gateway agentgateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/create-template-agent.html">Deploy a Template-Based Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/create-custom-image-agent.html">Deploy a Custom-Image Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/propagate-headers.html">Propagate Headers to Tool Servers</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/delegate-to-subagent.html">Delegate to a Sub-Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/create-workforce.html">Create an Agentic Workforce</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/ai-gateways/how-to-guide.html">Create an AI Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-servers/how-to-guide.html">Deploy a ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-routes/how-to-guide.html">Define a ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-gateways/how-to-guide.html">Create a Tool Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/guardrails/how-to-guide.html">Create and Use Guardrails in Gateways</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-to-guide.html">Deploy the Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../observability-dashboard/how-to-guide.html">Deploy and View the Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/how-to-guides/install.html">Install the Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/how-to-guides/first-workflow.html">Create Your First TestWorkflow</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/reference.html">AgentRuntimeConfiguration Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/reference.html">Agent and AgenticWorkforce Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-servers/reference.html">ToolServer Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-routes/reference.html">ToolRoute Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-gateways/reference.html">AgentGateway and AgentGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateway-krakend-operator/reference.html">Agent Gateway KrakenD Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/ai-gateways/reference.html">AiGateway and AiGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateway-litellm-operator/reference.html">LiteLLM Gateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-gateways/reference.html">ToolGateway and ToolGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/guardrails/reference.html">Guardrails Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateway-agentgateway/reference.html">Tool Gateway agentgateway Operator Reference</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="reference.html">Guardrail Adapter Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../observability-dashboard/reference.html">Observability Dashboard Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/reference.html">Testbench Reference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanation</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../home/main/explanation/diataxis.html">How This Site Is Organized</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/explanation.html">The Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/explanation.html">Agents and Workforces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-servers/explanation.html">ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-routes/explanation.html">ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-gateways/explanation.html">AgentGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateway-krakend-operator/explanation.html">KrakenD as the Agent Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/ai-gateways/explanation.html">AiGateway and the AI Model Routing Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateway-litellm-operator/explanation.html">LiteLLM as the AI Gateway and Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-gateways/explanation.html">ToolGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/guardrails/explanation.html">Guardrails: Guard and GuardrailProvider</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateway-agentgateway/explanation.html">agentgateway as the Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="explanation.html">The Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../observability-dashboard/explanation.html">The Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../home/main/architecture/index.html">Agentic Layer Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/01-introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/03-context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/05-building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/08-crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/12-glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/explanation.html">What is Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../testbench/architecture/index.html">Testbench Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/deployment-view/index.html">Deployment View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Guardrail Adapter</a></li>
+    <li><a href="reference.html">Guardrail Adapter Reference</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/guardrail-adapter/edit/main/docs/modules/ROOT/pages/reference.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Guardrail Adapter Reference</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This reference covers the binary&#8217;s CLI flags, environment variables, static configuration file schema, gRPC ext_proc surface, HTTP endpoints, provider interface, and MCP message types handled by the adapter.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_command_line_flags"><a class="anchor" href="#_command_line_flags"></a>Command-line flags</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Flag</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--addr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>:9001</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP address for the gRPC ext_proc server. Format: <code>host:port</code> or <code>:port</code> for all interfaces.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--health-addr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>:8080</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP address for the HTTP health check server.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--max-body-size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1MiB</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum body size buffered per direction (request or response) in the inspection path. Human-readable units are accepted: <code>512KiB</code>, <code>2MiB</code>, etc. Bodies that exceed this limit are rejected: HTTP 413 for requests, HTTP 502 for responses. Pass-through traffic (no matching guardrail config) is unaffected.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_environment_variables"><a class="anchor" href="#_environment_variables"></a>Environment variables</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Variable</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GUARDRAIL_CONFIG_FILE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(unset)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path to a static YAML configuration file. When set, the file is loaded and validated at startup; invalid files cause a non-zero exit. Dynamic metadata and <code>x-guardrail-*</code> headers are ignored for the lifetime of the process. Reloading requires a pod restart.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LOG_LEVEL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>info</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Log verbosity. Accepted values (case-insensitive): <code>debug</code>, <code>info</code>, <code>warn</code>, <code>error</code>. Invalid values fall back to <code>info</code> with a warning on stderr.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LOG_FORMAT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>text</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Log output format. Accepted values (case-insensitive): <code>text</code>, <code>json</code>. Invalid values fall back to <code>text</code> with a warning on stderr. Logs are written to stderr.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="static-config-file"><a class="anchor" href="#static-config-file"></a>Static configuration file</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When <code>GUARDRAIL_CONFIG_FILE</code> is set, the adapter reads a YAML file with the following schema.
+All fields are validated at startup; an unknown field or a missing required field causes a non-zero exit.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">provider: presidio-api        # required; currently only presidio-api is supported
+modes:                        # required; non-empty list
+  - pre_call                  # inspect outgoing tool-call arguments
+  - post_call                 # inspect incoming tool-call results
+presidio:                     # required when provider: presidio-api
+  endpoint: http://presidio-analyzer:3000   # required; base URL of the Presidio Analyzer service
+  language: en                # optional; ISO language code; default: empty (Presidio default)
+  score_thresholds:           # optional; maps entity type to minimum confidence (0.0–1.0)
+    ALL: "0.5"                # "ALL" is the catch-all; per-entity keys override it
+    EMAIL_ADDRESS: "0.8"
+  entity_actions:             # optional; maps entity type to action
+    EMAIL_ADDRESS: MASK       # MASK: replace with &lt;ENTITY_TYPE&gt; placeholder
+    CREDIT_CARD: BLOCK        # BLOCK: reject the whole request with HTTP 403</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modes"><a class="anchor" href="#_modes"></a>Modes</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pre_call</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inspect outgoing request bodies (MCP <code>tools/call</code> arguments) before they reach the upstream tool server. Violations are rejected with HTTP 403.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>post_call</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inspect incoming response bodies (MCP <code>tools/call</code> results) before they reach the caller. Violations are rejected with HTTP 502. Streaming (<code>text/event-stream</code>) responses are processed frame-by-frame.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_entity_actions_presidio_provider"><a class="anchor" href="#_entity_actions_presidio_provider"></a>Entity actions (Presidio provider)</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ALLOW</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default when no action is configured. Entity is detected but no modification is made.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>MASK</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Replace the detected entity span with a placeholder such as <code>&lt;EMAIL_ADDRESS&gt;</code>. Uses Presidio&#8217;s <code>/anonymize</code> endpoint.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>BLOCK</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reject the entire request or response with an HTTP 403 (request side) or 502 (response side). BLOCK takes precedence over MASK when both match the same entity.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ext_proc_grpc_surface"><a class="anchor" href="#_ext_proc_grpc_surface"></a>ext_proc gRPC surface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The adapter implements the <code>envoy.service.ext_proc.v3.ExternalProcessor</code> service defined in the Envoy control-plane API.</p>
+</div>
+<div class="sect2">
+<h3 id="_service_and_port"><a class="anchor" href="#_service_and_port"></a>Service and port</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Item</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gRPC service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>envoy.service.ext_proc.v3.ExternalProcessor</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>9001</code> (TCP, HTTP/2)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TLS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None (cleartext). Use a service mesh sidecar or Envoy&#8217;s transport-socket configuration for mTLS.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gRPC health service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grpc.health.v1.Health</code> — registered and set to <code>SERVING</code> on startup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gRPC reflection</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enabled (<code>grpc.reflection.v1alpha</code>). Supports introspection with <code>grpcurl</code> and similar tools.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_implemented_rpc"><a class="anchor" href="#_implemented_rpc"></a>Implemented RPC</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Method</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Process(stream ExternalProcessor_ProcessServer) error</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bidirectional streaming RPC. Each <code>ProcessingRequest</code> from Envoy receives one <code>ProcessingResponse</code>. The adapter handles all six message types in the stream.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_processingrequest_types_handled"><a class="anchor" href="#_processingrequest_types_handled"></a>ProcessingRequest types handled</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>RequestHeaders</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resolves the per-stream guardrail configuration from static config, <code>MetadataContext</code>, or <code>x-guardrail-*</code> headers (in that priority order). Returns an empty <code>HeadersResponse</code> (no header mutations at this stage).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>RequestBody</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Buffers body chunks until end-of-stream when <code>pre_call</code> inspection is configured and a protocol parser matched the request. Runs parser and provider over the assembled buffer. Emits the original or mutated body as a <code>StreamedBodyResponse</code>. Oversized bodies are rejected with HTTP 413.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ResponseHeaders</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Checks the HTTP status code; non-2xx responses skip body inspection. Activates the frame-aware SSE path for <code>text/event-stream</code> responses when <code>post_call</code> inspection is configured.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ResponseBody</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mirrors request-body behaviour for the response direction. Oversized bodies are rejected with HTTP 502. For <code>text/event-stream</code> responses, each SSE frame is inspected individually.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>RequestTrailers</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an empty <code>TrailersResponse</code> (pass-through).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ResponseTrailers</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an empty <code>TrailersResponse</code> (pass-through).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_guardrail_configuration_resolution_order"><a class="anchor" href="#_guardrail_configuration_resolution_order"></a>Guardrail configuration resolution order</h3>
+<div class="paragraph">
+<p>On each new stream, configuration is resolved from the first matching source:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Static file (<code>GUARDRAIL_CONFIG_FILE</code>) — takes precedence when set; dynamic sources are ignored.</p>
+</li>
+<li>
+<p><code>MetadataContext.FilterMetadata</code> — populated when Envoy forwards dynamic metadata.</p>
+</li>
+<li>
+<p><code>x-guardrail-*</code> request headers — fallback injected by a Lua filter via <code>EnvoyPatchPolicy</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When no configuration is resolved, all traffic passes through unmodified.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_http_endpoints"><a class="anchor" href="#_http_endpoints"></a>HTTP endpoints</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Method</th>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GET</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/health</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns HTTP 200 with body <code>OK\n</code>. Used for Kubernetes readiness and liveness probes (default port <code>:8080</code>).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_provider_interface"><a class="anchor" href="#_provider_interface"></a>Provider interface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A custom guardrail provider must implement the <code>GuardrailProvider</code> interface defined in <code>internal/provider/provider.go</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-go hljs" data-lang="go">type GuardrailProvider interface {
+    // ProcessRequest analyzes text extracted from a tool-call request.
+    // Returns the (possibly masked) text and optional metadata needed to
+    // process the corresponding response. Returns a non-nil error when the
+    // request must be blocked; the error message is forwarded to the caller
+    // as the block reason.
+    ProcessRequest(ctx context.Context, text string) (*Result, error)
+
+    // ProcessResponse restores processed text using metadata from ProcessRequest.
+    // For example, a masking provider uses this to deanonymize response content
+    // when the request-side metadata records the original spans.
+    ProcessResponse(ctx context.Context, processedText string, metadata interface{}) (string, error)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>Result</code> carries the processed text and optional provider-specific metadata:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-go hljs" data-lang="go">type Result struct {
+    Text             string      // original or masked text
+    ResponseMetadata interface{} // passed back to ProcessResponse; nil if text was not modified
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The built-in <code>presidio</code> package in <code>internal/provider/presidio/</code> is the reference implementation.
+To add a new provider, implement the interface and register the provider name in <code>extproc.Server.createProvider</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mcp_message_types_parsed"><a class="anchor" href="#_mcp_message_types_parsed"></a>MCP message types parsed</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The MCP parser (<code>internal/protocol/mcpparser/</code>) recognises JSON-RPC 2.0 messages.
+Only the following MCP method and response shape trigger inspection; all other methods and shapes pass through unmodified.</p>
+</div>
+<div class="sect2">
+<h3 id="_request_side_pre_call"><a class="anchor" href="#_request_side_pre_call"></a>Request side (<code>pre_call</code>)</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Method</th>
+<th class="tableblock halign-left valign-top">Extracted text fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tools/call</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All string values nested anywhere in <code>params.arguments</code>. Each value is extracted with its full JSON path (e.g. <code>params.arguments.query</code>, <code>params.arguments.input[0]</code>). Non-string leaf values are skipped.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>All other methods (e.g. <code>tools/list</code>, <code>initialize</code>, notifications) return <code>shouldInspect=false</code> and pass through unchanged.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_side_post_call"><a class="anchor" href="#_response_side_post_call"></a>Response side (<code>post_call</code>)</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Shape</th>
+<th class="tableblock halign-left valign-top">Extracted text fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON-RPC 2.0 success response whose <code>result.content</code> is an array of content items with <code>type: "text"</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>text</code> field of each <code>text</code>-typed content item, addressed as <code>result.content[N].text</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>JSON-RPC error responses (<code>result.error</code> present) pass through unchanged.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_text_replacement"><a class="anchor" href="#_text_replacement"></a>Text replacement</h3>
+<div class="paragraph">
+<p>When a provider returns a modified text, the adapter calls <code>ReplaceTexts</code> to patch the original JSON body at the recorded paths before forwarding it. The HTTP <code>content-length</code> header is removed so Envoy recomputes the correct value from the mutated body.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_related"><a class="anchor" href="#_related"></a>Related</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="how-to-guide.html" class="xref page">Deploy the Guardrail Adapter</a></p>
+</li>
+<li>
+<p><a href="explanation.html" class="xref page">The Guardrail Adapter</a></p>
+</li>
+<li>
+<p><a href="../agent-runtime-operator/guardrails/reference.html" class="xref page">Guardrails Reference</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script>
+;(function () {
+  document.querySelectorAll('.nav-item').forEach(function (item) {
+    item.classList.add('is-active')
+  })
+  var toggle = document.querySelector('.nav-menu-toggle')
+  if (toggle) toggle.classList.add('is-active')
+})()
+</script>
+  </body>
+</html>

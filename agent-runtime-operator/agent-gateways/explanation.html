@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>AgentGateway and the Gateway/Class Pluggability Pattern :: Agentic Layer</title>
+    <link rel="canonical" href="https://docs.agentic-layer.ai/agent-runtime-operator/agent-gateways/explanation.html">
+    <meta name="generator" content="Antora 3.1.14">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.agentic-layer.ai">Agentic Layer</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="agent-runtime-operator" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../../home/main/index.html">Agentic Layer</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../showcase-news/index.html">Agentic AI News Showcase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../home/main/how-to-guides/install-the-layer.html">Install the Agentic Layer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime/how-to-guides/install.html">Install the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime/how-to-guides/configure.html">Configure the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-gateway-krakend-operator/how-to-guides/install.html">Install the Agent Gateway KrakenD Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/how-to-guides/install.html">Install the LiteLLM Gateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../tool-gateway-agentgateway/how-to-guides/install.html">Install the Tool Gateway agentgateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agents/how-to-guides/create-template-agent.html">Deploy a Template-Based Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agents/how-to-guides/create-custom-image-agent.html">Deploy a Custom-Image Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agents/how-to-guides/propagate-headers.html">Propagate Headers to Tool Servers</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agents/how-to-guides/delegate-to-subagent.html">Delegate to a Sub-Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agents/how-to-guides/create-workforce.html">Create an Agentic Workforce</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateways/how-to-guide.html">Create an AI Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-servers/how-to-guide.html">Deploy a ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-routes/how-to-guide.html">Define a ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateways/how-to-guide.html">Create a Tool Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrails/how-to-guide.html">Create and Use Guardrails in Gateways</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../guardrail-adapter/how-to-guide.html">Deploy the Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../observability-dashboard/how-to-guide.html">Deploy and View the Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../testbench/how-to-guides/install.html">Install the Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../testbench/how-to-guides/first-workflow.html">Create Your First TestWorkflow</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime/reference.html">AgentRuntimeConfiguration Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agents/reference.html">Agent and AgenticWorkforce Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-servers/reference.html">ToolServer Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-routes/reference.html">ToolRoute Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="reference.html">AgentGateway and AgentGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-gateway-krakend-operator/reference.html">Agent Gateway KrakenD Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateways/reference.html">AiGateway and AiGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/reference.html">LiteLLM Gateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateways/reference.html">ToolGateway and ToolGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrails/reference.html">Guardrails Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../tool-gateway-agentgateway/reference.html">Tool Gateway agentgateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../guardrail-adapter/reference.html">Guardrail Adapter Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../observability-dashboard/reference.html">Observability Dashboard Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../testbench/reference.html">Testbench Reference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanation</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../home/main/explanation/diataxis.html">How This Site Is Organized</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime/explanation.html">The Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agents/explanation.html">Agents and Workforces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-servers/explanation.html">ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-routes/explanation.html">ToolRoute</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="explanation.html">AgentGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-gateway-krakend-operator/explanation.html">KrakenD as the Agent Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../ai-gateways/explanation.html">AiGateway and the AI Model Routing Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/explanation.html">LiteLLM as the AI Gateway and Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateways/explanation.html">ToolGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrails/explanation.html">Guardrails: Guard and GuardrailProvider</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../tool-gateway-agentgateway/explanation.html">agentgateway as the Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../guardrail-adapter/explanation.html">The Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../observability-dashboard/explanation.html">The Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../home/main/architecture/index.html">Agentic Layer Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/01-introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/03-context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/05-building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/08-crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/12-glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../testbench/explanation.html">What is Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../testbench/architecture/index.html">Testbench Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../testbench/architecture/introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../testbench/architecture/context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../testbench/architecture/building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../testbench/architecture/deployment-view/index.html">Deployment View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../testbench/architecture/crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../testbench/architecture/glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Agent Runtime Operator</a></li>
+    <li><a href="explanation.html">AgentGateway and the Gateway/Class Pluggability Pattern</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/agent-runtime-operator/edit/main/docs/modules/agent-gateways/pages/explanation.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">AgentGateway and the Gateway/Class Pluggability Pattern</h1>
+<div class="sect1">
+<h2 id="_what_it_is"><a class="anchor" href="#_what_it_is"></a>What it is</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An <code>AgentGateway</code> is a Kubernetes custom resource in the <code>runtime.agentic-layer.ai</code> API group that declares a desired gateway instance for the Agentic Layer. It specifies <strong>what</strong> the platform wants — how many replicas, what timeout, which guardrails to apply — without specifying <strong>how</strong> the gateway is implemented. An <code>AgentGatewayClass</code> is a companion cluster-scoped resource that maps a controller name to an implementation operator. Together the two CRDs form a pluggable gateway contract: operators select an <code>AgentGatewayClass</code> by name and the matching implementation operator reconciles each <code>AgentGateway</code> that claims that class.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_why_it_exists"><a class="anchor" href="#_why_it_exists"></a>Why it exists</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Agents in the Agentic Layer need a single, consistent endpoint for inbound traffic regardless of the gateway technology running beneath it. Different organisations have different preferences for their gateway stack — some already operate KrakenD, others prefer Envoy or Nginx — and forcing a single built-in implementation would make the platform hard to adopt.</p>
+</div>
+<div class="paragraph">
+<p>The gateway/class pattern solves this by separating declaration from implementation. Platform engineers declare an <code>AgentGateway</code> resource expressing their intent; a separately installed implementation operator (for example, the KrakenD operator) reads that resource and provisions the actual workload. When a team wants to switch implementations they can do so by changing the <code>AgentGatewayClass</code> reference without touching agent manifests or redeploying the core operator.</p>
+</div>
+<div class="paragraph">
+<p>The same separation-of-concerns rationale applies here as it does for <code>ToolRoute</code>: agent-runtime-operator defines and ships the CRD, which gives the entire ecosystem a stable, versioned API. Reconciliation is delegated to implementation operators so that the core operator has no runtime dependency on any particular gateway technology.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_it_fits"><a class="anchor" href="#_how_it_fits"></a>How it fits</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The gateway/class model mirrors the <a href="https://kubernetes.io/docs/concepts/services-networking/gateway/">Kubernetes Gateway API</a>, where a <code>GatewayClass</code> selects an implementation (Envoy Gateway, Cilium, amazon-vpc-lattice, etc.) and a <code>Gateway</code> declares an instance. In the Agentic Layer:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong><code>AgentGatewayClass</code></strong> (cluster-scoped) — registered once by the implementation operator; its <code>spec.controller</code> field carries the operator&#8217;s unique controller name.</p>
+</li>
+<li>
+<p><strong><code>AgentGateway</code></strong> (namespace-scoped) — created by platform engineers for each gateway instance they need; its optional <code>spec.agentGatewayClassName</code> field selects the class.</p>
+</li>
+<li>
+<p><strong>Implementation operator</strong> — watches <code>AgentGateway</code> resources whose claimed class it owns, creates the underlying <code>Deployment</code>, <code>Service</code>, and any implementation-specific configuration, and writes status conditions back to the resource.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When only one implementation is installed in a cluster, <code>spec.agentGatewayClassName</code> can be omitted; the sole implementation claims all unclaimed gateways automatically. Multiple implementations can coexist as long as each <code>AgentGateway</code> names the class it wants.</p>
+</div>
+<div class="paragraph">
+<p>An <code>AgentGateway</code> that also lists guardrails in <code>spec.guardrails</code> delegates enforcement of those <code>Guard</code> policies to the implementation operator. The implementation is responsible for applying the guardrails at the traffic level.</p>
+</div>
+<div class="paragraph">
+<p>For the broader picture of how agent workloads, gateways, and tool routing compose in the Agentic Layer, see <a href="../agent-runtime/explanation.html" class="xref page">The Agent Runtime Operator</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_trade_offs_and_alternatives"><a class="anchor" href="#_trade_offs_and_alternatives"></a>Trade-offs and alternatives</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_pluggable_classes_vs_a_single_built_in_implementation"><a class="anchor" href="#_pluggable_classes_vs_a_single_built_in_implementation"></a>Pluggable classes vs. a single built-in implementation</h3>
+<div class="paragraph">
+<p>Building a single gateway implementation directly into agent-runtime-operator would have been simpler to ship initially. The downside is lock-in: upgrading the gateway would require upgrading the core operator, and organisations that already operate their own gateway technology would carry a redundant workload. The class pattern trades a small amount of initial complexity for long-term flexibility and a clear extension point.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_class_selection_vs_label_based_dispatch"><a class="anchor" href="#_class_selection_vs_label_based_dispatch"></a>Class selection vs. label-based dispatch</h3>
+<div class="paragraph">
+<p>An alternative design would have the implementation operator claim gateways using label selectors rather than a named class field. The named-class approach is easier to audit at a glance — the gateway manifest explicitly declares which implementation it expects — and matches the established Kubernetes Gateway API convention, reducing cognitive overhead for teams already familiar with that model.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adding_a_new_implementation_operator"><a class="anchor" href="#_adding_a_new_implementation_operator"></a>Adding a new implementation operator</h3>
+<div class="paragraph">
+<p>To add a new implementation operator, register an <code>AgentGatewayClass</code> with a unique <code>spec.controller</code> value, then deploy a controller that watches <code>AgentGateway</code> resources and reconciles any whose <code>spec.agentGatewayClassName</code> matches that class. The KrakenD-based operator at <a href="../../agent-gateway-krakend-operator/index.html" class="xref page">KrakenD based Agent Gateway</a> is the reference implementation and a good starting point for anyone building a custom implementation.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_related"><a class="anchor" href="#_related"></a>Related</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="how-to-guide.html" class="xref page">Create an Agent Gateway</a></p>
+</li>
+<li>
+<p><a href="reference.html" class="xref page">AgentGateway and AgentGatewayClass Reference</a></p>
+</li>
+<li>
+<p><a href="../../agent-gateway-krakend-operator/index.html" class="xref page">KrakenD based Agent Gateway</a></p>
+</li>
+<li>
+<p><a href="../agent-runtime/explanation.html" class="xref page">The Agent Runtime Operator</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script>
+;(function () {
+  document.querySelectorAll('.nav-item').forEach(function (item) {
+    item.classList.add('is-active')
+  })
+  var toggle = document.querySelector('.nav-menu-toggle')
+  if (toggle) toggle.classList.add('is-active')
+})()
+</script>
+  </body>
+</html>

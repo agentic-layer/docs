@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Install the Tool Gateway Operator for Agentgateway :: Agentic Layer</title>
-    <link rel="canonical" href="https://docs.agentic-layer.ai/tool-gateway-agentgateway/operator/how-to-guide.html">
+    <title>Install the Tool Gateway agentgateway Operator :: Agentic Layer</title>
+    <link rel="canonical" href="https://docs.agentic-layer.ai/tool-gateway-agentgateway/how-to-guides/install.html">
     <meta name="generator" content="Antora 3.1.14">
     <link rel="stylesheet" href="../../_/css/site.css">
   </head>
@@ -50,19 +50,37 @@
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../agent-runtime-operator/agent-runtime/how-to-guide.html">Install the Agent Runtime Operator</a>
+    <a class="nav-link" href="../../home/main/how-to-guides/install-the-layer.html">Install the Agentic Layer</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../agent-gateway-krakend-operator/operator/how-to-guide.html">Install the Agent Gateway Operator for KrakenD</a>
+    <a class="nav-link" href="../../agent-runtime-operator/agent-runtime/how-to-guides/install.html">Install the Agent Runtime Operator</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../ai-gateway-litellm-operator/operator/how-to-guide.html">Install the LiteLLM Gateway Operator</a>
+    <a class="nav-link" href="../../agent-runtime-operator/agent-runtime/how-to-guides/configure.html">Configure the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-gateway-krakend-operator/how-to-guides/install.html">Install the Agent Gateway KrakenD Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/how-to-guides/install.html">Install the LiteLLM Gateway Operator</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="how-to-guide.html">Install the Tool Gateway Operator for Agentgateway</a>
+    <a class="nav-link" href="install.html">Install the Tool Gateway agentgateway Operator</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../agent-runtime-operator/agents/how-to-guide.html">Create an AI Agent</a>
+    <a class="nav-link" href="../../agent-runtime-operator/agents/how-to-guides/create-template-agent.html">Deploy a Template-Based Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agents/how-to-guides/create-custom-image-agent.html">Deploy a Custom-Image Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agents/how-to-guides/propagate-headers.html">Propagate Headers to Tool Servers</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agents/how-to-guides/delegate-to-subagent.html">Delegate to a Sub-Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agents/how-to-guides/create-workforce.html">Create an Agentic Workforce</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../agent-runtime-operator/ai-gateways/how-to-guide.html">Create an AI Gateway</a>
@@ -71,7 +89,10 @@
     <a class="nav-link" href="../../agent-runtime-operator/agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../agent-runtime-operator/tool-servers/how-to-guide.html">Create a Tool Server</a>
+    <a class="nav-link" href="../../agent-runtime-operator/tool-servers/how-to-guide.html">Deploy a ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-routes/how-to-guide.html">Define a ToolRoute</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../agent-runtime-operator/tool-gateways/how-to-guide.html">Create a Tool Gateway</a>
@@ -80,10 +101,16 @@
     <a class="nav-link" href="../../agent-runtime-operator/guardrails/how-to-guide.html">Create and Use Guardrails in Gateways</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../testbench/how-to/install.html">Install the Testbench</a>
+    <a class="nav-link" href="../../guardrail-adapter/how-to-guide.html">Deploy the Guardrail Adapter</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../testbench/how-to/first-workflow.html">Create Your First TestWorkflow</a>
+    <a class="nav-link" href="../../observability-dashboard/how-to-guide.html">Deploy and View the Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../testbench/how-to-guides/install.html">Install the Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../testbench/how-to-guides/first-workflow.html">Create Your First TestWorkflow</a>
   </li>
 </ul>
   </li>
@@ -92,13 +119,46 @@
     <span class="nav-text">Reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../agent-runtime-operator/agent-runtime/reference.html">Agent Runtime Reference</a>
+    <a class="nav-link" href="../../agent-runtime-operator/agent-runtime/reference.html">AgentRuntimeConfiguration Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agents/reference.html">Agent and AgenticWorkforce Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-servers/reference.html">ToolServer Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-routes/reference.html">ToolRoute Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agent-gateways/reference.html">AgentGateway and AgentGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-gateway-krakend-operator/reference.html">Agent Gateway KrakenD Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/ai-gateways/reference.html">AiGateway and AiGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/reference.html">LiteLLM Gateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-gateways/reference.html">ToolGateway and ToolGatewayClass Reference</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../agent-runtime-operator/guardrails/reference.html">Guardrails Reference</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="reference.html">Agentgateway-based Tool Gateway Reference</a>
+    <a class="nav-link" href="../reference.html">Tool Gateway agentgateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../guardrail-adapter/reference.html">Guardrail Adapter Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../observability-dashboard/reference.html">Observability Dashboard Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../testbench/reference.html">Testbench Reference</a>
   </li>
 </ul>
   </li>
@@ -106,6 +166,48 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Explanation</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../home/main/explanation/diataxis.html">How This Site Is Organized</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agent-runtime/explanation.html">The Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agents/explanation.html">Agents and Workforces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-servers/explanation.html">ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-routes/explanation.html">ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agent-gateways/explanation.html">AgentGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-gateway-krakend-operator/explanation.html">KrakenD as the Agent Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/ai-gateways/explanation.html">AiGateway and the AI Model Routing Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/explanation.html">LiteLLM as the AI Gateway and Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-gateways/explanation.html">ToolGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/guardrails/explanation.html">Guardrails: Guard and GuardrailProvider</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanation.html">agentgateway as the Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../guardrail-adapter/explanation.html">The Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../observability-dashboard/explanation.html">The Observability Dashboard</a>
+  </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../home/main/architecture/index.html">Agentic Layer Architecture</a>
@@ -126,6 +228,9 @@
     <a class="nav-link" href="../../home/main/architecture/12-glossary/index.html">Glossary</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../testbench/explanation.html">What is Testbench</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -166,21 +271,21 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Tool Gateway agentgateway Operator</a></li>
-    <li><a href="how-to-guide.html">Install the Tool Gateway Operator for Agentgateway</a></li>
+    <li><a href="install.html">Install the Tool Gateway agentgateway Operator</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/agentic-layer/tool-gateway-agentgateway/edit/main/docs/modules/operator/pages/how-to-guide.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/tool-gateway-agentgateway/edit/main/docs/modules/ROOT/pages/how-to-guides/install.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Install the Tool Gateway Operator for Agentgateway</h1>
+<h1 class="page">Install the Tool Gateway agentgateway Operator</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide walks you through installing the Agentgateway Tool Gateway Operator on your Kubernetes cluster.</p>
+<p>This guide walks you through installing the Tool Gateway agentgateway Operator and all of its required dependencies on your Kubernetes cluster.</p>
 </div>
 </div>
 </div>
@@ -190,13 +295,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Kubernetes</strong>: A running Kubernetes cluster (version 1.26.0 or higher)</p>
+<p>A running Kubernetes cluster (version 1.26.0 or higher) with <code>kubectl</code> configured.</p>
 </li>
 <li>
-<p><strong>kubectl</strong>: Kubernetes command-line tool</p>
-</li>
-<li>
-<p><strong>helm</strong>: Helm 3+ for installing dependencies</p>
+<p><a href="https://helm.sh/">Helm 3+</a> installed.</p>
 </li>
 </ul>
 </div>
@@ -206,23 +308,7 @@
 <h2 id="_install_dependencies"><a class="anchor" href="#_install_dependencies"></a>Install Dependencies</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The operator requires the following infrastructure components to be installed first:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://cert-manager.io/">cert-manager</a></strong>: For certificate management (required for operator webhooks)</p>
-</li>
-<li>
-<p><strong><a href="https://gateway-api.sigs.k8s.io/">Gateway API CRDs</a></strong>: Standard Kubernetes Gateway API (required by agentgateway)</p>
-</li>
-<li>
-<p><strong><a href="https://agentgateway.dev/">agentgateway</a></strong>: Gateway implementation</p>
-</li>
-<li>
-<p><strong><a href="../../agent-runtime-operator/agent-runtime/how-to-guide.html" class="xref page">Agent Runtime Operator</a></strong>: Provides ToolGateway, ToolGatewayClass, and ToolServer CRDs</p>
-</li>
-</ul>
+<p>The operator requires the following infrastructure components to be installed first.</p>
 </div>
 <div class="sect2">
 <h3 id="_install_cert_manager"><a class="anchor" href="#_install_cert_manager"></a>Install cert-manager</h3>
@@ -245,8 +331,11 @@ kubectl wait validatingwebhookconfiguration/cert-manager-webhook \
 <h3 id="_install_gateway_api_crds"><a class="anchor" href="#_install_gateway_api_crds"></a>Install Gateway API CRDs</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.1/standard-install.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/latest/download/standard-install.yaml</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Browse all Gateway API releases at <a href="https://github.com/kubernetes-sigs/gateway-api/releases" class="bare">https://github.com/kubernetes-sigs/gateway-api/releases</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -271,7 +360,10 @@ helm upgrade -i agentgateway \
 </div>
 </div>
 <div class="sect2">
-<h3 id="_install_agent_runtime_operator"><a class="anchor" href="#_install_agent_runtime_operator"></a>Install Agent Runtime Operator</h3>
+<h3 id="_install_the_agent_runtime_operator"><a class="anchor" href="#_install_the_agent_runtime_operator"></a>Install the Agent Runtime Operator</h3>
+<div class="paragraph">
+<p>The Agent Runtime Operator provides the <code>ToolGateway</code>, <code>ToolGatewayClass</code>, <code>ToolRoute</code>, and <code>ToolServer</code> CRDs.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f https://github.com/agentic-layer/agent-runtime-operator/releases/latest/download/install.yaml
@@ -288,11 +380,8 @@ kubectl wait deployment.apps/agent-runtime-operator-controller-manager \
 <div class="sect1">
 <h2 id="_install_the_operator"><a class="anchor" href="#_install_the_operator"></a>Install the Operator</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Once all dependencies are installed, you can install the Tool Gateway operator.</p>
-</div>
 <div class="sect2">
-<h3 id="_install_with_kubernetes_yaml"><a class="anchor" href="#_install_with_kubernetes_yaml"></a>Install with Kubernetes YAML</h3>
+<h3 id="_install_with_kubectl"><a class="anchor" href="#_install_with_kubectl"></a>Install with kubectl</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f https://github.com/agentic-layer/tool-gateway-agentgateway/releases/latest/download/install.yaml
@@ -309,7 +398,7 @@ kubectl wait --for=condition=Available --timeout=60s \
 <div class="sect2">
 <h3 id="_install_with_flux"><a class="anchor" href="#_install_with_flux"></a>Install with Flux</h3>
 <div class="paragraph">
-<p>If you&#8217;re using Flux for GitOps, you can install the operator using an OCI repository:</p>
+<p>If you are using Flux for GitOps, install the operator via its OCI repository:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -348,10 +437,10 @@ spec:
 </div>
 </div>
 <div class="sect1">
-<h2 id="_optional_enable_guardrails"><a class="anchor" href="#_optional_enable_guardrails"></a>Optional: Enable Guardrails</h2>
+<h2 id="_enable_guardrails_optional"><a class="anchor" href="#_enable_guardrails_optional"></a>Enable Guardrails (Optional)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The operator can attach guardrails to a <code>ToolGateway</code> by deploying a <code>guardrail-adapter</code> instance per <code>Guard</code>. To enable this, the controller must be started with the <code>--guardrail-adapter-image=&lt;image&gt;:&lt;tag&gt;</code> flag. The shipped <code>install.yaml</code> already pins a known-compatible adapter version; if you build your own kustomize overlay, set the image via:</p>
+<p>The operator can attach guardrails to a <code>ToolGateway</code> to filter sensitive content from tool traffic. To enable this, the controller must be started with the <code>--guardrail-adapter-image=&lt;image&gt;:&lt;tag&gt;</code> flag. The shipped <code>install.yaml</code> already pins a known-compatible adapter version. If you build your own Kustomize overlay, set the image via:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -374,12 +463,12 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>You also need a <code>GuardrailProvider</code> backing service (e.g. Presidio) reachable from the cluster. See <a href="../../agent-runtime-operator/guardrails/how-to-guide.html" class="xref page">Create and Use Guardrails in Gateways</a> for the cross-gateway concepts and the <a href="reference.html#guardrails" class="xref page">Guardrails section in the reference</a> for ToolGateway-specific configuration.</p>
+<p>You also need a <code>GuardrailProvider</code> backing service (e.g. Presidio) reachable from the cluster. See <a href="../../agent-runtime-operator/guardrails/how-to-guide.html" class="xref page">Create and Use Guardrails in Gateways</a> for the cross-gateway concepts and <a href="../reference.html#guardrails" class="xref page">the Guardrails section in the reference</a> for <code>ToolGateway</code>-specific configuration.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_verify_the_installation"><a class="anchor" href="#_verify_the_installation"></a>Verify the installation</h2>
+<h2 id="_verify"><a class="anchor" href="#_verify"></a>Verify</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -393,7 +482,7 @@ kubectl get pods -n tool-gateway-agentgateway-system</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_uninstallation"><a class="anchor" href="#_uninstallation"></a>Uninstallation</h2>
+<h2 id="_uninstall"><a class="anchor" href="#_uninstall"></a>Uninstall</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To remove the operator:</p>
@@ -416,12 +505,30 @@ helm uninstall agentgateway --namespace agentgateway-system
 helm uninstall agentgateway-crds --namespace agentgateway-system
 
 # Uninstall Gateway API CRDs
-kubectl delete -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.1/standard-install.yaml
+kubectl delete -f https://github.com/kubernetes-sigs/gateway-api/releases/latest/download/standard-install.yaml
 
 # Uninstall cert-manager
 helm uninstall cert-manager --namespace cert-manager
 kubectl delete namespace cert-manager</code></pre>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_related"><a class="anchor" href="#_related"></a>Related</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="create-gateway.html" class="xref page">Create an agentgateway ToolGateway</a></p>
+</li>
+<li>
+<p><a href="../reference.html" class="xref page">Tool Gateway agentgateway Operator Reference</a></p>
+</li>
+<li>
+<p><a href="../../agent-runtime-operator/agent-runtime/how-to-guides/install.html" class="xref page">Install the Agent Runtime Operator</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>

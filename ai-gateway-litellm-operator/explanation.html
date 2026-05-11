@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>LiteLLM as the AI Gateway and Tool Gateway Implementation :: Agentic Layer</title>
+    <link rel="canonical" href="https://docs.agentic-layer.ai/ai-gateway-litellm-operator/explanation.html">
+    <meta name="generator" content="Antora 3.1.14">
+    <link rel="stylesheet" href="../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.agentic-layer.ai">Agentic Layer</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="ai-gateway-litellm-operator" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../home/main/index.html">Agentic Layer</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../showcase-news/index.html">Agentic AI News Showcase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../home/main/how-to-guides/install-the-layer.html">Install the Agentic Layer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/how-to-guides/install.html">Install the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/how-to-guides/configure.html">Configure the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateway-krakend-operator/how-to-guides/install.html">Install the Agent Gateway KrakenD Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-to-guides/install.html">Install the LiteLLM Gateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateway-agentgateway/how-to-guides/install.html">Install the Tool Gateway agentgateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/create-template-agent.html">Deploy a Template-Based Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/create-custom-image-agent.html">Deploy a Custom-Image Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/propagate-headers.html">Propagate Headers to Tool Servers</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/delegate-to-subagent.html">Delegate to a Sub-Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/how-to-guides/create-workforce.html">Create an Agentic Workforce</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/ai-gateways/how-to-guide.html">Create an AI Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-servers/how-to-guide.html">Deploy a ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-routes/how-to-guide.html">Define a ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-gateways/how-to-guide.html">Create a Tool Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/guardrails/how-to-guide.html">Create and Use Guardrails in Gateways</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrail-adapter/how-to-guide.html">Deploy the Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../observability-dashboard/how-to-guide.html">Deploy and View the Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/how-to-guides/install.html">Install the Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/how-to-guides/first-workflow.html">Create Your First TestWorkflow</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/reference.html">AgentRuntimeConfiguration Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/reference.html">Agent and AgenticWorkforce Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-servers/reference.html">ToolServer Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-routes/reference.html">ToolRoute Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-gateways/reference.html">AgentGateway and AgentGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateway-krakend-operator/reference.html">Agent Gateway KrakenD Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/ai-gateways/reference.html">AiGateway and AiGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="reference.html">LiteLLM Gateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-gateways/reference.html">ToolGateway and ToolGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/guardrails/reference.html">Guardrails Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateway-agentgateway/reference.html">Tool Gateway agentgateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrail-adapter/reference.html">Guardrail Adapter Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../observability-dashboard/reference.html">Observability Dashboard Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/reference.html">Testbench Reference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanation</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../home/main/explanation/diataxis.html">How This Site Is Organized</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-runtime/explanation.html">The Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agents/explanation.html">Agents and Workforces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-servers/explanation.html">ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-routes/explanation.html">ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/agent-gateways/explanation.html">AgentGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-gateway-krakend-operator/explanation.html">KrakenD as the Agent Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/ai-gateways/explanation.html">AiGateway and the AI Model Routing Pattern</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="explanation.html">LiteLLM as the AI Gateway and Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/tool-gateways/explanation.html">ToolGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../agent-runtime-operator/guardrails/explanation.html">Guardrails: Guard and GuardrailProvider</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tool-gateway-agentgateway/explanation.html">agentgateway as the Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../guardrail-adapter/explanation.html">The Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../observability-dashboard/explanation.html">The Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../home/main/architecture/index.html">Agentic Layer Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/01-introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/03-context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/05-building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/08-crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../home/main/architecture/12-glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../testbench/explanation.html">What is Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../testbench/architecture/index.html">Testbench Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/deployment-view/index.html">Deployment View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../testbench/architecture/glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">LiteLLM Gateway Operator</a></li>
+    <li>Explanation</li>
+    <li><a href="explanation.html">LiteLLM as the AI Gateway and Tool Gateway Implementation</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/ai-gateway-litellm-operator/edit/main/docs/modules/ROOT/pages/explanation.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">LiteLLM as the AI Gateway and Tool Gateway Implementation</h1>
+<div class="sect1">
+<h2 id="_what_it_is"><a class="anchor" href="#_what_it_is"></a>What it is</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The LiteLLM Gateway Operator is a Kubernetes operator that implements both the <code>AiGateway</code> and <code>ToolGateway</code> contracts using <a href="https://www.litellm.ai/">LiteLLM</a>, an open-source Python proxy that speaks OpenAI-compatible HTTP on one side and fans out to over 100 LLM providers on the other. On the tool-traffic side, LiteLLM also aggregates MCP servers into a single endpoint, making it a natural fit for both gateway roles.</p>
+</div>
+<div class="paragraph">
+<p>The operator watches <code>AiGateway</code> resources claiming the <code>litellm</code> class, watches <code>ToolGateway</code> resources claiming the same class, and for each resource deploys a LiteLLM proxy <code>Deployment</code>, a <code>Service</code>, and a <code>ConfigMap</code> containing the generated LiteLLM configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_why_it_exists"><a class="anchor" href="#_why_it_exists"></a>Why it exists</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Agents need two distinct gateway types: one for LLM model routing (<code>AiGateway</code>) and one for MCP tool aggregation (<code>ToolGateway</code>). In most other implementations these are separate operators backed by separate gateway technologies. LiteLLM is unusual in that it handles both: its <code>model_list</code> block routes LLM traffic, and its <code>mcp_servers</code> block aggregates MCP endpoints. A single operator deployment covers both gateway types, reducing the operational footprint for teams that need both.</p>
+</div>
+<div class="paragraph">
+<p>The typed-CRD + config-patch design exists to balance usability and flexibility. The typed CRD fields (<code>spec.aiModels</code>, <code>spec.guardrails</code>, <code>ToolRoute</code> resources) cover the common cases and are validated, documentable, and future-proof. The config-patch escape hatch lets users reach LiteLLM features — router strategies, per-server auth, general settings — that are too niche or too volatile to warrant typed fields. The deep-merge semantics mean patches are additive by default: users express only the delta, not the entire config.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_it_fits"><a class="anchor" href="#_how_it_fits"></a>How it fits</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The operator plugs into the Agent Runtime Operator ecosystem via the <code>AiGatewayClass</code> and <code>ToolGatewayClass</code> resources. On startup the operator ensures both classes exist with their respective controller names, then claims every <code>AiGateway</code> whose <code>spec.aiGatewayClassName</code> is <code>litellm</code> and every <code>ToolGateway</code> whose <code>spec.toolGatewayClassName</code> is <code>litellm</code>.</p>
+</div>
+<div class="paragraph">
+<p>For <code>AiGateway</code> reconciliation, the operator reads <code>spec.aiModels</code> to build the LiteLLM <code>model_list</code>, resolves any referenced <code>Guard</code> resources to build the <code>guardrails</code> block, applies any user-supplied config patch, and materialises the LiteLLM proxy workload. The proxy then handles provider credential injection, retries, and request-level tracing transparently for all agents that route to it.</p>
+</div>
+<div class="paragraph">
+<p>For <code>ToolGateway</code> reconciliation, the operator reads the <code>ToolRoute</code> resources that reference the gateway, builds the <code>mcp_servers</code> block from each attached route, and materialises the same LiteLLM proxy workload. Each route is exposed at a deterministic sub-path on the proxy, and its <code>status.url</code> is populated so agents can discover the endpoint without hardcoding URLs.</p>
+</div>
+<div class="paragraph">
+<p>For the broader gateway/class pluggability pattern — how <code>AiGatewayClass</code> and <code>ToolGatewayClass</code> compose in the Agentic Layer — see <a href="../agent-gateway-krakend-operator/explanation.html" class="xref page">KrakenD as the Agent Gateway Implementation</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_trade_offs_and_alternatives"><a class="anchor" href="#_trade_offs_and_alternatives"></a>Trade-offs and alternatives</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_single_operator_for_both_gateway_types_vs_separate_operators"><a class="anchor" href="#_single_operator_for_both_gateway_types_vs_separate_operators"></a>Single operator for both gateway types vs. separate operators</h3>
+<div class="paragraph">
+<p>Bundling AI and Tool gateway support in one operator reduces install surface and ensures both gateway types share the same LiteLLM version and configuration pipeline. The trade-off is that the two gateway types are coupled to the same release cadence. Teams that need to upgrade the AI Gateway implementation independently of the Tool Gateway cannot do so without forking the operator.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_typed_crd_fields_vs_a_fully_generic_configmap"><a class="anchor" href="#_typed_crd_fields_vs_a_fully_generic_configmap"></a>Typed CRD fields vs. a fully generic ConfigMap</h3>
+<div class="paragraph">
+<p>A fully generic design — where the entire LiteLLM config is just a user-managed ConfigMap — would give maximum flexibility but no schema validation, no status feedback on misconfiguration, and no ability for the platform to inject cross-cutting concerns (guardrails, OTel callbacks) automatically. The typed-CRD-plus-patch design provides guardrails around the common cases while preserving an escape hatch for advanced use.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_litellm_vs_other_ai_gateway_implementations"><a class="anchor" href="#_litellm_vs_other_ai_gateway_implementations"></a>LiteLLM vs. other AI gateway implementations</h3>
+<div class="paragraph">
+<p>LiteLLM&#8217;s breadth of provider support (100+ LLM backends via a unified API) and native MCP aggregation make it a practical default. The cost is that it is a Python process with higher startup latency and memory footprint than a compiled gateway. Teams running very high-throughput or latency-sensitive workloads may prefer a compiled gateway implementation. The <code>AiGatewayClass</code> / <code>ToolGatewayClass</code> pluggability pattern in the Agent Runtime Operator ensures that swapping to a different implementation does not require changing any <code>AiGateway</code> or <code>ToolGateway</code> manifests.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_related"><a class="anchor" href="#_related"></a>Related</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="how-to-guides/install.html" class="xref page">Install the LiteLLM Gateway Operator</a></p>
+</li>
+<li>
+<p><a href="how-to-guides/create-gateway.html" class="xref page">Create a LiteLLM AiGateway or ToolGateway</a></p>
+</li>
+<li>
+<p><a href="reference.html" class="xref page">LiteLLM Gateway Operator Reference</a></p>
+</li>
+<li>
+<p><a href="../agent-gateway-krakend-operator/explanation.html" class="xref page">KrakenD as the Agent Gateway Implementation</a></p>
+</li>
+<li>
+<p><a href="../agent-runtime-operator/ai-gateways/explanation.html" class="xref page">AiGateway and the AI Model Routing Pattern</a></p>
+</li>
+<li>
+<p><a href="../agent-runtime-operator/tool-gateways/explanation.html" class="xref page">ToolGateway and the Gateway/Class Pluggability Pattern</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script>
+;(function () {
+  document.querySelectorAll('.nav-item').forEach(function (item) {
+    item.classList.add('is-active')
+  })
+  var toggle = document.querySelector('.nav-menu-toggle')
+  if (toggle) toggle.classList.add('is-active')
+})()
+</script>
+  </body>
+</html>
