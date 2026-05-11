@@ -5,6 +5,13 @@
     </div>
     <div class="navbar-menu">
       <div class="navbar-end">
+        {{#if env.SITE_SEARCH_PROVIDER}}
+        <div class="navbar-item search hide-for-print">
+          <div id="search-field" class="field">
+            <input id="search-input" type="text" placeholder="Search the docs"{{#if page.home}} autofocus{{/if}}>
+          </div>
+        </div>
+        {{/if}}
         <div class="navbar-item">
           <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
             <span class="icon" style="margin-right: 0.25rem;">

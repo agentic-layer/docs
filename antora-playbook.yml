@@ -44,6 +44,12 @@ ui:
     snapshot: true  # Use latest snapshot build
   supplemental_files: ./supplemental-ui # Custom UI overrides and additions
 
+antora:
+  extensions:
+    # Add offline search using Lunr
+    # https://gitlab.com/antora/antora-lunr-extension
+    - require: '@antora/lunr-extension'
+
 asciidoc:
   extensions:
     - asciidoctor-kroki
