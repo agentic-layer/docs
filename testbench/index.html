@@ -281,11 +281,47 @@
 </aside>
 <article class="doc">
 <h1 class="page">Testbench</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>Testbench is the Kubernetes-native agent evaluation system for the Agentic Layer. It executes prompt suites against deployed agents using the A2A protocol, scores responses through LLM-as-a-judge metrics (RAGAS by default), and publishes evaluation scores to your observability stack via OTLP. Each evaluation run is orchestrated by Testkube as a sequence of reusable <code>TestWorkflowTemplate</code> steps — Setup, Run, Evaluate, Publish, and Visualize — sharing data over a common volume.</p>
 </div>
 <div class="paragraph">
 <p>To get started, <a href="how-to-guides/install.html" class="xref page">Install the Testbench</a> into your cluster, then follow <a href="how-to-guides/first-workflow.html" class="xref page">Create Your First TestWorkflow</a> to define an experiment and run it against an agent. For the deeper architectural view of how the pipeline and data models fit together, see <a href="architecture/index.html" class="xref page">architecture</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pages"><a class="anchor" href="#_pages"></a>Pages</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">How-To Guides</div>
+<ul>
+<li>
+<p><a href="how-to-guides/install.html" class="xref page">Install the Testbench</a></p>
+</li>
+<li>
+<p><a href="how-to-guides/first-workflow.html" class="xref page">Create Your First TestWorkflow</a></p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Reference</div>
+<ul>
+<li>
+<p><a href="reference.html" class="xref page">Testbench Reference</a></p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Explanation</div>
+<ul>
+<li>
+<p><a href="explanation.html" class="xref page">What is Testbench</a></p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </article>
   </div>

@@ -271,6 +271,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Agent Runtime Operator</a></li>
+    <li>Agent Runtime</li>
     <li><a href="explanation.html">The Agent Runtime Operator</a></li>
   </ul>
 </nav>
@@ -309,6 +310,15 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>The operator occupies the bottom of the agentic layer stack. It owns the CRD schemas and is the single source of truth for the API group <code>runtime.agentic-layer.ai</code>. Other operators — such as the Agent Gateway KrakenD Operator or a ToolGateway implementation — watch the same API group but reconcile only the resources they own (for example, <code>AgentGateway</code> or <code>ToolRoute</code>). This separation of concerns means each implementation operator can evolve independently while sharing a common resource model.</p>
+</div>
+<div class="imageblock center">
+<div class="content">
+<img src="_images/crds.svg" alt="CRDs and their reconcilers">
+</div>
+<div class="title">Figure 1. CRDs in the <code>runtime.agentic-layer.ai</code> API group and the operators that reconcile them</div>
+</div>
+<div class="paragraph">
+<p>The diagram shows how the CRDs reference each other and which operator reconciles each one. The Agent Runtime Operator owns every CRD in the group, but only directly reconciles a subset — <code>Agent</code>, <code>AgenticWorkforce</code>, and <code>ToolServer</code> — together with <code>AgentRuntimeConfiguration</code> (not shown). The gateway-shaped CRDs (<code>AgentGateway</code>, <code>AiGateway</code>, <code>ToolGateway</code>) and <code>ToolRoute</code> are reconciled by implementation-specific operators that plug into the same API group via their corresponding <code>*Class</code> resources. See <a href="../agent-gateways/explanation.html" class="xref page">AgentGateway and the Gateway/Class Pluggability Pattern</a> for the pluggability pattern shared by all three gateway CRDs.</p>
 </div>
 <div class="paragraph">
 <p><code>AgentRuntimeConfiguration</code> is a cluster-scoped defaults object that lives in the operator&#8217;s own namespace. It lets a platform administrator set the default agent framework and pin template image versions once, rather than repeating those values in every <code>Agent</code> manifest. Individual <code>Agent</code> resources can always override the defaults by specifying their own <code>framework</code> or <code>image</code> fields.</p>
