@@ -30,6 +30,14 @@ All other blocks shown in the diagram exist in an initial version.
 * Open standards: built on A2A, MCP, OpenTelemetry, and Kubernetes, which reduces vendor lock-in.
 * Governance and audit hooks: provides the integration points needed for regulatory frameworks such as the EU AI Act and GDPR.
 
+== Pluggable Gateway Implementations
+
+The Agentic Layer keeps its gateway capabilities — Agent Gateway, AI Gateway, Tool Gateway, and Guardrails — interchangeable on purpose. Each capability is split into two CRDs: an instance CRD that describes a deployed gateway (`AgentGateway`, `AiGateway`, `ToolGateway`, `Guard`) and a class CRD that names the implementation behind it (`AgentGatewayClass`, `AiGatewayClass`, `ToolGatewayClass`, `GuardrailProvider`).
+
+Switching implementations is a class change, not a code change: the operator reconciles each gateway against the implementation its class points at. The same `AgentGateway` resource can run against a different implementation without touching the agents behind it, and new implementations can be contributed against the stable class contract.
+
+For the general capability-and-plugin model see xref:architecture:08-crosscutting/index.adoc[Cross-cutting Concepts]; for the CRDs and how the operator reconciles them see xref:agent-runtime-operator:agent-runtime:explanation.adoc[Agent Runtime Operator].
+
 == Requirements Overview
 
 The Agentic Layer is composed of a small set of top-level building blocks, each backed by one or more Kubernetes Custom Resource Definitions. See xref:architecture:05-building-blocks/index.adoc[Building Blocks] for the detailed view.
