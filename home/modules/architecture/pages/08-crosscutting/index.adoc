@@ -2,11 +2,11 @@
 
 == Capabilities and Plugins Principle
 
-The Agentic Layer architecture embraces a fundamental design principle of **capabilities and plugins** that enables flexible switching of implementations for various system aspects. This approach promotes modularity, extensibility, and vendor independence across all major components.
+The Agentic Layer architecture follows a design principle of **capabilities and plugins** that allows implementations to be swapped for various system aspects. This approach supports modularity, extensibility, and vendor independence across major components.
 
 === Core Principle
 
-The capabilities and plugins pattern allows the system to define stable interfaces while supporting multiple implementations. Each capability represents a well-defined set of functionality that can be fulfilled by different plugins, enabling runtime or deployment-time selection of the most appropriate implementation.
+The capabilities and plugins pattern lets the system define stable interfaces while supporting multiple implementations. Each capability represents a defined set of functionality that can be fulfilled by different plugins, enabling runtime or deployment-time selection of an implementation.
 
 [plantuml, capabilities-plugins-principle, format="svg", link="self", window="_blank"]
 ....
@@ -43,14 +43,14 @@ note right of capability : Stable interface\nallows switching\nbetween implement
 
 === Application Areas
 
-==== Exemplary Agent Gateway Implementations
+==== Capability Implementations Today
 
-The Agent or AI Gateway capability could support multiple reverse proxy and API gateway implementations:
+The Agentic Layer ships the following capability implementations:
 
-* **Nginx**: Traditional reverse proxy for high-performance routing
-* **Envoy**: Modern service mesh proxy with advanced traffic management
-* **Kong**: API gateway with rich plugin ecosystem
-* **Istio Gateway**: Kubernetes-native gateway with service mesh integration
+* **AgentGatewayClass**: KrakenD, via the `agent-gateway-krakend-operator`.
+* **AiGatewayClass**: LiteLLM, via the `ai-gateway-litellm-operator`.
+* **ToolGatewayClass**: agentgateway, via the `tool-gateway-agentgateway` operator.
+* **GuardrailProvider**: `guardrail-adapter`, the reference adapter for guardrail integrations.
 
 [plantuml, agent-gateway-plugins, format="svg", link="self", window="_blank"]
 ....
@@ -58,17 +58,11 @@ The Agent or AI Gateway capability could support multiple reverse proxy and API 
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
 Container_Boundary(agentRuntime, "Agent Runtime") {
-    Component(gatewayCapability, "Gateway Capability", "Interface", "Request routing and load balancing")
-    Component(nginxPlugin, "Nginx Plugin", "Implementation", "Traditional reverse proxy")
-    Component(envoyPlugin, "Envoy Plugin", "Implementation", "Service mesh proxy")
-    Component(kongPlugin, "Kong Plugin", "Implementation", "API gateway with plugins")
-    Component(istioPlugin, "Istio Plugin", "Implementation", "K8s-native gateway")
+    Component(gatewayCapability, "AgentGatewayClass", "Capability (CRD)", "Routes requests to agents")
+    Component(krakendPlugin, "KrakenD", "Implementation", "agent-gateway-krakend-operator")
 }
 
-Rel(gatewayCapability, nginxPlugin, "implements", "")
-Rel(gatewayCapability, envoyPlugin, "implements", "")
-Rel(gatewayCapability, kongPlugin, "implements", "")
-Rel(gatewayCapability, istioPlugin, "implements", "")
+Rel(gatewayCapability, krakendPlugin, "implemented by", "")
 
 @enduml
 ....
@@ -78,16 +72,18 @@ Rel(gatewayCapability, istioPlugin, "implements", "")
 
 ==== Kubernetes-Native Capabilities
 
-The Agentic Layer leverages **Kubernetes Custom Resource Definitions (CRDs)** as the interface definition mechanism for capabilities. Each capability is defined as a CRD that establishes the contract and configuration schema.
+The Agentic Layer uses **Kubernetes Custom Resource Definitions (CRDs)** as the interface definition mechanism for capabilities. Each capability is defined as a CRD that establishes the contract and configuration schema.
+
+The `*Class` CRD pattern -- `AgentGatewayClass`, `AiGatewayClass`, `ToolGatewayClass`, and the `GuardrailProvider` resource -- is the concrete realization of the capability-plus-plugin principle on the cluster. Each `*Class` resource names an implementation; workload resources (`AgentGateway`, `AiGateway`, `ToolGateway`, `Guard`) reference a class to select that implementation. See xref:agent-runtime-operator:agent-gateways:explanation.adoc[Agent Gateways], xref:agent-runtime-operator:ai-gateways:explanation.adoc[AI Gateways], xref:agent-runtime-operator:tool-gateways:explanation.adoc[Tool Gateways], and xref:agent-runtime-operator:guardrails:explanation.adoc[Guardrails] for the per-component CRD references.
 
 ==== Plugin Definition through Custom Resources
 
 Plugins are defined and configured using **Custom Resources (CRs)** that correspond to their capability CRDs. This approach provides:
 
 * **Declarative Configuration**: Plugin instances are declared through Kubernetes manifests
-* **Kubernetes-Native Management**: Leverage kubectl, operators, and existing K8s tooling
+* **Kubernetes-Native Management**: kubectl, operators, and existing K8s tooling apply
 * **Version Control**: Plugin configurations are stored as code alongside infrastructure definitions
 
 ==== Standard Transport APIs
 
-At the transport layer, the system uses **standard APIs** to ensure broad compatibility and interoperability.
+At the transport layer, the system uses **standard APIs** for compatibility and interoperability.
