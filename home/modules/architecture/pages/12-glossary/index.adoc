@@ -4,86 +4,127 @@ This glossary defines the key terms and concepts used throughout the Agentic Lay
 
 == A
 
-**Agent Catalog**::
-Centralized registry and management system for discovering, versioning, and managing the lifecycle of AI agents within the platform. Provides metadata, documentation, and operational status for all registered agents.
+**A2A**::
+Agent-to-Agent protocol. Used on the wire between agents within the Agent Runtime, and between external systems and the Agent Gateway.
+
+**AG-UI**::
+Application-to-agent UI protocol. Used by Apps to reach the Agent Gateway.
+
+**Agent (CRD)**::
+Kubernetes custom resource that declares a single agent workload. Reconciled by the Agent Runtime Operator into a `Deployment` and `Service`.
 
 **Agent Gateway**::
-Entry point and routing component that handles incoming requests and distributes them to appropriate AI agents based on capabilities, availability, and load balancing policies.
+Separate building block in front of the Agent Runtime. Translates external protocols (OpenAI Chat Completion API, A2A, AG-UI) into the internal A2A surface used by agents and routes requests to the appropriate agent. Defined by the `AgentGateway` and `AgentGatewayClass` CRDs.
 
 **Agent Runtime / Agent Orchestration**::
-Kubernetes-native execution environment that manages the lifecycle, scaling, and resource allocation of AI agents. Provides automated deployment, scaling, and monitoring of agent instances.
+Kubernetes-native execution environment that hosts agents and manages their lifecycle. Reconciled by the Agent Runtime Operator, which groups the `Agent`, `AgenticWorkforce`, and `AgentRuntimeConfiguration` CRDs and supports both template-based and custom-image agents on any framework that speaks A2A.
+
+**AgentGateway / AgentGatewayClass (CRDs)**::
+The agent-gateway resource (an instance) and its pluggable class (selects an implementation). Together they define an Agent Gateway deployment.
+
+**AgentRuntimeConfiguration (CRD)**::
+Namespace-scoped, operator-wide runtime configuration for the Agent Runtime. One instance per operator namespace; carries defaults such as the default framework and template images.
 
 **Agentic Layer**::
-Core platform layer containing the foundational components for AI agent orchestration, including AI Gateway, Agent Runtime, Connectors & Tools, and governance components. Built on Kubernetes infrastructure.
-
-**Agentic Workforce Management**::
-Component responsible for coordinating and orchestrating complex AI workflows across multiple agents and organizational boundaries. Manages task distribution, workflow execution, and inter-agent communication.
+Platform layer containing the building blocks for AI agent orchestration: Agent Runtime, Agent Gateway, AI Gateway, Tool Gateway, Tool Servers, Guardrails, and Observability. Built on Kubernetes.
 
 **Agentic Workforces**::
-Application-level implementations of AI agent systems designed for specific enterprise use cases, such as Insurance Claims Processing, Healthcare Operations, or Procurement workflows.
+Application-level implementations of AI agent systems for specific enterprise use cases, such as Insurance Claims Processing, Healthcare Operations, or Procurement workflows.
+
+**AgenticWorkforce (CRD)**::
+Kubernetes custom resource that declares a named group of entry-point agents that collaborate to handle a workflow. The operator crawls each entry point's sub-agent graph and records the transitive agents and tools in `status`.
 
 **AI Gateway / Model Router**::
-Unified interface component that abstracts interactions with multiple Large Language Model (LLM) providers. Provides intelligent routing, failover capabilities, and consistent API interfaces across different AI service providers.
+Model facade and provider abstraction in front of Large Language Model providers. Routes LLM requests, manages credentials, and exposes telemetry. Defined by the `AiGateway` and `AiGatewayClass` CRDs.
 
 **AI Guardrails**::
-Security and safety component that implements content filtering, safety checks, access controls, and policy enforcement for AI interactions to ensure compliant and secure operations.
+Content inspection and policy enforcement for traffic flowing through gateways. Defined by the `Guard` and `GuardrailProvider` CRDs. Two implementation modes are supported: an adapter mode that delegates enforcement to an external service, and a native mode where the gateway implementation enforces the policy directly.
 
-**Audit Trail**::
-Comprehensive logging and tracking system that records all AI operations, decisions, and interactions for regulatory compliance, security monitoring, and operational transparency.
+**AiGateway / AiGatewayClass (CRDs)**::
+The AI gateway resource (an instance) and its pluggable class (selects an implementation). Note the lowercase `i` — the Go type is `AiGateway`.
+
+**Audit Trail (planned)**::
+Logging and tracking of AI operations, decisions, and interactions for regulatory compliance, security monitoring, and operational transparency.
 
 == B
 
 **BYOC (Bring Your Own Cloud)**::
-Deployment model that allows organizations to run the Agentic Layer components within their own cloud infrastructure, maintaining full control over data, security, and compliance requirements.
+Deployment model that lets organizations run the Agentic Layer within their own cloud infrastructure, retaining control over data, security, and compliance.
 
 == C
 
 **Cloud-Native Architecture**::
-Design approach leveraging cloud computing principles, including containerization, microservices, dynamic orchestration, and declarative APIs. Built specifically for cloud environments with Kubernetes as the foundation.
+Design approach based on containerization, microservices, dynamic orchestration, and declarative APIs. Built for cloud environments with Kubernetes as the foundation.
 
-**Compliance Dashboard**::
-Management interface providing real-time monitoring and reporting for regulatory compliance requirements including EU AI Act, GDPR, and industry-specific standards.
+**Compliance Dashboard (planned)**::
+Management interface for real-time monitoring and reporting against regulatory requirements such as the EU AI Act and GDPR.
 
 **Connectors & Tools**::
-Integration components that enable seamless connectivity between the Agentic Layer and external systems, databases, APIs, and third-party services.
+Integration components that connect the Agentic Layer to external systems, databases, APIs, and third-party services.
 
 **Control Plane for Intelligent Workloads**::
 The Agentic Layer's primary function as a management and orchestration system for AI-driven processes and autonomous agents within enterprise environments.
 
+**CRD-class pattern**::
+The `*Class` pluggability mechanism shared by `AgentGatewayClass`, `AiGatewayClass`, `ToolGatewayClass`, and `GuardrailProvider`. The class CRD names an implementation; the instance CRD references a class. This lets the contract live in the Agent Runtime Operator while implementations live in separate operator repositories.
+
 == D
 
 **Data Sovereignty**::
-The concept of maintaining complete control and governance over data location, processing, and access within defined jurisdictional and organizational boundaries.
+Maintaining control and governance over data location, processing, and access within defined jurisdictional and organizational boundaries.
+
+== G
+
+**Guard (CRD)**::
+Kubernetes custom resource that binds a guardrail policy to a target — a gateway, an agent, or a tool server.
+
+**GuardrailProvider (CRD)**::
+Kubernetes custom resource that names the implementation enforcing a `Guard`'s policy.
 
 == K
 
 **Kubernetes Platform**::
-The foundational infrastructure layer providing container orchestration, scaling, resource management, and service discovery for all Agentic Layer components.
+Infrastructure layer providing container orchestration, scaling, resource management, and service discovery for all Agentic Layer components.
 
 **Kubernetes-Native**::
-Architecture and components designed specifically to leverage Kubernetes primitives, APIs, and operational patterns for deployment, scaling, and management.
+Architecture and components designed to use Kubernetes primitives, APIs, and operational patterns for deployment, scaling, and management.
 
 == L
 
 **LLM (Large Language Model)**::
-AI models trained on vast amounts of text data to understand and generate human-like text. Examples include GPT, Gemini, Claude, and other foundation models accessed through the AI Gateway.
+AI models trained on text to understand and generate human-like text. Examples include GPT, Gemini, and Claude, accessed through the AI Gateway.
 
 == M
 
+**MCP**::
+Model Context Protocol. Used between the Tool Gateway and Tool Servers, both internal and external.
+
 **Multi-Framework Runtime**::
-Execution environment that supports agents built with different AI frameworks and technologies while providing consistent operational characteristics and management interfaces.
+Execution environment that supports agents built with different AI frameworks while providing consistent operational characteristics and management interfaces.
 
 == O
 
 **Observability Dashboard**::
-Operational interface providing comprehensive monitoring, metrics visualization, distributed tracing, and system health information for the entire Agentic Layer platform.
+Operational interface for monitoring, metrics, distributed tracing, and system health information across the Agentic Layer.
+
+**OpenAI Chat Completion API**::
+Protocol used by External Frontends to reach the Agent Gateway.
 
 == T
 
 **Testbench**::
-Integrated testing framework providing automated validation, performance testing, and quality assurance capabilities for AI agents before production deployment.
+Agent validation and evaluation environment. Connects through the Agent Gateway like any other client.
+
+**ToolGateway / ToolGatewayClass (CRDs)**::
+The tool gateway resource (an instance) and its pluggable class (selects an implementation). Together they define a Tool Gateway deployment.
+
+**ToolRoute (CRD)**::
+Per-consumer routing for tool calls. Governs which tool servers a given consumer can reach through a Tool Gateway.
+
+**ToolServer (CRD)**::
+Registers an MCP server — in-cluster or external — as a tool source.
 
 == V
 
 **Vendor Lock-in**::
-Dependency on a specific vendor's proprietary technologies that makes switching to alternatives difficult or costly. The Agentic Layer's open-source and agnostic design prevents vendor lock-in.
+Dependency on a specific vendor's proprietary technologies that makes switching to alternatives difficult or costly. The Agentic Layer's open-source and agnostic design is intended to prevent vendor lock-in.
