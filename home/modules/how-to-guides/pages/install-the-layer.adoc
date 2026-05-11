@@ -23,9 +23,11 @@ webhook TLS. Install it first:
 
 [source,bash]
 ----
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.19.1/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
 kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=cert-manager -n cert-manager --timeout=60s
 ----
+
+Browse all cert-manager releases at https://github.com/cert-manager/cert-manager/releases.
 
 == Step 2: Install the Agent Runtime Operator
 
