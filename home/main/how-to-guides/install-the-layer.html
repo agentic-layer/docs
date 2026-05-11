@@ -440,6 +440,15 @@ above is complete and each component&#8217;s verification passes, the layer is r
   })
   var toggle = document.querySelector('.nav-menu-toggle')
   if (toggle) toggle.classList.add('is-active')
+
+  var panel = document.querySelector('.nav-panel-menu')
+  var current = panel && panel.querySelector('.nav-item.is-current-page')
+  if (panel && current) {
+    var panelRect = panel.getBoundingClientRect()
+    var currentRect = current.getBoundingClientRect()
+    var delta = (currentRect.top - panelRect.top) - (panel.clientHeight - current.offsetHeight) / 2
+    panel.scrollTop += delta
+  }
 })()
 </script>
   </body>
