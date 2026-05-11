@@ -23,9 +23,7 @@ jobs:
         run: npm install
 
       - name: Run docker compose
-        uses: hoverkraft-tech/compose-action@d2bee4f07e8ca410d6b196d00f90c12e7d48c33a # v2.6.0
-        with:
-          compose-file: './compose.yml'
+        run: docker compose up -d
 
       - name: Generate Site
         run: npm run build
