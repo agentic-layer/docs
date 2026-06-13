@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Run Testbench Standalone :: Agentic Layer</title>
+    <link rel="canonical" href="https://docs.agentic-layer.ai/testbench/how-to-guides/run-standalone.html">
+    <meta name="generator" content="Antora 3.1.15">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.agentic-layer.ai">Agentic Layer</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item search hide-for-print">
+          <div id="search-field" class="field">
+            <input id="search-input" type="text" placeholder="Search the docs">
+          </div>
+        </div>
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/agentic-layer" target="_blank" style="color: #fff;">
+            <span class="icon" style="margin-right: 0.25rem;">
+              <img src="../../_/img/github-icon.svg" alt="GitHub" style="width: 16px; height: 16px; filter: invert(100%) sepia(0%) saturate(3414%) hue-rotate(18deg) brightness(120%) contrast(104%);">
+            </span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="testbench" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../../home/main/index.html">Agentic Layer</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../showcase-news/index.html">Agentic AI News Showcase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../home/main/how-to-guides/install-the-layer.html">Install the Agentic Layer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agent-runtime/how-to-guides/install.html">Install the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agent-runtime/how-to-guides/configure.html">Configure the Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-gateway-krakend-operator/how-to-guides/install.html">Install the Agent Gateway KrakenD Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/how-to-guides/install.html">Install the LiteLLM Gateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../tool-gateway-agentgateway/how-to-guides/install.html">Install the Tool Gateway agentgateway Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agents/how-to-guides/create-template-agent.html">Deploy a Template-Based Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agents/how-to-guides/create-custom-image-agent.html">Deploy a Custom-Image Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agents/how-to-guides/propagate-headers.html">Propagate Headers to Tool Servers</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agents/how-to-guides/delegate-to-subagent.html">Delegate to a Sub-Agent</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agents/how-to-guides/create-workforce.html">Create an Agentic Workforce</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/ai-gateways/how-to-guide.html">Create an AI Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agent-gateways/how-to-guide.html">Create an Agent Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-servers/how-to-guide.html">Deploy a ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-routes/how-to-guide.html">Define a ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-gateways/how-to-guide.html">Create a Tool Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/guardrails/how-to-guide.html">Create and Use Guardrails in Gateways</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../guardrail-adapter/how-to-guide.html">Deploy the Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../observability-dashboard/how-to-guide.html">Deploy and View the Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="install.html">Install the Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-workflow.html">Create Your First TestWorkflow</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agent-runtime/reference.html">AgentRuntimeConfiguration Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agents/reference.html">Agent and AgenticWorkforce Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-servers/reference.html">ToolServer Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-routes/reference.html">ToolRoute Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agent-gateways/reference.html">AgentGateway and AgentGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-gateway-krakend-operator/reference.html">Agent Gateway KrakenD Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/ai-gateways/reference.html">AiGateway and AiGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/reference.html">LiteLLM Gateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-gateways/reference.html">ToolGateway and ToolGatewayClass Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/guardrails/reference.html">Guardrails Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../tool-gateway-agentgateway/reference.html">Tool Gateway agentgateway Operator Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../guardrail-adapter/reference.html">Guardrail Adapter Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../observability-dashboard/reference.html">Observability Dashboard Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../reference.html">Testbench Reference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanation</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../home/main/explanation/diataxis.html">How This Site Is Organized</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agent-runtime/explanation.html">The Agent Runtime Operator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agents/explanation.html">Agents and Workforces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-servers/explanation.html">ToolServer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-routes/explanation.html">ToolRoute</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/agent-gateways/explanation.html">AgentGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-gateway-krakend-operator/explanation.html">KrakenD as the Agent Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/ai-gateways/explanation.html">AiGateway and the AI Model Routing Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../ai-gateway-litellm-operator/explanation.html">LiteLLM as the AI Gateway and Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/tool-gateways/explanation.html">ToolGateway and the Gateway/Class Pluggability Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../agent-runtime-operator/guardrails/explanation.html">Guardrails: Guard and GuardrailProvider</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../tool-gateway-agentgateway/explanation.html">agentgateway as the Tool Gateway Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../guardrail-adapter/explanation.html">The Guardrail Adapter</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../observability-dashboard/explanation.html">The Observability Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../home/main/architecture/index.html">Agentic Layer Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/01-introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/03-context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/05-building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/08-crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../home/main/architecture/12-glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanation.html">What is Testbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../architecture/index.html">Testbench Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/introduction/index.html">Introduction and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/context/index.html">System Scope and Context</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/building-blocks/index.html">Building Block View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/deployment-view/index.html">Deployment View</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/crosscutting/index.html">Cross-cutting Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/glossary/index.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../home/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Testbench</a></li>
+    <li>How-To Guides</li>
+    <li><a href="run-standalone.html">Run Testbench Standalone</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/agentic-layer/testbench/edit/main/docs/modules/ROOT/pages/how-to-guides/run-standalone.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Run Testbench Standalone</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide walks you through running the full evaluation pipeline as a single CLI invocation against an agent that is already reachable on your network, without deploying anything into Kubernetes.</p>
+</div>
+<div class="paragraph">
+<p>Use this when you want to evaluate an agent from a developer machine, a CI job, or any environment where Testkube is not available.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.astral.sh/uv/">uv</a> installed</p>
+</li>
+<li>
+<p>An agent exposing an A2A protocol endpoint reachable from where you run the CLI</p>
+</li>
+<li>
+<p>An OpenAI-compatible LLM endpoint (e.g. AI Gateway) and the corresponding API key for the judge model</p>
+</li>
+<li>
+<p>(Optional) An OTLP collector if you want to publish evaluation scores</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_1_install_the_cli"><a class="anchor" href="#_step_1_install_the_cli"></a>Step 1: Install the CLI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Install the <code>testworkflow</code> command into an isolated, automatically-managed environment:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">uv tool install agentic-layer-testbench</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This puts <code>testworkflow</code> on your <code>PATH</code> without polluting the system Python or any project virtualenv. Upgrade later with <code>uv tool upgrade agentic-layer-testbench</code>.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, run it ad-hoc without installing — uv resolves and caches the package on first use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">uvx --from agentic-layer-testbench testworkflow config.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The CLI runs the full Setup → Run → Evaluate → Publish → Visualize pipeline in a single process.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_2_write_a_config_yaml"><a class="anchor" href="#_step_2_write_a_config_yaml"></a>Step 2: Write a config.yaml</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Create a <code>config.yaml</code> describing the agent to evaluate, the dataset to use, and the experiment metadata. The smallest useful configuration embeds the Experiment directly:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">agent:
+  url: "http://localhost:11010" <i class="conum" data-value="1"></i><b>(1)</b>
+
+experiment:
+  name: "my-evaluation"
+
+dataset:
+  source: inline <i class="conum" data-value="2"></i><b>(2)</b>
+  inline:
+    llm_as_a_judge_model: gemini-2.5-flash-lite
+    default_threshold: 0.9
+    scenarios:
+      - name: "Weather in New York"
+        steps:
+          - input: "What is the weather like in New York right now?"
+            reference:
+              tool_calls:
+                - name: get_weather
+                  args:
+                    city: "New York"
+              topics:
+                - weather
+            metrics:
+              - metric_name: AgentGoalAccuracyWithoutReference
+              - metric_name: ToolCallAccuracy
+              - metric_name: TopicAdherence
+                parameters:
+                  mode: precision</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>A2A endpoint of the agent you want to evaluate</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>inline</code> embeds the Experiment in the same file — no separate JSON needed</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>inline</code> payload mirrors the <code>dataset.inline</code> field on the <code>Experiment</code> CRD, so the same Experiment can be moved between standalone runs and in-cluster workflows without rewriting it.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For other dataset sources (external file, HTTP URL, S3/MinIO), see <code>config.example.yaml</code> in the repository.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_3_run_the_pipeline"><a class="anchor" href="#_step_3_run_the_pipeline"></a>Step 3: Run the pipeline</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Point the CLI at the config file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">testworkflow config.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The CLI runs all phases in order and writes intermediate JSON to <code>data/</code> (overridable per phase). The HTML report is written to <code>data/results/evaluation_report.html</code>.</p>
+</div>
+<div class="paragraph">
+<p>By default the run exits non-zero if any metric evaluation fails. To keep the run green regardless of metric pass/fail, set <code>evaluate.fail_on_metric_failure: false</code> in <code>config.yaml</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_4_publish_metrics_optional"><a class="anchor" href="#_step_4_publish_metrics_optional"></a>Step 4: Publish metrics (optional)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To publish evaluation scores to an OTLP-compatible backend, point the standard OpenTelemetry environment variable at the collector before invoking the CLI:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318" testworkflow config.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each evaluation produces one gauge observation per metric labeled with <code>experiment_name</code>, <code>scenario</code>, and <code>step</code> — same contract as the in-cluster <code>publish-template</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_next_steps"><a class="anchor" href="#_next_steps"></a>Next steps</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>To move the same evaluation into Kubernetes, see <a href="first-workflow.html" class="xref page">Create Your First TestWorkflow</a> — the inline Experiment shape carries over to the <code>Experiment</code> CRD.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
+<script async src="../../search-index.js"></script>
+<script>
+;(function () {
+  document.querySelectorAll('.nav-item').forEach(function (item) {
+    item.classList.add('is-active')
+  })
+  var toggle = document.querySelector('.nav-menu-toggle')
+  if (toggle) toggle.classList.add('is-active')
+
+  var panel = document.querySelector('.nav-panel-menu')
+  var current = panel && panel.querySelector('.nav-item.is-current-page')
+  if (panel && current) {
+    var panelRect = panel.getBoundingClientRect()
+    var currentRect = current.getBoundingClientRect()
+    var delta = (currentRect.top - panelRect.top) - (panel.clientHeight - current.offsetHeight) / 2
+    panel.scrollTop += delta
+  }
+})()
+</script>
+  </body>
+</html>
