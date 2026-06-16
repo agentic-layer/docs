@@ -291,80 +291,552 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This reference covers the Helm chart values and the five <code>TestWorkflowTemplate</code> CRDs that the chart installs into the <code>testkube</code> namespace.</p>
+<p>This reference covers the resources installed by the Testbench <code>install.yaml</code> manifest: the <code>Experiment</code> Custom Resource Definition, the five <code>TestWorkflowTemplate</code> CRDs in the <code>testkube</code> namespace, and the OTLP metrics contract used by the publish phase.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_helm_chart_values"><a class="anchor" href="#_helm_chart_values"></a>Helm chart values</h2>
+<h2 id="_installation_artifact"><a class="anchor" href="#_installation_artifact"></a>Installation artifact</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Testbench is installed as a single bundled manifest:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl apply -f https://github.com/agentic-layer/testbench/releases/latest/download/install.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The manifest creates:</p>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 30%;">
-<col style="width: 10%;">
-<col style="width: 20%;">
 <col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Resource</th>
+<th class="tableblock halign-left valign-top">Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operator controller deployment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace <code>testbench-operator-system</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Experiment</code> CRD (<code>testbench.agentic-layer.ai/v1alpha1</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cluster-scoped CRD; instances are namespaced</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Five <code>TestWorkflowTemplate</code> CRDs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace <code>testkube</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grafana-testkube-dashboard</code> ConfigMap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace <code>monitoring</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Customisation is performed via Kustomize overlays against the released <code>install.yaml</code>. The container image and dashboard namespace are the two values commonly overridden — see the overlays in <code>operator/config/samples/overlays/</code> for templates.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_experiment_crd"><a class="anchor" href="#_experiment_crd"></a>Experiment CRD</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>apiVersion: testbench.agentic-layer.ai/v1alpha1</code>, <code>kind: Experiment</code>. Cluster-scoped CRD with namespaced instances. Short name: <code>exp</code>.</p>
+</div>
+<div class="paragraph">
+<p>Each <code>Experiment</code> instance reconciles into one Testkube <code>TestWorkflow</code>, one dataset <code>ConfigMap</code>, and (optionally) one <code>TestTrigger</code>, all in the <code>testkube</code> namespace.</p>
+</div>
+<div class="sect2">
+<h3 id="_spec"><a class="anchor" href="#_spec"></a>spec</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Field</th>
 <th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Required</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>namespace.create</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">When <code>true</code>, the chart creates the target namespace if it does not exist.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>agentRef</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reference to the <code>Agent</code> resource to evaluate. See <a href="#agentref">AgentRef</a>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>namespace.name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testkube</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace into which the chart resources are deployed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>aiGatewayRef</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reference to the <code>AiGateway</code> resource providing the LLM judge. Uses the standard <code>corev1.ObjectReference</code> schema; only <code>name</code> and <code>namespace</code> are honoured.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.repository</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ghcr.io/agentic-layer/testbench/testworkflows</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Container image used by all pipeline phase containers.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dataset</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source of the test dataset. Exactly one of <code>dataset.inline</code>, <code>dataset.url</code>, or <code>dataset.s3</code> must be set. See <a href="#datasetsource">DatasetSource</a>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.tag</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>""</code> (chart <code>appVersion</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Image tag override. Empty string uses the chart&#8217;s <code>appVersion</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]corev1.EnvVar</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Environment variables injected into the generated <code>TestWorkflow</code> pods. Supports <code>value</code> and <code>valueFrom</code> (<code>secretKeyRef</code>, <code>configMapKeyRef</code>, etc.). User-defined entries override operator-set defaults with the same name.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.pullPolicy</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>IfNotPresent</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes image pull policy.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>schedule</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cron-based execution. See <a href="#schedulespec">ScheduleSpec</a>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grafana.dashboardConfigMapName</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grafana-testkube-dashboard</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the ConfigMap containing the Grafana dashboard JSON.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grafana.dashboardNamespace</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>monitoring</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace where the Grafana dashboard ConfigMap is created. Must be watched by your Grafana sidecar.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>trigger</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Event-based re-execution when the referenced agent is redeployed. See <a href="#triggerspec">TriggerSpec</a>.</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="agentref"><a class="anchor" href="#agentref"></a>AgentRef</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the <code>Agent</code> resource.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>namespace</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace of the <code>Agent</code> resource. Defaults to the `Experiment&#8217;s namespace.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="datasetsource"><a class="anchor" href="#datasetsource"></a>DatasetSource</h3>
+<div class="paragraph">
+<p>Exactly one of the three sub-fields must be set. The CRD enforces this via a CEL validation rule.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 14.2857%;">
+<col style="width: 57.1429%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>inline</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inline dataset specified directly in the <code>Experiment</code>. See <a href="#inlinedataset">InlineDataset</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP/HTTPS URL to a <code>.csv</code>, <code>.json</code>, or <code>.parquet</code> file.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>s3</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3/MinIO source. See <a href="#s3source">S3Source</a>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="inlinedataset"><a class="anchor" href="#inlinedataset"></a>InlineDataset</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>llmAsAJudgeModel</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM model identifier used by the evaluate phase (e.g. <code>gemini-2.5-flash-lite</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>defaultThreshold</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float (0.0–1.0)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default pass/fail threshold applied to metrics that do not specify their own.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scenarios</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]Scenario</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One or more scenarios. See <a href="#scenario">Scenario</a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="s3source"><a class="anchor" href="#s3source"></a>S3Source</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 14.2857%;">
+<col style="width: 57.1429%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bucket</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3/MinIO bucket name.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>key</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object key (path within the bucket). Supported formats: <code>.csv</code>, <code>.json</code>, <code>.parquet</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Credentials are supplied through <code>spec.env</code> (typically <code>MINIO_ENDPOINT</code>, <code>MINIO_ROOT_USER</code>, <code>MINIO_ROOT_PASSWORD</code>).</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scenario"><a class="anchor" href="#scenario"></a>Scenario</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scenario name. Surfaces as the <code>scenario</code> attribute on published metrics.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>steps</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]Step</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One or more sequential steps. All steps in a scenario share the same A2A <code>contextId</code>, enabling multi-turn conversations.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="step"><a class="anchor" href="#step"></a>Step</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>input</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User input sent to the agent.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reference</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected outputs used by reference-based metrics. See <a href="#reference">Reference</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customValues</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object (free-form)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Arbitrary key/value pairs forwarded to metric callables (e.g. <code>retrievedContexts</code> for RAGAS context metrics). Schemaless; preserved unchanged.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>metrics</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]Metric</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Metrics to evaluate for this step. See <a href="#metric">Metric</a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="reference"><a class="anchor" href="#reference"></a>Reference</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>response</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected response text.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>toolCalls</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]ToolCall</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected tool invocations. See <a href="#toolcall">ToolCall</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>topics</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected topics the response should cover. Used by <code>TopicAdherence</code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="toolcall"><a class="anchor" href="#toolcall"></a>ToolCall</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tool name.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>args</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object (free-form)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tool arguments as a JSON object. Schemaless; preserved unchanged.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="metric"><a class="anchor" href="#metric"></a>Metric</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>metricName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Metric identifier resolved by the <code>GenericMetricsRegistry</code> (e.g. <code>AgentGoalAccuracyWithoutReference</code>, <code>ToolCallAccuracy</code>, <code>TopicAdherence</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>threshold</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float (0.0–1.0)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Per-metric pass/fail threshold. Overrides <code>dataset.inline.defaultThreshold</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>parameters</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object (free-form)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Metric-specific parameters (e.g. <code>mode: precision</code> for <code>TopicAdherence</code>). Schemaless; preserved unchanged.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="triggerspec"><a class="anchor" href="#triggerspec"></a>TriggerSpec</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When <code>true</code>, the operator creates a Testkube <code>TestTrigger</code> that re-runs the workflow whenever the referenced agent is redeployed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>concurrencyPolicy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enum: <code>Allow</code> | <code>Forbid</code> | <code>Replace</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">How concurrent executions are handled. Mirrors the Testkube <code>TestTrigger</code> semantics.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="schedulespec"><a class="anchor" href="#schedulespec"></a>ScheduleSpec</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cron</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standard Kubernetes 5-field cron expression (e.g. <code>0 3 * * *</code>). Required.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>timezone</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IANA timezone name (e.g. <code>Europe/Berlin</code>). Defaults to cluster local time.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><code>schedule</code> and <code>trigger</code> are independent and may be combined.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_status"><a class="anchor" href="#_status"></a>status</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>conditions</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]metav1.Condition</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standard Kubernetes status conditions. The <code>Ready</code> condition reflects overall reconcile health.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>generatedResources</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]GeneratedResource</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resources created by the operator for this <code>Experiment</code> (kind, name, namespace).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lastExecution</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Metadata from the most recent execution: <code>executionId</code>, <code>executionNumber</code>, <code>startTime</code>, <code>endTime</code>, <code>status</code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_print_columns"><a class="anchor" href="#_print_columns"></a>Print columns</h3>
+<div class="paragraph">
+<p><code>kubectl get experiments</code> shows: <code>Agent</code> (from <code>spec.agentRef.name</code>), <code>Status</code> (from the <code>Ready</code> condition), and <code>Age</code>.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_testworkflowtemplates"><a class="anchor" href="#_testworkflowtemplates"></a>TestWorkflowTemplates</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The chart installs five <code>TestWorkflowTemplate</code> CRDs. Workflows reference them via the <code>use</code> list. All templates share a common <code>/app/data</code> volume provided by the calling <code>TestWorkflow</code>.</p>
+<p>The installer creates five <code>TestWorkflowTemplate</code> resources in the <code>testkube</code> namespace. The Experiment-generated <code>TestWorkflow</code> references them via its <code>use</code> list; all templates share the calling workflow&#8217;s <code>/app/data</code> volume.</p>
+</div>
+<div class="paragraph">
+<p>You normally do not invoke these templates directly — the operator wires them into the generated workflow. They are documented here for diagnostics, custom workflows, and overlay authoring.</p>
 </div>
 <div class="sect2">
 <h3 id="_setup_template"><a class="anchor" href="#_setup_template"></a>setup-template</h3>
@@ -404,7 +876,7 @@
 <p><strong>Output</strong>: <code>data/datasets/experiment.json</code> — an <code>Experiment</code> model serialized as JSON.</p>
 </div>
 <div class="paragraph">
-<p><strong>Use this template</strong> when your dataset lives in object storage. For ConfigMap-based datasets, omit this template and mount the file directly via <code>spec.content.files</code>.</p>
+<p><strong>Use this template</strong> when your dataset lives in object storage. For <code>dataset.inline</code> or <code>dataset.url</code> Experiments, the operator skips this template and provides the dataset by other means (ConfigMap mount or HTTP fetch).</p>
 </div>
 </div>
 <div class="sect2">
@@ -430,6 +902,11 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>agentUrl</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">HTTP URL of the agent&#8217;s A2A endpoint (e.g. <code>http://weather-agent.sample-agents:8000</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>experimentName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Experiment name used for OpenTelemetry labelling on emitted spans and metrics.</p></td>
 </tr>
 </tbody>
 </table>
@@ -463,9 +940,14 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openApiBasePath</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openAiBasePath</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Base URL for the OpenAI-compatible API used by the LLM judge (e.g. the in-cluster AI Gateway). Defaults to empty string, which uses the <code>OPENAI_BASE_URL</code> environment variable if set.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base URL for the OpenAI-compatible API used by the LLM judge (e.g. the in-cluster AI Gateway). Maps to the <code>OPENAI_BASE_URL</code> environment variable in the phase container. Defaults to empty string.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openAiApiKey</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API key for the OpenAI-compatible API. Maps to the <code>OPENAI_API_KEY</code> environment variable. Defaults to empty string.</p></td>
 </tr>
 </tbody>
 </table>
@@ -534,7 +1016,7 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Metric name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>metric_name</code> string from the experiment JSON (e.g. <code>AgentGoalAccuracyWithoutReference</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>metricName</code> string from the Experiment (e.g. <code>AgentGoalAccuracyWithoutReference</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Gauge value</p></td>
@@ -555,7 +1037,7 @@
 </tbody>
 </table>
 <div class="paragraph">
-<p>The OTLP endpoint is read from the <code>OTEL_EXPORTER_OTLP_ENDPOINT</code> environment variable at runtime. Inject it via a ConfigMap or a <code>container.env</code> entry in the calling <code>TestWorkflow</code>.</p>
+<p>The OTLP endpoint is read from the <code>OTEL_EXPORTER_OTLP_ENDPOINT</code> environment variable at runtime. Inject it via <code>spec.env</code> on the <code>Experiment</code> (typically pointing at the in-cluster collector, e.g. <code><a href="http://lgtm.monitoring.svc.cluster.local:4318" class="bare">http://lgtm.monitoring.svc.cluster.local:4318</a></code>).</p>
 </div>
 </div>
 </div>
@@ -571,7 +1053,7 @@
 <p><a href="how-to-guides/install.html" class="xref page">Install the Testbench</a></p>
 </li>
 <li>
-<p><a href="how-to-guides/first-workflow.html" class="xref page">Create Your First TestWorkflow</a></p>
+<p><a href="how-to-guides/first-workflow.html" class="xref page">Create Your First Experiment</a></p>
 </li>
 </ul>
 </div>
