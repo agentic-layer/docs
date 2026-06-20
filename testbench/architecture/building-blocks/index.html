@@ -288,14 +288,41 @@
 <article class="doc">
 <h1 class="page">Building Block View</h1>
 <div class="sect1">
+<h2 id="_user_facing_api_the_experiment_crd"><a class="anchor" href="#_user_facing_api_the_experiment_crd"></a>User-facing API: the Experiment CRD</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Users do not author Testkube workflows directly. They submit an <code>Experiment</code> custom resource (<code>testbench.agentic-layer.ai/v1alpha1</code>) that declares the agent under test, the LLM judge, the dataset (inline, URL, or S3/MinIO), and optional triggers and schedules.</p>
+</div>
+<div class="paragraph">
+<p>The Testbench operator (deployed in <code>testbench-operator-system</code>) watches <code>Experiment</code> resources and reconciles each one into:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A Testkube <code>TestWorkflow</code> that composes the five <code>TestWorkflowTemplate</code> resources installed in the <code>testkube</code> namespace</p>
+</li>
+<li>
+<p>A <code>ConfigMap</code> holding the rendered Experiment JSON, mounted into the pipeline pods</p>
+</li>
+<li>
+<p>Optionally a <code>TestTrigger</code> (when <code>spec.trigger.enabled</code> is true) that re-runs the workflow whenever the referenced agent is redeployed</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Field-level details live in <a href="../../reference.html" class="xref page">Reference</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_pipeline_overview"><a class="anchor" href="#_pipeline_overview"></a>Pipeline Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Testbench operates as a sequential 4-phase pipeline. Each phase reads input from the previous phase&#8217;s output via a shared data volume.</p>
+<p>The reconciled <code>TestWorkflow</code> runs a sequential 5-phase pipeline. Each phase reads input from the previous phase&#8217;s output via a shared data volume.</p>
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<img src="../_images/pipeline-overview-373c119eb93fec96dc033f7d7628fbc32507fbed.svg" alt="pipeline-overview">
+<img src="../_images/pipeline-overview-4a0c003dbe0156592e9730cf930b62483d099ed3.svg" alt="pipeline-overview">
 </div>
 </div>
 </div>
@@ -304,7 +331,7 @@
 <h2 id="_phase_1_setup"><a class="anchor" href="#_phase_1_setup"></a>Phase 1: Setup</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Purpose</strong>: Downloads a test dataset from S3/MinIO.</p>
+<p><strong>Purpose</strong>: Materialises a test dataset on the shared data volume.</p>
 </div>
 <div class="paragraph">
 <p><strong>Processing</strong>:</p>
@@ -312,10 +339,13 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Downloads the dataset file</p>
+<p>Resolves the dataset source from the Experiment: inline (mounted ConfigMap), HTTP URL, or S3/MinIO object</p>
 </li>
 <li>
-<p>Writes the output to the shared data volume</p>
+<p>Parses CSV, JSON, or Parquet input into the canonical <code>Experiment</code> JSON model</p>
+</li>
+<li>
+<p>Writes <code>data/datasets/experiment.json</code> to the shared data volume</p>
 </li>
 </ol>
 </div>
@@ -435,10 +465,10 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_optional_visualize"><a class="anchor" href="#_optional_visualize"></a>Optional: Visualize</h2>
+<h2 id="_phase_5_visualize"><a class="anchor" href="#_phase_5_visualize"></a>Phase 5: Visualize</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Purpose</strong>: Generates a self-contained HTML dashboard from evaluation results.</p>
+<p><strong>Purpose</strong>: Generates a self-contained HTML dashboard from evaluation results and stores it as a Testkube workflow artifact.</p>
 </div>
 <div class="paragraph">
 <p><strong>Features</strong>:</p>

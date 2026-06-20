@@ -618,7 +618,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>customValues</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">object (free-form)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Arbitrary key/value pairs forwarded to metric callables (e.g. <code>retrievedContexts</code> for RAGAS context metrics). Schemaless; preserved unchanged.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Arbitrary key/value pairs forwarded to metric callables for adapter-specific inputs. Schemaless; preserved unchanged. (For RAGAS context metrics, supply retrieved passages via <code>reference.retrievedContexts</code> instead.)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>metrics</code></p></td>
@@ -659,6 +659,11 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>topics</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]string</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Expected topics the response should cover. Used by <code>TopicAdherence</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>retrievedContexts</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context passages retrieved by the agent&#8217;s RAG pipeline. Used by RAGAS context metrics such as <code>Faithfulness</code>, <code>ContextPrecision</code>, and <code>ContextRecall</code>.</p></td>
 </tr>
 </tbody>
 </table>

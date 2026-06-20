@@ -288,19 +288,75 @@
 <article class="doc">
 <h1 class="page">Deployment View</h1>
 <div class="sect1">
-<h2 id="_helm_chart"><a class="anchor" href="#_helm_chart"></a>Helm Chart</h2>
+<h2 id="_installation_artifact"><a class="anchor" href="#_installation_artifact"></a>Installation Artifact</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Testbench is packaged as a Helm chart that deploys Testkube resources into a target cluster.</p>
+<p>Testbench is shipped as a single bundled manifest (<code>install.yaml</code>) published with each GitHub release. Applying it deploys:</p>
 </div>
-<div class="sect2">
-<h3 id="_container_image"><a class="anchor" href="#_container_image"></a>Container Image</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>The Testbench operator (Deployment + RBAC + leader election lease) into the <code>testbench-operator-system</code> namespace</p>
+</li>
+<li>
+<p>The <code>Experiment</code> custom resource definition (<code>testbench.agentic-layer.ai/v1alpha1</code>), cluster-scoped</p>
+</li>
+<li>
+<p>Five <code>TestWorkflowTemplate</code> resources (<code>setup-template</code>, <code>run-template</code>, <code>evaluate-template</code>, <code>publish-template</code>, <code>visualize-template</code>) in the <code>testkube</code> namespace</p>
+</li>
+<li>
+<p>A <code>grafana-testkube-dashboard</code> ConfigMap in the <code>monitoring</code> namespace, picked up by the Grafana sidecar</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
-<p>All phases share a single Docker image by default. The specific phase is selected via command arguments passed by each template. This keeps deployment simple&#8201;&#8212;&#8201;one image to build, tag, and distribute.</p>
+<p>Customisation is performed via Kustomize overlays against the released <code>install.yaml</code> (for example, to override the image tag or relocate the dashboard ConfigMap). The previously published Helm chart is deprecated.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_runtime_topology"><a class="anchor" href="#_runtime_topology"></a>Runtime Topology</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Namespace</th>
+<th class="tableblock halign-left valign-top">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testbench-operator-system</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operator controller manager reconciling <code>Experiment</code> resources.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testkube</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Testkube controller, the five <code>TestWorkflowTemplate</code> resources, the generated <code>TestWorkflow</code> and dataset <code>ConfigMap</code> per <code>Experiment</code>, and any <code>TestTrigger</code> the operator creates for event-driven re-runs.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Target agent namespace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>Agent</code> resource referenced by <code>spec.agentRef</code>. The operator resolves its A2A endpoint and injects it into the Run phase.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>monitoring</code> (or wherever Grafana lives)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OTLP collector receiving published metrics and the Grafana dashboard ConfigMap.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_container_image"><a class="anchor" href="#_container_image"></a>Container Image</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All five phases share a single Docker image (<code>ghcr.io/agentic-layer/testbench/testworkflows</code>). Each <code>TestWorkflowTemplate</code> selects its phase via command arguments, keeping the build and distribution surface to a single image.</p>
 </div>
 <div class="paragraph">
-<p>Each step references its own container image via the template&#8217;s <code>image</code> parameter, so teams can override individual steps with custom images when needed.</p>
-</div>
+<p>Each template exposes its <code>image</code> parameter, so individual phases can be overridden with custom images when needed (typically only the evaluate phase, for custom metric frameworks).</p>
 </div>
 </div>
 </div>
@@ -308,7 +364,7 @@
 <h2 id="_workflow_composition"><a class="anchor" href="#_workflow_composition"></a>Workflow Composition</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A <code>TestWorkflow</code> CRD composes the templates into a complete evaluation pipeline. Each template runs as a separate step within the workflow, sharing a volume for inter-phase data passing.</p>
+<p>For each <code>Experiment</code>, the operator generates one <code>TestWorkflow</code> in the <code>testkube</code> namespace that composes the five templates via Testkube&#8217;s <code>use</code> mechanism. All steps share a single <code>emptyDir</code> volume at <code>/app/data</code>, which is how intermediate JSON files are passed between phases. Workflow pods are stateless; persistence (artifacts, execution history) is provided by Testkube.</p>
 </div>
 </div>
 </div>

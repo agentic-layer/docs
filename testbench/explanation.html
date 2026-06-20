@@ -314,7 +314,7 @@
 <p>Testbench integrates with four other components of the Agentic Layer:</p>
 </div>
 <div class="paragraph">
-<p><strong>Testkube</strong> — Testbench is implemented as a set of reusable <code>TestWorkflowTemplate</code> CRDs deployed by the Helm chart. Testkube orchestrates the pipeline phases, provides the shared volume that passes state between phases, exposes workflow triggers (e.g. on every agent redeployment), and stores artifacts such as the HTML report. Testbench does not implement any scheduling or execution logic of its own.</p>
+<p><strong>Testkube</strong> — Testbench is implemented as a set of reusable <code>TestWorkflowTemplate</code> CRDs installed by the bundled <code>install.yaml</code>. The Testbench operator reconciles each user-authored <code>Experiment</code> resource into a Testkube <code>TestWorkflow</code> that composes those templates. Testkube orchestrates the pipeline phases, provides the shared volume that passes state between phases, exposes workflow triggers (e.g. on every agent redeployment), and stores artifacts such as the HTML report. Testbench does not implement any scheduling or execution logic of its own.</p>
 </div>
 <div class="paragraph">
 <p><strong>Agent Runtime Operator</strong> — the agents under evaluation are deployed and managed by the Agent Runtime Operator. Testbench reaches them via their A2A endpoints, which the operator exposes in-cluster. The A2A protocol provides a uniform interface regardless of the underlying agent framework, so the same Testbench workflow can evaluate agents built on different platforms.</p>
@@ -339,7 +339,7 @@
 <div class="sect2">
 <h3 id="_testkube_vs_custom_evaluation_runners"><a class="anchor" href="#_testkube_vs_custom_evaluation_runners"></a>Testkube vs. custom evaluation runners</h3>
 <div class="paragraph">
-<p>Testkube provides workflow orchestration, artifact storage, trigger support, and a UI for browsing execution history at no extra infrastructure cost (it is already required by the Agentic Layer platform). Building a custom evaluation runner would replicate this infrastructure. The trade-off is that Testbench is tightly coupled to the Testkube CRD API and must be installed into the <code>testkube</code> namespace alongside the Testkube controller.</p>
+<p>Testkube provides workflow orchestration, artifact storage, trigger support, and a UI for browsing execution history at no extra infrastructure cost (it is already required by the Agentic Layer platform). Building a custom evaluation runner would replicate this infrastructure. The trade-off is that Testbench is tightly coupled to the Testkube CRD API: the operator runs in its own <code>testbench-operator-system</code> namespace, but the <code>TestWorkflowTemplate</code> resources it relies on (and the <code>TestWorkflow</code> / <code>TestTrigger</code> resources it generates) live in the <code>testkube</code> namespace alongside the Testkube controller.</p>
 </div>
 </div>
 <div class="sect2">

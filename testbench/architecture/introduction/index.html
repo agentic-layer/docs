@@ -294,12 +294,12 @@
 <p>The Testbench is a Kubernetes-native evaluation system that measures the quality of AI agents using pluggable evaluation framework adapters. It executes test datasets against agents via the A2A (Agent-to-Agent) protocol and publishes evaluation metrics through OTLP to an observability backend.</p>
 </div>
 <div class="paragraph">
-<p>The system operates as a sequential 4-phase pipeline:</p>
+<p>Users describe a test run as an <code>Experiment</code> custom resource. The Testbench operator reconciles each <code>Experiment</code> into a Testkube <code>TestWorkflow</code> that executes a sequential 5-phase pipeline:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Setup</strong>&#8201;&#8212;&#8201;Download a test dataset</p>
+<p><strong>Setup</strong>&#8201;&#8212;&#8201;Download or materialise a test dataset</p>
 </li>
 <li>
 <p><strong>Run</strong>&#8201;&#8212;&#8201;Execute queries against an agent under test via A2A protocol</p>
@@ -310,10 +310,10 @@
 <li>
 <p><strong>Publish</strong>&#8201;&#8212;&#8201;Send evaluation results to an OTLP-compatible observability backend</p>
 </li>
+<li>
+<p><strong>Visualize</strong>&#8201;&#8212;&#8201;Generate a self-contained HTML dashboard as a workflow artifact</p>
+</li>
 </ol>
-</div>
-<div class="paragraph">
-<p>An optional <strong>Visualize</strong> phase generates a self-contained HTML dashboard for local viewing and sharing.</p>
 </div>
 </div>
 </div>
@@ -323,7 +323,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>4-phase sequential pipeline</strong> with well-defined intermediate data formats between phases</p>
+<p><strong>Experiment CRD as the user-facing API</strong>&#8201;&#8212;&#8201;a single YAML defines the agent under test, the dataset, the metrics, and optional triggers/schedules</p>
+</li>
+<li>
+<p><strong>5-phase sequential pipeline</strong> with well-defined intermediate data formats between phases</p>
 </li>
 <li>
 <p><strong>A2A protocol integration</strong>&#8201;&#8212;&#8201;evaluates any agent that implements the A2A JSON-RPC specification</p>
@@ -397,7 +400,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Portability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Single Docker image for all phases, deployable via Helm chart to any Kubernetes cluster</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Single Docker image for all phases, installed via a bundled <code>install.yaml</code> manifest into any Kubernetes cluster with Testkube</p></td>
 </tr>
 </tbody>
 </table>
